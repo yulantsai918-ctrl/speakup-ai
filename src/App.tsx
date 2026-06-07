@@ -4,7 +4,8 @@ import {
   Award, RefreshCw, VolumeX, ArrowRight, ChevronRight,
   MessageSquare, HelpCircle, Bookmark, TrendingUp, X, AlertCircle
 } from 'lucide-react'
-import { auth } from './firebase'
+import { auth, db } from './firebase'
+import { collection, getDocs } from 'firebase/firestore'
 import { loadUserData, saveUserData } from './firestoreService'
 
 declare global {
@@ -59,6 +60,7 @@ interface Scenario {
   systemPrompt: string
   initialMessage: string
   hints: string[]
+  phrases?: { english: string; chinese: string }[]
 }
 
 interface AiMessage {
@@ -89,7 +91,7 @@ interface SavedPhrase {
 
 const API_KEY = import.meta.env.VITE_GROQ_API_KEY || ''
 
-const SCENARIOS: Scenario[] = [
+const FALLBACK_SCENARIOS: Scenario[] = [
   {
     id: 'cafe',
     title: '星巴克咖啡廳點餐',
@@ -159,10 +161,53 @@ interface GroqResponse {
 type ChatMessage = AiMessage | UserMessage
 
 export default function App() {
+  const [scenarios, setScenarios] = useState<Scenario[]>([])
+  const [isScenariosLoading, setIsScenariosLoading] = useState(true)
+
+  useEffect(() => {
+    async function loadScenarios() {
+      try {
+        const snap = await getDocs(collection(db, 'scenarios'))
+        const list: Scenario[] = []
+        snap.forEach(doc => {
+          const d = doc.data() as Scenario & { phrases?: { english: string; chinese: string }[] }
+          list.push({
+            id: d.id,
+            title: d.title,
+            level: d.level,
+            icon: d.icon,
+            description: d.description,
+            systemPrompt: d.systemPrompt,
+            initialMessage: d.initialMessage,
+            hints: d.hints || [],
+            phrases: d.phrases || [],
+          })
+        })
+        if (list.length > 0) setScenarios(list)
+      } catch (e) {
+        console.error('Failed to load scenarios from Firestore:', e)
+      } finally {
+        setIsScenariosLoading(false)
+      }
+    }
+    loadScenarios()
+  }, [])
+
+  const activeScenarios = scenarios.length > 0 ? scenarios : FALLBACK_SCENARIOS
+
+  useEffect(() => {
+    if (scenarios.length > 0) {
+      setSelectedScenario(scenarios[0])
+      setChatHistory([
+        { role: 'ai', text: scenarios[0].initialMessage, translated: "" }
+      ])
+    }
+  }, [scenarios.length > 0])
+
   const [currentTab, setCurrentTab] = useState('explore')
-  const [selectedScenario, setSelectedScenario] = useState<Scenario>(SCENARIOS[0])
+  const [selectedScenario, setSelectedScenario] = useState<Scenario>(FALLBACK_SCENARIOS[0])
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([
-    { role: 'ai', text: SCENARIOS[0].initialMessage, translated: "嗨，你好！歡迎光臨星巴克。今天想來點什麼呢？" }
+    { role: 'ai', text: FALLBACK_SCENARIOS[0].initialMessage, translated: "嗨，你好！歡迎光臨星巴克。今天想來點什麼呢？" }
   ])
 
   const [inputText, setInputText] = useState('')
@@ -509,7 +554,12 @@ You MUST respond with a JSON object only, no markdown formatting.
             </div>
 
             <div className="space-y-2.5 overflow-y-auto">
-              {SCENARIOS.map((sc) => {
+              {isScenariosLoading ? (
+                <div className="flex items-center justify-center py-10 text-slate-400 text-sm">
+                  <div className="animate-spin w-5 h-5 border-2 border-indigo-400 border-t-transparent rounded-full mr-2" />
+                  載入情境中...
+                </div>
+              ) : activeScenarios.map((sc) => {
                 const isSelected = selectedScenario.id === sc.id
                 return (
                   <button
@@ -609,6 +659,31 @@ You MUST respond with a JSON object only, no markdown formatting.
                     進入練習 <ArrowRight className="h-4 w-4" />
                   </button>
                 </div>
+
+                {selectedScenario.phrases && selectedScenario.phrases.length > 0 && (
+                  <div className="bg-slate-900/40 rounded-xl border border-slate-800 p-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Bookmark className="h-4 w-4 text-indigo-400" />
+                      <span className="text-sm font-bold text-slate-300">情境常用句 ({selectedScenario.phrases.length})</span>
+                    </div>
+                    <div className="space-y-2">
+                      {selectedScenario.phrases.map((p, i) => (
+                        <div key={i} className="flex items-start justify-between gap-3 p-2 rounded-lg hover:bg-slate-800/40 transition-colors">
+                          <div className="min-w-0">
+                            <p className="text-sm text-slate-100 font-medium">{p.english}</p>
+                            <p className="text-xs text-slate-400 mt-0.5">{p.chinese}</p>
+                          </div>
+                          <button
+                            onClick={() => { setInputText(p.english); setCurrentTab('chat') }}
+                            className="shrink-0 text-xs text-indigo-400 hover:text-indigo-300 font-semibold flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-indigo-500/10 transition-colors"
+                          >
+                            使用 <ArrowRight className="h-3 w-3" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="text-center text-xs text-slate-500 border-t border-slate-900 pt-4 mt-6">
                 SpeakUp AI 2026. Powered by Groq AI.

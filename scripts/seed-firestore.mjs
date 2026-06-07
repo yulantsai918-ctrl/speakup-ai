@@ -22,6 +22,13 @@ const scenariosData = [
     level: '初級 (Beginner)',
     icon: '☕',
     description: '練習如何向店員點選美式咖啡、客製化牛奶以及結帳。',
+    systemPrompt: `You are a friendly Starbucks barista. Keep your responses short (1-2 sentences), natural, and warm. Ask the user what they want to order, offer options (size, milk types, or snacks), and complete the transaction. Speak naturally in standard American English.`,
+    initialMessage: "Hi there! Welcome to Starbucks. What can I get started for you today?",
+    hints: [
+      "I'd like a medium iced latte with oat milk, please.",
+      "Can I get a chocolate croissant and a black coffee?",
+      "Just a large cold brew, please. To go."
+    ],
     phrases: [
       { english: "Can I get a latte to go please?", chinese: "我可以點一杯拿鐵外帶嗎？" },
       { english: "Sure, would you like it hot or iced?", chinese: "好的，您要熱的還是冰的？" },
@@ -38,6 +45,13 @@ const scenariosData = [
     level: '初級 (Beginner)',
     icon: '🛍️',
     description: '練習試穿衣物、詢問尺寸顏色、結帳退貨等購物情境對話。',
+    systemPrompt: `You are a friendly sales associate at a clothing store. Help the customer find what they need, suggest sizes and colors, and assist with checkout. Keep responses short (1-2 sentences) and warm.`,
+    initialMessage: "Welcome to the store! Let me know if you need any help finding something.",
+    hints: [
+      "Can I try this on? Where are the fitting rooms?",
+      "Do you have this in a smaller size?",
+      "How much is this? Is it on sale?"
+    ],
     phrases: [
       { english: "Can I try this on?", chinese: "我可以試穿這個嗎？" },
       { english: "Sure, fitting rooms are there.", chinese: "當然，試衣間在那邊。" },
@@ -55,6 +69,13 @@ const scenariosData = [
     level: '中級 (Intermediate)',
     icon: '🍽️',
     description: '練習餐廳訂位、點餐、特殊要求及結帳等用餐英文對話。',
+    systemPrompt: `You are a friendly waiter at a nice restaurant. Greet guests, take orders, answer questions about the menu, and handle the bill. Keep responses short (1-2 sentences) and professional.`,
+    initialMessage: "Good evening! Welcome to our restaurant. How many guests will be dining with us tonight?",
+    hints: [
+      "Table for two, please.",
+      "What would you recommend here?",
+      "Could we get the check, please?"
+    ],
     phrases: [
       { english: "Table for two please.", chinese: "請給我兩人的桌位。" },
       { english: "Do you have a reservation?", chinese: "您有預約嗎？" },
@@ -71,6 +92,13 @@ const scenariosData = [
     level: '中級 (Intermediate)',
     icon: '✈️',
     description: '練習問路、搭車、訂房、旅遊等旅行中常用英文對話。',
+    systemPrompt: `You are a helpful local resident in a tourist city. Give friendly directions and tips about public transportation, attractions, and walking routes. Keep responses short (1-2 sentences) and clear.`,
+    initialMessage: "Hello there! Do you need some help finding a place or getting around the city?",
+    hints: [
+      "Excuse me, can you help me find this place?",
+      "Is this the right bus to the airport?",
+      "Where is the nearest subway station?"
+    ],
     phrases: [
       { english: "Excuse me, can you help me find this place?", chinese: "抱歉，你能幫我找到這個地方嗎？" },
       { english: "Is it within walking distance?", chinese: "走路能到嗎？" },
@@ -87,6 +115,13 @@ const scenariosData = [
     level: '中級 (Intermediate)',
     icon: '📞',
     description: '練習打電話預約、客服諮詢、訂位留言等電話常用英文。',
+    systemPrompt: `You are a polite customer service representative answering phone calls. Help the caller with appointments, reservations, orders, or general inquiries. Keep responses short (1-2 sentences) and professional.`,
+    initialMessage: "Thank you for calling. How can I help you today?",
+    hints: [
+      "Hi, I'd like to make an appointment for this week.",
+      "I'm calling to ask about your pricing.",
+      "I need to reschedule my appointment, please."
+    ],
     phrases: [
       { english: "Hi, I'd like to make an appointment.", chinese: "你好，我想預約。" },
       { english: "Do you have openings this week?", chinese: "這週有空檔嗎？" },
@@ -103,6 +138,13 @@ const scenariosData = [
     level: '進階 (Advanced)',
     icon: '💼',
     description: '練習開會簡報、確認進度、請假溝通等職場英文對話。',
+    systemPrompt: `You are a helpful colleague in a modern office. Discuss work tasks, deadlines, presentations, and team coordination. Keep responses short (1-2 sentences), professional but friendly.`,
+    initialMessage: "Hey! Glad you're online. Just wanted to check in — how's that project coming along?",
+    hints: [
+      "I just want to confirm the deadline for this project.",
+      "How's the presentation coming along?",
+      "I'd like to request next Monday off."
+    ],
     phrases: [
       { english: "I just want to confirm the deadline.", chinese: "我只是想確認一下截止日期。" },
       { english: "How's the presentation coming along?", chinese: "簡報準備得怎麼樣了？" },
@@ -119,6 +161,13 @@ const scenariosData = [
     level: '進階 (Advanced)',
     icon: '🏥',
     description: '練習掛號、描述症狀、拿藥等醫療相關英文對話。',
+    systemPrompt: `You are a friendly doctor at a clinic. Ask about symptoms, medical history, and give advice. Keep responses short (1-2 sentences), professional and reassuring.`,
+    initialMessage: "Hello! Please come in. What seems to be bothering you today?",
+    hints: [
+      "My stomach has been hurting since yesterday.",
+      "I'm allergic to penicillin. Are there alternatives?",
+      "I'm here to pick up a prescription."
+    ],
     phrases: [
       { english: "What seems to be the problem today?", chinese: "今天哪裡不舒服？" },
       { english: "My stomach has been hurting today.", chinese: "我的胃今天一直在痛。" },
@@ -135,6 +184,13 @@ const scenariosData = [
     level: '初級 (Beginner)',
     icon: '💳',
     description: '練習刷卡付現、分攤帳單、會員集點等結帳流程英文。',
+    systemPrompt: `You are a friendly cashier at a store. Help customers with the checkout process, offer payment options, and ask about receipts. Keep responses short (1-2 sentences) and warm.`,
+    initialMessage: "Hi there! Are you ready to check out today?",
+    hints: [
+      "I'm ready to check out now.",
+      "Can I pay with credit card?",
+      "Can we split the bill, please?"
+    ],
     phrases: [
       { english: "I'm ready to check out now.", chinese: "我準備好要結帳了。" },
       { english: "Will you be paying with card or cash today?", chinese: "您今天要刷卡還是付現？" },
@@ -151,6 +207,13 @@ const scenariosData = [
     level: '初級 (Beginner)',
     icon: '🏪',
     description: '練習在美國便利商店購物、結帳、加油等常用對話。',
+    systemPrompt: `You are a friendly convenience store clerk. Help customers find items, process purchases, and answer questions. Keep responses short (1-2 sentences) and helpful.`,
+    initialMessage: "Welcome! Let me know if you need help finding anything.",
+    hints: [
+      "Where can I find the snacks aisle?",
+      "Is there a restroom here?",
+      "Do you sell phone chargers here?"
+    ],
     phrases: [
       { english: "Where can I find the snacks?", chinese: "零食區在哪裡？" },
       { english: "Is there a restroom here?", chinese: "這裡有洗手間嗎？" },
@@ -167,6 +230,13 @@ const scenariosData = [
     level: '中級 (Intermediate)',
     icon: '🎉',
     description: '練習派對開場、破冰聊天、邀約朋友等社交場合英文。',
+    systemPrompt: `You are a friendly person at a casual social gathering or party. Make small talk, introduce yourself, and keep the conversation light and fun. Use casual English. Keep responses short (1-2 sentences).`,
+    initialMessage: "Hey there! Great party, right? I don't think we've met — I'm Alex. What's your name?",
+    hints: [
+      "Hi, I don't think we've met. I'm...",
+      "So how do you know the host?",
+      "It was great meeting you! Let's hang out sometime."
+    ],
     phrases: [
       { english: "Hi, I don't think we've met. I'm...", chinese: "嗨，我們應該沒見過面，我是..." },
       { english: "So how do you know the host?", chinese: "你怎麼認識主人的？" },
