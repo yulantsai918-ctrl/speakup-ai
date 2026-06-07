@@ -4,6 +4,8 @@ import {
   Award, RefreshCw, VolumeX, ArrowRight, ChevronRight,
   MessageSquare, HelpCircle, Bookmark, TrendingUp, X, AlertCircle
 } from 'lucide-react'
+import { auth } from './firebase'
+import { loadUserData, saveUserData } from './firestoreService'
 
 declare global {
   interface Window {
@@ -168,7 +170,7 @@ export default function App() {
   const [isAiLoading, setIsAiLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
 
-  const [streak] = useState(5)
+  const [streak, setStreak] = useState(5)
   const [wordsSpoken, setWordsSpoken] = useState(1420)
   const [pronunciationScore, setPronunciationScore] = useState(88)
   const [savedPhrases, setSavedPhrases] = useState<SavedPhrase[]>([
@@ -183,6 +185,27 @@ export default function App() {
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [chatHistory])
+
+  useEffect(() => {
+    const unsub = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const data = await loadUserData()
+        if (data) {
+          setStreak(data.streak)
+          setWordsSpoken(data.wordsSpoken)
+          setPronunciationScore(data.pronunciationScore)
+          setSavedPhrases(data.savedPhrases)
+        }
+      }
+    })
+    return unsub
+  }, [])
+
+  useEffect(() => {
+    if (auth.currentUser) {
+      saveUserData({ wordsSpoken, pronunciationScore, savedPhrases })
+    }
+  }, [wordsSpoken, pronunciationScore, savedPhrases])
 
   useEffect(() => {
     const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition
