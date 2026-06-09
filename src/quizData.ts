@@ -36,6 +36,10 @@ export const QUIZ_SECTIONS: QuizSection[] = [
       { type: 'fill', q: '走路去要多久？', en: 'How far is it on ___ ?', ans: 'foot' },
       { type: 'choice', q: '「罰單」的英文是？', opts: ['speeding ticket', 'parking ticket', 'traffic ticket', 'fine ticket'], ans: 1 },
       { type: 'fill', q: '這班火車去市中心嗎？', en: 'Does this train go to ___ ?', ans: 'downtown' },
+      { type: 'choice', q: '「Traffic was brutal this morning」的意思是？', opts: ['今天早上交通很好', '今天早上沒什麼車', '今天早上交通非常糟糕', '今天早上發生了意外'], ans: 2 },
+      { type: 'choice', q: '當對方說「Is it within walking distance?」，他在問什麼？', opts: ['這裡離地鐵站遠嗎？', '走路能到嗎？', '我應該搭車嗎？', '有停車位嗎？'], ans: 1 },
+      { type: 'fill', q: '我差點太早下車了。', en: 'I almost got ___ early.', ans: 'off' },
+      { type: 'fill', q: '我想為我的卡片儲值。', en: "I'd like to ___ my card.", ans: 'reload' },
     ]
   },
   {
@@ -52,6 +56,9 @@ export const QUIZ_SECTIONS: QuizSection[] = [
       { type: 'fill', q: '我只是隨便看看。', en: "I'm just ___ .", ans: 'browsing' },
       { type: 'choice', q: '「特價中」的英文是？', opts: ['on discount', 'on sale', 'on cheap', 'on special'], ans: 1 },
       { type: 'fill', q: '這個有大號的嗎？', en: 'Do you have this in a ___ size?', ans: 'larger' },
+      { type: 'choice', q: '進入店內想表達「我只是先看看」，可以說？', opts: ['I want to buy this.', "I'm just looking for now.", 'Where is the counter?', 'I need help.'], ans: 1 },
+      { type: 'choice', q: '如何詢問商店的退貨規定？', opts: ['How do I pay?', "What's your return policy?", 'Can I get a refund?', 'Where do I return this?'], ans: 1 },
+      { type: 'fill', q: '這件商品在特價嗎？', en: 'Is this item on ___?', ans: 'sale' },
     ]
   },
   {
@@ -68,6 +75,9 @@ export const QUIZ_SECTIONS: QuizSection[] = [
       { type: 'fill', q: '可以幫我打包嗎？', en: 'Can I get this ___ go?', ans: 'to' },
       { type: 'choice', q: '「小費」的英文是？', opts: ['tip', 'fee', 'charge', 'bonus'], ans: 0 },
       { type: 'fill', q: '我們可以分開付嗎？', en: 'Can we have ___ checks?', ans: 'separate' },
+      { type: 'choice', q: '如何詢問餐點份量是否足夠分享？', opts: ['Is this a big portion?', 'Is it enough to share?', 'Can I have more?', 'Is it spicy?'], ans: 1 },
+      { type: 'choice', q: '想詢問餐廳推薦的菜色時該怎麼說？', opts: ['What do you have?', 'What would you recommend here?', 'Is this good?', 'I want the pasta.'], ans: 1 },
+      { type: 'fill', q: '我們可以分開買單（結帳）嗎？', en: 'Could we ___ the check?', ans: 'split' },
     ]
   },
   {
@@ -84,6 +94,9 @@ export const QUIZ_SECTIONS: QuizSection[] = [
       { type: 'fill', q: '你能給我一些回饋嗎？', en: 'Can you give me some ___ ?', ans: 'feedback' },
       { type: 'choice', q: '「同事」的英文是？', opts: ['coworker', 'colleague', 'partner', 'fellower'], ans: 1 },
       { type: 'fill', q: '我先把這項任務完成。', en: "Let me ___ this task first.", ans: 'finish' },
+      { type: 'choice', q: '在工作中說「Wrapping things up」是指？', opts: ['開始一項新任務', '正在收尾/準備結束', '包裝禮物', '準備開會'], ans: 1 },
+      { type: 'choice', q: '如何詢問同事某項簡報的進度？', opts: ["How's the presentation coming along?", 'Are you busy?', 'What are you doing?', 'Is it done?'], ans: 0 },
+      { type: 'fill', q: '請隨時讓我知道進度（保持聯絡）。', en: 'Just keep me ___ this afternoon.', ans: 'posted' },
     ]
   },
   {
@@ -100,6 +113,9 @@ export const QUIZ_SECTIONS: QuizSection[] = [
       { type: 'fill', q: '請在嗶聲後留言。', en: 'Please leave a message after the ___ .', ans: 'beep' },
       { type: 'choice', q: '他現在不在位子上。英文是？', opts: ["He's not here.", "He's not available right now.", "He's not at desk.", "He's out of office."], ans: 1 },
       { type: 'fill', q: '我的分機號碼是 123。', en: 'My ___ is 123.', ans: 'extension' },
+      { type: 'choice', q: '當對方說「Hold on for a moment」，他請你？', opts: ['掛斷電話', '稍等一下', '明天再打', '留言'], ans: 1 },
+      { type: 'choice', q: '「Please leave your message after the tone」是指？', opts: ['請在音樂結束後說話', '請在嗶聲後留言', '請稍後再撥', '請不要留言'], ans: 1 },
+      { type: 'fill', q: '我需要更改我的預約時間。', en: 'I need to ___ my appointment.', ans: 'reschedule' },
     ]
   },
   {
@@ -116,6 +132,11 @@ export const QUIZ_SECTIONS: QuizSection[] = [
       { type: 'fill', q: '我們找時間聚聚吧！', en: "Let's ___ out sometime!", ans: 'hang' },
       { type: 'choice', q: '「閒聊」的英文是？', opts: ['big talk', 'small talk', 'short talk', 'free talk'], ans: 1 },
       { type: 'fill', q: '你怎麼認識主人的？', en: 'How do you know the ___ ?', ans: 'host' },
+      { type: 'choice', q: '初次見面破冰時，最自然的說法是？', opts: ['Who are you?', "I don't think we've met before.", 'What is your name?', 'Do I know you?'], ans: 1 },
+      { type: 'choice', q: '「What brought you here?」通常用來詢問？', opts: ['你怎麼來這裡的？', '是什麼把你帶到這裡的？', '你帶了什麼來？', '你認識這裡的人嗎？'], ans: 1 },
+      { type: 'choice', q: '「That reminds me of something funny」用於？', opts: ['拒絕他人', '轉移話題或聯想到趣事', '表示生氣', '自我介紹'], ans: 1 },
+      { type: 'fill', q: '抱歉，我可以加入（對話）嗎？', en: 'Hey sorry, can I ___ in here?', ans: 'jump' },
+      { type: 'fill', q: '這機率多大呀！（太巧了）', en: "That's crazy, what are the ___?", ans: 'odds' },
     ]
   },
   {
@@ -132,6 +153,10 @@ export const QUIZ_SECTIONS: QuizSection[] = [
       { type: 'fill', q: '請問你們有賣香菸嗎？', en: 'Do you sell ___ ?', ans: 'cigarettes' },
       { type: 'choice', q: '我要在 5 號加油槍加 20 美元。', opts: ['Fill it up please.', 'Can I get $20 on pump 5?', '$20 gas on pump 5 please.', 'Give me $20 on 5.'], ans: 1 },
       { type: 'fill', q: '可以給我一個袋子嗎？', en: 'Can I get a ___ for 5 cents?', ans: 'bag' },
+      { type: 'choice', q: '在加油站想在六號油泵加20美元，該怎麼說？', opts: ["I'll put $20 on pump six.", 'I want pump six.', 'Give me $20 gas.', 'Pump six is free.'], ans: 0 },
+      { type: 'choice', q: '如何詢問三明治是否是新鮮現做的？', opts: ['Is this sandwich good?', 'Is this sandwich freshly made?', 'When is the sandwich?', 'Do you have sandwiches?'], ans: 1 },
+      { type: 'fill', q: '我在哪裡可以找到零食區？', en: 'Where can I find the snack ___?', ans: 'aisle' },
+      { type: 'fill', q: '這可能今天缺貨了。', en: 'It might be out of ___ today.', ans: 'stock' },
     ]
   },
   {
@@ -148,6 +173,10 @@ export const QUIZ_SECTIONS: QuizSection[] = [
       { type: 'fill', q: '最近的地鐵站在哪裡？', en: 'Where is the nearest ___ station?', ans: 'subway' },
       { type: 'choice', q: '單程票多少錢？', opts: ['How much for one-way?', 'How much is a single ticket?', 'How much one ticket?', 'How much for single?'], ans: 0 },
       { type: 'fill', q: '這附近有超市嗎？', en: 'Is there a ___ nearby?', ans: 'supermarket' },
+      { type: 'choice', q: '在擁擠的地鐵中想請人讓路，該說什麼？', opts: ['Move away please.', 'Can I squeeze through?', "I'm coming.", 'Get out of the way.'], ans: 1 },
+      { type: 'choice', q: '手機快沒電了（2%），該怎麼說？', opts: ['My phone is dead.', "My phone's about to completely die.", 'I need a phone.', 'My phone is off.'], ans: 1 },
+      { type: 'fill', q: '糟糕，我又遲到了。', en: "Oh crap, I'm ___ late again.", ans: 'running' },
+      { type: 'fill', q: '你的包裹又延誤了。', en: 'Your package has been ___ again.', ans: 'delayed' },
     ]
   },
   {
@@ -164,6 +193,10 @@ export const QUIZ_SECTIONS: QuizSection[] = [
       { type: 'fill', q: '我們要不要一起出去玩？', en: 'Do you want to ___ out this weekend?', ans: 'hang' },
       { type: 'choice', q: '「預訂」的英文是？', opts: ['reservation', 'booking', 'both A and B', 'ordering'], ans: 2 },
       { type: 'fill', q: '電影幾點開始？', en: 'What time does the ___ start?', ans: 'movie' },
+      { type: 'choice', q: '如果你對某個提議還在「考慮中/猶豫不決」，你會說？', opts: ["I'm ready.", "I'm on the fence.", "I'm down.", "I'm tired."], ans: 1 },
+      { type: 'choice', q: "「I think I'm about ready to call it」在散場情境中是指？", opts: ['我要打電話', '我準備好要大叫了', '我準備好要回家休息了', '我要開始玩了'], ans: 2 },
+      { type: 'fill', q: '我也想參加/我贊成。', en: "I'm ___ for that.", ans: 'down' },
+      { type: 'fill', q: '這集看完我可能就不看了。', en: 'I might stop after this ___.', ans: 'episode' },
     ]
   },
   {
@@ -180,6 +213,10 @@ export const QUIZ_SECTIONS: QuizSection[] = [
       { type: 'fill', q: '零錢不用找了。', en: 'Keep the ___ .', ans: 'change' },
       { type: 'choice', q: '可以分開付嗎？', opts: ['Can we pay separate?', 'Can we split the payment?', 'Can we pay separately?', 'All correct'], ans: 3 },
       { type: 'fill', q: '可以幫我列印收據嗎？', en: 'Could I get a ___ please?', ans: 'receipt' },
+      { type: 'choice', q: '收銀員問「Card or cash?」是在詢問什麼？', opts: ['付款方式', '是否需要袋子', '有無會員', '有無收據'], ans: 0 },
+      { type: 'choice', q: '在結帳情境中，「Are you all set?」的意思最接近？', opts: ['你選好商品了嗎/就這些嗎', '你要離開了嗎', '你要付錢嗎', '你有袋子嗎'], ans: 0 },
+      { type: 'fill', q: '您今天想要紙袋還是塑膠袋？', en: 'Do you want ___ or plastic today?', ans: 'paper' },
+      { type: 'fill', q: '裝袋區有異常物品（自助結帳警示）。', en: 'Unexpected item in the ___ area.', ans: 'bagging' },
     ]
   },
   {
@@ -196,6 +233,10 @@ export const QUIZ_SECTIONS: QuizSection[] = [
       { type: 'fill', q: '哪裡不舒服？', en: "What seems to be the ___ ?", ans: 'problem' },
       { type: 'choice', q: '「急診」的英文是？', opts: ['emergency', 'urgent care', 'ER', 'all correct'], ans: 3 },
       { type: 'fill', q: '我需要看醫生。', en: "I need to ___ a doctor.", ans: 'see' },
+      { type: 'choice', q: '如何告知醫生你對青黴素過敏？', opts: ["I'm allergic to penicillin.", 'I need penicillin.', 'Penicillin is good for me.', 'I have no allergies.'], ans: 0 },
+      { type: 'choice', q: '藥局裡的「Over-the-counter painkillers」是指？', opts: ['處方止痛藥', '非處方（成藥）止痛藥', '過期止痛藥', '進口止痛藥'], ans: 1 },
+      { type: 'fill', q: '痛感是尖銳的還是隱隱作痛？', en: 'Is the pain ___ or dull?', ans: 'sharp' },
+      { type: 'fill', q: '我們需要測量你的血壓。', en: "Let's check your ___ pressure.", ans: 'blood' },
     ]
   },
   {
@@ -212,6 +253,10 @@ export const QUIZ_SECTIONS: QuizSection[] = [
       { type: 'fill', q: '我要低咖啡因的。', en: 'Can I get that ___ ?', ans: 'decaf' },
       { type: 'choice', q: '「續杯」的英文是？', opts: ['refill', 'again cup', 'second cup', 'more cup'], ans: 0 },
       { type: 'fill', q: '可以給我一張收據嗎？', en: 'Can I get a ___ please?', ans: 'receipt' },
+      { type: 'choice', q: '點拿鐵要外帶，最地道的說法是？', opts: ['Can I get a latte out?', 'Can I get a latte to go?', 'Latte for leaving.', 'Latte outside please.'], ans: 1 },
+      { type: 'choice', q: '在酒吧想說「再來一輪」，該說？', opts: ['One more again.', 'Can I get another round?', 'Give me more drinks.', 'Another circle please.'], ans: 1 },
+      { type: 'fill', q: '可以做不那麼甜嗎？', en: 'Can you make it ___ sweet?', ans: 'less' },
+      { type: 'fill', q: '不加糖，但請幫我多加一份濃縮。', en: 'No sugar but add an extra ___.', ans: 'shot' },
     ]
   },
   {
@@ -228,6 +273,10 @@ export const QUIZ_SECTIONS: QuizSection[] = [
       { type: 'fill', q: '鄰居太吵了。', en: 'The ___ are too loud.', ans: 'neighbors' },
       { type: 'choice', q: '馬桶不通了。英文是？', opts: ['The toilet is broken.', 'The toilet is clogged.', 'The toilet is full.', 'The toilet is bad.'], ans: 1 },
       { type: 'fill', q: '熱水器壞了。', en: 'The ___ heater is broken.', ans: 'water' },
+      { type: 'choice', q: '「I feel kind of out of it now」表示什麼感覺？', opts: ['我很興奮', '我很生氣', '我精神恍惚/不在狀態', '我很聰明'], ans: 2 },
+      { type: 'choice', q: '點餐時想說「我要點平時常喝的那種」，該說？', opts: ['I want the same.', "I'll get the usual drink.", 'Give me that one.', "I'll try something new."], ans: 1 },
+      { type: 'fill', q: '我今天又睡過頭了。', en: 'I ___ in again today.', ans: 'slept' },
+      { type: 'fill', q: '我寧願待在家放鬆。', en: "I'd rather just stay in and ___.", ans: 'chill' },
     ]
   },
   {
@@ -244,6 +293,10 @@ export const QUIZ_SECTIONS: QuizSection[] = [
       { type: 'fill', q: '我的行李還沒到。', en: "My ___ hasn't arrived yet.", ans: 'luggage' },
       { type: 'choice', q: '「海關」的英文是？', opts: ['custom', 'customs', 'tax', 'security'], ans: 1 },
       { type: 'fill', q: '登機門號碼是多少？', en: 'What is the ___ number?', ans: 'gate' },
+      { type: 'choice', q: '如何詢問是否需要提前預訂？', opts: ['Do I need a ticket?', 'Should I book in advance?', 'Is it open?', 'How much is it?'], ans: 1 },
+      { type: 'choice', q: '當你想問路程是否走路能到時，該怎麼說？', opts: ['How far is it on foot?', 'Is it within walking distance?', 'How long is the ride?', 'Can I walk?'], ans: 1 },
+      { type: 'fill', q: '直走然後在路口左轉。', en: 'Go ___ then turn left at the corner.', ans: 'straight' },
+      { type: 'fill', q: '我需要轉乘到另一條線嗎？', en: 'Do I need to ___ to another line?', ans: 'transfer' },
     ]
   },
   {
@@ -260,6 +313,8 @@ export const QUIZ_SECTIONS: QuizSection[] = [
       { type: 'fill', q: '模仿母語人士的語調。', en: '___ the intonation of native speakers.', ans: 'Imitate' },
       { type: 'choice', q: '「發音」的英文是？', opts: ['pronunciation', 'pronounce', 'speaking', 'phonics'], ans: 0 },
       { type: 'fill', q: '每天聽英文，建立語感。', en: 'Listen to English daily to build ___ .', ans: 'intuition' },
+      { type: 'choice', q: '聽力中「keyword」技巧是指？', opts: ['背所有單字', '抓住關鍵字理解大意', '聽寫每個字', '看字幕'], ans: 1 },
+      { type: 'fill', q: '跟讀時要注意模仿語調和節奏。', en: 'Pay attention to ___ and rhythm.', ans: 'intonation' },
     ]
   },
   {
