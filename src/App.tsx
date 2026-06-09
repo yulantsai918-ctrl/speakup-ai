@@ -2,11 +2,14 @@ import { useState, useEffect, useRef } from 'react'
 import {
   Mic, MicOff, Volume2, Sparkles, Compass, CheckCircle,
   Award, RefreshCw, VolumeX, ArrowRight, ChevronRight,
-  MessageSquare, HelpCircle, Bookmark, TrendingUp, X, AlertCircle
+  MessageSquare, HelpCircle, Bookmark, TrendingUp, X, AlertCircle,
+  GraduationCap
 } from 'lucide-react'
 import { auth, db } from './firebase'
 import { collection, getDocs } from 'firebase/firestore'
 import { loadUserData, saveUserData } from './firestoreService'
+import { QUIZ_SECTIONS } from './quizData'
+import type { QuizSection } from './quizData'
 
 declare global {
   interface Window {
@@ -222,6 +225,10 @@ export default function App() {
     { english: "I'd like to make a reservation, please.", chinese: "我想預訂，謝謝。", scenario: "五星級飯店辦理入住" },
     { english: "Could you tell me where the gym is located?", chinese: "能告訴我健身房在哪裡嗎？", scenario: "五星級飯店辦理入住" }
   ])
+
+  const [quizSection, setQuizSection] = useState<QuizSection>(QUIZ_SECTIONS[0])
+  const [quizResults, setQuizResults] = useState<Record<string, { status: 'correct' | 'wrong'; selected?: number }>>({})
+  const [quizTab, setQuizTab] = useState<'sections' | 'quiz'>('sections')
 
   const [isMuted, setIsMuted] = useState(false)
   const recognitionRef = useRef<SpeechRecognition | null>(null)
@@ -507,7 +514,7 @@ You MUST respond with a JSON object only, no markdown formatting.
       <main className="flex-1 max-w-7xl w-full mx-auto p-4 flex flex-col md:flex-row gap-6 overflow-hidden">
 
         <div className="w-full md:w-80 flex flex-col space-y-4 shrink-0">
-          <div className="grid grid-cols-3 gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
+          <div className="grid grid-cols-4 gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
             <button
               onClick={() => setCurrentTab('explore')}
               className={`py-2 px-3 rounded-lg text-xs font-semibold tracking-wide transition-all duration-150 flex flex-col items-center gap-1 ${currentTab === 'explore' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'}`}
@@ -521,6 +528,13 @@ You MUST respond with a JSON object only, no markdown formatting.
             >
               <MessageSquare className="h-4 w-4" />
               AI 口說室
+            </button>
+            <button
+              onClick={() => setCurrentTab('quiz')}
+              className={`py-2 px-3 rounded-lg text-xs font-semibold tracking-wide transition-all duration-150 flex flex-col items-center gap-1 ${currentTab === 'quiz' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'}`}
+            >
+              <GraduationCap className="h-4 w-4" />
+              互動測驗
             </button>
             <button
               onClick={() => setCurrentTab('stats')}
@@ -905,6 +919,205 @@ You MUST respond with a JSON object only, no markdown formatting.
                   <ArrowRight className="h-3.5 w-3.5" />
                 </button>
               </div>
+            </div>
+          )}
+
+          {currentTab === 'quiz' && (
+            <div className="flex-1 flex flex-col overflow-hidden">
+              {quizTab === 'sections' ? (
+                <div className="flex-1 p-4 overflow-y-auto space-y-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <h2 className="text-lg font-black text-slate-100 flex items-center gap-2">
+                      <GraduationCap className="h-5 w-5 text-indigo-400" />
+                      互動測驗
+                    </h2>
+                    <span className="text-xs text-slate-400 bg-slate-800 px-2 py-1 rounded-lg">
+                      {Object.keys(quizResults).filter(k => quizResults[k]?.status === 'correct').length} / {QUIZ_SECTIONS.reduce((a, s) => a + s.quizzes.length, 0)} 正確
+                    </span>
+                  </div>
+                  {QUIZ_SECTIONS.map((sec) => {
+                    const total = sec.quizzes.length
+                    const done = sec.quizzes.filter((_, qi) => quizResults[`${sec.num}-${qi}`]?.status).length
+                    const correct = sec.quizzes.filter((_, qi) => quizResults[`${sec.num}-${qi}`]?.status === 'correct').length
+                    return (
+                      <button
+                        key={sec.num}
+                        onClick={() => { setQuizSection(sec); setQuizTab('quiz') }}
+                        className="w-full text-left bg-slate-900/60 border border-slate-800 hover:border-indigo-500/40 rounded-xl p-4 transition-all duration-200"
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="text-xs font-bold text-indigo-400 bg-indigo-500/10 px-1.5 py-0.5 rounded">{sec.num}</span>
+                              <span className="font-bold text-sm text-slate-200">{sec.title}</span>
+                            </div>
+                            <p className="text-xs text-slate-400">{total} 題測驗 | {sec.vocab.length} 個單字</p>
+                          </div>
+                          <div className="shrink-0 text-right">
+                            {done > 0 ? (
+                              <span className={`text-xs font-bold ${correct === total ? 'text-emerald-400' : 'text-amber-400'}`}>
+                                {correct}/{total}
+                              </span>
+                            ) : (
+                              <span className="text-xs text-slate-500">未作答</span>
+                            )}
+                          </div>
+                        </div>
+                        {done > 0 && (
+                          <div className="mt-2 w-full bg-slate-800 rounded-full h-1.5">
+                            <div
+                              className={`h-1.5 rounded-full transition-all ${correct === total ? 'bg-emerald-500' : 'bg-indigo-500'}`}
+                              style={{ width: `${(correct / total) * 100}%` }}
+                            />
+                          </div>
+                        )}
+                      </button>
+                    )
+                  })}
+                </div>
+              ) : (
+                <div className="flex-1 flex flex-col overflow-hidden">
+                  <div className="bg-slate-900/80 border-b border-slate-800 px-4 py-3 flex items-center justify-between shrink-0">
+                    <button
+                      onClick={() => setQuizTab('sections')}
+                      className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold flex items-center gap-1"
+                    >
+                      <ChevronRight className="h-3 w-3 rotate-180" /> 回主題列表
+                    </button>
+                    <span className="text-sm font-bold text-slate-200">{quizSection.title}</span>
+                    <button
+                      onClick={() => {
+                        quizSection.quizzes.forEach((_, qi) => {
+                          const key = `${quizSection.num}-${qi}`
+                          const newResults = { ...quizResults }
+                          delete newResults[key]
+                          setQuizResults(newResults)
+                        })
+                      }}
+                      className="text-xs text-slate-400 hover:text-red-400 font-semibold"
+                    >
+                      重設
+                    </button>
+                  </div>
+
+                  <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                    <div className="grid grid-cols-2 gap-1.5 bg-slate-900/40 rounded-xl border border-slate-800 p-3">
+                      {quizSection.vocab.map(([en, zh]) => (
+                        <div key={en} className="flex items-center justify-between text-xs">
+                          <span className="text-slate-200 font-medium">{en}</span>
+                          <span className="text-slate-400">{zh}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {quizSection.quizzes.map((q, qi) => {
+                      const key = `${quizSection.num}-${qi}`
+                      const result = quizResults[key]
+                      return (
+                        <div key={qi} className="bg-slate-900/60 border border-slate-800 rounded-xl p-4 space-y-3">
+                          <div className="flex items-start gap-2">
+                            <span className={`shrink-0 text-[10px] font-bold px-1.5 py-0.5 rounded ${q.type === 'choice' ? 'bg-blue-500/10 text-blue-400' : 'bg-amber-500/10 text-amber-400'}`}>
+                              {q.type === 'choice' ? '選擇' : '填空'}
+                            </span>
+                            <p className="text-sm text-slate-200 font-medium">{q.q}</p>
+                          </div>
+
+                          {q.type === 'choice' ? (
+                            <div className="space-y-1.5">
+                              {q.opts.map((o, oi) => {
+                                let cls = 'bg-slate-800/40 border-slate-700 hover:border-indigo-500/40'
+                                if (result) {
+                                  if (oi === q.ans) cls = 'border-emerald-500/60 bg-emerald-500/10'
+                                  else if (result.status === 'wrong' && result.selected === oi) cls = 'border-red-500/60 bg-red-500/10'
+                                }
+                                return (
+                                  <label
+                                    key={oi}
+                                    className={`flex items-center gap-2.5 p-2.5 rounded-lg border cursor-pointer transition-all text-sm ${cls}`}
+                                  >
+                                    <input
+                                      type="radio"
+                                      name={`quiz-${key}`}
+                                      value={oi}
+                                      disabled={!!result}
+                                      onChange={() => {
+                                        if (!result) {
+                                          const newResults = { ...quizResults }
+                                          newResults[key] = { status: oi === q.ans ? 'correct' : 'wrong', selected: oi }
+                                          setQuizResults(newResults)
+                                        }
+                                      }}
+                                      className="accent-indigo-500"
+                                    />
+                                    <span className={result && oi === q.ans ? 'text-emerald-300 font-semibold' : 'text-slate-300'}>{o}</span>
+                                  </label>
+                                )
+                              })}
+                            </div>
+                          ) : (
+                            <div className="space-y-2">
+                              <p className="text-xs text-slate-400 italic">{q.en}</p>
+                              <div className="flex items-center gap-2 flex-wrap">
+                                <input
+                                  id={`fill-${key}`}
+                                  type="text"
+                                  placeholder="輸入英文..."
+                                  disabled={!!result}
+                                  onKeyDown={(e) => {
+                                    if (e.key === 'Enter' && !result) {
+                                      const input = document.getElementById(`fill-${key}`) as HTMLInputElement
+                                      const val = input.value.trim().toLowerCase()
+                                      const newResults = { ...quizResults }
+                                      newResults[key] = { status: val === q.ans.toLowerCase() ? 'correct' : 'wrong' }
+                                      setQuizResults(newResults)
+                                    }
+                                  }}
+                                  className={`flex-1 min-w-[120px] px-3 py-2 rounded-lg border text-sm bg-slate-800/40 outline-none transition-colors ${
+                                    result
+                                      ? result.status === 'correct'
+                                        ? 'border-emerald-500/60 text-emerald-300'
+                                        : 'border-red-500/60 text-red-300'
+                                      : 'border-slate-700 text-slate-200 focus:border-indigo-500'
+                                  }`}
+                                />
+                                {!result && (
+                                  <button
+                                    onClick={() => {
+                                      const input = document.getElementById(`fill-${key}`) as HTMLInputElement
+                                      const val = input.value.trim().toLowerCase()
+                                      const newResults = { ...quizResults }
+                                      newResults[key] = { status: val === q.ans.toLowerCase() ? 'correct' : 'wrong' }
+                                      setQuizResults(newResults)
+                                    }}
+                                    className="px-3 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold rounded-lg transition-colors"
+                                  >
+                                    確認
+                                  </button>
+                                )}
+                                {!result && (
+                                  <button
+                                    onClick={() => {
+                                      const fb = document.getElementById(`fb-${key}`)
+                                      if (fb) fb.textContent = `提示：${q.ans}`
+                                    }}
+                                    className="px-3 py-2 text-xs text-slate-400 hover:text-slate-200 border border-slate-700 rounded-lg transition-colors"
+                                  >
+                                    提示
+                                  </button>
+                                )}
+                              </div>
+                              <div id={`fb-${key}`} className="text-xs min-h-[1rem]">
+                                {result?.status === 'correct' && <span className="text-emerald-400 font-semibold">✓ 正確！</span>}
+                                {result?.status === 'wrong' && <span className="text-red-400 font-semibold">✗ 正確答案是：{q.ans}</span>}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
