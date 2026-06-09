@@ -65,6 +65,10 @@ export default function Presentation() {
   const totalSlides = 15
   const recognitionRef = useRef<{ start: () => void; stop: () => void } | null>(null)
   const transcriptEndRef = useRef<HTMLDivElement | null>(null)
+  const currentSlideRef = useRef(currentSlide)
+  currentSlideRef.current = currentSlide
+  const isListeningRef = useRef(isListening)
+  isListeningRef.current = isListening
 
   useEffect(() => {
     transcriptEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -122,8 +126,8 @@ export default function Presentation() {
     const clean = text.replace(/[.,/#!$%^&*;:{}=\-_`~()？。，]/g, '').trim()
 
     if (/下一頁|下一張|往後|前進|Next/i.test(clean)) {
-      if (currentSlide < totalSlides) {
-        goSlide(currentSlide + 1)
+      if (currentSlideRef.current < totalSlides) {
+        goSlide(currentSlideRef.current + 1)
         addTranscript('system', '好的，已為您切換至下一頁。')
         speakText('好的，已切換。')
       } else {
@@ -134,8 +138,8 @@ export default function Presentation() {
     }
 
     if (/上一頁|上一張|往前|後退|Prev/i.test(clean)) {
-      if (currentSlide > 1) {
-        goSlide(currentSlide - 1)
+      if (currentSlideRef.current > 1) {
+        goSlide(currentSlideRef.current - 1)
         addTranscript('system', '好的，已為您返回上一頁。')
         speakText('好的，已返回。')
       } else {
@@ -166,7 +170,7 @@ export default function Presentation() {
 
     setIsAiLoading(true)
     if (!API_KEY) {
-      addTranscript('system', `您當前在第 ${currentSlide} 頁。${SLIDE_CONTENTS[currentSlide]}`)
+      addTranscript('system', `您當前在第 ${currentSlideRef.current} 頁。${SLIDE_CONTENTS[currentSlideRef.current]}`)
       setIsAiLoading(false)
       return
     }
@@ -182,7 +186,7 @@ export default function Presentation() {
               role: 'system',
               content: `你是這份簡報「破解全英文語境：美國都會生活導航指南」的智慧助手。
 所有投影片內容：${JSON.stringify(SLIDE_CONTENTS)}
-使用者目前在投影片第 ${currentSlide} 頁。
+              使用者目前在投影片第 ${currentSlideRef.current} 頁。
 請回答使用者的問題，簡潔2-3句，使用繁體中文，直接根據投影片內容回答。`
             },
             { role: 'user', content: text }
@@ -200,7 +204,7 @@ export default function Presentation() {
       addTranscript('system', 'AI 連線失敗，請稍後再試。')
     }
     setIsAiLoading(false)
-  }, [currentSlide, addTranscript, speakText, goSlide, getLocalAnswer])
+  }, [addTranscript, speakText, goSlide, getLocalAnswer])
 
   useEffect(() => {
     const SpeechRecAPI = (window as unknown as Record<string, unknown>).SpeechRecognition || (window as unknown as Record<string, unknown>).webkitSpeechRecognition
@@ -216,7 +220,7 @@ export default function Presentation() {
       rec.lang = 'zh-TW'
 
       rec.onstart = () => setIsListening(true)
-      rec.onend = () => { if (isListening) rec.start() }
+      rec.onend = () => { if (isListeningRef.current) rec.start() }
 
       rec.onresult = (event) => {
         const transcript = event.results[event.resultIndex][0].transcript.trim()
@@ -224,8 +228,7 @@ export default function Presentation() {
       }
       recognitionRef.current = rec
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isListening])
+  }, [isListening, handleVoiceCommand])
 
   const simulateVoice = (cmd: string) => handleVoiceCommand(cmd)
 
