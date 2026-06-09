@@ -9,7 +9,7 @@ import { auth, db } from './firebase'
 import { collection, getDocs } from 'firebase/firestore'
 import { loadUserData, saveUserData } from './firestoreService'
 import { QUIZ_SECTIONS } from './quizData'
-import type { QuizSection } from './quizData'
+import type { QuizSection, QuizItem } from './quizData'
 
 declare global {
   interface Window {
@@ -229,6 +229,8 @@ export default function App() {
 
   const [quizSection, setQuizSection] = useState<QuizSection>(QUIZ_SECTIONS[0])
   const [quizResults, setQuizResults] = useState<Record<string, { status: 'correct' | 'wrong'; selected?: number }>>({})
+  const [explaining, setExplaining] = useState<Record<string, string>>({})
+  const [explainingLoading, setExplainingLoading] = useState<string | null>(null)
   const [quizTab, setQuizTab] = useState<'sections' | 'quiz'>('sections')
 
   const [isMuted, setIsMuted] = useState(false)
@@ -325,6 +327,41 @@ export default function App() {
       return parsed.opening || scenario.initialMessage
     } catch {
       return scenario.initialMessage
+    }
+  }
+
+  const handleExplain = async (key: string, q: QuizItem) => {
+    if (explaining[key]) return
+    setExplainingLoading(key)
+    const systemPrompt = 'You are an English tutor. Explain the answer to this quiz question in Traditional Chinese. Be concise (2-3 sentences). Focus on why the correct answer is right and common mistakes.'
+    let questionText = `Question: ${q.q}\n`
+    if (q.type === 'choice') {
+      questionText += `Options: ${q.opts.join(', ')}\nCorrect answer: ${q.opts[q.ans]}`
+    } else {
+      questionText += `Fill in the blank: ${q.en}\nCorrect answer: ${q.ans}`
+    }
+    try {
+      const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${API_KEY}` },
+        body: JSON.stringify({
+          model: 'llama-3.3-70b-versatile',
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: questionText }
+          ],
+          temperature: 0.7,
+          max_tokens: 256
+        })
+      })
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`)
+      const data = await resp.json()
+      const text = data.choices?.[0]?.message?.content || '無法取得解說'
+      setExplaining(prev => ({ ...prev, [key]: text }))
+    } catch {
+      setExplaining(prev => ({ ...prev, [key]: '⚠️ AI 解說暫時無法使用，請稍後再試。' }))
+    } finally {
+      setExplainingLoading(null)
     }
   }
 
@@ -1067,37 +1104,58 @@ You MUST respond with a JSON object only, no markdown formatting.
                           </div>
 
                           {q.type === 'choice' ? (
-                            <div className="space-y-1.5">
-                              {q.opts.map((o, oi) => {
-                                let cls = 'bg-slate-800/40 border-slate-700 hover:border-indigo-500/40'
-                                if (result) {
-                                  if (oi === q.ans) cls = 'border-emerald-500/60 bg-emerald-500/10'
-                                  else if (result.status === 'wrong' && result.selected === oi) cls = 'border-red-500/60 bg-red-500/10'
-                                }
-                                return (
-                                  <label
-                                    key={oi}
-                                    className={`flex items-center gap-2.5 p-2.5 rounded-lg border cursor-pointer transition-all text-sm ${cls}`}
-                                  >
-                                    <input
-                                      type="radio"
-                                      name={`quiz-${key}`}
-                                      value={oi}
-                                      disabled={!!result}
-                                      onChange={() => {
-                                        if (!result) {
-                                          const newResults = { ...quizResults }
-                                          newResults[key] = { status: oi === q.ans ? 'correct' : 'wrong', selected: oi }
-                                          setQuizResults(newResults)
-                                        }
-                                      }}
-                                      className="accent-indigo-500"
-                                    />
-                                    <span className={result && oi === q.ans ? 'text-emerald-300 font-semibold' : 'text-slate-300'}>{o}</span>
-                                  </label>
-                                )
-                              })}
-                            </div>
+                            <>
+                              <div className="space-y-1.5">
+                                {q.opts.map((o, oi) => {
+                                  let cls = 'bg-slate-800/40 border-slate-700 hover:border-indigo-500/40'
+                                  if (result) {
+                                    if (oi === q.ans) cls = 'border-emerald-500/60 bg-emerald-500/10'
+                                    else if (result.status === 'wrong' && result.selected === oi) cls = 'border-red-500/60 bg-red-500/10'
+                                  }
+                                  return (
+                                    <label
+                                      key={oi}
+                                      className={`flex items-center gap-2.5 p-2.5 rounded-lg border cursor-pointer transition-all text-sm ${cls}`}
+                                    >
+                                      <input
+                                        type="radio"
+                                        name={`quiz-${key}`}
+                                        value={oi}
+                                        disabled={!!result}
+                                        onChange={() => {
+                                          if (!result) {
+                                            const newResults = { ...quizResults }
+                                            newResults[key] = { status: oi === q.ans ? 'correct' : 'wrong', selected: oi }
+                                            setQuizResults(newResults)
+                                          }
+                                        }}
+                                        className="accent-indigo-500"
+                                      />
+                                      <span className={result && oi === q.ans ? 'text-emerald-300 font-semibold' : 'text-slate-300'}>{o}</span>
+                                    </label>
+                                  )
+                                })}
+                              </div>
+                              {result && (
+                                <div className="pt-1">
+                                  {explainingLoading === key ? (
+                                    <span className="text-xs text-indigo-400 animate-pulse">AI 解說生成中...</span>
+                                  ) : explaining[key] ? (
+                                    <div className="text-xs text-slate-300 bg-indigo-500/5 border border-indigo-500/20 rounded-lg p-2.5 leading-relaxed">
+                                      <span className="text-indigo-400 font-semibold">🤖 AI 解說：</span>
+                                      {explaining[key]}
+                                    </div>
+                                  ) : (
+                                    <button
+                                      onClick={() => handleExplain(key, q)}
+                                      className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold flex items-center gap-1"
+                                    >
+                                      🤖 AI 助教解說
+                                    </button>
+                                  )}
+                                </div>
+                              )}
+                            </>
                           ) : (
                             <div className="space-y-2">
                               <p className="text-xs text-slate-400 italic">{q.en}</p>
@@ -1154,6 +1212,25 @@ You MUST respond with a JSON object only, no markdown formatting.
                                 {result?.status === 'correct' && <span className="text-emerald-400 font-semibold">✓ 正確！</span>}
                                 {result?.status === 'wrong' && <span className="text-red-400 font-semibold">✗ 正確答案是：{q.ans}</span>}
                               </div>
+                              {result && (
+                                <div>
+                                  {explainingLoading === key ? (
+                                    <span className="text-xs text-indigo-400 animate-pulse">AI 解說生成中...</span>
+                                  ) : explaining[key] ? (
+                                    <div className="text-xs text-slate-300 bg-indigo-500/5 border border-indigo-500/20 rounded-lg p-2.5 leading-relaxed">
+                                      <span className="text-indigo-400 font-semibold">🤖 AI 解說：</span>
+                                      {explaining[key]}
+                                    </div>
+                                  ) : (
+                                    <button
+                                      onClick={() => handleExplain(key, q)}
+                                      className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold flex items-center gap-1"
+                                    >
+                                      🤖 AI 助教解說
+                                    </button>
+                                  )}
+                                </div>
+                              )}
                             </div>
                           )}
                         </div>
