@@ -216,6 +216,7 @@ export default function App() {
   const [inputText, setInputText] = useState('')
   const [isRecording, setIsRecording] = useState(false)
   const [isAiLoading, setIsAiLoading] = useState(false)
+  const [isInitializing, setIsInitializing] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
 
   const [streak, setStreak] = useState(5)
@@ -296,15 +297,52 @@ export default function App() {
     }
   }, [])
 
-  const handleSelectScenario = (scenario: Scenario) => {
+  const generateRandomOpening = async (scenario: Scenario): Promise<string> => {
+    const messages = [
+      { role: 'system', content: 'You are an AI that generates random opening lines for English conversation practice. Output ONLY valid JSON with a field "opening". Make each opening unique, natural, and context-appropriate. Keep it to 1 sentence.' },
+      { role: 'user', content: `Scenario: ${scenario.title}\nRole: ${scenario.systemPrompt}\n\nGenerate a random opening line a ${scenario.title} roleplay. Make it different every time.` }
+    ]
+    try {
+      const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${API_KEY}`
+        },
+        body: JSON.stringify({
+          model: 'llama-3.3-70b-versatile',
+          messages,
+          response_format: { type: 'json_object' },
+          temperature: 0.9,
+          max_tokens: 128
+        })
+      })
+      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+      const data = await response.json()
+      const raw = data.choices?.[0]?.message?.content
+      if (!raw) throw new Error('Empty response')
+      const parsed = JSON.parse(raw.trim())
+      return parsed.opening || scenario.initialMessage
+    } catch {
+      return scenario.initialMessage
+    }
+  }
+
+  const handleSelectScenario = async (scenario: Scenario) => {
+    setIsInitializing(true)
     setSelectedScenario(scenario)
-    setChatHistory([
-      { role: 'ai', text: scenario.initialMessage, translated: "" }
-    ])
     setInputText('')
     setErrorMessage('')
     setCurrentTab('chat')
-    setTimeout(() => speakText(scenario.initialMessage), 500)
+    setChatHistory([
+      { role: 'ai', text: '⏳ 正在準備對話情境...', translated: "" }
+    ])
+    const opening = await generateRandomOpening(scenario)
+    setChatHistory([
+      { role: 'ai', text: opening, translated: "" }
+    ])
+    setIsInitializing(false)
+    setTimeout(() => speakText(opening), 500)
   }
 
   const speakText = (text: string) => {
@@ -668,9 +706,12 @@ You MUST respond with a JSON object only, no markdown formatting.
                   </div>
                   <button
                     onClick={() => handleSelectScenario(selectedScenario)}
-                    className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm rounded-lg transition-colors flex items-center justify-center gap-1.5 shadow-md shadow-indigo-600/20 shrink-0"
+                    disabled={isInitializing}
+                    className={`px-4 py-2 text-white font-bold text-sm rounded-lg transition-colors flex items-center justify-center gap-1.5 shadow-md shrink-0 ${
+                      isInitializing ? 'bg-indigo-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-500 shadow-indigo-600/20'
+                    }`}
                   >
-                    進入練習 <ArrowRight className="h-4 w-4" />
+                    {isInitializing ? '準備中...' : '進入練習'} <ArrowRight className="h-4 w-4" />
                   </button>
                 </div>
 
@@ -721,10 +762,13 @@ You MUST respond with a JSON object only, no markdown formatting.
                 </div>
                 <button
                   onClick={() => handleSelectScenario(selectedScenario)}
-                  className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold flex items-center gap-1"
+                  disabled={isInitializing}
+                  className={`text-xs font-semibold flex items-center gap-1 ${
+                    isInitializing ? 'text-slate-500 cursor-not-allowed' : 'text-indigo-400 hover:text-indigo-300'
+                  }`}
                   title="重置對話"
                 >
-                  <RefreshCw className="h-3 w-3" /> 重開對話
+                  <RefreshCw className={`h-3 w-3 ${isInitializing ? 'animate-spin' : ''}`} /> {isInitializing ? '準備中...' : '重開對話'}
                 </button>
               </div>
 
