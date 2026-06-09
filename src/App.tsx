@@ -3,8 +3,9 @@ import {
   Mic, MicOff, Volume2, Sparkles, Compass, CheckCircle,
   Award, RefreshCw, VolumeX, ArrowRight, ChevronRight,
   MessageSquare, HelpCircle, Bookmark, TrendingUp, X, AlertCircle,
-  GraduationCap
+  GraduationCap, BookOpen
 } from 'lucide-react'
+import Presentation from './Presentation'
 import { auth, db } from './firebase'
 import { collection, getDocs } from 'firebase/firestore'
 import { loadUserData, saveUserData } from './firestoreService'
@@ -589,7 +590,7 @@ You MUST respond with a JSON object only, no markdown formatting.
       <main className="flex-1 max-w-7xl w-full mx-auto p-4 flex flex-col md:flex-row gap-6 overflow-hidden">
 
         <div className="w-full md:w-80 flex flex-col space-y-4 shrink-0">
-          <div className="grid grid-cols-4 gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
+          <div className="grid grid-cols-5 gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
             <button
               onClick={() => setCurrentTab('explore')}
               className={`py-2 px-3 rounded-lg text-xs font-semibold tracking-wide transition-all duration-150 flex flex-col items-center gap-1 ${currentTab === 'explore' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'}`}
@@ -603,6 +604,13 @@ You MUST respond with a JSON object only, no markdown formatting.
             >
               <MessageSquare className="h-4 w-4" />
               AI 口說室
+            </button>
+            <button
+              onClick={() => setCurrentTab('presentation')}
+              className={`py-2 px-3 rounded-lg text-xs font-semibold tracking-wide transition-all duration-150 flex flex-col items-center gap-1 ${currentTab === 'presentation' ? 'bg-amber-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'}`}
+            >
+              <BookOpen className="h-4 w-4" />
+              AI 教學簡報
             </button>
             <button
               onClick={() => setCurrentTab('quiz')}
@@ -1000,6 +1008,12 @@ You MUST respond with a JSON object only, no markdown formatting.
                   <ArrowRight className="h-3.5 w-3.5" />
                 </button>
               </div>
+            </div>
+          )}
+
+          {currentTab === 'presentation' && (
+            <div className="flex-1 overflow-hidden rounded-2xl">
+              <Presentation />
             </div>
           )}
 
