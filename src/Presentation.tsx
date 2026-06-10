@@ -98,7 +98,11 @@ export default function Presentation() {
   }, [])
 
   const addTranscript = useCallback((role: 'user' | 'system', text: string) => {
-    setTranscripts(prev => role === 'user' ? [{ role, text }] : [...prev, { role, text }])
+    setTranscripts(prev => {
+      if (role === 'user') return [{ role, text }]
+      const lastUser = prev.find(t => t.role === 'user')
+      return lastUser ? [lastUser, { role, text }] : [{ role, text }]
+    })
   }, [])
 
   const goSlide = useCallback((num: number) => {
@@ -331,7 +335,7 @@ export default function Presentation() {
               ))}
             </div>
           </div>
-          {transcripts.map((t, i) => (
+          {transcripts.slice(-2).map((t, i) => (
             <div key={i} className={`flex ${t.role === 'user' ? 'justify-end' : 'justify-start'}`}>
               <div className={`max-w-[90%] rounded-xl px-3 py-2 text-xs border ${
                 t.role === 'user'
