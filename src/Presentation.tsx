@@ -294,9 +294,9 @@ export default function Presentation() {
   const progressPercent = (currentSlide / totalSlides) * 100
 
   return (
-    <div className="flex flex-col md:flex-row w-full h-full">
+    <div className="flex flex-col md:flex-row w-full h-full min-h-0">
       {/* Left sidebar: Voice transcript */}
-      <aside className="w-full md:w-72 lg:w-80 bg-slate-900 border-r border-slate-800 flex flex-col h-1/3 md:h-full shrink-0">
+      <aside className="w-full md:w-72 lg:w-80 bg-slate-900 border-r border-slate-800 flex flex-col h-1/3 md:h-full shrink-0 min-h-0">
         <div className="p-3 border-b border-slate-800 flex justify-between items-center bg-slate-950/50">
           <div className="flex items-center space-x-2">
             <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-amber-500 to-amber-300 flex items-center justify-center">
@@ -313,7 +313,7 @@ export default function Presentation() {
           </span>
         </div>
 
-        <div className="flex-1 p-3 overflow-y-auto space-y-3 bg-slate-950/20">
+        <div className="flex-1 p-3 overflow-y-auto space-y-3 bg-slate-950/20 min-h-0">
           <div className="bg-slate-800/50 border border-slate-700/50 rounded-xl p-3 text-xs space-y-2">
             <p className="text-amber-400 font-semibold flex items-center gap-1">
               <Sparkles className="h-3 w-3" /> 您好！我是簡報智慧助手。
@@ -368,7 +368,7 @@ export default function Presentation() {
       </aside>
 
       {/* Main slide area */}
-      <main className="flex-1 bg-slate-950 flex flex-col relative h-2/3 md:h-full overflow-hidden">
+      <main className="flex-1 bg-slate-950 flex flex-col relative h-2/3 md:h-full overflow-hidden min-h-0">
         <div className="absolute top-0 left-0 right-0 h-1 bg-slate-900 z-20">
           <div className="h-full bg-gradient-to-r from-amber-500 to-amber-300 transition-all duration-300"
             style={{ width: `${progressPercent}%` }} />
