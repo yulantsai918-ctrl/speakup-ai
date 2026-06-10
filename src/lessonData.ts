@@ -8,183 +8,167 @@ export interface LessonSlide {
 
 export const LESSON_2_SLIDES: LessonSlide[] = [
   {
-    title: '出行交通必備英文',
-    subtitle: 'Commuting & Transit Essentials',
-    content: '涵蓋日常通勤中的寒暄（Mondays always hit hard）、交通狀況描述（traffic was brutal）、城市問路技巧（go straight for two blocks）、公共運輸導覽（transfer at Central Station）以及加油站與停車規則等實用句型。',
+    title: '吃貨必備的英文生存指南',
+    subtitle: 'The American Foodie Survival Guide',
+    content: '從咖啡廳、美式餐廳到超商酒吧，點餐結帳不卡關的實戰句型庫。內容涵蓋四大站點：1.咖啡與手搖飲充電站 (Morning Boost) 2.美式餐廳實戰 (Dining Out) 3.超市與便利商店尋寶 (Grocery & Convenience) 4.微醺與社交 (Nightlife Social)。',
     phrases: [
-      { en: 'Mondays always hit hard.', zh: '週一總是讓人很難熬。' },
-      { en: 'Traffic was brutal this morning.', zh: '今天早上的交通簡直是災難。' },
-      { en: 'Is this the bus to downtown?', zh: '這是去市中心的公車嗎？' },
-      { en: 'Go straight for two blocks, then turn left at the corner.', zh: '直走兩個街區，然後在轉角左轉。' },
+      { en: 'Could I get a medium iced latte with oat milk?', zh: '我可以要一杯中杯冰拿鐵加燕麥奶嗎？' },
+      { en: 'Table for two, please.', zh: '兩位，謝謝。' },
     ],
-    practice: '你正在街上迷路，試著向路人詢問某條街怎麼走，並確認是否在步行距離內。'
+    practice: '跟著這份指南，從咖啡廳到酒吧，完整掌握美食英文！'
   },
   {
-    title: '美國人常用聊天交流',
-    subtitle: 'Conversational English',
-    content: '重點在於如何自然地開啟對話（how\'s it going）、保持話題熱度（what brought you here）、表達強烈認同（that makes sense）以及在尷尬或沒聽清楚時的應對方式（I didn\'t catch that）。',
+    title: '跟著這條路線，吃透美國日常',
+    subtitle: '4 Stops to Master American Food Culture',
+    content: '四站完全掌握美國飲食文化：Stop 1 咖啡與手搖飲充電站 - 特調點餐方程式。Stop 2 美式餐廳實戰 - 用餐完整五步驟。Stop 3 超市與便利商店尋寶 - 平面圖搜尋與結帳決策樹。Stop 4 微醺與社交 - 酒吧點酒與社交破冰。',
     phrases: [
-      { en: 'Hey, how\'s it going today?', zh: '嘿，今天過得如何？' },
-      { en: 'What brought you here?', zh: '是什麼原因讓你來這裡的？' },
-      { en: 'That makes sense to me.', zh: '那對我來說很有道理。' },
-      { en: "Sorry, I didn't catch what you said.", zh: '抱歉，我沒聽清楚你剛才說的話。' },
+      { en: 'What would you recommend for first-timers?', zh: '第一次來，你推薦什麼？' },
+      { en: 'Could we split the check?', zh: '我們可以分開付嗎？' },
     ],
-    practice: '用「What\'s up?」開啟對話，對方回答後使用「That sounds interesting」來延續話題。'
+    practice: '試著用英文說出你今天想吃什麼類型的餐廳。'
   },
   {
-    title: '日常休閒娛樂英文',
-    subtitle: 'Leisure & Entertainment',
-    content: '學習非正式的計畫預約（grab a coffee）、討論活動意願（I\'m down for that）、電影與影集的心得分享（pacing feels off）以及遊戲與活動中的互動口語。',
+    title: '特調點餐方程式',
+    subtitle: 'The Custom Drink Formula',
+    content: '點餐公式：[開場白 Opener] + [容量 Size] + [溫度 Temp] + [飲品 Drink] + [奶類/客製化 Customization]。實戰例句：Could I get a medium iced latte with oat milk and no sugar? 拆解：Could I get a (開場) + medium (容量) + iced (溫度) + latte (飲品) + with oat milk and no sugar (客製化)。',
     phrases: [
-      { en: 'Are you free later today?', zh: '你等一下有空嗎？' },
-      { en: 'Maybe we could grab a coffee or something.', zh: '也許我們可以去喝杯咖啡之類的。' },
-      { en: "Sure, I'm down for that.", zh: '好啊，我加入。' },
-      { en: "I think I'm about ready to call it.", zh: '我想我差不多準備好要回家休息了。' },
+      { en: 'Could I get a medium iced latte with oat milk and no sugar?', zh: '我要一杯中杯冰拿鐵加燕麥奶、無糖。' },
+      { en: 'I\'ll have a tall cappuccino with an extra shot, please.', zh: '我要一杯小杯卡布奇諾加一份濃縮。' },
     ],
-    practice: '邀約朋友進行一場隨性的聚會，並練習如何禮貌地表達自己累了想回家。'
+    practice: '套用公式練習：點一杯大杯熱拿鐵、換燕麥奶、半糖。'
   },
   {
-    title: '每天都在用的購物英文',
-    subtitle: 'Shopping English',
-    content: '詳細介紹從進店後的開場（just browsing）、尋找特定走道（aisle）、試穿衣物（fitting room）、詢問特價與折扣（on sale）到瞭解退貨規定（return policy）的全流程。',
+    title: '口味微調儀表板',
+    subtitle: 'Customization Dashboard',
+    content: '冰量控制：Regular ice (正常冰)、Light ice (少冰)、Less ice (微冰)、No ice at all (去冰)。甜度控制：No sugar (無糖)、Less sweet (微糖)、Half sweet (半糖)、Regular sweet (全糖)。特殊開關：Decaf (低咖啡因)、Extra shot (加濃縮)、Extra hot (特別熱)、No whipped cream (去鮮奶油)。',
     phrases: [
-      { en: "I'm just looking for now.", zh: '我現在只是先隨便看看。' },
-      { en: 'Can I try this on?', zh: '我可以試穿這個嗎？' },
-      { en: 'Do you have this in medium?', zh: '這個有中號的嗎？' },
-      { en: "What's your return policy?", zh: '你們的退貨政策是什麼？' },
+      { en: 'Is it usually very sweet?', zh: '這通常會很甜嗎？' },
+      { en: 'Can you make it less sweet?', zh: '可以幫我做比較不甜嗎？' },
+      { en: 'No ice at all, please.', zh: '完全去冰，謝謝。' },
     ],
-    practice: '在服飾店試穿後發現尺寸太小，練習詢問店員是否有大一號的尺寸以及商品的保固期限。'
+    practice: '用英文跟店員說：我要一杯少冰、半糖的拿鐵。'
   },
   {
-    title: '每天都會用到的電話英文',
-    subtitle: 'Phone Call English',
-    content: '涵蓋電話溝通的所有細節，包含預約服務（make an appointment）、更改或取消時間（reschedule）、餐廳訂位、聯繫客服查詢訂單進度以及在語音信箱留下有效訊息。',
+    title: '餐廳實戰五步驟',
+    subtitle: 'The Restaurant Timeline',
+    content: '美式餐廳用餐五步驟：1.Walk-in 進門入座 "Table for two, please." 2.Seating 看菜單 "We\'re still looking at the menu." 3.Ordering 正式點餐 "I\'ll have the chicken sandwich." 4.Dining 用餐中途 "Everything is great so far, thanks." 5.Checkout 結帳 "Could we get the check, please?" 或 "Could we split the check?"',
     phrases: [
-      { en: "Hi, I'm calling about an appointment.", zh: '你好，我打來是為了預約。' },
-      { en: 'Do you have openings this week?', zh: '你們這週有空檔嗎？' },
-      { en: 'I need to reschedule my appointment.', zh: '我需要更改我的預約時間。' },
-      { en: 'Please leave your message after the tone.', zh: '請在語音提示後留言。' },
+      { en: 'Table for two, please.', zh: '兩位，謝謝。' },
+      { en: 'We\'re still looking at the menu.', zh: '我們還在看菜單。' },
+      { en: 'Could we get the check, please?', zh: '可以幫我們拿帳單嗎？' },
+      { en: 'Could we split the check?', zh: '我們可以分開付嗎？' },
     ],
-    practice: '打電話給理髮店預約剪髮，若時間不湊巧，練習詢問「next available slot」。'
+    practice: '角色扮演：從進門到結帳，練習完整五步驟對話。'
   },
   {
-    title: '用餐點餐必備英文',
-    subtitle: 'Dining & Restaurant Ordering',
-    content: '整理了從餐廳入座（reservation under the name）、看菜單詢問推薦（recommendation）、點餐時的客製化要求（without onions）到最後的結帳需求（split the check）。',
+    title: '點餐不踩雷：請店員推薦的藝術',
+    subtitle: 'Navigating the Menu',
+    content: '尋求推薦：不知從何點起問 "What would you recommend for first-timers?" 探詢招牌菜問 "What\'s your go-to dish?" 確認細節：確認份量 "Is this a big portion?"、"Is it enough to share?" 調整口味 "Is this dish very spicy?"、"Can you make it not too spicy?"',
     phrases: [
-      { en: 'Table for two please.', zh: '請給我兩人的桌位。' },
-      { en: 'What would you recommend here?', zh: '你推薦這裡的什麼菜？' },
-      { en: 'Can I get that without onions?', zh: '可以不要加洋蔥嗎？' },
-      { en: 'Could we split the check?', zh: '我們可以分開買單嗎？' },
+      { en: 'What would you recommend for first-timers?', zh: '第一次來，你推薦什麼？' },
+      { en: 'What\'s your go-to dish here?', zh: '你最常點的菜是什麼？' },
+      { en: 'Is this enough to share?', zh: '這份夠分食嗎？' },
+      { en: 'Can you make it not too spicy?', zh: '可以不要做太辣嗎？' },
     ],
-    practice: '點餐時練習客製化要求，例如「sauce on the side」或將配菜更換為沙拉。'
+    practice: '問店員三件事：推薦菜色、份量大小、辣度調整。'
   },
   {
-    title: '美國旅遊萬用英文',
-    subtitle: 'Travel English',
-    content: '針對旅遊者設計的句型，包括獲取旅遊資訊（can I ask something real quick）、尋找最近的設施（nearest restroom）、搭乘大眾運輸系統的疑問以及景點預訂（book in advance）。',
+    title: '優雅解決問題矩陣',
+    subtitle: 'Problem Resolution Diagnostic',
+    content: '上錯菜："Excuse me, I think this isn\'t what I ordered." 店員回： "I\'m so sorry, I\'ll bring it right out." 漏給配菜："I think we\'re missing the fries." 店員回："Let me grab that for you." 熟度不對："I asked for medium rare, it looks a bit well done." 店員回："We can remake it for you."',
     phrases: [
-      { en: 'Excuse me, can I ask something real quick?', zh: '抱歉，我可以很快請教一個問題嗎？' },
-      { en: 'Where is the nearest subway station?', zh: '最近的地鐵站在哪裡？' },
-      { en: 'How far is it on foot?', zh: '走路去要多久？' },
-      { en: 'Should I book in advance for this?', zh: '這需要提前預訂嗎？' },
+      { en: 'Excuse me, I think this isn\'t what I ordered.', zh: '不好意思，這好像不是我點的。' },
+      { en: 'I think we\'re missing the fries.', zh: '我們好像少了薯條。' },
+      { en: 'I asked for medium rare, it looks a bit well done.', zh: '我點的是三分熟，這看起來有點全熟。' },
     ],
-    practice: '向路人詢問某個博物館的位置，並確認該景點是否步行可達。'
+    practice: '角色扮演：餐點送錯了，練習優雅地向店員反應。'
   },
   {
-    title: '美國生活必備結帳英文',
-    subtitle: 'Checkout English',
-    content: '學習結帳時的標準流程，包含回應收銀員的問題（all set）、選擇支付方式（Apple Pay）、累積會員紅利點數（reward points）以及應對自助結帳機的常見警示音。',
+    title: '超市與超商尋寶平面圖',
+    subtitle: 'The Store Blueprint',
+    content: '走道區 (Aisles)：找不到東西問 "Where\'s the bottled water?" 店員回 "It\'s on aisle 7." 貨架區 (Shelves)：找庫存問 "Do you have any more in stock?" 後場門口 (The Back)：店員回 "Let me check the back for you." 三大定位點幫助你在超市快速找到商品。',
     phrases: [
-      { en: 'Are you all set today?', zh: '今天就買這些嗎？' },
-      { en: 'Will you be paying with card or cash?', zh: '你要刷卡還是付現？' },
-      { en: 'You can tap your card on the screen.', zh: '你可以直接感應螢幕刷卡。' },
-      { en: 'Unexpected item in the bagging area.', zh: '裝袋區有異常物品。' },
+      { en: 'Where\'s the bottled water?', zh: '瓶裝水在哪裡？' },
+      { en: 'Do you have any more in stock?', zh: '還有庫存嗎？' },
+      { en: 'Let me check the back for you.', zh: '我去後面倉庫幫你查看看。' },
     ],
-    practice: '模擬使用自助結帳機時遇到問題，練習向工作人員尋求協助。'
+    practice: '練習用英文問店員：某樣商品在哪個走道、還有沒有庫存。'
   },
   {
-    title: '美國人天天在說的職場英文',
-    subtitle: 'Workplace English',
-    content: '包含上班早晨的問候、確認工作任務期限（deadline）、在會議中提出建議（I\'d like to mention one small thing）、請假與調班流程（request off）以及結束一天的收尾工作。',
+    title: '熟食區生存指南',
+    subtitle: 'Hot Food & Deli Interactions',
+    content: '要求加熱：披薩加熱說 "Can you heat this slice up again?" 借用微波爐說 "Can I microwave this burrito here?" 確認新鮮度：三明治是否現做 "Is this sandwich freshly made?" 披薩是否還熱 "Is this pizza still hot right now?"',
     phrases: [
-      { en: 'I just want to confirm the deadline.', zh: '我只是想確認一下截止日期。' },
-      { en: "How's the presentation coming along?", zh: '簡報準備得怎麼樣了？' },
-      { en: "I'd like to request next Monday off.", zh: '我想請下週一的假。' },
-      { en: "I'm heading out for tonight.", zh: '我要下班了。' },
+      { en: 'Can you heat this slice up again?', zh: '可以幫我把這片再加熱嗎？' },
+      { en: 'Can I microwave this burrito here?', zh: '我可以在這裡微波這個捲餅嗎？' },
+      { en: 'Is this sandwich freshly made?', zh: '這三明治是現做的嗎？' },
     ],
-    practice: '練習與主管討論工作進度，並在最後表達「I\'m heading out」下班。'
+    practice: '在超商熟食區，練習要求加熱並確認食物新鮮度。'
   },
   {
-    title: '美國人每天都在說的醫療英文',
-    subtitle: 'Medical English',
-    content: '掌握看病時的關鍵對話，如描述症狀性質（sharp or dull pain）、過敏史告知（allergic to penicillin）、預約牙醫、進行物理檢查（blood pressure）以及藥局領藥流程。',
+    title: '結帳分流決策樹',
+    subtitle: 'The Checkout Decision Tree',
+    content: '包裝：店員問 "Do you need a bag?" 答 "I\'ll take a paper bag, please." 或 "I\'m good, I brought my own." 支付方式：店員問 "Card or cash?" 答 "Apple Pay, please." 或 "I\'ll pay with cash." 收據：店員問 "Email or printed receipt?" 自助結帳機陷阱："Unexpected item in the bagging area" 時找店員 "Excuse me, can you help me with this?"',
     phrases: [
-      { en: 'My stomach has been hurting today.', zh: '我的胃今天一直在痛。' },
-      { en: 'Is the pain sharp or dull?', zh: '痛感是尖銳的還是隱隱作痛？' },
-      { en: "I'm allergic to penicillin.", zh: '我對青黴素過敏。' },
-      { en: "I'm here to pick up a prescription.", zh: '我來拿處方藥。' },
+      { en: 'I\'ll take a paper bag, please.', zh: '我要一個紙袋，謝謝。' },
+      { en: 'Apple Pay, please.', zh: '我用 Apple Pay。' },
+      { en: 'Excuse me, can you help me with this?', zh: '不好意思，可以幫我處理這個嗎？' },
     ],
-    practice: '向醫生描述疼痛的頻率，是「comes and goes」還是「constant」。'
+    practice: '模擬結帳：練習回答包裝、支付、收據三連問。'
   },
   {
-    title: '美國便利店最常用英文',
-    subtitle: 'Convenience Store English',
-    content: '實用的店內對話，包含尋找架上商品（snack aisle）、在加油泵進行支付（prepay）、詢問熟食新鮮度（freshly made）以及索取店內洗手間的通行碼。',
+    title: '酒吧點酒口味象限圖',
+    subtitle: 'The Drink Spectrum Matrix',
+    content: '口味分類：偏甜 (Sweet) 問 "What\'s the sweetest drink here?" 清爽果香 (Fruity) 說 "I want something fruity instead." 偏乾/苦 (Dry/Bitter) 說 "Can you make it a bit lighter?" 經典濃烈 (Strong) 說 "I like it smooth, not strong." 四象限幫你找到最適合的調酒。',
     phrases: [
-      { en: 'Where can I find the snack aisle?', zh: '我在哪裡可以找到零食區？' },
-      { en: 'Is this sandwich freshly made?', zh: '這份三明治是新鮮現做的嗎？' },
-      { en: "I'll put $20 on pump six.", zh: '我要在六號油泵加 20 美元。' },
-      { en: 'The code for the door is on your receipt.', zh: '門的密碼在你的收據上。' },
+      { en: 'What\'s the sweetest drink here?', zh: '這裡最甜的調酒是什麼？' },
+      { en: 'I want something fruity instead.', zh: '我想要水果風味的。' },
+      { en: 'Can you make it a bit lighter?', zh: '可以幫我調淡一點嗎？' },
     ],
-    practice: '練習在櫃檯預付加油費（prepay），並詢問店內是否有提供免費 Wi-Fi。'
+    practice: '跟調酒師說你喜歡的口味方向，讓他推薦適合的酒。'
   },
   {
-    title: '美國城市生活實境聽力',
-    subtitle: 'City Life Survival',
-    content: '應對繁忙城市生活的各種突發狀況，如早起趕車（running late）、在擁擠的地鐵穿梭（squeeze through）、手機沒電借充電器、應對 Uber 取消以及包裹物流延誤等現實情境。',
+    title: '餐桌上的破冰與接話術',
+    subtitle: 'Table Small Talk',
+    content: '破冰起手式："So, do you come here often?" "What\'s your go-to drink?" "This place has a great vibe." 熱情附和術：驚豔附和 "That\'s surprisingly smooth actually!" 同感附和 "Yeah, I get what you mean." 延續話題 "Oh yeah? What happened then?"',
     phrases: [
-      { en: "Oh crap, I'm running late again.", zh: '糟了，我又遲到了。' },
-      { en: 'Excuse me, can I squeeze through?', zh: '抱歉，我可以擠過去嗎？' },
-      { en: "My phone's about to completely die.", zh: '我的手機快要完全沒電了。' },
-      { en: 'Wait, my Uber just got cancelled again.', zh: '等等，我的 Uber 又被取消了。' },
+      { en: 'So, do you come here often?', zh: '你常來這裡嗎？' },
+      { en: 'This place has a great vibe.', zh: '這家店氣氛很棒。' },
+      { en: 'That\'s surprisingly smooth actually!', zh: '這喝起來意外地滑順！' },
+      { en: 'Oh yeah? What happened then?', zh: '真的嗎？那後來呢？' },
     ],
-    practice: '練習在擁擠的地鐵中禮貌地請人讓路，以及如何向陌生人借用充電器。'
+    practice: '練習三種破冰句 + 三種附和句，在聚會中自然聊天。'
   },
   {
-    title: '美國生活實境英文應用',
-    subtitle: 'Real-Life American English',
-    content: '結合日常生活的瑣碎情境，如早晨睡過頭（slept in）、咖啡店點餐（oat milk）、超市內找不到商品以及在路上開車時 GPS 的重新導航與路況應對。',
+    title: '美式萬用禮貌語氣轉換器',
+    subtitle: 'The Polite Modifier Engine',
+    content: '生硬命令式轉換為禮貌美式表達："Give me a coffee." → "Could I get a coffee, please?" "I want this changed." → "Would it be possible to change this?" "I want to ask..." → "I was wondering if you could help me." 核心洞察：美國人極少使用祈使句，掌握 "Could I get..." 與 "I was wondering if..." 兩大金鑰。',
     phrases: [
-      { en: "I feel kind of out of it now.", zh: '我現在感覺有點神志恍惚。' },
-      { en: "I'll get a medium iced latte.", zh: '我要一杯中杯冰拿鐵。' },
-      { en: "I came in for one thing, not all this.", zh: '我本來只打算買一樣東西，結果買了這麼多。' },
-      { en: "It's rerouting the whole thing again.", zh: '它（GPS）又在重新導航了。' },
+      { en: 'Could I get a coffee, please?', zh: '請問我可以要一杯咖啡嗎？' },
+      { en: 'Would it be possible to change this?', zh: '請問可以換這個嗎？' },
+      { en: 'I was wondering if you could help me.', zh: '我想請問你是否可以幫我一個忙。' },
     ],
-    practice: '在咖啡店練習點一份「usual」的飲品，並練習描述自己早上睡懶覺的情況。'
+    practice: '把三個生硬命令句改寫成禮貌美式表達。'
   },
   {
-    title: '聚會交友社交英文',
-    subtitle: 'Social & Networking',
-    content: '社交場合的生存技巧，包含如何自我介紹破冰、在閒談中尋找共同興趣（common ground）、禮貌地加入一群人的對話以及在派對結束前優雅地道別（catch you later）。',
+    title: '美食生存四大金句矩陣',
+    subtitle: 'The Ultimate Foodie Cheat Sheet',
+    content: '四大日常場景核心金句：Cafe 咖啡廳 "Could I get a [size] [drink] with [milk choice]?" Restaurant 餐廳 "We\'re still looking at the menu."、"Could we split the check?" Store 超市 "Where can I find [item]?"、"I\'ll pay with Apple Pay." Bar 酒吧 "What\'s your go-to drink?"、"Can you make it a bit lighter?" 建議截圖保存，下次出國直接用！',
     phrases: [
-      { en: "I don't think we've met before.", zh: '我想我們以前沒見過面。' },
-      { en: 'So what do you do for work?', zh: '你是做什麼工作的？' },
-      { en: 'I love hiking on weekends a lot.', zh: '我很喜歡在週末去爬山。' },
-      { en: "That's crazy, what are the odds?", zh: '太瘋狂了，真巧！' },
+      { en: 'Could I get a medium latte with oat milk?', zh: '我要一杯中杯拿鐵加燕麥奶。' },
+      { en: 'Where can I find bottled water?', zh: '瓶裝水在哪裡？' },
+      { en: 'What\'s your go-to drink?', zh: '你通常都點什麼喝？' },
     ],
-    practice: '在派對中找與你有共同點的人，練習使用「That reminds me of...」來延續話題。'
+    practice: '選一個場景，練習說出該場景的金句。'
   },
   {
-    title: '點喝的東西必備英文',
-    subtitle: 'Ordering Drinks',
-    content: '完整收錄點購咖啡（extra shot, decaf）、手搖飲（half sweet, light ice）以及在酒吧點酒（on the rocks）的專業術語，並包含簡單的酒後社交寒暄與祝酒。',
+    title: 'You\'re all set! 準備好自信開口了嗎！',
+    subtitle: 'Bon Appétit!',
+    content: '不再害怕點餐結帳，用最道地的英文，吃遍美國每一個角落。Stop stressing over orders. Speak like a local, and enjoy every bite of your American journey. 簡報圓滿結束。Bon Appétit!',
     phrases: [
-      { en: 'Can you make it less sweet?', zh: '可以做不那麼甜嗎？' },
-      { en: 'Add an extra shot please.', zh: '請幫我多加一份濃縮。' },
-      { en: 'Can I get another round?', zh: '可以再來一輪（酒）嗎？' },
-      { en: 'Cheers everyone!', zh: '大家乾杯！' },
+      { en: 'You\'re all set!', zh: '都準備好了！' },
+      { en: 'Bon Appétit!', zh: '祝胃口大開！' },
     ],
-    practice: '練習點一杯不加糖但要換成燕麥奶（oat milk）的客製化咖啡。'
+    practice: '帶著這份指南，自信地走進任何一家餐廳！'
   },
 ]

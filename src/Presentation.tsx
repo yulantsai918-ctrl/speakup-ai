@@ -134,21 +134,18 @@ export default function Presentation() {
       }
     } else {
       const pairs: [RegExp, number, string][] = [
-        [/交通|通勤|問路|公車/, 1, '第1頁「出行交通必備英文」：通勤寒暄、問路與公共運輸導覽。'],
-        [/聊天|交流|開啟對話|how'?s it going/, 2, '第2頁「聊天交流」：開啟對話說 How\'s it going? 沒聽清說 I didn\'t catch that.'],
-        [/休閒|娛樂|咖啡|電影|邀約/, 3, '第3頁「休閒娛樂」：邀約說 Are you free later? 加入說 I\'m down for that.'],
-        [/購物|試穿|退貨|尺寸/, 4, '第4頁「購物英文」：試穿說 Can I try this on? 詢問退貨說 What\'s your return policy?'],
-        [/電話|預約|訂位|客服/, 5, '第5頁「電話英文」：預約說 I\'m calling about an appointment. 改期說 I need to reschedule.'],
-        [/用餐|點餐|菜單|餐廳/, 6, '第6頁「用餐點餐」：入座說 Table for two. 客製說 Can I get that without onions?'],
-        [/旅遊|觀光|景點|博物館/, 7, '第7頁「旅遊英文」：問路說 Where is the nearest subway station? 預訂說 Should I book in advance?'],
-        [/結帳|付款|刷卡|自助/, 8, '第8頁「結帳英文」：店員問 Are you all set? 感應說 You can tap your card.'],
-        [/職場|上班|請假|會議/, 9, '第9頁「職場英文」：確認期限說 I just want to confirm the deadline. 請假說 I\'d like to request next Monday off.'],
-        [/醫療|醫生|看病|藥局/, 10, '第10頁「醫療英文」：描述痛感 Is it sharp or dull? 領藥說 I\'m here to pick up a prescription.'],
-        [/便利店|加油|零食/, 11, '第11頁「便利店」：找商品說 Where can I find the snack aisle? 加油說 I\'ll put $20 on pump six.'],
-        [/遲到|地鐵|手機沒電|Uber/, 12, '第12頁「城市生活」：遲到說 I\'m running late. 擠地鐵說 Can I squeeze through?'],
-        [/生活|咖啡店|睡過頭|GPS/, 13, '第13頁「生活實境」：點咖啡說 I\'ll get a medium iced latte. 睡過頭說 I slept in.'],
-        [/聚會|派對|社交|破冰/, 14, '第14頁「社交英文」：破冰說 I don\'t think we\'ve met before. 找共同點說 So what do you do for work?'],
-        [/飲料|咖啡|酒|乾杯/, 15, '第15頁「點飲料」：加濃縮說 Add an extra shot. 再一輪說 Can I get another round?'],
+        [/點餐|咖啡|飲料|拿鐵|公式/, 3, '第3頁「特調點餐方程式」：公式為 [開場] + [容量] + [溫度] + [飲品] + [客製化]。例句：Could I get a medium iced latte with oat milk?'],
+        [/口味|冰量|甜度|微調|去冰|無糖/, 4, '第4頁「口味微調儀表板」：去冰說 No ice at all. 微糖說 Less sweet. 不確定甜度問 Is it usually very sweet?'],
+        [/餐廳|用餐|五步驟|入座|看菜單/, 5, '第5頁「餐廳實戰五步驟」：入座說 Table for two. 看菜單說 We\'re still looking. 結帳說 Could we get the check?'],
+        [/推薦|招牌|踩雷|菜單/, 6, '第6頁「點餐不踩雷」：問推薦說 What would you recommend for first-timers? 問招牌說 What\'s your go-to dish?'],
+        [/上錯|漏給|客訴|熟度|抱怨/, 7, '第7頁「優雅解決問題矩陣」：上錯菜說 I think this isn\'t what I ordered. 熟度不對說 I asked for medium rare.'],
+        [/超市|超商|走道|貨架|庫存/, 8, '第8頁「超市尋寶平面圖」：問位置說 Where\'s the bottled water? 問庫存說 Do you have any more in stock?'],
+        [/熟食|加熱|微波|新鮮|披薩/, 9, '第9頁「熟食區生存指南」：加熱說 Can you heat this slice up? 問新鮮說 Is this sandwich freshly made?'],
+        [/結帳|付款|刷卡|收據|自助/, 10, '第10頁「結帳決策樹」：要袋子說 I\'ll take a paper bag. 付款說 Apple Pay please. 自助機求救說 Can you help me with this?'],
+        [/酒吧|調酒|點酒|口味|微醺/, 11, '第11頁「酒吧點酒象限圖」：偏甜問 What\'s the sweetest drink here? 清淡說 I want something fruity.'],
+        [/破冰|接話|社交|聊天|附和/, 12, '第12頁「餐桌破冰術」：破冰說 So, do you come here often? 附和說 That\'s surprisingly smooth!'],
+        [/禮貌|語氣|轉換|Could I get|祈使/, 13, '第13頁「禮貌語氣轉換器」：把 Give me a coffee 改為 Could I get a coffee please? 關鍵句 I was wondering if you could help me.'],
+        [/金句|矩陣| cheat sheet/, 14, '第14頁「四大金句矩陣」：咖啡廳、餐廳、超市、酒吧各場景一句核心金句整理。'],
       ]
       for (const [regex, slide, reply] of pairs) {
         if (regex.test(query)) {
