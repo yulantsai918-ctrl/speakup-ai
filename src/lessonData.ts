@@ -1,6 +1,7 @@
 export interface LessonSlide {
   title: string
   subtitle: string
+  category: string
   content: string
   phrases: { en: string; zh: string }[]
   practice: string
@@ -9,84 +10,138 @@ export interface LessonSlide {
 export const LESSON_2_SLIDES: LessonSlide[] = [
   {
     title: '吃貨必備的英文生存指南',
-    subtitle: 'The American Foodie Survival Guide',
-    content: '從咖啡廳、美式餐廳到超商酒吧，點餐結帳不卡關的實戰句型庫。內容涵蓋四大站點：1.咖啡與手搖飲充電站 (Morning Boost) 2.美式餐廳實戰 (Dining Out) 3.超市與便利商店尋寶 (Grocery & Convenience) 4.微醺與社交 (Nightlife Social)。',
+    subtitle: '從咖啡廳、美式餐廳到超商酒吧，點餐結帳不卡關的實戰句型庫。',
+    category: 'Morning Boost',
+    content: `【美國生活實境: 吃貨必備的英文生存指南 (The American Foodie Survival Guide)】
+• 從咖啡廳、美式餐廳到超商酒吧, 點餐結帳不卡關的實戰句型庫。
+• 簡報製作: NotebookLM Studio
+• 內容涵蓋四大站點: 
+  1. 咖啡與手搖飲充電站 (Morning Boost)
+  2. 美式餐廳實戰 (Dining Out)
+  3. 超市與便利商店尋寶 (Grocery & Convenience)
+  4. 微醺與社交 (Nightlife Social)`,
     phrases: [
+      { en: 'The American Foodie Survival Guide', zh: '吃貨必備的英文生存指南' },
       { en: 'Could I get a medium iced latte with oat milk?', zh: '我可以要一杯中杯冰拿鐵加燕麥奶嗎？' },
-      { en: 'Table for two, please.', zh: '兩位，謝謝。' },
     ],
-    practice: '跟著這份指南，從咖啡廳到酒吧，完整掌握美食英文！'
+    practice: '從咖啡廳、美式餐廳到超商酒吧，跟著這份指南點餐結帳不卡關！'
   },
   {
     title: '跟著這條路線，吃透美國日常',
     subtitle: '4 Stops to Master American Food Culture',
-    content: '四站完全掌握美國飲食文化：Stop 1 咖啡與手搖飲充電站 - 特調點餐方程式。Stop 2 美式餐廳實戰 - 用餐完整五步驟。Stop 3 超市與便利商店尋寶 - 平面圖搜尋與結帳決策樹。Stop 4 微醺與社交 - 酒吧點酒與社交破冰。',
+    category: 'Morning Boost',
+    content: `【跟著這條路線, 吃透美國日常 (4 Stops to Master American Food Culture)】
+• Stop 1: 咖啡與手搖飲充電站 (Morning Boost) - 咖啡與茶飲的特調點餐方程式。
+• Stop 2: 美式餐廳實戰 (Dining Out) - 體驗美國餐廳用餐完整五步驟、尋求推薦與優雅應對問題。
+• Stop 3: 超市與便利商店尋寶 (Grocery & Convenience) - 平面圖搜尋、找庫存、熟食要求加熱、結帳決策樹。
+• Stop 4: 微醺與社交 (Nightlife Social) - 酒吧點酒口味象限圖與社交破冰小撇步。`,
     phrases: [
-      { en: 'What would you recommend for first-timers?', zh: '第一次來，你推薦什麼？' },
+      { en: 'What would you recommend for first-timers?', zh: '第一次來，推薦什麼？' },
       { en: 'Could we split the check?', zh: '我們可以分開付嗎？' },
     ],
-    practice: '試著用英文說出你今天想吃什麼類型的餐廳。'
+    practice: '說說看你今天想吃哪一站的美食？試著用英文回答。'
   },
   {
     title: '特調點餐方程式',
     subtitle: 'The Custom Drink Formula',
-    content: '點餐公式：[開場白 Opener] + [容量 Size] + [溫度 Temp] + [飲品 Drink] + [奶類/客製化 Customization]。實戰例句：Could I get a medium iced latte with oat milk and no sugar? 拆解：Could I get a (開場) + medium (容量) + iced (溫度) + latte (飲品) + with oat milk and no sugar (客製化)。',
+    category: 'Morning Boost',
+    content: `【特調點餐方程式 (The Custom Drink Formula)】
+• 公式架構: [開場白 Opener] + [容量 Size] + [溫度 Temp] + [飲品 Drink] + [奶類/客製化 Customization]
+• 實戰例句: Could I get a medium iced latte with oat milk and no sugar?
+• 拆解:
+  - [開場白 Opener]: Could I get a ...
+  - [容量 Size]: medium
+  - [溫度 Temp]: iced
+  - [飲品 Drink]: latte
+  - [客製化 Customization]: with oat milk and no sugar (加燕麥奶、無糖)`,
     phrases: [
       { en: 'Could I get a medium iced latte with oat milk and no sugar?', zh: '我要一杯中杯冰拿鐵加燕麥奶、無糖。' },
       { en: 'I\'ll have a tall cappuccino with an extra shot, please.', zh: '我要一杯小杯卡布奇諾加一份濃縮。' },
+      { en: 'Could I get a medium iced latte with oat milk and no sugar? 拆解：Could I get a (開場) + medium (容量) + iced (溫度) + latte (飲品) + with oat milk and no sugar (客製化)', zh: '點餐公式示範' },
     ],
-    practice: '套用公式練習：點一杯大杯熱拿鐵、換燕麥奶、半糖。'
+    practice: '套用公式練習：Could I get a [size] [temp] [drink] with [customization]?'
   },
   {
     title: '口味微調儀表板',
     subtitle: 'Customization Dashboard',
-    content: '冰量控制：Regular ice (正常冰)、Light ice (少冰)、Less ice (微冰)、No ice at all (去冰)。甜度控制：No sugar (無糖)、Less sweet (微糖)、Half sweet (半糖)、Regular sweet (全糖)。特殊開關：Decaf (低咖啡因)、Extra shot (加濃縮)、Extra hot (特別熱)、No whipped cream (去鮮奶油)。',
+    category: 'Morning Boost',
+    content: `【口味微調儀表板 (Customization Dashboard)】
+• 冰量控制 (Ice Level): Regular ice, Light ice, Less ice, No ice at all (完全去冰)
+• 甜度控制 (Sweetness): No sugar added (0%), Less sweet (微糖), Half sweet (半糖), Regular sweet (100%全糖)
+• 特殊開關 (Extra Switches): Decaf (低咖啡因), Extra shot (多一份濃縮), Extra hot (特別熱), No whipped cream (去鮮奶油)
+• 實用問答: 
+  - 「這通常會很甜嗎?」 -> Is it usually very sweet?
+  - 「可以幫我做比較不甜嗎?」 -> Can you make it less sweet?`,
     phrases: [
       { en: 'Is it usually very sweet?', zh: '這通常會很甜嗎？' },
       { en: 'Can you make it less sweet?', zh: '可以幫我做比較不甜嗎？' },
       { en: 'No ice at all, please.', zh: '完全去冰，謝謝。' },
     ],
-    practice: '用英文跟店員說：我要一杯少冰、半糖的拿鐵。'
+    practice: '練習用英文跟店員說：少冰、半糖、加一份濃縮。'
   },
   {
     title: '餐廳實戰五步驟',
     subtitle: 'The Restaurant Timeline',
-    content: '美式餐廳用餐五步驟：1.Walk-in 進門入座 "Table for two, please." 2.Seating 看菜單 "We\'re still looking at the menu." 3.Ordering 正式點餐 "I\'ll have the chicken sandwich." 4.Dining 用餐中途 "Everything is great so far, thanks." 5.Checkout 結帳 "Could we get the check, please?" 或 "Could we split the check?"',
+    category: 'Dining Out',
+    content: `【Dining Out - 餐廳實戰五步驟 (The Restaurant Timeline)】
+• 美式餐廳用餐完整生命週期:
+  1. Walk-in (進門入座): "Table for two, please." (兩位，謝謝) / "Do you have patio seating?" (有戶外座位嗎?)
+  2. Seating (看菜單): "We're still looking at the menu." (我們還在看菜單)
+  3. Ordering (正式點餐): "I'll have the chicken sandwich." (我要一份雞肉三明治)
+  4. Dining (用餐中途): "Everything is great so far, thanks." (目前一切都很棒，謝謝)
+  5. Checkout (結帳): "Could we get the check, please?" (可以幫我們拿帳單嗎?) / "Could we split the check?" (我們可以分開付嗎?)`,
     phrases: [
       { en: 'Table for two, please.', zh: '兩位，謝謝。' },
       { en: 'We\'re still looking at the menu.', zh: '我們還在看菜單。' },
       { en: 'Could we get the check, please?', zh: '可以幫我們拿帳單嗎？' },
       { en: 'Could we split the check?', zh: '我們可以分開付嗎？' },
     ],
-    practice: '角色扮演：從進門到結帳，練習完整五步驟對話。'
+    practice: '角色扮演：從進門到結帳，練習餐廳五步驟完整對話。'
   },
   {
     title: '點餐不踩雷：請店員推薦的藝術',
     subtitle: 'Navigating the Menu',
-    content: '尋求推薦：不知從何點起問 "What would you recommend for first-timers?" 探詢招牌菜問 "What\'s your go-to dish?" 確認細節：確認份量 "Is this a big portion?"、"Is it enough to share?" 調整口味 "Is this dish very spicy?"、"Can you make it not too spicy?"',
+    category: 'Dining Out',
+    content: `【點餐不踩雷: 請店員推薦的藝術 (Navigating the Menu)】
+• 尋求推薦 (Ask for Recs):
+  - 不知從何點起: "What would you recommend for first-timers?" (第一次來，推薦什麼?)
+  - 探詢招牌菜: "What's your go-to dish?" (你最愛、常點的菜是什麼?)
+• 確認細節 (Confirm Details):
+  - 確認份量大小: "Is this a big portion?" / "Is it enough to share?" (份量大嗎/夠分食嗎?)
+  - 調整辣度口味: "Is this dish very spicy?" / "Can you make it not too spicy?" (這會很辣嗎/能做不辣一點嗎?)`,
     phrases: [
-      { en: 'What would you recommend for first-timers?', zh: '第一次來，你推薦什麼？' },
+      { en: 'What would you recommend for first-timers?', zh: '第一次來，推薦什麼？' },
       { en: 'What\'s your go-to dish here?', zh: '你最常點的菜是什麼？' },
       { en: 'Is this enough to share?', zh: '這份夠分食嗎？' },
       { en: 'Can you make it not too spicy?', zh: '可以不要做太辣嗎？' },
     ],
-    practice: '問店員三件事：推薦菜色、份量大小、辣度調整。'
+    practice: '跟店員問三件事：推薦菜色、份量大小、辣度調整。'
   },
   {
     title: '優雅解決問題矩陣',
     subtitle: 'Problem Resolution Diagnostic',
-    content: '上錯菜："Excuse me, I think this isn\'t what I ordered." 店員回： "I\'m so sorry, I\'ll bring it right out." 漏給配菜："I think we\'re missing the fries." 店員回："Let me grab that for you." 熟度不對："I asked for medium rare, it looks a bit well done." 店員回："We can remake it for you."',
+    category: 'Dining Out',
+    content: `【優雅解決問題矩陣 (Problem Resolution Diagnostic)】
+• 在美式餐廳遇到突發狀況時的優雅反應:
+  - 狀況A: 上錯菜 (The Problem) -> "Excuse me, I think this isn't what I ordered." (抱歉，這好像不是我點的) -> 預期回覆: "I'm so sorry about that. I'll bring it right out."
+  - 狀況B: 漏給配菜 -> "I think we're missing the fries." (我們好像漏了薯條) -> 預期回覆: "Let me grab that for you."
+  - 狀況C: 熟度不對 -> "I asked for medium rare, it looks a bit well done." (我點的是三分熟，這看起來有點全熟) -> 預期回覆: "We can remake it for you. / Would it be possible to redo this?"`,
     phrases: [
       { en: 'Excuse me, I think this isn\'t what I ordered.', zh: '不好意思，這好像不是我點的。' },
       { en: 'I think we\'re missing the fries.', zh: '我們好像少了薯條。' },
       { en: 'I asked for medium rare, it looks a bit well done.', zh: '我點的是三分熟，這看起來有點全熟。' },
     ],
-    practice: '角色扮演：餐點送錯了，練習優雅地向店員反應。'
+    practice: '角色扮演：餐點送錯了或熟度不對，練習優雅地向店員反應。'
   },
   {
     title: '超市與超商尋寶平面圖',
     subtitle: 'The Store Blueprint',
-    content: '走道區 (Aisles)：找不到東西問 "Where\'s the bottled water?" 店員回 "It\'s on aisle 7." 貨架區 (Shelves)：找庫存問 "Do you have any more in stock?" 後場門口 (The Back)：店員回 "Let me check the back for you." 三大定位點幫助你在超市快速找到商品。',
+    category: 'Grocery & Convenience',
+    content: `【Grocery & Convenience - 超市與便利商店尋寶 (The Store Blueprint)】
+• 超市尋寶平面圖實戰對話：
+  - Pin 1: 走道區 (Aisles) - 找不到東西 -> 用英文詢問: "Where's the bottled water?" (瓶裝水在哪裡?) -> 店員回覆: "It's on aisle 7." (在第七排走道)
+  - Pin 2: 貨架區 (Shelves) - 找尋庫存 -> 用英文詢問: "Do you have any more in stock?" (還有庫存嗎?)
+  - Pin 3: 後場門口 (The Back) - 庫存查詢 -> 店員經典回覆: "Let me check the back for you." (我去後台倉庫幫您查查看)`,
     phrases: [
       { en: 'Where\'s the bottled water?', zh: '瓶裝水在哪裡？' },
       { en: 'Do you have any more in stock?', zh: '還有庫存嗎？' },
@@ -97,7 +152,15 @@ export const LESSON_2_SLIDES: LessonSlide[] = [
   {
     title: '熟食區生存指南',
     subtitle: 'Hot Food & Deli Interactions',
-    content: '要求加熱：披薩加熱說 "Can you heat this slice up again?" 借用微波爐說 "Can I microwave this burrito here?" 確認新鮮度：三明治是否現做 "Is this sandwich freshly made?" 披薩是否還熱 "Is this pizza still hot right now?"',
+    category: 'Grocery & Convenience',
+    content: `【熟食區生存指南 (Hot Food & Deli Interactions)】
+• 超市便利商店熟食部互動英文:
+  - 要求加熱 (Heating Requests):
+    1. "Can you heat this slice up again?" (可以幫我把這片披薩再加熱嗎?)
+    2. "Can I microwave this burrito here?" (我可以在這裡微波這個捲餅嗎?)
+  - 確認新鮮度 (Checking Freshness):
+    1. "Is this sandwich freshly made?" (這三明治是現做的嗎?)
+    2. "Is this pizza still hot right now?" (這片披薩現在還是熱的嗎?)`,
     phrases: [
       { en: 'Can you heat this slice up again?', zh: '可以幫我把這片再加熱嗎？' },
       { en: 'Can I microwave this burrito here?', zh: '我可以在這裡微波這個捲餅嗎？' },
@@ -108,10 +171,22 @@ export const LESSON_2_SLIDES: LessonSlide[] = [
   {
     title: '結帳分流決策樹',
     subtitle: 'The Checkout Decision Tree',
-    content: '包裝：店員問 "Do you need a bag?" 答 "I\'ll take a paper bag, please." 或 "I\'m good, I brought my own." 支付方式：店員問 "Card or cash?" 答 "Apple Pay, please." 或 "I\'ll pay with cash." 收據：店員問 "Email or printed receipt?" 自助結帳機陷阱："Unexpected item in the bagging area" 時找店員 "Excuse me, can you help me with this?"',
+    category: 'Grocery & Convenience',
+    content: `【結帳分流決策樹 (The Checkout Decision Tree)】
+• 包裝 (Bags):
+  - 店員問: "Do you need a bag for these?" (需要袋子裝嗎?)
+  - 顧客答: "I'll take a paper/plastic bag, please." (我要紙袋/塑膠袋) 或 "I'm good, I brought my own." (不用，我自己有帶)
+• 支付方式 (Payment):
+  - 店員問: "Will you be paying with card or cash?" (刷卡還是付現?)
+  - 顧客答: "Tap, insert, or Apple Pay." (感應、插卡或用 Apple Pay) 或 "I'll pay with cash." (我付現金)
+• 收據 (Receipt):
+  - 店員問: "Would you like email or printed receipt?" (收據要用 Email 還是列印?)
+  - 顧客答: "Email / Printed copy, please." (請寄到信箱/列印紙本收據)
+• 自助結帳機的魔咒 (Self-Checkout Trap):
+  - 聽到 "Unexpected item in the bagging area" 警報時，請尋求協助: "Excuse me, can you help me with this?"`,
     phrases: [
       { en: 'I\'ll take a paper bag, please.', zh: '我要一個紙袋，謝謝。' },
-      { en: 'Apple Pay, please.', zh: '我用 Apple Pay。' },
+      { en: 'Apple Pay, please.', zh: '我用 Apple Pay 支付。' },
       { en: 'Excuse me, can you help me with this?', zh: '不好意思，可以幫我處理這個嗎？' },
     ],
     practice: '模擬結帳：練習回答包裝、支付、收據三連問。'
@@ -119,7 +194,12 @@ export const LESSON_2_SLIDES: LessonSlide[] = [
   {
     title: '酒吧點酒口味象限圖',
     subtitle: 'The Drink Spectrum Matrix',
-    content: '口味分類：偏甜 (Sweet) 問 "What\'s the sweetest drink here?" 清爽果香 (Fruity) 說 "I want something fruity instead." 偏乾/苦 (Dry/Bitter) 說 "Can you make it a bit lighter?" 經典濃烈 (Strong) 說 "I like it smooth, not strong." 四象限幫你找到最適合的調酒。',
+    category: 'Nightlife Social',
+    content: `【Nightlife Social - 酒吧點酒口味象限圖 (The Drink Spectrum Matrix)】
+• 口味分類象限與點餐句型:
+  1. 偏甜 (Sweet): "What's the sweetest drink here?" (這裡最甜的調酒是什麼?)
+  2. 清爽果香 (Light / Fruity): "I want something fruity instead." (我想要水果風味的調酒) / "I like something light to drink." (我喜歡清淡好入口的酒)
+  3. 偏乾 / 苦 (Dry / Bitter) & 經典濃烈 (Strong / Classic): "Can you make it a bit lighter?" (可以幫我調淡一點嗎?) / "I like it smooth, not strong." (我喜歡滑順、不刺激濃烈的口感)`,
     phrases: [
       { en: 'What\'s the sweetest drink here?', zh: '這裡最甜的調酒是什麼？' },
       { en: 'I want something fruity instead.', zh: '我想要水果風味的。' },
@@ -130,7 +210,16 @@ export const LESSON_2_SLIDES: LessonSlide[] = [
   {
     title: '餐桌上的破冰與接話術',
     subtitle: 'Table Small Talk',
-    content: '破冰起手式："So, do you come here often?" "What\'s your go-to drink?" "This place has a great vibe." 熱情附和術：驚豔附和 "That\'s surprisingly smooth actually!" 同感附和 "Yeah, I get what you mean." 延續話題 "Oh yeah? What happened then?"',
+    category: 'Nightlife Social',
+    content: `【餐桌上的破冰與接話術 (Table Small Talk)】
+• 破冰起手式 (Ice Breakers):
+  1. "So, do you come here often?" (你常來這家店嗎?)
+  2. "What's your go-to drink?" (你通常來都點什麼酒/飲料?)
+  3. "This place has a great vibe." (這家店氣氛超級棒)
+• 熱情附和術 (Reactions & Engagement):
+  - 驚豔附和: "That's surprisingly smooth actually!" (這喝起來意外地非常滑順!)
+  - 同感附和: "Yeah, I get what you mean there." (真的，我懂你的意思)
+  - 延續話題: "Oh yeah? What happened then?" (喔是嗎？那後來發生什麼事了?)`,
     phrases: [
       { en: 'So, do you come here often?', zh: '你常來這裡嗎？' },
       { en: 'This place has a great vibe.', zh: '這家店氣氛很棒。' },
@@ -142,33 +231,50 @@ export const LESSON_2_SLIDES: LessonSlide[] = [
   {
     title: '美式萬用禮貌語氣轉換器',
     subtitle: 'The Polite Modifier Engine',
-    content: '生硬命令式轉換為禮貌美式表達："Give me a coffee." → "Could I get a coffee, please?" "I want this changed." → "Would it be possible to change this?" "I want to ask..." → "I was wondering if you could help me." 核心洞察：美國人極少使用祈使句，掌握 "Could I get..." 與 "I was wondering if..." 兩大金鑰。',
+    category: 'Synthesis & Conclusion',
+    content: `【美式萬用禮貌語氣轉換器 (The Polite Modifier Engine)】
+• 生硬的要求 (Blunt Request) -> 禮貌的美式表達 (Polite American English):
+  - 生硬: "Give me a coffee." -> 轉換: "Could I get a coffee, please?"
+  - 生硬: "I want this changed." -> 轉換: "Would it be possible to change this?"
+  - 生硬: "I want to ask..." -> 轉換: "I was wondering if you could help me."
+• 核心洞察: 美國人點餐與要求服務時，極少使用「祈使句」。只要掌握 "Could I get..." 與 "I was wondering if..." 兩大金鑰，就能瞬間提升英文溝通質感。`,
     phrases: [
       { en: 'Could I get a coffee, please?', zh: '請問我可以要一杯咖啡嗎？' },
       { en: 'Would it be possible to change this?', zh: '請問可以換這個嗎？' },
       { en: 'I was wondering if you could help me.', zh: '我想請問你是否可以幫我一個忙。' },
     ],
-    practice: '把三個生硬命令句改寫成禮貌美式表達。'
+    practice: '把三個生硬命令句改寫成禮貌的美式表達。'
   },
   {
     title: '美食生存四大金句矩陣',
     subtitle: 'The Ultimate Foodie Cheat Sheet',
-    content: '四大日常場景核心金句：Cafe 咖啡廳 "Could I get a [size] [drink] with [milk choice]?" Restaurant 餐廳 "We\'re still looking at the menu."、"Could we split the check?" Store 超市 "Where can I find [item]?"、"I\'ll pay with Apple Pay." Bar 酒吧 "What\'s your go-to drink?"、"Can you make it a bit lighter?" 建議截圖保存，下次出國直接用！',
+    category: 'Synthesis & Conclusion',
+    content: `【美食生存四大金句矩陣 (The Ultimate Foodie Cheat Sheet)】
+• 四大日常場景最核心金句整理:
+  1. Cafe (咖啡廳): "Could I get a [size] [drink] with [milk choice]?"
+  2. Restaurant (餐廳): "We're still looking at the menu." / "Could we split the check?"
+  3. Store (超市/超商): "Where can I find [item]?" / "I'll pay with Apple Pay."
+  4. Bar (酒吧/社交): "What's your go-to drink?" / "Can you make it a bit lighter?"
+• 建議: 截圖保存，下次出國直接用! (Screenshot this for your next trip!)`,
     phrases: [
       { en: 'Could I get a medium latte with oat milk?', zh: '我要一杯中杯拿鐵加燕麥奶。' },
       { en: 'Where can I find bottled water?', zh: '瓶裝水在哪裡？' },
       { en: 'What\'s your go-to drink?', zh: '你通常都點什麼喝？' },
     ],
-    practice: '選一個場景，練習說出該場景的金句。'
+    practice: '選一個場景（Cafe / Restaurant / Store / Bar），練習說出該場景的金句。'
   },
   {
     title: 'You\'re all set! 準備好自信開口了嗎！',
     subtitle: 'Bon Appétit!',
-    content: '不再害怕點餐結帳，用最道地的英文，吃遍美國每一個角落。Stop stressing over orders. Speak like a local, and enjoy every bite of your American journey. 簡報圓滿結束。Bon Appétit!',
+    category: 'Synthesis & Conclusion',
+    content: `【You're all set! 準備好自信開口了嗎！】
+• Tagline: Bon Appétit! (祝胃口大開!)
+• 總結宣誓: 不再害怕點餐結帳，用最道地的英文，吃遍美國每一個角落。 (Stop stressing over orders. Speak like a local, and enjoy every bite of your American journey.)
+• 簡報圓滿結束。`,
     phrases: [
       { en: 'You\'re all set!', zh: '都準備好了！' },
       { en: 'Bon Appétit!', zh: '祝胃口大開！' },
     ],
-    practice: '帶著這份指南，自信地走進任何一家餐廳！'
+    practice: '帶著這份指南，自信走進任何一家餐廳或咖啡廳吧！Bon Appétit!'
   },
 ]

@@ -401,16 +401,19 @@ export default function Presentation() {
                 return (
                   <Slide key={`l2-${page}`} active={currentSlide === page}>
                     <div className="w-full max-w-5xl space-y-6">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-wrap">
                         <span className="px-2.5 py-0.5 bg-amber-500/10 border border-amber-500/30 text-amber-400 rounded-full text-[10px] font-semibold">
                           Page {page} / {totalSlides}
                         </span>
-                        <span className="text-[10px] text-slate-500 uppercase tracking-wider font-mono">
+                        <span className="px-2 py-0.5 bg-emerald-800/10 border border-emerald-800/20 text-emerald-800 dark:text-emerald-400 rounded text-[10px] uppercase tracking-wider font-semibold">
+                          {slideData.category}
+                        </span>
+                        <span className="text-[10px] text-slate-500 font-mono">
                           {slideData.subtitle}
                         </span>
                       </div>
                       <h2 className="text-2xl md:text-4xl font-extrabold">{slideData.title}</h2>
-                      <p className="text-sm text-slate-400 leading-relaxed max-w-3xl">{slideData.content}</p>
+                      <div className="text-sm text-slate-400 leading-relaxed max-w-3xl whitespace-pre-line font-mono text-[11px]">{slideData.content}</div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         {slideData.phrases.map((ph, i) => (
                           <div key={i} className="bg-slate-900/60 p-4 rounded-xl border border-slate-800 space-y-1">
