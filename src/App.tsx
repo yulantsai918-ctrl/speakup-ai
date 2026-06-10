@@ -610,7 +610,7 @@ You MUST respond with a JSON object only, no markdown formatting.
               className={`py-2 px-3 rounded-lg text-xs font-semibold tracking-wide transition-all duration-150 flex flex-col items-center gap-1 ${currentTab === 'presentation' ? 'bg-amber-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'}`}
             >
               <BookOpen className="h-4 w-4" />
-              AI 教學簡報
+              AI 互動簡報
             </button>
             <button
               onClick={() => setCurrentTab('quiz')}

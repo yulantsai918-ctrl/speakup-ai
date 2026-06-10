@@ -2,21 +2,22 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import {
   ChevronLeft, ChevronRight, Mic, MicOff,
   Sparkles, List, Maximize, MessageSquare,
-  HelpCircle
+  HelpCircle, BookOpen, Notebook
 } from 'lucide-react'
+import { LESSON_2_SLIDES } from './lessonData'
 
 const API_KEY = import.meta.env.VITE_GROQ_API_KEY || ''
 
-const SLIDE_CONTENTS: Record<number, string> = {
-  1: '標題頁。主題：破解全英文語境-美國都會生活導航指南。從日常通勤、社交破冰到突發狀況的道地應對模組。',
-  2: '都會生存英語軌道地圖。分成三條線：1.基礎生存線(Commute/通勤、Order/點餐、Checkout/結帳)解決每日剛性需求。2.深度連結線(Small Talk/寒暄、Office/職場、Hangout/聚會)維持雙向溝通自然流暢。3.危機處理線(Phone/電話客服、Clinic/醫療就診、Crisis/尷尬救急)勇敢犯錯與優雅救場。',
-  3: '英文思維的道地校準。教科書英文與街頭道地美語對抗：猶豫不決時：不要說I don\'t know，要說I\'m on the fence/I\'m still deciding right now。點餐購物：不要說I want this，要說Can I get...。嫌太貴：不說It\'s too expensive，說It\'s a little pricey。聽不懂：不說What did you say?，說Sorry, I didn\'t catch that。核心觀念：拋棄命令式直翻，改用保留空間的軟語氣(Softening Tone)。',
-  4: '城市通勤導航。公車與地鐵(Public Transit)：確認路線 Does this train go downtown? 轉乘與支付 Do I tap again when transferring? 共乘(Rideshare/Uber)：上車確認 Are you here for [Name]? 冷氣與路線 Could you turn the AC up? 通勤小寒暄：Traffic was brutal this morning.',
-  5: '模組化客製化點餐公式。公式：開場(Can I get / I\'ll go with) + 基底(a tall cappuccino / a medium iced latte) + 客製調整(with oat milk / half sweet / without onions) + 附加要求(add an extra shot / to go, please)。例如：Can I get a medium iced latte with oat milk, half sweet, and add an extra shot, to go, please.',
-  6: '結帳攻防戰。人工結帳(Cashier)店員連環問：Did you find everything you needed today? / Paper or plastic today?。你的回應：I brought my own bag / I\'ll pay with card。自助結帳機(Self-checkout)語音提示：Please scan your item / Unexpected item in the bagging area。尋求協助金句：This item is not scanning properly.',
-  7: '社交邊界感矩陣。1.週末死黨(Casual × Close Friends)：Yo, you\'re up already? 2.辦公室日常(Professional × Colleagues)：Mondays always hit me hard. 3.派對破冰(Casual × Strangers)：I don\'t think we\'ve met before. 4.初次商務(Professional × Strangers)：Nice to meet you here.',
-  8: '推進迴圈對話策略。三步驟：1.回應與展現態度(Answer) I\'m doing well, thanks for asking. 2.拋回問題延伸(Ask back) What\'s up with you today? 3.情緒價值與共鳴(React) Oh wow, that\'s actually crazy! 跳出對話(Escape Route)：I\'m going to grab a drink real quick.',
-  9: '辦公室溝通。專案進度：How\'s the presentation coming along? 釐清誤會：Could you explain the process again? 提出建議：I actually have another suggestion here. 請假：I\'d like to request next Monday off. 下班宣告：I\'m heading out for tonight.',
+const SLIDE_CONTENTS_L1: Record<number, string> = {
+  1:  '標題頁。主題：破解全英文語境-美國都會生活導航指南。從日常通勤、社交破冰到突發狀況的道地應對模組。',
+  2:  '都會生存英語軌道地圖。分成三條線：1.基礎生存線(Commute/通勤、Order/點餐、Checkout/結帳)解決每日剛性需求。2.深度連結線(Small Talk/寒暄、Office/職場、Hangout/聚會)維持雙向溝通自然流暢。3.危機處理線(Phone/電話客服、Clinic/醫療就診、Crisis/尷尬救急)勇敢犯錯與優雅救場。',
+  3:  '英文思維的道地校準。教科書英文與街頭道地美語對抗：猶豫不決時：不要說I don\'t know，要說I\'m on the fence/I\'m still deciding right now。點餐購物：不要說I want this，要說Can I get...。嫌太貴：不說It\'s too expensive，說It\'s a little pricey。聽不懂：不說What did you say?，說Sorry, I didn\'t catch that。核心觀念：拋棄命令式直翻，改用保留空間的軟語氣(Softening Tone)。',
+  4:  '城市通勤導航。公車與地鐵(Public Transit)：確認路線 Does this train go downtown? 轉乘與支付 Do I tap again when transferring? 共乘(Rideshare/Uber)：上車確認 Are you here for [Name]? 冷氣與路線 Could you turn the AC up? 通勤小寒暄：Traffic was brutal this morning.',
+  5:  '模組化客製化點餐公式。公式：開場(Can I get / I\'ll go with) + 基底(a tall cappuccino / a medium iced latte) + 客製調整(with oat milk / half sweet / without onions) + 附加要求(add an extra shot / to go, please)。例如：Can I get a medium iced latte with oat milk, half sweet, and add an extra shot, to go, please.',
+  6:  '結帳攻防戰。人工結帳(Cashier)店員連環問：Did you find everything you needed today? / Paper or plastic today?。你的回應：I brought my own bag / I\'ll pay with card。自助結帳機(Self-checkout)語音提示：Please scan your item / Unexpected item in the bagging area。尋求協助金句：This item is not scanning properly.',
+  7:  '社交邊界感矩陣。1.週末死黨(Casual × Close Friends)：Yo, you\'re up already? 2.辦公室日常(Professional × Colleagues)：Mondays always hit me hard. 3.派對破冰(Casual × Strangers)：I don\'t think we\'ve met before. 4.初次商務(Professional × Strangers)：Nice to meet you here.',
+  8:  '推進迴圈對話策略。三步驟：1.回應與展現態度(Answer) I\'m doing well, thanks for asking. 2.拋回問題延伸(Ask back) What\'s up with you today? 3.情緒價值與共鳴(React) Oh wow, that\'s actually crazy! 跳出對話(Escape Route)：I\'m going to grab a drink real quick.',
+  9:  '辦公室溝通。專案進度：How\'s the presentation coming along? 釐清誤會：Could you explain the process again? 提出建議：I actually have another suggestion here. 請假：I\'d like to request next Monday off. 下班宣告：I\'m heading out for tonight.',
   10: '電話恐懼決策樹。起點：Hi, I\'m calling about... 預約(Booking)：...an appointment. Friday morning would be ideal. 更改/取消(Rescheduling)：Is it possible to push it back? 客服查件：It keeps disconnecting every few minutes. 留言語音：Please call me when you\'re available.',
   11: '醫療急診與痛覺。輕/中度 Dull ache(隱隱作痛)。變動頻率 It comes and goes。重度 sharp pain。常見症狀：It hurts when I bend / I feel a little nauseous / I twisted my ankle。領藥：I\'m here to pick up a prescription.',
   12: '尷尬時刻救生圈。1.爭取時間(Buying time)：That\'s a good question, honestly / Let me think for just a second. 2.請求重述澄清：Sorry, I didn\'t catch that / Can you say that one more time? 3.切換話題(Pivoting)：Anyway, what were you saying earlier?',
@@ -25,7 +26,7 @@ const SLIDE_CONTENTS: Record<number, string> = {
   15: '結尾頁。語言不是完美的文法考試，而是你在這座城市生存、連結與探索的最佳導航工具。The City is Yours to Explore.'
 }
 
-const SLIDE_TITLES = [
+const SLIDE_TITLES_L1 = [
   '都會生活導航起點', '都會生存英語軌道圖', '英文思維的道地校準',
   '城市通勤導航', '模組化點餐公式', '結帳攻防戰',
   '社交邊界感矩陣', '對話推進迴圈', '辦公室專業溝通',
@@ -57,12 +58,24 @@ function SlidePainSlider() {
 }
 
 export default function Presentation() {
+  const [lessonMode, setLessonMode] = useState<'lesson1' | 'lesson2'>('lesson1')
   const [currentSlide, setCurrentSlide] = useState(1)
   const [isListening, setIsListening] = useState(false)
   const [transcripts, setTranscripts] = useState<{ role: 'user' | 'system'; text: string }[]>([])
   const [isAiLoading, setIsAiLoading] = useState(false)
   const [showMenu, setShowMenu] = useState(false)
-  const totalSlides = 15
+
+  const SLIDE_CONTENTS = lessonMode === 'lesson1' ? SLIDE_CONTENTS_L1
+    : Object.fromEntries(LESSON_2_SLIDES.map((s, i) => [i + 1, `${s.title}。${s.content}`]))
+  const SLIDE_TITLES = lessonMode === 'lesson1' ? SLIDE_TITLES_L1
+    : LESSON_2_SLIDES.map(s => s.title)
+  const totalSlides = lessonMode === 'lesson1' ? 15 : LESSON_2_SLIDES.length
+
+  const switchLesson = (mode: 'lesson1' | 'lesson2') => {
+    setLessonMode(mode)
+    setCurrentSlide(1)
+  }
+
   const recognitionRef = useRef<{ start: () => void; stop: () => void } | null>(null)
   const transcriptEndRef = useRef<HTMLDivElement | null>(null)
   const currentSlideRef = useRef(currentSlide)
@@ -102,24 +115,50 @@ export default function Presentation() {
   }, [currentSlide, goSlide])
 
   const getLocalAnswer = useCallback((query: string): string | null => {
-    const pairs: [RegExp, number, string][] = [
-      [/生存線|生存/, 2, '第2頁展示了「基礎生存線」，包含通勤、點餐、結帳等剛性需求。'],
-      [/點餐|拿鐵|公式/, 5, '為您導航到第5頁的「點餐公式」：Can I get a medium iced latte with oat milk, half sweet, to go, please.'],
-      [/通勤|地鐵|公車|搭車/, 4, '第4頁：在美國搭大眾運輸，確認路線說 Does this train go downtown?'],
-      [/危機|痛|醫療|看病/, 11, '第11頁痛覺描述：輕度 dull ache，變動 It comes and goes，劇痛 sharp pain。'],
-      [/結帳|袋子|塑膠袋/, 6, '第6頁「結帳攻防戰」：店員問 Paper or plastic? 帶自己的袋子說 I brought my own bag.'],
-      [/客訴|抱怨|送錯/, 13, '第13頁客訴三步驟：1.點出問題 2.提出訴求 3.緩和語氣。'],
-      [/尷尬|腦袋空白|聽不懂/, 12, '第12頁「救生圈」：聽不懂說 Sorry, I didn\'t catch that。爭取時間說 Let me think for just a second.'],
-      [/邊界|社交/, 7, '第7頁社交矩陣：Casual vs Professional 四象限語氣。'],
-    ]
-    for (const [regex, slide, reply] of pairs) {
-      if (regex.test(query)) {
-        goSlide(slide)
-        return reply
+    if (lessonMode === 'lesson1') {
+      const pairs: [RegExp, number, string][] = [
+        [/生存線|生存/, 2, '第2頁展示了「基礎生存線」，包含通勤、點餐、結帳等剛性需求。'],
+        [/點餐|拿鐵|公式/, 5, '為您導航到第5頁的「點餐公式」：Can I get a medium iced latte with oat milk, half sweet, to go, please.'],
+        [/通勤|地鐵|公車|搭車/, 4, '第4頁：在美國搭大眾運輸，確認路線說 Does this train go downtown?'],
+        [/危機|痛|醫療|看病/, 11, '第11頁痛覺描述：輕度 dull ache，變動 It comes and goes，劇痛 sharp pain。'],
+        [/結帳|袋子|塑膠袋/, 6, '第6頁「結帳攻防戰」：店員問 Paper or plastic? 帶自己的袋子說 I brought my own bag.'],
+        [/客訴|抱怨|送錯/, 13, '第13頁客訴三步驟：1.點出問題 2.提出訴求 3.緩和語氣。'],
+        [/尷尬|腦袋空白|聽不懂/, 12, '第12頁「救生圈」：聽不懂說 Sorry, I didn\'t catch that。爭取時間說 Let me think for just a second.'],
+        [/邊界|社交/, 7, '第7頁社交矩陣：Casual vs Professional 四象限語氣。'],
+      ]
+      for (const [regex, slide, reply] of pairs) {
+        if (regex.test(query)) {
+          goSlide(slide)
+          return reply
+        }
+      }
+    } else {
+      const pairs: [RegExp, number, string][] = [
+        [/交通|通勤|問路|公車/, 1, '第1頁「出行交通必備英文」：通勤寒暄、問路與公共運輸導覽。'],
+        [/聊天|交流|開啟對話|how'?s it going/, 2, '第2頁「聊天交流」：開啟對話說 How\'s it going? 沒聽清說 I didn\'t catch that.'],
+        [/休閒|娛樂|咖啡|電影|邀約/, 3, '第3頁「休閒娛樂」：邀約說 Are you free later? 加入說 I\'m down for that.'],
+        [/購物|試穿|退貨|尺寸/, 4, '第4頁「購物英文」：試穿說 Can I try this on? 詢問退貨說 What\'s your return policy?'],
+        [/電話|預約|訂位|客服/, 5, '第5頁「電話英文」：預約說 I\'m calling about an appointment. 改期說 I need to reschedule.'],
+        [/用餐|點餐|菜單|餐廳/, 6, '第6頁「用餐點餐」：入座說 Table for two. 客製說 Can I get that without onions?'],
+        [/旅遊|觀光|景點|博物館/, 7, '第7頁「旅遊英文」：問路說 Where is the nearest subway station? 預訂說 Should I book in advance?'],
+        [/結帳|付款|刷卡|自助/, 8, '第8頁「結帳英文」：店員問 Are you all set? 感應說 You can tap your card.'],
+        [/職場|上班|請假|會議/, 9, '第9頁「職場英文」：確認期限說 I just want to confirm the deadline. 請假說 I\'d like to request next Monday off.'],
+        [/醫療|醫生|看病|藥局/, 10, '第10頁「醫療英文」：描述痛感 Is it sharp or dull? 領藥說 I\'m here to pick up a prescription.'],
+        [/便利店|加油|零食/, 11, '第11頁「便利店」：找商品說 Where can I find the snack aisle? 加油說 I\'ll put $20 on pump six.'],
+        [/遲到|地鐵|手機沒電|Uber/, 12, '第12頁「城市生活」：遲到說 I\'m running late. 擠地鐵說 Can I squeeze through?'],
+        [/生活|咖啡店|睡過頭|GPS/, 13, '第13頁「生活實境」：點咖啡說 I\'ll get a medium iced latte. 睡過頭說 I slept in.'],
+        [/聚會|派對|社交|破冰/, 14, '第14頁「社交英文」：破冰說 I don\'t think we\'ve met before. 找共同點說 So what do you do for work?'],
+        [/飲料|咖啡|酒|乾杯/, 15, '第15頁「點飲料」：加濃縮說 Add an extra shot. 再一輪說 Can I get another round?'],
+      ]
+      for (const [regex, slide, reply] of pairs) {
+        if (regex.test(query)) {
+          goSlide(slide)
+          return reply
+        }
       }
     }
     return null
-  }, [goSlide])
+  }, [goSlide, lessonMode])
 
   const handleVoiceCommand = useCallback(async (text: string) => {
     addTranscript('user', text)
@@ -283,7 +322,10 @@ export default function Presentation() {
             </p>
             <p className="text-slate-300 text-[11px]">我能用語音控制簡報，同時解答內容：</p>
             <div className="grid grid-cols-2 gap-1.5">
-              {['下一頁', '上一頁', '跳到第五頁', '生存線說什麼'].map((cmd) => (
+              {(lessonMode === 'lesson1'
+                ? ['下一頁', '上一頁', '跳到第五頁', '生存線說什麼']
+                : ['下一頁', '上一頁', '跳到第八頁', '購物英文查詢']
+              ).map((cmd) => (
                 <button key={cmd} onClick={() => simulateVoice(cmd)}
                   className="bg-slate-900 px-2 py-1 rounded text-slate-400 font-mono text-[9px] hover:text-amber-300 transition text-left">
                   「{cmd}」
@@ -334,7 +376,64 @@ export default function Presentation() {
             style={{ width: `${progressPercent}%` }} />
         </div>
 
+        {/* Lesson Switcher */}
+        <div className="absolute top-2 right-4 z-10 flex space-x-1">
+          <button onClick={() => switchLesson('lesson1')}
+            className={`px-3 py-1 rounded-lg text-[10px] font-bold transition flex items-center gap-1 ${
+              lessonMode === 'lesson1'
+                ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                : 'text-slate-400 hover:text-slate-200 bg-slate-900/60 border border-slate-800/60'
+            }`}>
+            <BookOpen className="h-3 w-3" /> Lesson 1
+          </button>
+          <button onClick={() => switchLesson('lesson2')}
+            className={`px-3 py-1 rounded-lg text-[10px] font-bold transition flex items-center gap-1 ${
+              lessonMode === 'lesson2'
+                ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                : 'text-slate-400 hover:text-slate-200 bg-slate-900/60 border border-slate-800/60'
+            }`}>
+            <Notebook className="h-3 w-3" /> Lesson 2
+          </button>
+        </div>
+
         <div className="flex-1 relative overflow-y-auto p-4 md:p-8 flex items-center justify-center">
+          {lessonMode === 'lesson2' && (
+            <>
+              {LESSON_2_SLIDES.map((slideData, idx) => {
+                const page = idx + 1
+                return (
+                  <Slide key={`l2-${page}`} active={currentSlide === page}>
+                    <div className="w-full max-w-5xl space-y-6">
+                      <div className="flex items-center gap-2">
+                        <span className="px-2.5 py-0.5 bg-amber-500/10 border border-amber-500/30 text-amber-400 rounded-full text-[10px] font-semibold">
+                          Page {page} / {totalSlides}
+                        </span>
+                        <span className="text-[10px] text-slate-500 uppercase tracking-wider font-mono">
+                          {slideData.subtitle}
+                        </span>
+                      </div>
+                      <h2 className="text-2xl md:text-4xl font-extrabold">{slideData.title}</h2>
+                      <p className="text-sm text-slate-400 leading-relaxed max-w-3xl">{slideData.content}</p>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        {slideData.phrases.map((ph, i) => (
+                          <div key={i} className="bg-slate-900/60 p-4 rounded-xl border border-slate-800 space-y-1">
+                            <p className="font-mono text-sm text-slate-100">{ph.en}</p>
+                            <p className="text-xs text-slate-400">{ph.zh}</p>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="bg-amber-500/5 border border-amber-500/20 p-4 rounded-xl">
+                        <span className="text-[10px] text-amber-400 font-bold uppercase tracking-wider">練習提示</span>
+                        <p className="text-sm text-slate-300 mt-1">{slideData.practice}</p>
+                      </div>
+                    </div>
+                  </Slide>
+                )
+              })}
+            </>
+          )}
+          {lessonMode === 'lesson1' && (
+          <>
           {/* Slide 1 */}
           <Slide active={currentSlide === 1}>
             <div className="space-y-4 text-center">
@@ -743,6 +842,8 @@ export default function Presentation() {
               </div>
             </div>
           </Slide>
+          </>
+          )}
         </div>
 
         {/* Nav bar */}
