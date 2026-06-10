@@ -98,7 +98,7 @@ export default function Presentation() {
   }, [])
 
   const addTranscript = useCallback((role: 'user' | 'system', text: string) => {
-    setTranscripts(prev => [...prev, { role, text }])
+    setTranscripts(prev => role === 'user' ? [{ role, text }] : [...prev, { role, text }])
   }, [])
 
   const goSlide = useCallback((num: number) => {
