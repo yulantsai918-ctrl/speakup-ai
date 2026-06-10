@@ -1012,7 +1012,7 @@ You MUST respond with a JSON object only, no markdown formatting.
           )}
 
           {currentTab === 'presentation' && (
-            <div className="flex-1 overflow-hidden rounded-2xl">
+            <div className="flex-1 overflow-hidden rounded-2xl flex flex-col min-h-0">
               <Presentation />
             </div>
           )}

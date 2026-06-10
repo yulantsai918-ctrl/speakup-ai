@@ -294,7 +294,7 @@ export default function Presentation() {
   const progressPercent = (currentSlide / totalSlides) * 100
 
   return (
-    <div className="flex flex-col md:flex-row w-full h-full min-h-0">
+    <div className="flex flex-col md:flex-row w-full flex-1 min-h-0">
       {/* Left sidebar: Voice transcript */}
       <aside className="w-full md:w-72 lg:w-80 bg-slate-900 border-r border-slate-800 flex flex-col h-1/3 md:h-full shrink-0 min-h-0">
         <div className="p-3 border-b border-slate-800 flex justify-between items-center bg-slate-950/50">
