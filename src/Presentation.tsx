@@ -5,6 +5,7 @@ import {
   HelpCircle, BookOpen, Notebook
 } from 'lucide-react'
 import { LESSON_2_SLIDES } from './lessonData'
+import { Lesson2Slide } from './Lesson2Slides'
 
 const API_KEY = import.meta.env.VITE_GROQ_API_KEY || ''
 
@@ -396,40 +397,9 @@ export default function Presentation() {
         <div className="flex-1 relative overflow-y-auto p-4 md:p-8 flex items-center justify-center">
           {lessonMode === 'lesson2' && (
             <>
-              {LESSON_2_SLIDES.map((slideData, idx) => {
-                const page = idx + 1
-                return (
-                  <Slide key={`l2-${page}`} active={currentSlide === page}>
-                    <div className="w-full max-w-5xl space-y-6">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className="px-2.5 py-0.5 bg-amber-500/10 border border-amber-500/30 text-amber-400 rounded-full text-[10px] font-semibold">
-                          Page {page} / {totalSlides}
-                        </span>
-                        <span className="px-2 py-0.5 bg-emerald-800/10 border border-emerald-800/20 text-emerald-800 dark:text-emerald-400 rounded text-[10px] uppercase tracking-wider font-semibold">
-                          {slideData.category}
-                        </span>
-                        <span className="text-[10px] text-slate-500 font-mono">
-                          {slideData.subtitle}
-                        </span>
-                      </div>
-                      <h2 className="text-2xl md:text-4xl font-extrabold">{slideData.title}</h2>
-                      <div className="text-sm text-slate-400 leading-relaxed max-w-3xl whitespace-pre-line font-mono text-[11px]">{slideData.content}</div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        {slideData.phrases.map((ph, i) => (
-                          <div key={i} className="bg-slate-900/60 p-4 rounded-xl border border-slate-800 space-y-1">
-                            <p className="font-mono text-sm text-slate-100">{ph.en}</p>
-                            <p className="text-xs text-slate-400">{ph.zh}</p>
-                          </div>
-                        ))}
-                      </div>
-                      <div className="bg-amber-500/5 border border-amber-500/20 p-4 rounded-xl">
-                        <span className="text-[10px] text-amber-400 font-bold uppercase tracking-wider">練習提示</span>
-                        <p className="text-sm text-slate-300 mt-1">{slideData.practice}</p>
-                      </div>
-                    </div>
-                  </Slide>
-                )
-              })}
+              {Array.from({ length: totalSlides }, (_, i) => (
+                <Lesson2Slide key={`l2-${i + 1}`} page={i + 1} active={currentSlide === i + 1} />
+              ))}
             </>
           )}
           {lessonMode === 'lesson1' && (
