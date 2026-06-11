@@ -2,10 +2,11 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import {
   ChevronLeft, ChevronRight, Mic, MicOff,
   Sparkles, List, Maximize, MessageSquare,
-  HelpCircle, BookOpen, Notebook
+  HelpCircle, BookOpen, Notebook, Shirt
 } from 'lucide-react'
-import { LESSON_2_SLIDES } from './lessonData'
+import { LESSON_2_SLIDES, LESSON_3_SLIDES } from './lessonData'
 import { Lesson2Slide } from './Lesson2Slides'
+import { Lesson3Slide } from './Lesson3Slides'
 
 const API_KEY = import.meta.env.VITE_GROQ_API_KEY || ''
 
@@ -59,7 +60,7 @@ function SlidePainSlider() {
 }
 
 export default function Presentation() {
-  const [lessonMode, setLessonMode] = useState<'lesson1' | 'lesson2'>('lesson1')
+  const [lessonMode, setLessonMode] = useState<'lesson1' | 'lesson2' | 'lesson3'>('lesson1')
   const [currentSlide, setCurrentSlide] = useState(1)
   const [isListening, setIsListening] = useState(false)
   const [transcripts, setTranscripts] = useState<{ role: 'user' | 'system'; text: string }[]>([])
@@ -67,12 +68,16 @@ export default function Presentation() {
   const [showMenu, setShowMenu] = useState(false)
 
   const SLIDE_CONTENTS = lessonMode === 'lesson1' ? SLIDE_CONTENTS_L1
-    : Object.fromEntries(LESSON_2_SLIDES.map((s, i) => [i + 1, `${s.title}。${s.content}`]))
+    : lessonMode === 'lesson2' ? Object.fromEntries(LESSON_2_SLIDES.map((s, i) => [i + 1, `${s.title}。${s.content}`]))
+    : Object.fromEntries(LESSON_3_SLIDES.map((s, i) => [i + 1, `${s.title}。${s.content}`]))
   const SLIDE_TITLES = lessonMode === 'lesson1' ? SLIDE_TITLES_L1
-    : LESSON_2_SLIDES.map(s => s.title)
-  const totalSlides = lessonMode === 'lesson1' ? 15 : LESSON_2_SLIDES.length
+    : lessonMode === 'lesson2' ? LESSON_2_SLIDES.map(s => s.title)
+    : LESSON_3_SLIDES.map(s => s.title)
+  const totalSlides = lessonMode === 'lesson1' ? 15
+    : lessonMode === 'lesson2' ? LESSON_2_SLIDES.length
+    : LESSON_3_SLIDES.length
 
-  const switchLesson = (mode: 'lesson1' | 'lesson2') => {
+  const switchLesson = (mode: 'lesson1' | 'lesson2' | 'lesson3') => {
     setLessonMode(mode)
     setCurrentSlide(1)
   }
@@ -137,7 +142,7 @@ export default function Presentation() {
           return reply
         }
       }
-    } else {
+    } else if (lessonMode === 'lesson2') {
       const pairs: [RegExp, number, string][] = [
         [/點餐|咖啡|飲料|拿鐵|公式/, 3, '第3頁「特調點餐方程式」：公式為 [開場] + [容量] + [溫度] + [飲品] + [客製化]。例句：Could I get a medium iced latte with oat milk?'],
         [/口味|冰量|甜度|微調|去冰|無糖/, 4, '第4頁「口味微調儀表板」：去冰說 No ice at all. 微糖說 Less sweet. 不確定甜度問 Is it usually very sweet?'],
@@ -151,6 +156,23 @@ export default function Presentation() {
         [/破冰|接話|社交|聊天|附和/, 12, '第12頁「餐桌破冰術」：破冰說 So, do you come here often? 附和說 That\'s surprisingly smooth!'],
         [/禮貌|語氣|轉換|Could I get|祈使/, 13, '第13頁「禮貌語氣轉換器」：把 Give me a coffee 改為 Could I get a coffee please? 關鍵句 I was wondering if you could help me.'],
         [/金句|矩陣| cheat sheet/, 14, '第14頁「四大金句矩陣」：咖啡廳、餐廳、超市、酒吧各場景一句核心金句整理。'],
+      ]
+      for (const [regex, slide, reply] of pairs) {
+        if (regex.test(query)) {
+          goSlide(slide)
+          return reply
+        }
+      }
+    } else {
+      const pairs: [RegExp, number, string][] = [
+        [/逛逛|看看|瀏覽|just browsing/, 3, '第3頁「門口逛街防線」：店員問Looking for something specific? 回I\'m just looking for now. 或Just browsing today.'],
+        [/試穿|試衣|fitting/, 4, '第4頁「啟動試穿」：說Can I try this on? 問件數How many items can I take? 店員回You can take up to five.'],
+        [/尺寸|太小|太大|太緊|不合身/, 5, '第5頁「尺寸診斷卡」：太小說I think this is too small. 太大了說It\'s a bit too big. 找尺寸問Do you have this in medium?'],
+        [/顏色|色系|黑色|藍色|命定/, 6, '第6頁「尋找命定顏色」：問Does this come in black? 深色問Do you have darker shades?'],
+        [/鏡子|連身鏡|評價|稱讚|讚美/, 7, '第7頁「鏡前社交評價」：店員說It looks really good on you. 版型不合說It\'s a little tight around the shoulders.'],
+        [/猶豫|決定|難選|考慮|放手/, 8, '第8頁「購買決策內心戲」：猶豫說I\'m not sure yet. 拖延說Let me think about it. 退場說Not today, maybe later.'],
+        [/退貨|退款|換貨|交換|收據|receipt/, 9, '第9頁「退換貨交涉」：確認期限說Am I within the return window? 換色說Can I switch to another color? 退款說I\'d like a refund.'],
+        [/金句|語錄|隨身包|cheat sheet/, 10, '第10頁「最強語錄隨身包」：6大金句整理，截圖保存下次逛街直接用！'],
       ]
       for (const [regex, slide, reply] of pairs) {
         if (regex.test(query)) {
@@ -326,7 +348,9 @@ export default function Presentation() {
             <div className="grid grid-cols-2 gap-1.5">
               {(lessonMode === 'lesson1'
                 ? ['下一頁', '上一頁', '跳到第五頁', '生存線說什麼']
-                : ['下一頁', '上一頁', '跳到第八頁', '購物英文查詢']
+                : lessonMode === 'lesson2'
+                ? ['下一頁', '上一頁', '跳到第八頁', '購物英文查詢']
+                : ['下一頁', '上一頁', '跳到第三頁', '試穿英文查詢']
               ).map((cmd) => (
                 <button key={cmd} onClick={() => simulateVoice(cmd)}
                   className="bg-slate-900 px-2 py-1 rounded text-slate-400 font-mono text-[9px] hover:text-amber-300 transition text-left">
@@ -396,6 +420,14 @@ export default function Presentation() {
             }`}>
             <Notebook className="h-3 w-3" /> Lesson 2
           </button>
+          <button onClick={() => switchLesson('lesson3')}
+            className={`px-3 py-1 rounded-lg text-[10px] font-bold transition flex items-center gap-1 ${
+              lessonMode === 'lesson3'
+                ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                : 'text-slate-400 hover:text-slate-200 bg-slate-900/60 border border-slate-800/60'
+            }`}>
+            <Shirt className="h-3 w-3" /> Lesson 3
+          </button>
         </div>
 
         <div className="flex-1 relative overflow-y-auto p-4 md:p-8 flex items-center justify-center">
@@ -403,6 +435,13 @@ export default function Presentation() {
             <>
               {Array.from({ length: totalSlides }, (_, i) => (
                 <Lesson2Slide key={`l2-${i + 1}`} page={i + 1} active={currentSlide === i + 1} />
+              ))}
+            </>
+          )}
+          {lessonMode === 'lesson3' && (
+            <>
+              {Array.from({ length: totalSlides }, (_, i) => (
+                <Lesson3Slide key={`l3-${i + 1}`} page={i + 1} active={currentSlide === i + 1} />
               ))}
             </>
           )}
