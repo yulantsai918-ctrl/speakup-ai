@@ -113,7 +113,7 @@ export default function Presentation() {
   const goSlide = useCallback((num: number) => {
     if (num < 1 || num > totalSlides) return
     setCurrentSlide(num)
-  }, [])
+  }, [totalSlides])
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
@@ -213,7 +213,7 @@ export default function Presentation() {
     }
 
     const numMap: Record<string, number> = { 一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 九: 9, 十: 10, 十一: 11, 十二: 12, 十三: 13, 十四: 14, 十五: 15 }
-    for (let i = 1; i <= 15; i++) numMap[String(i)] = i
+    for (let i = 1; i <= totalSlides; i++) numMap[String(i)] = i
 
     for (const word of Object.keys(numMap)) {
       if (new RegExp(`第\\s*${word}\\s*頁`).test(clean) || new RegExp(`跳到\\s*${word}\\s*頁`).test(clean)) {
@@ -430,7 +430,7 @@ export default function Presentation() {
           </button>
         </div>
 
-        <div className="flex-1 relative overflow-y-auto p-4 md:p-8 flex items-center justify-center">
+        <div className="flex-1 relative overflow-hidden p-4 md:p-8">
           {lessonMode === 'lesson2' && (
             <>
               {Array.from({ length: totalSlides }, (_, i) => (
@@ -446,6 +446,7 @@ export default function Presentation() {
             </>
           )}
           {lessonMode === 'lesson1' && (
+          <div className="absolute inset-0 overflow-y-auto"> {/***/}
           <>
           {/* Slide 1 */}
           <Slide active={currentSlide === 1}>
@@ -856,6 +857,7 @@ export default function Presentation() {
             </div>
           </Slide>
           </>
+          </div>
           )}
         </div>
 

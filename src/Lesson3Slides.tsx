@@ -20,7 +20,7 @@ export function Lesson3Slide({ page, active }: { page: number; active: boolean }
   const data = LESSON_3_SLIDES[page - 1]
   return (
     <Slide active={active}>
-      <div className="w-full h-full bg-[#fcfbf4] text-[#2d2013] rounded-2xl flex flex-col p-6 md:p-8 lg:p-10 overflow-y-auto">
+      <div className="absolute inset-0 bg-[#fcfbf4] text-[#2d2013] rounded-2xl flex flex-col p-6 md:p-8 lg:p-10 overflow-y-auto">
         <div className="flex justify-between items-center w-full border-b border-[#3c4a3e]/20 pb-3 mb-4 text-xs md:text-sm font-semibold text-[#3c4a3e]">
           <div className="flex items-center gap-2">
             <span className="px-2 py-0.5 bg-amber-800/10 rounded text-amber-800 uppercase tracking-widest text-[10px]">
@@ -31,7 +31,7 @@ export function Lesson3Slide({ page, active }: { page: number; active: boolean }
           <div className="text-gray-500 tracking-wider text-[10px]">NotebookLM Studio</div>
         </div>
 
-        <div className="flex-1 flex flex-col justify-center">
+        <div className="flex-1 flex flex-col justify-center min-h-0">
           {page === 1 && <Slide1Content data={data} />}
           {page === 2 && <Slide2Content data={data} />}
           {page === 3 && <Slide3Content data={data} />}
@@ -101,7 +101,7 @@ function Slide1Content({ data: _data }: { data: typeof LESSON_3_SLIDES[0] }) {
 
 function Slide2Content({ data: _data }: { data: typeof LESSON_3_SLIDES[0] }) {
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="flex flex-col flex-1 w-full">
       <div className="mb-3">
         <h2 className="text-xl md:text-2xl font-black text-stone-800">美式服飾店購物地圖</h2>
         <p className="text-stone-500 text-xs">四大購物情境站點，一步步突破心防</p>
@@ -134,7 +134,7 @@ function Slide2Content({ data: _data }: { data: typeof LESSON_3_SLIDES[0] }) {
 
 function Slide3Content({ data: _data }: { data: typeof LESSON_3_SLIDES[0] }) {
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="flex flex-col flex-1 w-full">
       <div className="mb-3">
         <h2 className="text-xl md:text-2xl font-black text-stone-800">店員的熱情突擊 vs. 顧客的完美防守</h2>
       </div>
@@ -196,7 +196,7 @@ function Slide3Content({ data: _data }: { data: typeof LESSON_3_SLIDES[0] }) {
 
 function Slide4Content({ data: _data }: { data: typeof LESSON_3_SLIDES[0] }) {
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="flex flex-col flex-1 w-full">
       <div className="mb-3">
         <h2 className="text-xl md:text-2xl font-black text-stone-800">啟動試穿與件數規定</h2>
       </div>
@@ -257,7 +257,7 @@ function Slide5Content({ data: _data }: { data: typeof LESSON_3_SLIDES[0] }) {
     ]},
   ]
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="flex flex-col flex-1 w-full">
       <div className="mb-3">
         <h2 className="text-xl md:text-2xl font-black text-stone-800">尺寸與版型自我診斷卡</h2>
         <p className="text-[11px] text-stone-500 mt-0.5">試穿不合身？透過這份對應診斷卡，向店員流暢開口吧！</p>
@@ -290,7 +290,7 @@ function ShrinkIcon(props: { className?: string }) {
 
 function Slide6Content({ data: _data }: { data: typeof LESSON_3_SLIDES[0] }) {
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="flex flex-col flex-1 w-full">
       <div className="mb-3">
         <h2 className="text-xl md:text-2xl font-black text-stone-800">尋找命定顏色 (The Color Quest)</h2>
       </div>
@@ -339,7 +339,7 @@ function Slide6Content({ data: _data }: { data: typeof LESSON_3_SLIDES[0] }) {
 
 function Slide7Content({ data: _data }: { data: typeof LESSON_3_SLIDES[0] }) {
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="flex flex-col flex-1 w-full">
       <div className="mb-3">
         <h2 className="text-xl md:text-2xl font-black text-stone-800">鏡前的社交評價 (The Mirror Moment)</h2>
         <p className="text-xs text-stone-500">在美國購物時，給予熱情客氣的正面評價是其社交習慣。當店員大聲稱讚你時，請優雅應對！</p>
@@ -410,7 +410,7 @@ function Slide7Content({ data: _data }: { data: typeof LESSON_3_SLIDES[0] }) {
 
 function Slide8Content({ data: _data }: { data: typeof LESSON_3_SLIDES[0] }) {
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="flex flex-col flex-1 w-full">
       <div className="mb-3">
         <h2 className="text-xl md:text-2xl font-black text-stone-800">購買決策內心戲 (The Hesitation Decision Tree)</h2>
       </div>
@@ -457,7 +457,7 @@ function Slide8Content({ data: _data }: { data: typeof LESSON_3_SLIDES[0] }) {
 
 function Slide9Content({ data: _data }: { data: typeof LESSON_3_SLIDES[0] }) {
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="flex flex-col flex-1 w-full">
       <div className="mb-3">
         <h2 className="text-xl md:text-2xl font-black text-stone-800">最後防線：退換貨交涉 (Returns & Exchanges)</h2>
       </div>
@@ -517,7 +517,7 @@ function Slide9Content({ data: _data }: { data: typeof LESSON_3_SLIDES[0] }) {
 
 function Slide10Content({ data: _data }: { data: typeof LESSON_3_SLIDES[0] }) {
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="flex flex-col flex-1 w-full">
       <div className="mb-3 flex flex-col md:flex-row justify-between items-start md:items-center">
         <div>
           <h2 className="text-xl md:text-2xl font-black text-stone-800">美國服飾店最強語錄隨身包</h2>

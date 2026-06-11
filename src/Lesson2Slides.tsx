@@ -20,7 +20,7 @@ export function Lesson2Slide({ page, active }: { page: number; active: boolean }
   const data = LESSON_2_SLIDES[page - 1]
   return (
     <Slide active={active}>
-      <div className="w-full h-full bg-[#fcfbf4] text-[#2d2013] rounded-2xl flex flex-col p-6 md:p-8 lg:p-10 overflow-y-auto">
+      <div className="absolute inset-0 bg-[#fcfbf4] text-[#2d2013] rounded-2xl flex flex-col p-6 md:p-8 lg:p-10 overflow-y-auto">
         {/* Top Ribbon */}
         <div className="flex justify-between items-center w-full border-b border-[#3c4a3e]/20 pb-3 mb-4 text-xs md:text-sm font-semibold text-[#3c4a3e]">
           <div className="flex items-center gap-2">
