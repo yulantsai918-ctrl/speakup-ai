@@ -233,6 +233,33 @@ export default function App() {
   const [explaining, setExplaining] = useState<Record<string, string>>({})
   const [explainingLoading, setExplainingLoading] = useState<string | null>(null)
   const [quizTab, setQuizTab] = useState<'sections' | 'quiz'>('sections')
+  const [randomQuiz, setRandomQuiz] = useState<QuizItem[] | null>(null)
+
+  function shuffle<T>(arr: T[]): T[] {
+    const a = [...arr]
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]]
+    }
+    return a
+  }
+
+  function startRandomQuiz() {
+    const allChoice: QuizItem[] = []
+    const allFill: QuizItem[] = []
+    for (const sec of quizSections) {
+      for (const q of sec.quizzes) {
+        if (q.type === 'choice') allChoice.push(q)
+        else allFill.push(q)
+      }
+    }
+    const picked = [
+      ...shuffle(allChoice).slice(0, 10),
+      ...shuffle(allFill).slice(0, 10)
+    ]
+    setRandomQuiz(picked)
+    setQuizTab('quiz')
+  }
 
   const [isMuted, setIsMuted] = useState(false)
   const recognitionRef = useRef<SpeechRecognition | null>(null)
@@ -1043,6 +1070,18 @@ You MUST respond with a JSON object only, no markdown formatting.
                       {Object.keys(quizResults).filter(k => quizResults[k]?.status === 'correct').length} / {quizSections.reduce((a, s) => a + s.quizzes.length, 0)} 正確
                     </span>
                   </div>
+                  <button
+                    onClick={startRandomQuiz}
+                    className="w-full text-left bg-gradient-to-r from-indigo-600/20 to-purple-600/20 border border-indigo-500/30 hover:border-indigo-400/60 rounded-xl p-4 transition-all duration-200 mb-3"
+                  >
+                    <div className="flex items-center gap-3">
+                      <Sparkles className="h-5 w-5 text-indigo-400" />
+                      <div>
+                        <span className="font-bold text-sm text-slate-200">隨機測驗 20 題</span>
+                        <p className="text-xs text-slate-400 mt-0.5">從所有單元隨機抽題，滿分 100</p>
+                      </div>
+                    </div>
+                  </button>
                   {quizSections.map((sec) => {
                     const total = sec.quizzes.length
                     const done = sec.quizzes.filter((_, qi) => quizResults[`${sec.num}-${qi}`]?.status).length
@@ -1082,6 +1121,161 @@ You MUST respond with a JSON object only, no markdown formatting.
                       </button>
                     )
                   })}
+                </div>
+              ) : randomQuiz ? (
+                <div className="flex-1 flex flex-col overflow-hidden">
+                  <div className="bg-slate-900/80 border-b border-slate-800 px-4 py-3 flex items-center justify-between shrink-0">
+                    <button
+                      onClick={() => { setRandomQuiz(null); setQuizTab('sections') }}
+                      className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold flex items-center gap-1"
+                    >
+                      <ChevronRight className="h-3 w-3 rotate-180" /> 回主題列表
+                    </button>
+                    <span className="text-sm font-bold text-slate-200">隨機測驗</span>
+                    <button
+                      onClick={() => {
+                        const newResults = { ...quizResults }
+                        randomQuiz.forEach((_, i) => { delete newResults[`random-${i}`] })
+                        setQuizResults(newResults)
+                      }}
+                      className="text-xs text-slate-400 hover:text-red-400 font-semibold"
+                    >
+                      重設
+                    </button>
+                  </div>
+
+                  <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                    {randomQuiz.every((_, i) => quizResults[`random-${i}`]) && (
+                      <div className={`rounded-xl p-4 text-center border ${(() => {
+                        const correct = randomQuiz.filter((_, i) => quizResults[`random-${i}`]?.status === 'correct').length
+                        const score = correct * 5
+                        if (score >= 90) return 'border-emerald-500/50 bg-emerald-500/10'
+                        if (score >= 70) return 'border-blue-500/50 bg-blue-500/10'
+                        if (score >= 50) return 'border-amber-500/50 bg-amber-500/10'
+                        return 'border-red-500/50 bg-red-500/10'
+                      })()}`}>
+                        {(() => {
+                          const correct = randomQuiz.filter((_, i) => quizResults[`random-${i}`]?.status === 'correct').length
+                          const score = correct * 5
+                          let emoji = '😢', grade = '加油，再試一次！'
+                          if (score >= 90) { emoji = '🌟'; grade = '太厲害了！' }
+                          else if (score >= 70) { emoji = '👍'; grade = '表現不錯！' }
+                          else if (score >= 50) { emoji = '💪'; grade = '還可以更好！' }
+                          return (
+                            <>
+                              <span className="text-3xl">{emoji}</span>
+                              <p className="text-2xl font-black text-slate-100 mt-2">{score} 分</p>
+                              <p className="text-sm text-slate-400 mt-1">{grade}</p>
+                              <p className="text-xs text-slate-500 mt-2">{correct}/20 題正確</p>
+                            </>
+                          )
+                        })()}
+                      </div>
+                    )}
+
+                    <div className="flex items-center justify-between text-xs text-slate-400">
+                      <span>進度：{randomQuiz.filter((_, i) => quizResults[`random-${i}`]).length} / 20 題</span>
+                      <span className="font-semibold">每題 5 分，滿分 100</span>
+                    </div>
+
+                    {randomQuiz.map((q, i) => {
+                      const key = `random-${i}`
+                      const result = quizResults[key]
+                      return (
+                        <div key={key} className="bg-slate-900/60 border border-slate-800 rounded-xl p-4 space-y-3">
+                          <div className="flex items-start gap-2">
+                            <span className="text-[10px] font-bold text-slate-500 bg-slate-800 px-1.5 py-0.5 rounded shrink-0">#{i + 1}</span>
+                            <span className={`shrink-0 text-[10px] font-bold px-1.5 py-0.5 rounded ${q.type === 'choice' ? 'bg-blue-500/10 text-blue-400' : 'bg-amber-500/10 text-amber-400'}`}>
+                              {q.type === 'choice' ? '選擇' : '填空'}
+                            </span>
+                            <p className="text-sm text-slate-200 font-medium">{q.q}</p>
+                          </div>
+
+                          {q.type === 'choice' ? (
+                            <>
+                              <div className="space-y-1.5">
+                                {q.opts.map((o, oi) => {
+                                  let cls = 'bg-slate-800/40 border-slate-700 hover:border-indigo-500/40'
+                                  if (result) {
+                                    if (oi === q.ans) cls = 'border-emerald-500/60 bg-emerald-500/10'
+                                    else if (result.status === 'wrong' && result.selected === oi) cls = 'border-red-500/60 bg-red-500/10'
+                                  }
+                                  return (
+                                    <label
+                                      key={oi}
+                                      className={`flex items-center gap-2.5 p-2.5 rounded-lg border cursor-pointer transition-all text-sm ${cls}`}
+                                    >
+                                      <input
+                                        type="radio"
+                                        name={`rq-${key}`}
+                                        value={oi}
+                                        disabled={!!result}
+                                        onChange={() => {
+                                          if (!result) {
+                                            const newResults = { ...quizResults }
+                                            newResults[key] = { status: oi === q.ans ? 'correct' : 'wrong', selected: oi }
+                                            setQuizResults(newResults)
+                                          }
+                                        }}
+                                        className="accent-indigo-500"
+                                      />
+                                      <span className={result && oi === q.ans ? 'text-emerald-300 font-semibold' : 'text-slate-300'}>{o}</span>
+                                    </label>
+                                  )
+                                })}
+                              </div>
+                            </>
+                          ) : (
+                            <div className="space-y-2">
+                              <p className="text-xs text-slate-400 italic">{q.en}</p>
+                              <div className="flex items-center gap-2 flex-wrap">
+                                <input
+                                  id={`rfill-${key}`}
+                                  type="text"
+                                  placeholder="輸入英文..."
+                                  disabled={!!result}
+                                  onKeyDown={(e) => {
+                                    if (e.key === 'Enter' && !result) {
+                                      const input = document.getElementById(`rfill-${key}`) as HTMLInputElement
+                                      const val = input.value.trim().toLowerCase()
+                                      const newResults = { ...quizResults }
+                                      newResults[key] = { status: val === q.ans.toLowerCase() ? 'correct' : 'wrong' }
+                                      setQuizResults(newResults)
+                                    }
+                                  }}
+                                  className={`flex-1 min-w-[120px] px-3 py-2 rounded-lg border text-sm bg-slate-800/40 outline-none transition-colors ${
+                                    result
+                                      ? result.status === 'correct'
+                                        ? 'border-emerald-500/60 text-emerald-300'
+                                        : 'border-red-500/60 text-red-300'
+                                      : 'border-slate-700 text-slate-200 focus:border-indigo-500'
+                                  }`}
+                                />
+                                {!result && (
+                                  <button
+                                    onClick={() => {
+                                      const input = document.getElementById(`rfill-${key}`) as HTMLInputElement
+                                      const val = input.value.trim().toLowerCase()
+                                      const newResults = { ...quizResults }
+                                      newResults[key] = { status: val === q.ans.toLowerCase() ? 'correct' : 'wrong' }
+                                      setQuizResults(newResults)
+                                    }}
+                                    className="px-3 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold rounded-lg transition-colors"
+                                  >
+                                    確認
+                                  </button>
+                                )}
+                              </div>
+                              <div className="text-xs min-h-[1rem]">
+                                {result?.status === 'correct' && <span className="text-emerald-400 font-semibold">✓ 正確！</span>}
+                                {result?.status === 'wrong' && <span className="text-red-400 font-semibold">✗ 正確答案是：{q.ans}</span>}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )
+                    })}
+                  </div>
                 </div>
               ) : !quizSection ? (
                 <div className="flex-1 flex items-center justify-center">
