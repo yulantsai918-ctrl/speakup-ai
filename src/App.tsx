@@ -8,8 +8,9 @@ import {
 import Presentation from './Presentation'
 import { auth, db } from './firebase'
 import { collection, getDocs } from 'firebase/firestore'
-import { loadUserData, saveUserData, loadQuizSections, loadQuizResults, saveQuizResults } from './firestoreService'
-import type { QuizSection, QuizItem, QuizChoice, QuizFill } from './quizData'
+import { loadUserData, saveUserData } from './firestoreService'
+import { QUIZ_SECTIONS } from './quizData'
+import type { QuizSection, QuizItem } from './quizData'
 
 declare global {
   interface Window {
@@ -227,31 +228,11 @@ export default function App() {
     { english: "Could you tell me where the gym is located?", chinese: "能告訴我健身房在哪裡嗎？", scenario: "五星級飯店辦理入住" }
   ])
 
-  const [quizSections, setQuizSections] = useState<QuizSection[]>([])
-  const [quizSection, setQuizSection] = useState<QuizSection | null>(null)
+  const [quizSection, setQuizSection] = useState<QuizSection>(QUIZ_SECTIONS[0])
   const [quizResults, setQuizResults] = useState<Record<string, { status: 'correct' | 'wrong'; selected?: number }>>({})
   const [explaining, setExplaining] = useState<Record<string, string>>({})
   const [explainingLoading, setExplainingLoading] = useState<string | null>(null)
   const [quizTab, setQuizTab] = useState<'sections' | 'quiz'>('sections')
-  const [randomQuizItems, setRandomQuizItems] = useState<QuizItem[]>([])
-
-  function shuffle<T>(arr: T[]): T[] {
-    const a = [...arr]
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1))
-      ;[a[i], a[j]] = [a[j], a[i]]
-    }
-    return a
-  }
-
-  function startRandomQuiz() {
-    const allChoice = quizSections.flatMap(s => s.quizzes.filter((q): q is QuizChoice => q.type === 'choice'))
-    const allFill = quizSections.flatMap(s => s.quizzes.filter((q): q is QuizFill => q.type === 'fill'))
-    const picked = shuffle([...shuffle(allChoice).slice(0, 10), ...shuffle(allFill).slice(0, 10)])
-    setRandomQuizItems(picked)
-    setQuizSection(null)
-    setQuizTab('quiz')
-  }
 
   const [isMuted, setIsMuted] = useState(false)
   const recognitionRef = useRef<SpeechRecognition | null>(null)
@@ -270,14 +251,8 @@ export default function App() {
           setWordsSpoken(data.wordsSpoken)
           setPronunciationScore(data.pronunciationScore)
           setSavedPhrases(data.savedPhrases)
-          if (data.quizResults) setQuizResults(data.quizResults)
         }
       }
-      const sections = await loadQuizSections()
-      setQuizSections(sections)
-      setQuizSection(sections[0] || null)
-      const results = await loadQuizResults()
-      if (Object.keys(results).length > 0) setQuizResults(results)
     })
     return unsub
   }, [])
@@ -287,12 +262,6 @@ export default function App() {
       saveUserData({ wordsSpoken, pronunciationScore, savedPhrases })
     }
   }, [wordsSpoken, pronunciationScore, savedPhrases])
-
-  useEffect(() => {
-    if (Object.keys(quizResults).length > 0) {
-      saveQuizResults(quizResults)
-    }
-  }, [quizResults])
 
   useEffect(() => {
     const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition
@@ -1058,26 +1027,10 @@ You MUST respond with a JSON object only, no markdown formatting.
                       互動測驗
                     </h2>
                     <span className="text-xs text-slate-400 bg-slate-800 px-2 py-1 rounded-lg">
-                      {Object.keys(quizResults).filter(k => quizResults[k]?.status === 'correct').length} / {quizSections.reduce((a, s) => a + s.quizzes.length, 0)} 正確
-                     </span>
-                   </div>
-
-                   <button
-                     onClick={startRandomQuiz}
-                     className="w-full bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white rounded-xl p-4 transition-all duration-200 border border-indigo-500/30 shadow-lg shadow-indigo-500/10"
-                   >
-                     <div className="flex items-center gap-3">
-                       <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
-                         <Award className="h-5 w-5" />
-                       </div>
-                       <div className="text-left">
-                         <div className="font-bold text-sm">隨機測驗 20 題</div>
-                         <div className="text-xs text-indigo-200">10 題選擇 + 10 題填空 • 每題 5 分 • 滿分 100</div>
-                       </div>
-                       <ChevronRight className="h-5 w-5 ml-auto text-indigo-300" />
-                     </div>
-                   </button>
-                   {quizSections.map((sec) => {
+                      {Object.keys(quizResults).filter(k => quizResults[k]?.status === 'correct').length} / {QUIZ_SECTIONS.reduce((a, s) => a + s.quizzes.length, 0)} 正確
+                    </span>
+                  </div>
+                  {QUIZ_SECTIONS.map((sec) => {
                     const total = sec.quizzes.length
                     const done = sec.quizzes.filter((_, qi) => quizResults[`${sec.num}-${qi}`]?.status).length
                     const correct = sec.quizzes.filter((_, qi) => quizResults[`${sec.num}-${qi}`]?.status === 'correct').length
@@ -1117,83 +1070,43 @@ You MUST respond with a JSON object only, no markdown formatting.
                     )
                   })}
                 </div>
-              ) : !quizSection && randomQuizItems.length === 0 ? (
-                <div className="flex-1 flex items-center justify-center text-slate-400 text-sm">載入中...</div>
               ) : (
                 <div className="flex-1 flex flex-col overflow-hidden">
                   <div className="bg-slate-900/80 border-b border-slate-800 px-4 py-3 flex items-center justify-between shrink-0">
                     <button
-                      onClick={() => { setQuizTab('sections'); setRandomQuizItems([]) }}
+                      onClick={() => setQuizTab('sections')}
                       className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold flex items-center gap-1"
                     >
                       <ChevronRight className="h-3 w-3 rotate-180" /> 回主題列表
                     </button>
-                    <span className="text-sm font-bold text-slate-200">
-                      {quizSection ? quizSection.title : '隨機測驗'}
-                    </span>
-                    {quizSection ? (
-                      <button
-                        onClick={() => {
-                          quizSection.quizzes.forEach((_, qi) => {
-                            const key = `${quizSection.num}-${qi}`
-                            const newResults = { ...quizResults }
-                            delete newResults[key]
-                            setQuizResults(newResults)
-                          })
-                        }}
-                        className="text-xs text-slate-400 hover:text-red-400 font-semibold"
-                      >
-                        重設
-                      </button>
-                    ) : (
-                      <div />
-                    )}
+                    <span className="text-sm font-bold text-slate-200">{quizSection.title}</span>
+                    <button
+                      onClick={() => {
+                        quizSection.quizzes.forEach((_, qi) => {
+                          const key = `${quizSection.num}-${qi}`
+                          const newResults = { ...quizResults }
+                          delete newResults[key]
+                          setQuizResults(newResults)
+                        })
+                      }}
+                      className="text-xs text-slate-400 hover:text-red-400 font-semibold"
+                    >
+                      重設
+                    </button>
                   </div>
 
                   <div className="flex-1 overflow-y-auto p-4 space-y-4">
-                    {!quizSection && randomQuizItems.length > 0 && (() => {
-                      const answered = randomQuizItems.filter((_, i) => quizResults[`random-${i}`]?.status).length
-                      const correct = randomQuizItems.filter((_, i) => quizResults[`random-${i}`]?.status === 'correct').length
-                      const total = randomQuizItems.length
-                      if (answered === total) {
-                        const score = correct * 5
-                        return (
-                          <div className={`rounded-xl p-5 text-center border-2 ${score >= 80 ? 'bg-emerald-500/10 border-emerald-500/30' : score >= 60 ? 'bg-amber-500/10 border-amber-500/30' : 'bg-red-500/10 border-red-500/30'}`}>
-                            <Award className={`h-10 w-10 mx-auto mb-2 ${score >= 80 ? 'text-emerald-400' : score >= 60 ? 'text-amber-400' : 'text-red-400'}`} />
-                            <div className={`text-3xl font-black ${score >= 80 ? 'text-emerald-400' : score >= 60 ? 'text-amber-400' : 'text-red-400'}`}>
-                              {score} / 100
-                            </div>
-                            <div className="text-xs text-slate-400 mt-1">
-                              {correct} / {total} 題正確
-                            </div>
-                            <div className="text-xs text-slate-500 mt-2">
-                              {score >= 80 ? '🎉 太棒了！繼續保持！' : score >= 60 ? '💪 不錯喔，再加把勁！' : '📖 再多練習一下吧！'}
-                            </div>
-                          </div>
-                        )
-                      }
-                      return (
-                        <div className="bg-slate-900/40 border border-slate-800 rounded-xl p-3 text-center">
-                          <span className="text-xs text-slate-400">
-                            已作答 {answered} / {total} 題 • 滿分 100 分
-                          </span>
+                    <div className="grid grid-cols-2 gap-1.5 bg-slate-900/40 rounded-xl border border-slate-800 p-3">
+                      {quizSection.vocab.map(([en, zh]) => (
+                        <div key={en} className="flex items-center justify-between text-xs">
+                          <span className="text-slate-200 font-medium">{en}</span>
+                          <span className="text-slate-400">{zh}</span>
                         </div>
-                      )
-                    })()}
+                      ))}
+                    </div>
 
-                    {quizSection && (
-                      <div className="grid grid-cols-2 gap-1.5 bg-slate-900/40 rounded-xl border border-slate-800 p-3">
-                        {quizSection.vocab.map(({ en, zh }) => (
-                          <div key={en} className="flex items-center justify-between text-xs">
-                            <span className="text-slate-200 font-medium">{en}</span>
-                            <span className="text-slate-400">{zh}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-
-                    {(quizSection ? quizSection.quizzes : randomQuizItems).map((q, qi) => {
-                      const key = quizSection ? `${quizSection.num}-${qi}` : `random-${qi}`
+                    {quizSection.quizzes.map((q, qi) => {
+                      const key = `${quizSection.num}-${qi}`
                       const result = quizResults[key]
                       return (
                         <div key={qi} className="bg-slate-900/60 border border-slate-800 rounded-xl p-4 space-y-3">
