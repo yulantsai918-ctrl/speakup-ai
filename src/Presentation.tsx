@@ -2,11 +2,12 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import {
   ChevronLeft, ChevronRight, Mic, MicOff,
   Sparkles, List, Maximize, MessageSquare,
-  HelpCircle, BookOpen, Notebook, Shirt
+  HelpCircle, BookOpen, Notebook, Shirt, Home
 } from 'lucide-react'
-import { LESSON_2_SLIDES, LESSON_3_SLIDES } from './lessonData'
+import { LESSON_2_SLIDES, LESSON_3_SLIDES, LESSON_4_SLIDES } from './lessonData'
 import { Lesson2Slide } from './Lesson2Slides'
 import { Lesson3Slide } from './Lesson3Slides'
+import { Lesson4Slide } from './Lesson4Slides'
 
 const API_KEY = import.meta.env.VITE_GROQ_API_KEY || ''
 
@@ -60,7 +61,7 @@ function SlidePainSlider() {
 }
 
 export default function Presentation() {
-  const [lessonMode, setLessonMode] = useState<'lesson1' | 'lesson2' | 'lesson3'>('lesson1')
+  const [lessonMode, setLessonMode] = useState<'lesson1' | 'lesson2' | 'lesson3' | 'lesson4'>('lesson1')
   const [currentSlide, setCurrentSlide] = useState(1)
   const [isListening, setIsListening] = useState(false)
   const [transcripts, setTranscripts] = useState<{ role: 'user' | 'system'; text: string }[]>([])
@@ -69,15 +70,18 @@ export default function Presentation() {
 
   const SLIDE_CONTENTS = lessonMode === 'lesson1' ? SLIDE_CONTENTS_L1
     : lessonMode === 'lesson2' ? Object.fromEntries(LESSON_2_SLIDES.map((s, i) => [i + 1, `${s.title}。${s.content}`]))
-    : Object.fromEntries(LESSON_3_SLIDES.map((s, i) => [i + 1, `${s.title}。${s.content}`]))
+    : lessonMode === 'lesson3' ? Object.fromEntries(LESSON_3_SLIDES.map((s, i) => [i + 1, `${s.title}。${s.content}`]))
+    : Object.fromEntries(LESSON_4_SLIDES.map((s, i) => [i + 1, `${s.title}。${s.content}`]))
   const SLIDE_TITLES = lessonMode === 'lesson1' ? SLIDE_TITLES_L1
     : lessonMode === 'lesson2' ? LESSON_2_SLIDES.map(s => s.title)
-    : LESSON_3_SLIDES.map(s => s.title)
+    : lessonMode === 'lesson3' ? LESSON_3_SLIDES.map(s => s.title)
+    : LESSON_4_SLIDES.map(s => s.title)
   const totalSlides = lessonMode === 'lesson1' ? 15
     : lessonMode === 'lesson2' ? LESSON_2_SLIDES.length
-    : LESSON_3_SLIDES.length
+    : lessonMode === 'lesson3' ? LESSON_3_SLIDES.length
+    : LESSON_4_SLIDES.length
 
-  const switchLesson = (mode: 'lesson1' | 'lesson2' | 'lesson3') => {
+  const switchLesson = (mode: 'lesson1' | 'lesson2' | 'lesson3' | 'lesson4') => {
     setLessonMode(mode)
     setCurrentSlide(1)
   }
@@ -156,6 +160,21 @@ export default function Presentation() {
         [/破冰|接話|社交|聊天|附和/, 12, '第12頁「餐桌破冰術」：破冰說 So, do you come here often? 附和說 That\'s surprisingly smooth!'],
         [/禮貌|語氣|轉換|Could I get|祈使/, 13, '第13頁「禮貌語氣轉換器」：把 Give me a coffee 改為 Could I get a coffee please? 關鍵句 I was wondering if you could help me.'],
         [/金句|矩陣| cheat sheet/, 14, '第14頁「四大金句矩陣」：咖啡廳、餐廳、超市、酒吧各場景一句核心金句整理。'],
+      ]
+      for (const [regex, slide, reply] of pairs) {
+        if (regex.test(query)) {
+          goSlide(slide)
+          return reply
+        }
+      }
+    } else if (lessonMode === 'lesson4') {
+      const pairs: [RegExp, number, string][] = [
+        [/混亂|出門|玄關|遲到|鑰匙/, 3, '第3頁「出門前的混亂」：公寓冷說 The apartment feels freezing today. 找鑰匙說 Have you seen my apartment keys? 快遲到說 Oh crap, I\'m running late again. 狀況外說 I\'m totally out of it today.'],
+        [/物流|包裹|延遲|修繕|維修|門外/, 4, '第4頁「物流延誤與修繕」：包裹延遲說 Shipping delays are seriously getting ridiculous. 等太久說 I\'ve waited all week already. 鎖在門外說 I locked myself out yesterday again.'],
+        [/斷網|沒電|WiFi|網路|充電|客廳/, 5, '第5頁「數位災難」：斷網說 Trouble with my internet. It keeps disconnecting. 手機沒電說 My phone\'s about to completely die. 借充電器說 Do you happen to have a charger?'],
+        [/週末|宅|耍廢|懶|出門|社交|chill/, 6, '第6頁「週末模式」：宅家說 I\'m just going to chill at home. 懶得煮說 I\'m kind of too lazy to cook. 約出門說 We could grab food or maybe coffee.'],
+        [/熬夜|睡過頭|臥室|手機|滑|循環/, 7, '第7頁「熬夜惡性循環」：滑手機說 I was just watching random stuff online. 沒意識時間說 Didn\'t even realize how late it was. 睡過頭說 I slept in again today.'],
+        [/解碼|文化|金句|回顧/, 8, '第8頁「解碼美式居家文化」：最道地的日常美語發生在無奈吐槽與極致放鬆之間。帶著生存指南自信生活！'],
       ]
       for (const [regex, slide, reply] of pairs) {
         if (regex.test(query)) {
@@ -350,7 +369,9 @@ export default function Presentation() {
                 ? ['下一頁', '上一頁', '跳到第五頁', '生存線說什麼']
                 : lessonMode === 'lesson2'
                 ? ['下一頁', '上一頁', '跳到第八頁', '購物英文查詢']
-                : ['下一頁', '上一頁', '跳到第三頁', '試穿英文查詢']
+                : lessonMode === 'lesson3'
+                ? ['下一頁', '上一頁', '跳到第三頁', '試穿英文查詢']
+                : ['下一頁', '上一頁', '跳到第五頁', '斷網怎麼說']
               ).map((cmd) => (
                 <button key={cmd} onClick={() => simulateVoice(cmd)}
                   className="bg-slate-900 px-2 py-1 rounded text-slate-400 font-mono text-[9px] hover:text-amber-300 transition text-left">
@@ -428,6 +449,14 @@ export default function Presentation() {
             }`}>
             <Shirt className="h-3 w-3" /> Lesson 3
           </button>
+          <button onClick={() => switchLesson('lesson4')}
+            className={`px-3 py-1 rounded-lg text-[10px] font-bold transition flex items-center gap-1 ${
+              lessonMode === 'lesson4'
+                ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                : 'text-slate-400 hover:text-slate-200 bg-slate-900/60 border border-slate-800/60'
+            }`}>
+            <Home className="h-3 w-3" /> Lesson 4
+          </button>
         </div>
 
         <div className="flex-1 relative overflow-hidden p-4 md:p-8">
@@ -442,6 +471,13 @@ export default function Presentation() {
             <>
               {Array.from({ length: totalSlides }, (_, i) => (
                 <Lesson3Slide key={`l3-${i + 1}`} page={i + 1} active={currentSlide === i + 1} />
+              ))}
+            </>
+          )}
+          {lessonMode === 'lesson4' && (
+            <>
+              {Array.from({ length: totalSlides }, (_, i) => (
+                <Lesson4Slide key={`l4-${i + 1}`} page={i + 1} active={currentSlide === i + 1} />
               ))}
             </>
           )}

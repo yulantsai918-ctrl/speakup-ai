@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>美式公寓生存指南 - 簡報</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome for beautiful icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', 'Noto Sans TC', sans-serif;
+      overflow: hidden;
+      background-color: #0f172a;
+    }
+    .slide {
+      display: none;
+      transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+      opacity: 0;
+      transform: scale(0.98);
+    }
+    .slide.active {
+      display: flex;
+      opacity: 1;
+      transform: scale(1);
+    }
+    /* Perspective for card flip */
+    .perspective {
+      perspective: 1000px;
+    }
+    .flip-card-inner {
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    .flip-card-inner.flipped {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front, .flip-card-back {
+      backface-visibility: hidden;
+    }
+    .flip-card-back {
+      transform: rotateY(180deg);
+    }
+    /* Glow effects */
+    .glow-chaos {
+      box-shadow: 0 0 25px -5px rgba(239, 68, 68, 0.4);
+    }
+    .glow-chill {
+      box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.4);
+    }
+    /* Dynamic loop animation for insomnia slide */
+    @keyframes spin-slow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .loop-bg {
+      animation: spin-slow 25s linear infinite;
+    }
+  </style>
+</head>
+<body class="text-slate-100 min-h-screen flex flex-col justify-between">
+
+  <!-- Top Navigation & Progress Bar -->
+  <header class="w-full px-6 py-4 flex justify-between items-center bg-slate-900/60 backdrop-blur-md border-b border-slate-800 z-50">
+    <div class="flex items-center space-x-3">
+      <span class="bg-gradient-to-r from-red-500 to-emerald-500 text-white font-extrabold px-3 py-1 rounded-md text-sm tracking-wider">Survival Guide</span>
+      <h1 class="text-lg font-bold text-slate-200 hidden md:inline-block">美式公寓生存指南</h1>
+    </div>
+    <!-- Mode Indicator Badge -->
+    <div id="mode-badge" class="px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 shadow-sm">
+      Loading...
+    </div>
+    <div class="flex items-center space-x-4">
+      <span class="text-xs text-slate-400 font-mono" id="slide-counter">0 / 0</span>
+      <button onclick="toggleHelpModal()" class="text-slate-400 hover:text-white transition" title="操作說明">
+        <i class="fa-regular fa-circle-question text-lg"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Progress Indicator Bar -->
+  <div class="w-full h-1 bg-slate-800 relative z-50">
+    <div id="progress-bar" class="h-full bg-gradient-to-r from-red-500 via-amber-500 to-emerald-500 transition-all duration-300" style="width: 0%"></div>
+  </div>
+
+  <!-- Main Slides Container -->
+  <main class="flex-grow flex items-center justify-center relative p-4 md:p-8 overflow-hidden">
+    
+    <!-- SLIDE 1: Cover Page -->
+    <section class="slide active w-full max-w-5xl flex-col md:flex-row items-center justify-between gap-8 md:gap-12" data-mode="neutral">
+      <div class="flex-1 text-center md:text-left space-y-6">
+        <div class="inline-block bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-bold px-3 py-1.5 rounded-full tracking-wide">
+          <i class="fa-solid fa-map-location-dot mr-1.5"></i> Map Scale: 100% Real American Life
+        </div>
+        <h2 class="text-4xl md:text-6xl font-black tracking-tight leading-tight bg-gradient-to-r from-red-400 via-amber-300 to-emerald-400 bg-clip-text text-transparent">
+          美式公寓<br/>生存指南
+        </h2>
+        <p class="text-slate-300 text-lg md:text-xl font-medium">
+          解鎖日常居家、週末耍廢 與突發狀況的道地美語
+        </p>
+        <div class="pt-4 flex flex-wrap gap-4 justify-center md:justify-start">
+          <button onclick="nextSlide()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3.5 rounded-xl shadow-lg hover:shadow-indigo-500/20 transition-all flex items-center space-x-2">
+            <span>開始探索</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+          <a href="#slide-2" onclick="goToSlide(1); return false;" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold px-6 py-3.5 rounded-xl transition flex items-center space-x-2">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <span>觀看模式切換</span>
+          </a>
+        </div>
+      </div>
+      <div class="flex-1 flex justify-center relative">
+        <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-red-500 to-emerald-500 opacity-25 blur-xl"></div>
+        <div class="relative bg-slate-900 border border-slate-800 p-8 rounded-2xl w-full max-w-sm flex flex-col items-center space-y-6">
+          <div class="text-6xl text-slate-700 font-black tracking-widest select-none">555</div>
+          <div class="text-center">
+            <div class="font-bold text-lg text-slate-200">Entryway / 玄關</div>
+            <p class="text-xs text-slate-400 mt-1">Daily life begins right here.</p>
+          </div>
+          <!-- Miniature House Concept Graphic -->
+          <div class="w-full grid grid-cols-2 gap-3 pt-4 border-t border-slate-800">
+            <div class="p-3 bg-red-500/10 rounded-lg border border-red-500/20 text-center">
+              <i class="fa-solid fa-bolt-lightning text-red-400 text-lg mb-1"></i>
+              <div class="text-xs font-bold text-red-300">Chaos Mode</div>
+            </div>
+            <div class="p-3 bg-emerald-500/10 rounded-lg border border-emerald-500/20 text-center">
+              <i class="fa-solid fa-mug-hot text-emerald-400 text-lg mb-1"></i>
+              <div class="text-xs font-bold text-emerald-300">Chill Mode</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: Two Modes Overview (Chaos vs Chill) -->
+    <section class="slide w-full max-w-6xl flex-col items-center justify-center space-y-8" data-mode="neutral">
+      <div class="text-center space-y-2">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-slate-100">美式居家生活的兩種極端模式</h2>
+        <p class="text-slate-400 max-w-2xl mx-auto">我們在美式公寓的日常，總是遊走在徹底爆發的崩潰邊緣，與極致慵懶的沙發耍廢之間。</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 w-full max-w-5xl">
+        <!-- Chaos Mode Column -->
+        <div class="bg-slate-900/80 border border-red-900/40 rounded-2xl p-6 md:p-8 flex flex-col justify-between hover:border-red-500/40 transition-all duration-300 glow-chaos">
+          <div class="space-y-4">
+            <div class="flex justify-between items-center">
+              <span class="bg-red-500/20 text-red-400 border border-red-500/30 text-xs font-extrabold uppercase px-3 py-1 rounded-md tracking-widest">[ Chaos Mode ]</span>
+              <span class="text-slate-600 font-bold text-xs"><i class="fa-solid fa-triangle-exclamation text-red-400 mr-1"></i>日常麻煩</span>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-200">出門前的混亂 & 突發狀況</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              處理包裹遲到、鎖在門外、路由器當機、或是鑰匙消失的早晨。每一件事都考驗著你的心智上限。
+            </p>
+            <div class="space-y-2 pt-2">
+              <span class="text-xs font-bold text-slate-300 uppercase block tracking-wider">核心情緒：</span>
+              <div class="flex flex-wrap gap-2">
+                <span class="bg-slate-800 text-red-300 border border-red-900/30 px-2.5 py-1 rounded text-xs">Frustrated (挫折)</span>
+                <span class="bg-slate-800 text-red-300 border border-red-900/30 px-2.5 py-1 rounded text-xs">Rushed (慌亂)</span>
+                <span class="bg-slate-800 text-red-300 border border-red-900/30 px-2.5 py-1 rounded text-xs">Annoyed (惱怒)</span>
+              </div>
+            </div>
+          </div>
+          <button onclick="goToSlide(2)" class="mt-6 w-full py-3 bg-red-600/20 hover:bg-red-600 text-red-300 hover:text-white border border-red-500/30 rounded-xl font-bold transition-all flex items-center justify-center space-x-2">
+            <span>進入 Chaos 模式</span>
+            <i class="fa-solid fa-bolt-lightning text-xs"></i>
+          </button>
+        </div>
+
+        <!-- Chill Mode Column -->
+        <div class="bg-slate-900/80 border border-emerald-900/40 rounded-2xl p-6 md:p-8 flex flex-col justify-between hover:border-emerald-500/40 transition-all duration-300 glow-chill">
+          <div class="space-y-4">
+            <div class="flex justify-between items-center">
+              <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold uppercase px-3 py-1 rounded-md tracking-widest">[ Chill Mode ]</span>
+              <span class="text-slate-600 font-bold text-xs"><i class="fa-solid fa-mug-hot text-emerald-400 mr-1"></i>居家放鬆</span>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-200">週末放鬆 & 耍廢時光</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              睡過頭、滑手機、泡咖啡、不想煮飯叫外送、或是在沙發上用極致慵懶的姿勢逃避所有家務事。
+            </p>
+            <div class="space-y-2 pt-2">
+              <span class="text-xs font-bold text-slate-300 uppercase block tracking-wider">核心情緒：</span>
+              <div class="flex flex-wrap gap-2">
+                <span class="bg-slate-800 text-emerald-300 border border-emerald-900/30 px-2.5 py-1 rounded text-xs">Relaxed (放鬆)</span>
+                <span class="bg-slate-800 text-emerald-300 border border-emerald-900/30 px-2.5 py-1 rounded text-xs">Lazy (慵懶)</span>
+                <span class="bg-slate-800 text-emerald-300 border border-emerald-900/30 px-2.5 py-1 rounded text-xs">Unbothered (泰然)</span>
+              </div>
+            </div>
+          </div>
+          <button onclick="goToSlide(5)" class="mt-6 w-full py-3 bg-emerald-600/20 hover:bg-emerald-600 text-emerald-300 hover:text-white border border-emerald-500/30 rounded-xl font-bold transition-all flex items-center justify-center space-x-2">
+            <span>進入 Chill 模式</span>
+            <i class="fa-solid fa-mug-hot text-xs"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: Chaos Mode - Morning Commute Chaos -->
+    <section class="slide w-full max-w-5xl flex-col justify-center space-y-6" data-mode="chaos">
+      <div class="space-y-1">
+        <span class="text-red-400 text-xs font-bold uppercase tracking-widest"><i class="fa-solid fa-cloud-bolt mr-1"></i> Entryway / 玄關</span>
+        <h2 class="text-2xl md:text-4xl font-extrabold text-slate-100">出門前的混亂：那些讓你遲到的早晨</h2>
+        <p class="text-sm text-slate-400">點擊下方卡片即可翻轉，查看道地的中文口語對照。點擊喇叭圖示可撥放語音發音！</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
+        <!-- Card 1 -->
+        <div class="perspective h-44 cursor-pointer" onclick="flipCard(this)">
+          <div class="flip-card-inner w-full h-full relative duration-500">
+            <div class="flip-card-front absolute w-full h-full bg-slate-900 border border-red-500/30 rounded-xl p-5 flex flex-col justify-between shadow-lg">
+              <div class="flex justify-between items-start">
+                <span class="text-xs text-red-400 font-mono"><i class="fa-solid fa-temperature-arrow-down mr-1"></i>Temperature</span>
+                <button onclick="speakText(event, 'The apartment feels freezing today.')" class="text-slate-500 hover:text-white p-1 rounded transition"><i class="fa-solid fa-volume-high"></i></button>
+              </div>
+              <p class="text-lg font-bold text-slate-100">"The apartment feels freezing today."</p>
+              <span class="text-[10px] text-slate-500 uppercase self-end">點擊翻面對照</span>
+            </div>
+            <div class="flip-card-back absolute w-full h-full bg-slate-950 border border-slate-800 rounded-xl p-5 flex flex-col justify-between shadow-inner">
+              <div class="text-xs text-slate-500 font-bold">中文口語意譯</div>
+              <p class="text-base text-amber-300 font-medium">「今天公寓裡感覺冷得要命。」</p>
+              <div class="text-xs text-slate-400">美式公寓冬天暖氣常常運作不良或控溫怪怪的，這句超實用。</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="perspective h-44 cursor-pointer" onclick="flipCard(this)">
+          <div class="flip-card-inner w-full h-full relative duration-500">
+            <div class="flip-card-front absolute w-full h-full bg-slate-900 border border-red-500/30 rounded-xl p-5 flex flex-col justify-between shadow-lg">
+              <div class="flex justify-between items-start">
+                <span class="text-xs text-red-400 font-mono"><i class="fa-solid fa-key mr-1"></i>Keys</span>
+                <button onclick="speakText(event, 'Have you seen my apartment keys?')" class="text-slate-500 hover:text-white p-1 rounded transition"><i class="fa-solid fa-volume-high"></i></button>
+              </div>
+              <p class="text-lg font-bold text-slate-100">"Have you seen my apartment keys?"</p>
+              <span class="text-[10px] text-slate-500 uppercase self-end">點擊翻面對照</span>
+            </div>
+            <div class="flip-card-back absolute w-full h-full bg-slate-950 border border-slate-800 rounded-xl p-5 flex flex-col justify-between shadow-inner">
+              <div class="text-xs text-slate-500 font-bold">中文口語意譯</div>
+              <p class="text-base text-amber-300 font-medium">「你有看到我的公寓鑰匙嗎？」</p>
+              <div class="text-xs text-slate-400">美國許多公寓仍在使用實體金屬鑰匙，弄丟就意味著數百美元的罰金...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="perspective h-44 cursor-pointer" onclick="flipCard(this)">
+          <div class="flip-card-inner w-full h-full relative duration-500">
+            <div class="flip-card-front absolute w-full h-full bg-slate-900 border border-red-500/30 rounded-xl p-5 flex flex-col justify-between shadow-lg">
+              <div class="flex justify-between items-start">
+                <span class="text-xs text-red-400 font-mono"><i class="fa-solid fa-magnifying-glass mr-1"></i>Lost</span>
+                <button onclick="speakText(event, 'I can\'t find anything this morning.')" class="text-slate-500 hover:text-white p-1 rounded transition"><i class="fa-solid fa-volume-high"></i></button>
+              </div>
+              <p class="text-lg font-bold text-slate-100">"I can't find anything this morning."</p>
+              <span class="text-[10px] text-slate-500 uppercase self-end">點擊翻面對照</span>
+            </div>
+            <div class="flip-card-back absolute w-full h-full bg-slate-950 border border-slate-800 rounded-xl p-5 flex flex-col justify-between shadow-inner">
+              <div class="text-xs text-slate-500 font-bold">中文口語意譯</div>
+              <p class="text-base text-amber-300 font-medium">「我今天早上什麼都找不到。」</p>
+              <div class="text-xs text-slate-400">當慌亂時，大腦會自動屏蔽所有擺在眼前的物品。</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="perspective h-44 cursor-pointer" onclick="flipCard(this)">
+          <div class="flip-card-inner w-full h-full relative duration-500">
+            <div class="flip-card-front absolute w-full h-full bg-slate-900 border border-red-500/30 rounded-xl p-5 flex flex-col justify-between shadow-lg">
+              <div class="flex justify-between items-start">
+                <span class="text-xs text-red-400 font-mono"><i class="fa-solid fa-clock-rotate-left mr-1"></i>Running Late</span>
+                <button onclick="speakText(event, 'Oh crap, I\'m running late again.')" class="text-slate-500 hover:text-white p-1 rounded transition"><i class="fa-solid fa-volume-high"></i></button>
+              </div>
+              <p class="text-lg font-bold text-slate-100">"Oh crap, I'm running late again."</p>
+              <span class="text-[10px] text-slate-500 uppercase self-end">點擊翻面對照</span>
+            </div>
+            <div class="flip-card-back absolute w-full h-full bg-slate-950 border border-slate-800 rounded-xl p-5 flex flex-col justify-between shadow-inner">
+              <div class="text-xs text-slate-500 font-bold">中文口語意譯</div>
+              <p class="text-base text-amber-300 font-medium">「糟了，我又快遲到了。」</p>
+              <div class="text-xs text-slate-400">"Oh crap" 比 "Oh my god" 更加生活化，精準表達挫折與小崩潰。</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="perspective h-44 cursor-pointer" onclick="flipCard(this)">
+          <div class="flip-card-inner w-full h-full relative duration-500">
+            <div class="flip-card-front absolute w-full h-full bg-slate-900 border border-red-500/30 rounded-xl p-5 flex flex-col justify-between shadow-lg">
+              <div class="flex justify-between items-start">
+                <span class="text-xs text-red-400 font-mono"><i class="fa-solid fa-brain mr-1"></i>Mental State</span>
+                <button onclick="speakText(event, 'I\'m totally out of it today.')" class="text-slate-500 hover:text-white p-1 rounded transition"><i class="fa-solid fa-volume-high"></i></button>
+              </div>
+              <p class="text-lg font-bold text-slate-100">"I'm totally out of it today."</p>
+              <span class="text-[10px] text-slate-500 uppercase self-end">點擊翻面對照</span>
+            </div>
+            <div class="flip-card-back absolute w-full h-full bg-slate-950 border border-slate-800 rounded-xl p-5 flex flex-col justify-between shadow-inner">
+              <div class="text-xs text-slate-500 font-bold">中文口語意譯</div>
+              <p class="text-base text-amber-300 font-medium">「我今天整個人狀況外 / 精神渙散。」</p>
+              <div class="text-xs text-slate-400">"out of it" 常用於剛睡醒、宿醉、或是沒睡好時那種靈魂抽離的狀態。</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Explanatory Extra Card -->
+        <div class="bg-gradient-to-br from-red-950/40 to-slate-900 border border-red-900/30 rounded-xl p-5 flex flex-col justify-between shadow-lg h-44">
+          <div class="space-y-1">
+            <div class="text-xs font-extrabold text-red-400 uppercase tracking-widest"><i class="fa-solid fa-lightbulb mr-1"></i>美語文化小貼士</div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              在美國上班上課，交通延誤是家常便飯。在解釋遲到時，常用「I'm out of it」或「running late」來禮貌且道地地向同事或室友打預防針。
+            </p>
+          </div>
+          <div class="text-[10px] text-red-300/80 font-bold"><i class="fa-solid fa-chevron-right mr-1"></i> 點擊右下角可切換至下一頁</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: Chaos Mode - Package Delays & Maintenance -->
+    <section class="slide w-full max-w-5xl flex-col justify-center space-y-6" data-mode="chaos">
+      <div class="space-y-1">
+        <span class="text-red-400 text-xs font-bold uppercase tracking-widest"><i class="fa-solid fa-box-open mr-1"></i> Outside the Door / 門外</span>
+        <h2 class="text-2xl md:text-4xl font-extrabold text-slate-100">門外的訪客：物流延誤與突發修繕</h2>
+        <p class="text-sm text-slate-400">點擊卡片查看在抱怨中找共鳴的道地用詞。</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
+        <!-- Card 1 -->
+        <div class="perspective h-44 cursor-pointer" onclick="flipCard(this)">
+          <div class="flip-card-inner w-full h-full relative duration-500">
+            <div class="flip-card-front absolute w-full h-full bg-slate-900 border border-red-500/30 rounded-xl p-5 flex flex-col justify-between shadow-lg">
+              <div class="flex justify-between items-start">
+                <span class="text-xs text-red-400 font-mono"><i class="fa-solid fa-truck-ramp-box mr-1"></i>Shipping</span>
+                <button onclick="speakText(event, 'Shipping delays are seriously getting ridiculous.')" class="text-slate-500 hover:text-white p-1 rounded transition"><i class="fa-solid fa-volume-high"></i></button>
+              </div>
+              <p class="text-base font-bold text-slate-100 leading-snug">"Shipping delays are seriously getting ridiculous."</p>
+              <span class="text-[10px] text-slate-500 uppercase self-end">點擊翻面對照</span>
+            </div>
+            <div class="flip-card-back absolute w-full h-full bg-slate-950 border border-slate-800 rounded-xl p-5 flex flex-col justify-between shadow-inner">
+              <div class="text-xs text-slate-500 font-bold">中文口語意譯</div>
+              <p class="text-base text-amber-300 font-medium">「物流延遲真的越來越扯了。」</p>
+              <div class="text-xs text-slate-400">當網購的包裹卡在轉運站好幾天，這是最常在社交平台上看到的抱怨句。</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="perspective h-44 cursor-pointer" onclick="flipCard(this)">
+          <div class="flip-card-inner w-full h-full relative duration-500">
+            <div class="flip-card-front absolute w-full h-full bg-slate-900 border border-red-500/30 rounded-xl p-5 flex flex-col justify-between shadow-lg">
+              <div class="flex justify-between items-start">
+                <span class="text-xs text-red-400 font-mono"><i class="fa-solid fa-hourglass-half mr-1"></i>Waiting</span>
+                <button onclick="speakText(event, 'I\'ve waited all week already.')" class="text-slate-500 hover:text-white p-1 rounded transition"><i class="fa-solid fa-volume-high"></i></button>
+              </div>
+              <p class="text-lg font-bold text-slate-100">"I've waited all week already."</p>
+              <span class="text-[10px] text-slate-500 uppercase self-end">點擊翻面對照</span>
+            </div>
+            <div class="flip-card-back absolute w-full h-full bg-slate-950 border border-slate-800 rounded-xl p-5 flex flex-col justify-between shadow-inner">
+              <div class="text-xs text-slate-500 font-bold">中文口語意譯</div>
+              <p class="text-base text-amber-300 font-medium">「我已經等了一整週了。」</p>
+              <div class="text-xs text-slate-400">帶有強烈的無奈與憤怒感，強調自己已经付出足夠的耐心。</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="perspective h-44 cursor-pointer" onclick="flipCard(this)">
+          <div class="flip-card-inner w-full h-full relative duration-500">
+            <div class="flip-card-front absolute w-full h-full bg-slate-900 border border-red-500/30 rounded-xl p-5 flex flex-col justify-between shadow-lg">
+              <div class="flex justify-between items-start">
+                <span class="text-xs text-red-400 font-mono"><i class="fa-solid fa-wrench mr-1"></i>Maintenance</span>
+                <button onclick="speakText(event, 'My apartment maintenance suddenly showed up.')" class="text-slate-500 hover:text-white p-1 rounded transition"><i class="fa-solid fa-volume-high"></i></button>
+              </div>
+              <p class="text-base font-bold text-slate-100 leading-snug">"My apartment maintenance suddenly showed up."</p>
+              <span class="text-[10px] text-slate-500 uppercase self-end">點擊翻面對照</span>
+            </div>
+            <div class="flip-card-back absolute w-full h-full bg-slate-950 border border-slate-800 rounded-xl p-5 flex flex-col justify-between shadow-inner">
+              <div class="text-xs text-slate-500 font-bold">中文口語意譯</div>
+              <p class="text-base text-amber-300 font-medium">「公寓維修人員突然跑來了。」</p>
+              <div class="text-xs text-slate-400">美式公寓的物業維修人員（Maintenance Staff）有時效率極低，有時又會在毫無提前通知的情況下直接敲門。</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="perspective h-44 cursor-pointer" onclick="flipCard(this)">
+          <div class="flip-card-inner w-full h-full relative duration-500">
+            <div class="flip-card-front absolute w-full h-full bg-slate-900 border border-red-500/30 rounded-xl p-5 flex flex-col justify-between shadow-lg">
+              <div class="flex justify-between items-start">
+                <span class="text-xs text-red-400 font-mono"><i class="fa-solid fa-lock-open mr-1"></i>Locked Out</span>
+                <button onclick="speakText(event, 'I locked myself out yesterday again.')" class="text-slate-500 hover:text-white p-1 rounded transition"><i class="fa-solid fa-volume-high"></i></button>
+              </div>
+              <p class="text-base font-bold text-slate-100 leading-snug">"I locked myself out yesterday again."</p>
+              <span class="text-[10px] text-slate-500 uppercase self-end">點擊翻面對照</span>
+            </div>
+            <div class="flip-card-back absolute w-full h-full bg-slate-950 border border-slate-800 rounded-xl p-5 flex flex-col justify-between shadow-inner">
+              <div class="text-xs text-slate-500 font-bold">中文口語意譯</div>
+              <p class="text-base text-amber-300 font-medium">「我昨天又把自己鎖在門外了。」</p>
+              <div class="text-xs text-slate-400">美式公寓大門多為隨手關上即上鎖的「自動鎖」，全美留學生最怕的惡夢之一（開鎖通常需要 100-200 美元）。</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5 (From Notification Box on PDF) -->
+        <div class="perspective h-44 cursor-pointer" onclick="flipCard(this)">
+          <div class="flip-card-inner w-full h-full relative duration-500">
+            <div class="flip-card-front absolute w-full h-full bg-slate-900 border border-red-500/30 rounded-xl p-5 flex flex-col justify-between shadow-lg">
+              <div class="flex justify-between items-start">
+                <span class="text-xs text-red-400 font-mono"><i class="fa-solid fa-triangle-exclamation mr-1"></i>Delay Alert</span>
+                <button onclick="speakText(event, 'Your package has been delayed again.')" class="text-slate-500 hover:text-white p-1 rounded transition"><i class="fa-solid fa-volume-high"></i></button>
+              </div>
+              <p class="text-lg font-bold text-slate-100">"Your package has been delayed again."</p>
+              <span class="text-[10px] text-slate-500 uppercase self-end">點擊翻面對照</span>
+            </div>
+            <div class="flip-card-back absolute w-full h-full bg-slate-950 border border-slate-800 rounded-xl p-5 flex flex-col justify-between shadow-inner">
+              <div class="text-xs text-slate-500 font-bold">系統通知</div>
+              <p class="text-base text-amber-300 font-medium">「您的包裹又延遲了。」</p>
+              <div class="text-xs text-slate-400">USPS, FedEx 或 UPS 的日常通知，看到這行文字通常代表當天心情要打折扣了。</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Informative Extra Card -->
+        <div class="bg-gradient-to-br from-indigo-950/20 to-slate-900 border border-indigo-900/30 rounded-xl p-5 flex flex-col justify-between shadow-lg h-44">
+          <div class="space-y-1">
+            <div class="text-xs font-extrabold text-indigo-400 uppercase tracking-widest"><i class="fa-solid fa-users mr-1"></i> 小智慧：在抱怨中找共鳴</div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              對物流和公寓物業管理（leasing office）的集體吐槽是美式社群文化的「破冰神藥」。跟新鄰居沒話聊？抱怨包裹不見絕對是最好的切入點。
+            </p>
+          </div>
+          <div class="text-[10px] text-indigo-300/80 font-bold"><i class="fa-solid fa-circle-info mr-1"></i> 點擊進行下一個生存危機...</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: Chaos Mode - Living Room Digital Disasters (WiFi & Battery) -->
+    <section class="slide w-full max-w-5xl flex-col md:flex-row items-center gap-8 md:gap-12" data-mode="chaos">
+      <!-- Left Column: Visual Concept representation -->
+      <div class="w-full md:w-2/5 flex flex-col items-center space-y-6">
+        <div class="relative w-full max-w-sm bg-slate-900 border border-red-500/20 p-6 rounded-2xl flex flex-col items-center space-y-4 shadow-xl">
+          <!-- Animated Router Vector Mock -->
+          <div class="w-full h-32 bg-slate-950 rounded-xl flex items-center justify-center relative overflow-hidden border border-slate-800">
+            <div class="absolute inset-0 bg-red-500/5 animate-pulse"></div>
+            <div class="flex space-x-2 items-end">
+              <div class="w-2 h-12 bg-slate-700 rounded-full"></div>
+              <div class="w-2 h-16 bg-slate-700 rounded-full"></div>
+              <div class="w-20 h-4 bg-slate-800 rounded relative flex items-center justify-center">
+                <!-- Flashing alert light -->
+                <span class="absolute -top-1 w-3 h-3 bg-red-500 rounded-full animate-ping"></span>
+                <span class="absolute -top-1 w-3 h-3 bg-red-500 rounded-full"></span>
+              </div>
+              <div class="w-2 h-16 bg-slate-700 rounded-full"></div>
+              <div class="w-2 h-12 bg-slate-700 rounded-full"></div>
+            </div>
+            <!-- Signal strength arches (Broken) -->
+            <div class="absolute top-4 text-red-500/80 animate-bounce">
+              <i class="fa-solid fa-wifi-slash text-2xl"></i>
+            </div>
+          </div>
+          <div class="text-center w-full">
+            <div class="text-xs text-slate-400">Router Alert / 路由器報警</div>
+            <div class="text-sm font-bold text-slate-200 mt-1">"Trouble with my internet."</div>
+            <div class="text-xs text-red-400 mt-0.5">Disconnected / 已斷線</div>
+          </div>
+          <!-- Low Battery Mock -->
+          <div class="w-full flex items-center justify-between p-3 bg-red-500/5 border border-red-500/10 rounded-xl">
+            <div class="flex items-center space-x-3">
+              <i class="fa-solid fa-battery-empty text-red-500 text-lg animate-pulse"></i>
+              <div>
+                <div class="text-xs font-bold text-slate-200">Phone Battery</div>
+                <div class="text-[10px] text-slate-400">Down to 2%</div>
+              </div>
+            </div>
+            <span class="text-xs font-mono font-bold text-red-400">2%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Content Dialogues -->
+      <div class="w-full md:w-3/5 space-y-6">
+        <div class="space-y-1">
+          <span class="text-red-400 text-xs font-bold uppercase tracking-widest"><i class="fa-solid fa-tv mr-1"></i> Living Room / 客廳</span>
+          <h2 class="text-2xl md:text-4xl font-extrabold text-slate-100">客廳裡的數位災難：斷網與沒電求生指南</h2>
+          <p class="text-slate-400 text-sm">斷網與手機沒電，在美國高額的行動數據與漫長維修期下無疑是最高級別災難。</p>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Flow 1: Internet -->
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-3 hover:border-red-500/20 transition">
+            <div class="space-y-1">
+              <div class="flex items-center space-x-2">
+                <span class="text-[10px] font-extrabold bg-red-500/20 text-red-400 px-2 py-0.5 rounded">WiFi Crisis</span>
+                <span class="text-xs text-slate-400">「我的網路有問題，它一直斷線。」</span>
+              </div>
+              <p class="text-base font-bold text-slate-200">"Trouble with my internet. It keeps disconnecting."</p>
+            </div>
+            <div class="flex items-center space-x-2">
+              <button onclick="speakText(event, 'Trouble with my internet. It keeps disconnecting.')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 p-2.5 rounded-lg transition" title="朗讀英文"><i class="fa-solid fa-volume-high"></i></button>
+              <button onclick="showTip('internetTip')" class="bg-indigo-600/20 text-indigo-400 hover:bg-indigo-600 hover:text-white p-2.5 rounded-lg transition text-xs font-bold px-3">看解法</button>
+            </div>
+          </div>
+          <!-- Hidden tip for internet -->
+          <div id="internetTip" class="hidden bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs text-slate-300 space-y-1">
+            <span class="font-extrabold text-amber-400"><i class="fa-solid fa-gears mr-1"></i>美式標準求生流程：</span>
+            <p>遇到斷網，通常打給 Comcast/Xfinity 客服前，第一句會聽到：「<span class="text-emerald-400">Try restarting your router once.</span> (試著重開一次你的路由器。)」。這能解決 90% 的小狀況。</p>
+          </div>
+
+          <!-- Flow 2: Battery -->
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-3 hover:border-red-500/20 transition">
+            <div class="space-y-1">
+              <div class="flex items-center space-x-2">
+                <span class="text-[10px] font-extrabold bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded">Battery Crisis</span>
+                <span class="text-xs text-slate-400">「我手機快完全沒電了，真的只剩2%了。」</span>
+              </div>
+              <p class="text-base font-bold text-slate-200">"My phone's about to completely die. I've seriously down to 2%."</p>
+            </div>
+            <div class="flex items-center space-x-2">
+              <button onclick="speakText(event, 'My phone\'s about to completely die. I\'m seriously down to 2%.')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 p-2.5 rounded-lg transition" title="朗讀英文"><i class="fa-solid fa-volume-high"></i></button>
+              <button onclick="showTip('batteryTip')" class="bg-indigo-600/20 text-indigo-400 hover:bg-indigo-600 hover:text-white p-2.5 rounded-lg transition text-xs font-bold px-3">借充電器</button>
+            </div>
+          </div>
+          <!-- Hidden tip for battery -->
+          <div id="batteryTip" class="hidden bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs text-slate-300 space-y-1">
+            <span class="font-extrabold text-amber-400"><i class="fa-solid fa-plug mr-1"></i>如何跟室友/同事借充電器？</span>
+            <p>你可以客氣地問：「<span class="text-emerald-400">Do you happen to have a charger?</span> (你剛好有充電器嗎？)」。"Do you happen to..." 帶有「你剛好有...嗎（沒有也沒關係）」的客氣語氣。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: Chill Mode - Stay-in vs Going Out -->
+    <section class="slide w-full max-w-5xl flex-col justify-center space-y-6" data-mode="chill">
+      <div class="text-center space-y-1">
+        <span class="text-emerald-400 text-xs font-bold uppercase tracking-widest"><i class="fa-solid fa-mug-hot mr-1"></i> Weekend Mode / 週末模式</span>
+        <h2 class="text-2xl md:text-4xl font-extrabold text-slate-100">週末模式切換器：社交出門 vs. 懶人宅家</h2>
+        <p class="text-slate-400 text-sm">極致放鬆的週末，你選擇當個徹底躺平的 Homebody，還是出門散步喝杯咖啡？</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 pt-4">
+        <!-- Chill at Home Column -->
+        <div class="bg-slate-900 border-2 border-emerald-500/20 rounded-2xl p-6 space-y-4 hover:border-emerald-500/50 transition">
+          <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+              <span class="text-emerald-400 text-lg"><i class="fa-solid fa-couch"></i></span>
+              <h3 class="text-xl font-bold text-slate-200">Chill at Home <span class="text-xs text-emerald-400 font-normal">「宅家模式」</span></h3>
+            </div>
+            <span class="bg-emerald-500/10 text-emerald-300 text-[10px] font-bold px-2.5 py-0.5 rounded-full">Homebody</span>
+          </div>
+
+          <ul class="space-y-3 pt-2 text-sm text-slate-300">
+            <li class="p-3 bg-slate-950/60 rounded-xl border border-slate-800/80 flex justify-between items-start">
+              <div>
+                <p class="font-semibold text-slate-100">"I'm just going to chill at home."</p>
+                <p class="text-xs text-slate-400 mt-1">「我只打算待在家放鬆。」(chill 除了冷，更是口語放鬆最常用的詞)</p>
+              </div>
+              <button onclick="speakText(event, 'I\'m just going to chill at home.')" class="text-slate-500 hover:text-white p-1 transition"><i class="fa-solid fa-volume-high text-xs"></i></button>
+            </li>
+            <li class="p-3 bg-slate-950/60 rounded-xl border border-slate-800/80 flex justify-between items-start">
+              <div>
+                <p class="font-semibold text-slate-100">"I'm kind of too lazy to cook."</p>
+                <p class="text-xs text-slate-400 mt-1">「我有點懶得煮飯。」(kind of 在美語口語中極常使用，帶有一種慵懶的無奈)</p>
+              </div>
+              <button onclick="speakText(event, 'I\'m kind of too lazy to cook.')" class="text-slate-500 hover:text-white p-1 transition"><i class="fa-solid fa-volume-high text-xs"></i></button>
+            </li>
+            <li class="p-3 bg-slate-950/60 rounded-xl border border-slate-800/80 flex justify-between items-start">
+              <div>
+                <p class="font-semibold text-slate-100">"I'd rather just stay in and chill."</p>
+                <p class="text-xs text-slate-400 mt-1">「我寧願待在家裡放鬆。」(stay in 代表待在屋裡，不出門)</p>
+              </div>
+              <button onclick="speakText(event, 'I\'d rather just stay in and chill.')" class="text-slate-500 hover:text-white p-1 transition"><i class="fa-solid fa-volume-high text-xs"></i></button>
+            </li>
+            <li class="p-3 bg-slate-950/60 rounded-xl border border-slate-800/80 flex justify-between items-start">
+              <div>
+                <p class="font-semibold text-slate-100">"Honestly, I got nothing planned."</p>
+                <p class="text-xs text-slate-400 mt-1">「老實說，我沒什麼計畫。」(毫無目的、隨心所欲正是 Chill Mode 的精髓)</p>
+              </div>
+              <button onclick="speakText(event, 'Honestly, I got nothing planned.')" class="text-slate-500 hover:text-white p-1 transition"><i class="fa-solid fa-volume-high text-xs"></i></button>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Going Out Column -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4 hover:border-emerald-500/30 transition flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex justify-between items-center">
+              <div class="flex items-center space-x-2">
+                <span class="text-indigo-400 text-lg"><i class="fa-solid fa-shoe-prints"></i></span>
+                <h3 class="text-xl font-bold text-slate-200">Going Out <span class="text-xs text-indigo-400 font-normal">「出門模式」</span></h3>
+              </div>
+              <span class="bg-indigo-500/10 text-indigo-300 text-[10px] font-bold px-2.5 py-0.5 rounded-full">Social Out</span>
+            </div>
+
+            <ul class="space-y-3 pt-2 text-sm text-slate-300">
+              <li class="p-3 bg-slate-950/60 rounded-xl border border-slate-800/80 flex justify-between items-start">
+                <div>
+                  <p class="font-semibold text-slate-100">"We could grab food or maybe coffee."</p>
+                  <p class="text-xs text-slate-400 mt-1">「我們可以去吃點東西，或是喝杯咖啡。」(grab 代表快速、隨意地吃喝點什麼)</p>
+                </div>
+                <button onclick="speakText(event, 'We could grab food or maybe coffee.')" class="text-slate-500 hover:text-white p-1 transition"><i class="fa-solid fa-volume-high text-xs"></i></button>
+              </li>
+              <li class="p-3 bg-slate-950/60 rounded-xl border border-slate-800/80 flex justify-between items-start">
+                <div>
+                  <p class="font-semibold text-slate-100">"Go for a short walk outside."</p>
+                  <p class="text-xs text-slate-400 mt-1">「去外面散散步。」(美國人週末常掛在嘴邊的簡單戶外日常)</p>
+                </div>
+                <button onclick="speakText(event, 'Go for a short walk outside.')" class="text-slate-500 hover:text-white p-1 transition"><i class="fa-solid fa-volume-high text-xs"></i></button>
+              </li>
+              <li class="p-3 bg-slate-950/60 rounded-xl border border-slate-800/80 flex justify-between items-start">
+                <div>
+                  <p class="font-semibold text-slate-100">"I might scroll on my phone."</p>
+                  <p class="text-xs text-slate-400 mt-1">「我可能會滑滑手機。」(scroll on my phone 直譯在手機上滾動 / 滑手機)</p>
+                </div>
+                <button onclick="speakText(event, 'I might scroll on my phone.')" class="text-slate-500 hover:text-white p-1 transition"><i class="fa-solid fa-volume-high text-xs"></i></button>
+              </li>
+            </ul>
+          </div>
+
+          <div class="p-4 bg-emerald-500/5 border border-emerald-500/10 rounded-xl text-xs text-slate-300">
+            <span class="font-bold text-emerald-400"><i class="fa-regular fa-face-smile mr-1.5"></i>週末美式口語指南</span><br/>
+            「Chill」是一個用途極廣的字。它可以當動詞 (I'm chilling)、形容詞 (He's very chill)、或感嘆詞 (Chill out! 冷靜點)。在公寓生活裡，它是拒絕繁複社交、享受個人世界的最完美代名詞。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: Chill Mode - Bedroom Black Hole (The Endless Cycle) -->
+    <section class="slide w-full max-w-5xl flex-col items-center justify-center space-y-6" data-mode="chill">
+      <div class="text-center space-y-1">
+        <span class="text-amber-400 text-xs font-bold uppercase tracking-widest"><i class="fa-solid fa-bed mr-1"></i> Bedroom Black Hole / 臥室黑洞</span>
+        <h2 class="text-2xl md:text-4xl font-extrabold text-slate-100">無法停止的熬夜惡性循環</h2>
+        <p class="text-slate-400 text-sm">手機的光亮、亂看廢片的快感、最後迎接的是早上崩潰睡過頭。你，也卡在這個美式公寓的黑洞中嗎？</p>
+      </div>
+
+      <!-- The Interactive Loop Graphic -->
+      <div class="w-full max-w-3xl mx-auto relative h-[360px] md:h-[400px] flex items-center justify-center pt-8">
+        <!-- Background circular track -->
+        <div class="absolute w-72 h-72 md:w-96 md:h-96 rounded-full border-4 border-dashed border-indigo-500/10 loop-bg"></div>
+
+        <!-- Center: Sleeping Person Visual representation -->
+        <div class="absolute z-10 w-28 h-28 md:w-36 md:h-36 bg-slate-900 border-2 border-indigo-500/30 rounded-full flex flex-col items-center justify-center shadow-lg text-center p-3">
+          <i class="fa-solid fa-moon text-indigo-400 text-3xl mb-1 animate-pulse"></i>
+          <span class="text-[10px] text-slate-400 font-bold">Midnight Bed</span>
+          <span class="text-[9px] text-slate-500">Zzz...</span>
+        </div>
+
+        <!-- Loop Step 1: Top -->
+        <div class="absolute top-0 transform -translate-y-4 bg-slate-900 border border-slate-800 p-3 rounded-xl shadow-lg w-56 hover:border-indigo-500 transition z-20 text-center">
+          <div class="flex items-center justify-center space-x-1.5 text-xs text-indigo-400 font-bold mb-1">
+            <i class="fa-solid fa-mobile-screen"></i>
+            <span>Step 1: Scroll</span>
+          </div>
+          <p class="text-xs font-semibold text-slate-100">"I was just watching random stuff online."</p>
+          <p class="text-[10px] text-slate-400 mt-0.5">（我剛只是在網路上亂看廢片。）</p>
+        </div>
+
+        <!-- Loop Step 2: Right -->
+        <div class="absolute right-0 transform translate-x-4 md:translate-x-12 bg-slate-900 border border-slate-800 p-3 rounded-xl shadow-lg w-56 hover:border-indigo-500 transition z-20 text-center">
+          <div class="flex items-center justify-center space-x-1.5 text-xs text-indigo-400 font-bold mb-1">
+            <i class="fa-solid fa-clock"></i>
+            <span>Step 2: Late Night</span>
+          </div>
+          <p class="text-xs font-semibold text-slate-100">"Didn't even realize how late it was."</p>
+          <p class="text-[10px] text-slate-400 mt-0.5">（甚至沒意識到時間已經這麼晚了。）</p>
+        </div>
+
+        <!-- Loop Step 3: Bottom -->
+        <div class="absolute bottom-0 transform translate-y-4 bg-slate-900 border border-slate-800 p-3 rounded-xl shadow-lg w-56 hover:border-indigo-500 transition z-20 text-center">
+          <div class="flex items-center justify-center space-x-1.5 text-xs text-indigo-400 font-bold mb-1">
+            <i class="fa-solid fa-bell-slash"></i>
+            <span>Step 3: Oversleep</span>
+          </div>
+          <p class="text-xs font-semibold text-slate-100">"I slept in again today. Didn't even hear my alarm."</p>
+          <p class="text-[10px] text-slate-400 mt-0.5">（我又睡過頭了，根本沒聽到鬧鐘響。）</p>
+        </div>
+
+        <!-- Loop Step 4: Left -->
+        <div class="absolute left-0 transform -translate-x-4 md:-translate-x-12 bg-slate-900 border border-slate-800 p-3 rounded-xl shadow-lg w-56 hover:border-indigo-500 transition z-20 text-center">
+          <div class="flex items-center justify-center space-x-1.5 text-xs text-indigo-400 font-bold mb-1">
+            <i class="fa-solid fa-ghost"></i>
+            <span>Step 4: Out of It</span>
+          </div>
+          <p class="text-xs font-semibold text-slate-100">"I feel kind of out of it now."</p>
+          <p class="text-[10px] text-slate-400 mt-0.5">（我現在覺得整個人狀況外 / 精神渙散。）</p>
+        </div>
+
+        <!-- Connecting Curved Arrows (Visual Concept) -->
+        <div class="absolute inset-0 pointer-events-none flex items-center justify-center">
+          <div class="w-full h-full relative">
+            <i class="fa-solid fa-arrow-right absolute top-[25%] right-[25%] text-slate-700 text-lg rotate-[45deg]"></i>
+            <i class="fa-solid fa-arrow-down absolute bottom-[25%] right-[25%] text-slate-700 text-lg rotate-[45deg]"></i>
+            <i class="fa-solid fa-arrow-left absolute bottom-[25%] left-[25%] text-slate-700 text-lg rotate-[45deg]"></i>
+            <i class="fa-solid fa-arrow-up absolute top-[25%] left-[25%] text-slate-700 text-lg rotate-[45deg]"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: Summary / Decoder -->
+    <section class="slide w-full max-w-4xl flex-col items-center justify-center space-y-8" data-mode="neutral">
+      <div class="text-center space-y-2">
+        <span class="text-xs font-bold text-indigo-400 uppercase tracking-widest"><i class="fa-solid fa-language mr-1"></i> Survival Guide Decoder / 文化解碼</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-slate-100">解碼美式居家文化</h2>
+        <p class="text-slate-400 text-sm max-w-xl mx-auto">最道地的日常美語，往往發生在面對瑣事麻煩的無奈吐槽，以及週末毫無計畫的極致放鬆之間。</p>
+      </div>
+
+      <!-- Quote Box -->
+      <div class="relative w-full max-w-2xl bg-slate-900 border border-slate-800 p-8 rounded-2xl text-center shadow-lg space-y-4">
+        <!-- Quote Icon -->
+        <div class="absolute -top-5 left-1/2 transform -translate-x-1/2 bg-slate-800 border border-slate-700 w-10 h-10 rounded-full flex items-center justify-center text-indigo-400">
+          <i class="fa-solid fa-quote-left"></i>
+        </div>
+        
+        <p class="text-slate-300 italic text-sm md:text-base leading-relaxed pt-2">
+          "The most authentic everyday English happens between the helpless complaints about daily chores and the ultimate relaxation of a plan-free weekend."
+        </p>
+        <p class="text-sm font-semibold text-slate-400">
+          —— 摘自《美式公寓生存指南》
+        </p>
+      </div>
+
+      <!-- Play-free Quick Practice -->
+      <div class="w-full max-w-2xl text-center space-y-4">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400">本指南核心句型回顧 (點擊即可發音)</h3>
+        <div class="flex flex-wrap gap-2.5 justify-center">
+          <button onclick="speakText(event, 'Shipping delays are seriously getting ridiculous.')" class="bg-red-500/10 hover:bg-red-500/20 text-red-300 border border-red-500/20 px-3 py-1.5 rounded-full text-xs font-bold transition flex items-center space-x-1.5">
+            <span>Shipping delays...</span> <i class="fa-solid fa-volume-high text-[10px]"></i>
+          </button>
+          <button onclick="speakText(event, 'My phone\'s about to completely die.')" class="bg-red-500/10 hover:bg-red-500/20 text-red-300 border border-red-500/20 px-3 py-1.5 rounded-full text-xs font-bold transition flex items-center space-x-1.5">
+            <span>My phone's about to die...</span> <i class="fa-solid fa-volume-high text-[10px]"></i>
+          </button>
+          <button onclick="speakText(event, 'Have you seen my apartment keys?')" class="bg-red-500/10 hover:bg-red-500/20 text-red-300 border border-red-500/20 px-3 py-1.5 rounded-full text-xs font-bold transition flex items-center space-x-1.5">
+            <span>Seen my keys?</span> <i class="fa-solid fa-volume-high text-[10px]"></i>
+          </button>
+          <button onclick="speakText(event, 'I\'m just going to chill at home.')" class="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/20 px-3 py-1.5 rounded-full text-xs font-bold transition flex items-center space-x-1.5">
+            <span>Chill at home...</span> <i class="fa-solid fa-volume-high text-[10px]"></i>
+          </button>
+          <button onclick="speakText(event, 'I\'d rather just stay in and chill.')" class="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/20 px-3 py-1.5 rounded-full text-xs font-bold transition flex items-center space-x-1.5">
+            <span>Stay in and chill...</span> <i class="fa-solid fa-volume-high text-[10px]"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Controls Footer -->
+  <footer class="w-full px-6 py-4 bg-slate-950/80 border-t border-slate-900 flex justify-between items-center z-50">
+    <div class="flex items-center space-x-2">
+      <!-- Quick navigation buttons -->
+      <button id="btn-prev" onclick="prevSlide()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-2 rounded-xl transition font-bold text-sm flex items-center space-x-1.5 disabled:opacity-30 disabled:cursor-not-allowed">
+        <i class="fa-solid fa-chevron-left"></i>
+        <span>上一頁</span>
+      </button>
+      <button id="btn-next" onclick="nextSlide()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-2 rounded-xl transition font-bold text-sm flex items-center space-x-1.5 disabled:opacity-30 disabled:cursor-not-allowed">
+        <span>下一頁</span>
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+
+    <!-- Thumbnail navigation dots -->
+    <div class="hidden md:flex items-center space-x-2" id="dots-container">
+      <!-- Generated by JavaScript -->
+    </div>
+
+    <div class="text-xs text-slate-500 font-medium">
+      Powered by NotebookLM & Tailwind
+    </div>
+  </footer>
+
+  <!-- Help Instructions Modal -->
+  <div id="help-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl w-full max-w-sm space-y-4">
+      <div class="flex justify-between items-center">
+        <h3 class="font-extrabold text-lg text-slate-200"><i class="fa-solid fa-circle-info mr-2 text-indigo-400"></i>簡報操作說明</h3>
+        <button onclick="toggleHelpModal()" class="text-slate-400 hover:text-white transition"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="space-y-2.5 text-xs text-slate-300 leading-relaxed">
+        <p class="flex items-center space-x-2"><span class="bg-slate-800 px-2 py-1 rounded text-slate-200">←</span> <span class="bg-slate-800 px-2 py-1 rounded text-slate-200">→</span> <span>鍵盤左右方向鍵、空白鍵切換投影片。</span></p>
+        <p class="flex items-center space-x-2"><span class="bg-slate-800 px-2.5 py-1 rounded text-slate-200"><i class="fa-solid fa-hand-pointer text-[10px]"></i></span> <span>在行動裝置上可直接透過**左右滑動**（Swipe）切換。</span></p>
+        <p class="flex items-center space-x-2"><span class="bg-slate-800 px-2.5 py-1 rounded text-slate-200"><i class="fa-solid fa-volume-high text-[10px]"></i></span> <span>點擊喇叭圖示可使用合成語音朗讀口語，直接練習發音！</span></p>
+        <p class="flex items-center space-x-2"><span class="bg-slate-800 px-2.5 py-1 rounded text-slate-200"><i class="fa-solid fa-rotate"></i></span> <span>點擊帶有邊框的實用卡片可進行**中英雙語對照**。</span></p>
+      </div>
+      <button onclick="toggleHelpModal()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2.5 rounded-xl transition text-xs">我知道了</button>
+    </div>
+  </div>
+
+  <script>
+    // State Management
+    let currentSlideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const progressBar = document.getElementById('progress-bar');
+    const slideCounter = document.getElementById('slide-counter');
+    const dotsContainer = document.getElementById('dots-container');
+    const badge = document.getElementById('mode-badge');
+    
+    // Initialize Navigation Dots
+    function initDots() {
+      dotsContainer.innerHTML = '';
+      slides.forEach((_, idx) => {
+        const dot = document.createElement('button');
+        dot.className = `w-2.5 h-2.5 rounded-full transition-all duration-300 ${idx === currentSlideIndex ? 'bg-indigo-500 w-6' : 'bg-slate-700 hover:bg-slate-500'}`;
+        dot.title = `第 ${idx + 1} 頁`;
+        dot.onclick = () => goToSlide(idx);
+        dotsContainer.appendChild(dot);
+      });
+    }
+
+    // Update Slide View & Mode Styling based on current slide
+    function updateSlide() {
+      slides.forEach((slide, idx) => {
+        if (idx === currentSlideIndex) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+
+      // Update counters & buttons
+      slideCounter.innerText = `${currentSlideIndex + 1} / ${slides.length}`;
+      document.getElementById('btn-prev').disabled = currentSlideIndex === 0;
+      document.getElementById('btn-next').disabled = currentSlideIndex === slides.length - 1;
+
+      // Update Progress Bar
+      const percentage = (currentSlideIndex / (slides.length - 1)) * 100;
+      progressBar.style.width = `${percentage}%`;
+
+      // Update dot sizes
+      const dots = dotsContainer.querySelectorAll('button');
+      dots.forEach((dot, idx) => {
+        if (idx === currentSlideIndex) {
+          dot.className = 'w-6 h-2.5 rounded-full bg-indigo-500 transition-all duration-300';
+        } else {
+          dot.className = 'w-2.5 h-2.5 rounded-full bg-slate-700 hover:bg-slate-500 transition-all duration-300';
+        }
+      });
+
+      // Update mode styling dynamically
+      const activeSlide = slides[currentSlideIndex];
+      const mode = activeSlide.getAttribute('data-mode') || 'neutral';
+      
+      if (mode === 'chaos') {
+        document.body.className = "text-slate-100 min-h-screen flex flex-col justify-between bg-gradient-to-b from-red-950/20 via-slate-950 to-slate-950 transition-colors duration-500";
+        badge.className = "px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest bg-red-500/10 text-red-400 border border-red-500/30 glow-chaos";
+        badge.innerHTML = '<i class="fa-solid fa-bolt-lightning mr-1 text-red-400"></i> Chaos Mode';
+      } else if (mode === 'chill') {
+        document.body.className = "text-slate-100 min-h-screen flex flex-col justify-between bg-gradient-to-b from-emerald-950/20 via-slate-950 to-slate-950 transition-colors duration-500";
+        badge.className = "px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 glow-chill";
+        badge.innerHTML = '<i class="fa-solid fa-mug-hot mr-1 text-emerald-400"></i> Chill Mode';
+      } else {
+        document.body.className = "text-slate-100 min-h-screen flex flex-col justify-between bg-slate-950 transition-colors duration-500";
+        badge.className = "px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest bg-indigo-500/10 text-indigo-400 border border-indigo-500/30";
+        badge.innerHTML = '<i class="fa-solid fa-house mr-1 text-indigo-400"></i> Neutral Mode';
+      }
+    }
+
+    // Slide Controls
+    function nextSlide() {
+      if (currentSlideIndex < slides.length - 1) {
+        currentSlideIndex++;
+        updateSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlideIndex > 0) {
+        currentSlideIndex--;
+        updateSlide();
+      }
+    }
+
+    function goToSlide(index) {
+      if (index >= 0 && index < slides.length) {
+        currentSlideIndex = index;
+        updateSlide();
+      }
+    }
+
+    // Keyboard Controls
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      }
+    });
+
+    // Touch Swipe Controls
+    let touchstartX = 0;
+    let touchendX = 0;
+    const gestureZone = document.querySelector('main');
+
+    gestureZone.addEventListener('touchstart', function(event) {
+        touchstartX = event.changedTouches[0].screenX;
+    }, false);
+
+    gestureZone.addEventListener('touchend', function(event) {
+        touchendX = event.changedTouches[0].screenX;
+        handleGesture();
+    }, false);
+
+    function handleGesture() {
+        if (touchendX < touchstartX - 50) {
+            nextSlide(); // Swiped Left, go next
+        }
+        if (touchendX > touchstartX + 50) {
+            prevSlide(); // Swiped Right, go prev
+        }
+    }
+
+    // Help Modal Toggle
+    function toggleHelpModal() {
+      const modal = document.getElementById('help-modal');
+      modal.classList.toggle('hidden');
+    }
+
+    // Flip Cards
+    function flipCard(cardElement) {
+      const inner = cardElement.querySelector('.flip-card-inner');
+      inner.classList.toggle('flipped');
+    }
+
+    // Toggle hidden tips
+    function showTip(tipId) {
+      const tipElement = document.getElementById(tipId);
+      if (tipElement) {
+        tipElement.classList.toggle('hidden');
+      }
+    }
+
+    // Text to Speech integration
+    function speakText(event, text) {
+      event.stopPropagation(); // Prevent card from flipping when clicking the speaker button
+      if ('speechSynthesis' in window) {
+        // Cancel ongoing speak requests
+        window.speechSynthesis.cancel();
+        
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.9; // Slightly slower for clear pronunciation learning
+        
+        // Find an American accent voice if available
+        const voices = window.speechSynthesis.getVoices();
+        const usVoice = voices.find(voice => voice.lang.includes('US') || voice.lang.includes('en_US'));
+        if (usVoice) {
+          utterance.voice = usVoice;
+        }
+
+        window.speechSynthesis.speak(utterance);
+      } else {
+        // Fallback or warning if text-to-speech is unsupported
+        const button = event.currentTarget;
+        const originalHTML = button.innerHTML;
+        button.innerHTML = '<i class="fa-solid fa-circle-xmark text-red-500"></i>';
+        setTimeout(() => {
+          button.innerHTML = originalHTML;
+        }, 1500);
+      }
+    }
+
+    // Ensure speech voices are loaded
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.onvoiceschanged = () => {};
+    }
+
+    // Run on startup
+    window.onload = function() {
+      initDots();
+      updateSlide();
+    };
+  </script>
+</body>
+</html>

@@ -279,6 +279,148 @@ export const LESSON_2_SLIDES: LessonSlide[] = [
   },
 ]
 
+export const LESSON_4_SLIDES: LessonSlide[] = [
+  {
+    title: '美式公寓生存指南',
+    subtitle: '解鎖日常居家、週末耍廢與突發狀況的道地美語',
+    category: 'Title',
+    content: `【美式公寓生存指南 (American Apartment Survival Guide)】
+• 解鎖日常居家、週末耍廢與突發狀況的道地美語
+• 涵蓋兩大極端模式: Chaos Mode (出門混亂/物流延誤/數位災難) 與 Chill Mode (週末耍廢/熬夜惡性循環)
+• 簡報製作: SpeakUp AI Presenter`,
+    phrases: [
+      { en: 'The apartment feels freezing today.', zh: '今天公寓裡感覺冷得要命。' },
+      { en: 'Have you seen my apartment keys?', zh: '你有看到我的公寓鑰匙嗎？' },
+      { en: "I'm totally out of it today.", zh: '我今天整個人狀況外。' },
+      { en: "I'm just going to chill at home.", zh: '我只打算待在家放鬆。' },
+    ],
+    practice: '用英文說說你今天公寓裡發生了什麼事？'
+  },
+  {
+    title: '美式居家生活的兩種極端模式',
+    subtitle: 'Chaos vs Chill',
+    category: 'Overview',
+    content: `【美式居家生活的兩種極端模式 (Two Modes of Apartment Life)】
+• 我們在美式公寓的日常，總是遊走在徹底爆發的崩潰邊緣，與極致慵懶的沙發耍廢之間。
+• Chaos Mode: 出門前的混亂、物流延誤、維修人員突襲、斷網與手機沒電
+• Chill Mode: 週末耍廢、躺平宅家、熬夜滑手機、睡過頭
+• 核心情緒關鍵字: Frustrated (挫折) / Rushed (慌亂) / Annoyed (惱怒) vs Relaxed (放鬆) / Lazy (慵懶) / Unbothered (泰然)`,
+    phrases: [
+      { en: "Oh crap, I'm running late again.", zh: '糟了，我又快遲到了。' },
+      { en: 'Shipping delays are seriously getting ridiculous.', zh: '物流延遲真的越來越扯了。' },
+      { en: "I'd rather just stay in and chill.", zh: '我寧願待在家裡放鬆。' },
+      { en: 'I locked myself out yesterday again.', zh: '我昨天又把自己鎖在門外了。' },
+    ],
+    practice: '你今天處於 Chaos Mode 還是 Chill Mode？用英文說說看。'
+  },
+  {
+    title: '出門前的混亂：那些讓你遲到的早晨',
+    subtitle: 'Entryway',
+    category: 'Chaos',
+    content: `【出門前的混亂：那些讓你遲到的早晨 (Morning Commute Chaos)】
+• 處理包裹遲到、鎖在門外、路由器當機、或是鑰匙消失的早晨
+• 美式公寓冬天暖氣常常運作不良或控溫怪異
+• 美國許多公寓仍在使用實體金屬鑰匙，弄丟就意味著數百美元的罰金
+• 在慌亂時大腦會自動屏蔽所有擺在眼前的物品
+• "Oh crap" 比 "Oh my god" 更加生活化，精準表達挫折與小崩潰
+• "out of it" 常用於剛睡醒、宿醉、或是沒睡好時那種靈魂抽離的狀態`,
+    phrases: [
+      { en: 'The apartment feels freezing today.', zh: '今天公寓裡感覺冷得要命。' },
+      { en: 'Have you seen my apartment keys?', zh: '你有看到我的公寓鑰匙嗎？' },
+      { en: "I can't find anything this morning.", zh: '我今天早上什麼都找不到。' },
+      { en: "I'm totally out of it today.", zh: '我今天整個人狀況外。' },
+    ],
+    practice: '模擬早上慌亂出門的情境，用英文說出你的狀態。'
+  },
+  {
+    title: '門外的訪客：物流延誤與突發修繕',
+    subtitle: 'Outside the Door',
+    category: 'Chaos',
+    content: `【門外的訪客：物流延誤與突發修繕 (Package Delays & Maintenance)】
+• 物流延誤、維修人員突然出現、把自己鎖在門外
+• 這些都是美式公寓生活最常見的混沌情境
+• 美式公寓的物業維修人員 (Maintenance Staff) 有時效率極低，有時又會在毫無提前通知的情況下直接敲門
+• 美式公寓大門多為隨手關上即上鎖的「自動鎖」，全美留學生最怕的惡夢之一（開鎖通常需要 100-200 美元）
+• 對物流和公寓物業管理的集體吐槽是美式社群文化的「破冰神藥」`,
+    phrases: [
+      { en: "Shipping delays are seriously getting ridiculous.", zh: '物流延遲真的越來越扯了。' },
+      { en: "I've waited all week already.", zh: '我已經等了一整週了。' },
+      { en: 'My apartment maintenance suddenly showed up.', zh: '公寓維修人員突然跑來了。' },
+      { en: 'I locked myself out yesterday again.', zh: '我昨天又把自己鎖在門外了。' },
+    ],
+    practice: '跟朋友抱怨包裹延遲和維修人員突襲，試著用英文說。'
+  },
+  {
+    title: '客廳裡的數位災難：斷網與沒電求生指南',
+    subtitle: 'Living Room',
+    category: 'Chaos',
+    content: `【客廳裡的數位災難：斷網與沒電求生指南 (Digital Disasters)】
+• 斷網與手機沒電，在美國高額的行動數據與漫長維修期下無疑是最高級別災難
+• 遇到斷網，通常打給 Comcast/Xfinity 客服前，第一句會聽到: "Try restarting your router once." (試著重開一次你的路由器)
+• "Do you happen to have a charger?" 帶有「你剛好有...嗎（沒有也沒關係）」的客氣語氣`,
+    phrases: [
+      { en: "Trouble with my internet. It keeps disconnecting.", zh: '我的網路有問題，它一直斷線。' },
+      { en: "My phone's about to completely die.", zh: '我手機快完全沒電了。' },
+      { en: "I'm seriously down to 2%.", zh: '真的只剩2%了。' },
+      { en: 'Do you happen to have a charger?', zh: '你剛好有充電器嗎？' },
+    ],
+    practice: '斷網了！用英文跟室友說你的網路一直斷線。'
+  },
+  {
+    title: '週末模式切換器：社交出門 vs. 懶人宅家',
+    subtitle: 'Weekend Mode',
+    category: 'Chill',
+    content: `【週末模式切換器：社交出門 vs. 懶人宅家 (Weekend Mode)）
+• 極致放鬆的週末，你選擇當個徹底躺平的 Homebody，還是出門散步喝杯咖啡？
+• "Chill" 是一個用途極廣的字: 動詞 (I'm chilling)、形容詞 (He's very chill)、感嘆詞 (Chill out! 冷靜點)
+• "grab" 代表快速、隨意地吃喝點什麼
+• "scroll on my phone" 直譯在手機上滾動 = 滑手機
+• "stay in" 代表待在屋裡、不出門`,
+    phrases: [
+      { en: "I'm just going to chill at home.", zh: '我只打算待在家放鬆。' },
+      { en: "I'm kind of too lazy to cook.", zh: '我有點懶得煮飯。' },
+      { en: "I'd rather just stay in and chill.", zh: '我寧願待在家裡放鬆。' },
+      { en: 'We could grab food or maybe coffee.', zh: '我們可以去吃點東西，或是喝杯咖啡。' },
+    ],
+    practice: '朋友約你出門，但你只想宅在家。用英文婉拒他。'
+  },
+  {
+    title: '無法停止的熬夜惡性循環',
+    subtitle: 'Bedroom Black Hole',
+    category: 'Chill',
+    content: `【無法停止的熬夜惡性循環 (The Endless Sleep Cycle)）
+• 手機的光亮、亂看廢片的快感、最後迎接的是早上崩潰睡過頭
+• Step 1: Scroll - 滑手機看廢片 "I was just watching random stuff online."
+• Step 2: Late Night - 不知不覺 "Didn't even realize how late it was."
+• Step 3: Oversleep - 睡過頭 "I slept in again today. Didn't even hear my alarm."
+• Step 4: Out of It - 精神渙散 "I feel kind of out of it now."
+• 然後又回到 Step 1，這就是美式公寓的熬夜黑洞`,
+    phrases: [
+      { en: 'I was just watching random stuff online.', zh: '我剛只是在網路上亂看廢片。' },
+      { en: "Didn't even realize how late it was.", zh: '甚至沒意識到時間已經這麼晚了。' },
+      { en: "I slept in again today. Didn't even hear my alarm.", zh: '我又睡過頭了，根本沒聽到鬧鐘響。' },
+      { en: 'I feel kind of out of it now.', zh: '我現在覺得整個人狀況外。' },
+    ],
+    practice: '用英文描述你昨晚熬夜到幾點、為什麼熬夜。'
+  },
+  {
+    title: '解碼美式居家文化',
+    subtitle: 'Survival Guide Decoder',
+    category: 'Summary',
+    content: `【解碼美式居家文化 (Survival Guide Decoder)】
+• 最道地的日常美語，往往發生在面對瑣事麻煩的無奈吐槽，以及週末毫無計畫的極致放鬆之間
+• 核心句型回顧: 抱怨包裹延遲、手機沒電、找鑰匙、宅在家耍廢
+• 帶著這份生存指南，在美式公寓過得自在又自信！`,
+    phrases: [
+      { en: "Shipping delays are seriously getting ridiculous.", zh: '物流延遲真的越來越扯了。' },
+      { en: "My phone's about to completely die.", zh: '我手機快完全沒電了。' },
+      { en: 'Have you seen my apartment keys?', zh: '你有看到我的公寓鑰匙嗎？' },
+      { en: "I'm just going to chill at home.", zh: '我只打算待在家放鬆。' },
+    ],
+    practice: '選一個今天學到的金句，用英文大聲說出來！'
+  },
+]
+
 export const LESSON_3_SLIDES: LessonSlide[] = [
   {
     title: '沉浸式購物英文',
