@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>美國生活實境：吃貨必備的英文生存指南 - AI 語音控制簡報</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Inter & Noto Sans TC -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons for graphics and controls -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: #121315;
+            color: #e4e6eb;
+        }
+        /* Custom scrollbar for conversational log */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        /* Presentation Slide Theme Colors */
+        .slide-bg {
+            background-color: #fcfbf4; /* Matches NotebookLM natural cream tone */
+            color: #2d2013;
+        }
+        .slide-primary {
+            color: #3c4a3e; /* Dark sage green accent */
+        }
+        .slide-accent {
+            color: #a78b51; /* Muted golden amber accent */
+        }
+        .slide-border {
+            border-color: rgba(60, 74, 62, 0.15);
+        }
+    </style>
+</head>
+<body class="h-screen overflow-hidden flex flex-col">
+
+    <!-- Top Navigation Bar -->
+    <header class="bg-gray-900 border-b border-gray-800 px-6 py-3 flex items-center justify-between z-10">
+        <div class="flex items-center space-x-3">
+            <div class="bg-amber-500 text-slate-900 font-black p-1.5 rounded-lg text-sm flex items-center justify-center shadow-lg shadow-amber-500/20">
+                <i class="fa-solid fa-microphone-lines mr-1.5 animate-pulse"></i>AI Powered
+            </div>
+            <div>
+                <h1 class="text-md font-bold text-white tracking-wide">吃貨英文生存指南</h1>
+                <p class="text-xs text-gray-400">互動式 AI 語音簡報播放系統</p>
+            </div>
+        </div>
+        
+        <!-- Status Panel -->
+        <div class="flex items-center space-x-4">
+            <div class="hidden md:flex items-center space-x-2 text-xs text-gray-400 bg-gray-800/60 px-3 py-1.5 rounded-full">
+                <span class="inline-block w-2.5 h-2.5 rounded-full bg-green-500 animate-ping"></span>
+                <span class="font-medium text-gray-300">語音指令偵測中</span>
+            </div>
+            
+            <!-- Instructions toggle -->
+            <button id="help-toggle-btn" class="text-gray-400 hover:text-white transition duration-200 p-2 rounded-full hover:bg-gray-800">
+                <i class="fa-solid fa-circle-question text-lg"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 flex flex-col lg:flex-row overflow-hidden relative">
+        
+        <!-- Left Pane: Slide Player & Manual Controls -->
+        <section class="flex-1 flex flex-col p-4 lg:p-6 overflow-y-auto lg:overflow-hidden justify-between">
+            
+            <!-- Slide Container Frame -->
+            <div class="flex-1 flex items-center justify-center relative mb-4">
+                <!-- Golden Slide Outer Wrapper -->
+                <div class="w-full max-w-4xl aspect-[16/9] slide-bg rounded-2xl shadow-2xl border-4 border-amber-900/10 flex flex-col justify-between p-6 md:p-8 lg:p-10 relative overflow-hidden transition-all duration-500 transform scale-100">
+                    
+                    <!-- Top Ribbon -->
+                    <div class="flex justify-between items-center w-full border-b slide-border pb-3 mb-4 text-xs md:text-sm font-semibold slide-primary">
+                        <div class="flex items-center space-x-2">
+                            <span class="px-2 py-0.5 bg-emerald-800/10 rounded text-emerald-800 uppercase tracking-widest text-[10px]" id="slide-category-badge">Morning Boost</span>
+                            <span class="text-gray-500" id="slide-subtitle">Stop 1: 咖啡與手搖飲充電站</span>
+                        </div>
+                        <div class="text-gray-500 tracking-wider">NotebookLM Studio</div>
+                    </div>
+
+                    <!-- Slide Main Body Content (Dynamic Injection) -->
+                    <div id="slide-content-container" class="flex-1 flex flex-col justify-center">
+                        <!-- Dynamic slides will inject here -->
+                    </div>
+
+                    <!-- Bottom Branding -->
+                    <div class="flex justify-between items-center w-full pt-3 mt-4 border-t slide-border text-[11px] font-medium text-gray-400">
+                        <div>© 2026 The American Foodie Survival Guide</div>
+                        <div class="flex items-center space-x-1 font-bold slide-primary" id="slide-page-indicator">
+                            Page 1 / 15
+                        </div>
+                    </div>
+
+                    <!-- Floating Voice Command Alert Overlay -->
+                    <div id="command-feedback" class="absolute top-4 right-4 bg-amber-500 text-slate-900 px-4 py-2 rounded-xl font-bold shadow-lg flex items-center space-x-2 text-sm opacity-0 transform translate-y-[-10px] transition-all duration-300 pointer-events-none z-20">
+                        <i class="fa-solid fa-wand-magic-sparkles animate-spin"></i>
+                        <span id="command-feedback-text">下一頁</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide Control Bar -->
+            <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0 shadow-lg max-w-4xl mx-auto w-full">
+                <!-- Left: Previous / Play / Next Buttons -->
+                <div class="flex items-center space-x-2">
+                    <button id="prev-btn" class="w-10 h-10 rounded-xl bg-gray-800 text-gray-300 hover:bg-gray-700 active:scale-95 transition-all flex items-center justify-center shadow-md">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button id="play-tts-btn" class="px-4 h-10 rounded-xl bg-amber-500 text-slate-900 hover:bg-amber-400 font-bold active:scale-95 transition-all flex items-center justify-center space-x-2 shadow-md shadow-amber-500/20">
+                        <i class="fa-solid fa-volume-high"></i>
+                        <span>朗讀本頁</span>
+                    </button>
+                    <button id="next-btn" class="w-10 h-10 rounded-xl bg-gray-800 text-gray-300 hover:bg-gray-700 active:scale-95 transition-all flex items-center justify-center shadow-md">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <!-- Middle: Page Select slider -->
+                <div class="flex-1 px-6 w-full flex items-center space-x-3">
+                    <span class="text-xs text-gray-500 font-mono">1</span>
+                    <input type="range" id="page-slider" min="1" max="15" value="1" class="flex-1 h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-amber-500 focus:outline-none">
+                    <span class="text-xs text-gray-500 font-mono">15</span>
+                </div>
+
+                <!-- Right: Auto Play & Speed -->
+                <div class="flex items-center space-x-3">
+                    <button id="auto-play-btn" class="text-xs px-3 py-2 rounded-xl border border-gray-700 text-gray-400 hover:text-white hover:bg-gray-800 transition flex items-center space-x-1">
+                        <i class="fa-solid fa-play mr-1"></i>自動播放
+                    </button>
+                    <span class="text-xs font-semibold text-amber-500 bg-amber-950/40 px-2.5 py-1 rounded-lg border border-amber-900/30" id="current-page-badge">
+                        投影片 1 / 15
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Right Pane: AI Voice Assistant Chat & Mic Control -->
+        <aside class="w-full lg:w-96 bg-gray-950 border-t lg:border-t-0 lg:border-l border-gray-800 flex flex-col justify-between h-[50vh] lg:h-full z-10 shadow-2xl">
+            <!-- Assistant Header -->
+            <div class="p-4 border-b border-gray-800 bg-gray-900/30 flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="relative">
+                        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-300 text-slate-950 flex items-center justify-center font-bold shadow-lg">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <span class="absolute bottom-[-1px] right-[-1px] block w-2.5 h-2.5 rounded-full bg-green-500 ring-2 ring-gray-950"></span>
+                    </div>
+                    <div>
+                        <h2 class="text-sm font-bold text-white flex items-center">
+                            AI 隨行導師 Aura
+                        </h2>
+                        <p class="text-xs text-gray-400">連線中 · 已整合簡報知識庫</p>
+                    </div>
+                </div>
+
+                <!-- Audio Settings Menu -->
+                <div class="flex items-center space-x-2">
+                    <button id="settings-toggle-btn" class="text-gray-400 hover:text-white p-1.5 rounded hover:bg-gray-800 transition" title="語音設定">
+                        <i class="fa-solid fa-sliders"></i>
+                    </button>
+                    <button id="clear-chat-btn" class="text-gray-400 hover:text-red-400 p-1.5 rounded hover:bg-gray-800 transition" title="清除對話紀錄">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Settings overlay panel (hidden by default) -->
+            <div id="settings-panel" class="hidden p-4 bg-gray-900 border-b border-gray-800 text-xs space-y-3">
+                <div class="flex justify-between items-center">
+                    <span class="font-bold text-gray-300">Aura 助手語音設定</span>
+                    <button id="settings-close-btn" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div>
+                    <label class="block text-gray-400 mb-1">TTS 語音服務</label>
+                    <select id="voice-service-select" class="w-full bg-gray-800 border border-gray-700 rounded p-1.5 text-white focus:ring-1 focus:ring-amber-500 outline-none">
+                        <option value="gemini-tts">Gemini 2.5 Premium Voice (超擬真)</option>
+                        <option value="browser-synthesis" selected>Browser Speech Synthesis (瀏覽器原生發音)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-gray-400 mb-1">Gemini 預設聲音配音員 (僅Premium服務生效)</label>
+                    <select id="gemini-voice-select" class="w-full bg-gray-800 border border-gray-700 rounded p-1.5 text-white focus:ring-1 focus:ring-amber-500 outline-none">
+                        <option value="Zephyr">Zephyr (陽光亮麗)</option>
+                        <option value="Puck">Puck (活潑動感)</option>
+                        <option value="Charon" selected>Charon (知性沉穩)</option>
+                        <option value="Kore">Kore (嚴謹有力)</option>
+                        <option value="Leda">Leda (親切甜美)</option>
+                        <option value="Fenrir">Fenrir (興奮熱情)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Chat Logs Panel -->
+            <div id="chat-logs" class="flex-1 p-4 overflow-y-auto custom-scrollbar space-y-4 bg-gray-950/40">
+                <!-- Welcome Assistant Message -->
+                <div class="flex items-start space-x-3">
+                    <div class="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-500 flex items-center justify-center text-xs shrink-0 mt-0.5 border border-amber-500/20">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div class="bg-gray-900 border border-gray-800 rounded-2xl rounded-tl-none p-3 max-w-[85%]">
+                        <p class="text-xs text-amber-400 font-bold mb-1">Aura 隨行導師</p>
+                        <p class="text-sm leading-relaxed text-gray-200">
+                            Hi！我是您的美食生存語音導師 Aura。
+                        </p>
+                        <p class="text-xs text-gray-400 mt-2">
+                            🎤 點擊下方<strong>麥克風</strong>或直接說：<br>
+                            • <span class="text-amber-500/80">「下一頁」</span> / <span class="text-amber-500/80">「上一頁」</span>控制播放<br>
+                            • <span class="text-amber-500/80">「這一頁在講什麼？」</span><br>
+                            • <span class="text-amber-500/80">「微調儀表板有哪些常用句子？」</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audio Wave Animation Display (Shown when listening) -->
+            <div id="speech-wave-container" class="px-4 py-2 bg-amber-950/20 border-t border-amber-900/10 hidden items-center justify-between text-xs text-amber-500 animate-pulse">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-microphone-lines text-sm"></i>
+                    <span id="speech-status-label">正在聆聽您的指令與問題...</span>
+                </div>
+                <!-- Mini Visualizer Waves -->
+                <div class="flex items-end space-x-0.5 h-4">
+                    <div class="w-1 bg-amber-500 h-2 rounded-full animate-[bounce_1s_infinite_100ms]"></div>
+                    <div class="w-1 bg-amber-500 h-4 rounded-full animate-[bounce_1s_infinite_300ms]"></div>
+                    <div class="w-1 bg-amber-500 h-1 rounded-full animate-[bounce_1s_infinite_500ms]"></div>
+                    <div class="w-1 bg-amber-500 h-3 rounded-full animate-[bounce_1s_infinite_200ms]"></div>
+                </div>
+            </div>
+
+            <!-- User Voice Input Bar / Keyboard Bar -->
+            <div class="p-4 bg-gray-900 border-t border-gray-800 flex flex-col space-y-3">
+                <!-- User input and mic triggers -->
+                <div class="flex items-center space-x-2">
+                    <!-- Mic Toggle Button -->
+                    <button id="mic-toggle-btn" class="w-14 h-14 rounded-full bg-amber-500 text-slate-900 flex items-center justify-center hover:bg-amber-400 active:scale-95 transition-all shadow-lg shadow-amber-500/10 shrink-0 relative" title="開啟/關閉語音助理">
+                        <i class="fa-solid fa-microphone text-xl" id="mic-icon"></i>
+                        <span id="mic-pulse" class="absolute inset-0 rounded-full bg-amber-500/30 scale-100 animate-ping hidden"></span>
+                    </button>
+
+                    <!-- Text input for typing fallback -->
+                    <div class="flex-1 relative">
+                        <input type="text" id="text-input" placeholder="用語音或直接輸入問題..." class="w-full bg-gray-950 border border-gray-800 rounded-2xl py-3.5 pl-4 pr-12 text-sm text-white focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500 transition duration-200">
+                        <button id="send-btn" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-amber-500 p-2 transition">
+                            <i class="fa-solid fa-paper-plane text-md"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Live transcript hint -->
+                <p id="live-transcript" class="text-xs text-gray-500 italic truncate text-center min-h-[16px]">
+                    點擊麥克風開始用語音控制及對話
+                </p>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Help Modal (Commands Guide) -->
+    <div id="help-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-all duration-300">
+        <div class="bg-gray-900 border border-gray-800 max-w-md w-full mx-4 rounded-3xl p-6 shadow-2xl space-y-4">
+            <div class="flex justify-between items-center border-b border-gray-800 pb-3">
+                <h3 class="text-lg font-bold text-white flex items-center">
+                    <i class="fa-solid fa-wand-magic-sparkles text-amber-500 mr-2"></i>語音控制指令手冊
+                </h3>
+                <button id="help-close-btn" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            
+            <div class="space-y-3 text-sm text-gray-300">
+                <p class="text-gray-400 text-xs">啟用麥克風後，您可以隨時對簡報說出以下控制指令：</p>
+                
+                <div class="bg-gray-950 p-3 rounded-2xl border border-gray-800/80 space-y-2.5">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-amber-500">下一頁</span>
+                        <span class="text-xs text-gray-500">「下一頁」、「往下」、「下一個」</span>
+                    </div>
+                    <div class="flex justify-between items-center border-t border-gray-900 pt-2">
+                        <span class="font-bold text-amber-500">上一頁</span>
+                        <span class="text-xs text-gray-500">「上一頁」、「往上」、「上一個」</span>
+                    </div>
+                    <div class="flex justify-between items-center border-t border-gray-900 pt-2">
+                        <span class="font-bold text-amber-500">跳到特定頁</span>
+                        <span class="text-xs text-gray-500">「第一頁」、「跳到第五頁」、「首頁」</span>
+                    </div>
+                </div>
+
+                <p class="text-gray-400 text-xs mt-4">除此之外，您也可以詢問任何與簡報主題相關的問題：</p>
+                <ul class="list-disc pl-5 space-y-1 text-xs text-gray-400">
+                    <li>「這張簡報的重點是什麼？」</li>
+                    <li>「美式餐廳點餐五步驟是什麼？」</li>
+                    <li>「點咖啡客製化的公式怎麼說？」</li>
+                    <li>「如何用英文優雅地抱怨上錯菜？」</li>
+                </ul>
+            </div>
+
+            <button id="help-understand-btn" class="w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold rounded-2xl active:scale-95 transition-all text-sm shadow-lg shadow-amber-500/20">
+                我明白了，開始對話！
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Slides Content Database for AI contextual reference
+        const slidesData = [
+            {
+                page: 1,
+                title: "吃貨必備的英文生存指南",
+                subtitle: "從咖啡廳、美式餐廳到超商酒吧，點餐結帳不卡關的實戰句型庫。",
+                category: "Morning Boost",
+                content: `
+                    【美國生活實境: 吃貨必備的英文生存指南 (The American Foodie Survival Guide)】
+                    • 從咖啡廳、美式餐廳到超商酒吧, 點餐結帳不卡關的實戰句型庫。
+                    • 簡報製作: NotebookLM Studio
+                    • 內容涵蓋四大站點: 
+                      1. 咖啡與手搖飲充電站 (Morning Boost)
+                      2. 美式餐廳實戰 (Dining Out)
+                      3. 超市與便利商店尋寶 (Grocery & Convenience)
+                      4. 微醺與社交 (Nightlife Social)
+                `,
+                render: () => `
+                    <div class="text-center flex flex-col items-center justify-center space-y-6 flex-1 py-4">
+                        <div class="flex justify-center space-x-6 text-emerald-800 text-4xl animate-bounce mb-2">
+                            <i class="fa-solid fa-burger hover:text-amber-600 transition"></i>
+                            <i class="fa-solid fa-cart-shopping hover:text-emerald-600 transition"></i>
+                            <i class="fa-solid fa-martini-glass-citron hover:text-purple-600 transition"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <span class="text-xs uppercase font-extrabold tracking-widest text-emerald-800 bg-emerald-800/10 px-3 py-1 rounded-full">美國生活實境</span>
+                            <h2 class="text-2xl md:text-4xl font-extrabold slide-primary leading-tight font-serif mt-2">
+                                吃貨必備的<br class="md:hidden">英文生存指南
+                            </h2>
+                            <p class="text-md md:text-lg font-medium text-gray-500 font-mono tracking-wide mt-1">The American Foodie Survival Guide</p>
+                        </div>
+                        <p class="text-sm text-gray-600 max-w-md mx-auto leading-relaxed border-t border-amber-900/10 pt-4">
+                            從咖啡廳、美式餐廳到超商酒吧，點餐結帳不卡關的實戰句型庫。
+                        </p>
+                    </div>
+                `
+            },
+            {
+                page: 2,
+                title: "跟著這條路線，吃透美國日常",
+                subtitle: "4 Stops to Master American Food Culture",
+                category: "Morning Boost",
+                content: `
+                    【跟著這條路線, 吃透美國日常 (4 Stops to Master American Food Culture)】
+                    • Stop 1: 咖啡與手搖飲充電站 (Morning Boost) - 咖啡與茶飲的特調點餐方程式。
+                    • Stop 2: 美式餐廳實戰 (Dining Out) - 體驗美國餐廳用餐完整五步驟、尋求推薦與優雅應對問題。
+                    • Stop 3: 超市與便利商店尋寶 (Grocery & Convenience) - 平面圖搜尋、找庫存、熟食要求加熱、結帳決策樹。
+                    • Stop 4: 微醺與社交 (Nightlife Social) - 酒吧點酒口味象限圖與社交破冰小撇步。
+                `,
+                render: () => `
+                    <div class="flex flex-col flex-1 justify-center space-y-4">
+                        <div class="text-center mb-2">
+                            <h2 class="text-xl md:text-2xl font-extrabold slide-primary">跟著這條路線，吃透美國日常</h2>
+                            <p class="text-xs text-gray-500 font-mono">4 Stops to Master American Food Culture</p>
+                        </div>
+                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div class="bg-amber-500/10 p-4 rounded-2xl border border-amber-500/20 text-center hover:shadow-md transition">
+                                <span class="text-xs font-bold text-amber-600 bg-amber-500/10 px-2 py-0.5 rounded">Stop 1</span>
+                                <i class="fa-solid fa-mug-hot block text-2xl my-2 text-amber-700"></i>
+                                <h3 class="font-bold text-sm slide-primary">咖啡與手搖飲</h3>
+                                <p class="text-[10px] text-gray-500 mt-1">Morning Boost</p>
+                            </div>
+                            <div class="bg-emerald-800/10 p-4 rounded-2xl border border-emerald-800/20 text-center hover:shadow-md transition">
+                                <span class="text-xs font-bold text-emerald-800 bg-emerald-800/10 px-2 py-0.5 rounded">Stop 2</span>
+                                <i class="fa-solid fa-utensils block text-2xl my-2 text-emerald-800"></i>
+                                <h3 class="font-bold text-sm slide-primary">美式餐廳實戰</h3>
+                                <p class="text-[10px] text-gray-500 mt-1">Dining Out</p>
+                            </div>
+                            <div class="bg-sky-800/10 p-4 rounded-2xl border border-sky-800/20 text-center hover:shadow-md transition">
+                                <span class="text-xs font-bold text-sky-800 bg-sky-800/10 px-2 py-0.5 rounded">Stop 3</span>
+                                <i class="fa-solid fa-basket-shopping block text-2xl my-2 text-sky-800"></i>
+                                <h3 class="font-bold text-sm slide-primary">超市與超商尋寶</h3>
+                                <p class="text-[10px] text-gray-500 mt-1">Grocery & Convenience</p>
+                            </div>
+                            <div class="bg-purple-800/10 p-4 rounded-2xl border border-purple-800/20 text-center hover:shadow-md transition">
+                                <span class="text-xs font-bold text-purple-800 bg-purple-800/10 px-2 py-0.5 rounded">Stop 4</span>
+                                <i class="fa-solid fa-champagne-glasses block text-2xl my-2 text-purple-800"></i>
+                                <h3 class="font-bold text-sm slide-primary">微醺與社交</h3>
+                                <p class="text-[10px] text-gray-500 mt-1">Nightlife Social</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                page: 3,
+                title: "特調點餐方程式",
+                subtitle: "The Custom Drink Formula",
+                category: "Morning Boost",
+                content: `
+                    【特調點餐方程式 (The Custom Drink Formula)】
+                    • 公式架構: [開場白 Opener] + [容量 Size] + [溫度 Temp] + [飲品 Drink] + [奶類/客製化 Customization]
+                    • 實戰例句: Could I get a medium iced latte with oat milk and no sugar?
+                    • 拆解:
+                      - [開場白 Opener]: Could I get a ...
+                      - [容量 Size]: medium
+                      - [溫度 Temp]: iced
+                      - [飲品 Drink]: latte
+                      - [客製化 Customization]: with oat milk and no sugar (加燕麥奶、無糖)
+                `,
+                render: () => `
+                    <div class="flex flex-col flex-1 justify-center space-y-4">
+                        <div class="text-center">
+                            <h2 class="text-xl md:text-2xl font-extrabold slide-primary">特調點餐方程式</h2>
+                            <p class="text-xs text-gray-500 font-mono">The Custom Drink Formula</p>
+                        </div>
+                        
+                        <!-- Interative Blocks -->
+                        <div class="grid grid-cols-5 gap-1.5 md:gap-3 text-center my-3">
+                            <div class="bg-amber-100/80 border border-amber-300 p-2 rounded-xl">
+                                <span class="block text-[10px] font-bold text-amber-700">開場白</span>
+                                <p class="text-[11px] md:text-xs font-semibold">Could I get a</p>
+                            </div>
+                            <div class="bg-orange-100/80 border border-orange-300 p-2 rounded-xl">
+                                <span class="block text-[10px] font-bold text-orange-700">容量</span>
+                                <p class="text-[11px] md:text-xs font-semibold">[medium]</p>
+                            </div>
+                            <div class="bg-blue-100/80 border border-blue-300 p-2 rounded-xl">
+                                <span class="block text-[10px] font-bold text-blue-700">溫度</span>
+                                <p class="text-[11px] md:text-xs font-semibold">[iced]</p>
+                            </div>
+                            <div class="bg-yellow-100/80 border border-yellow-300 p-2 rounded-xl">
+                                <span class="block text-[10px] font-bold text-yellow-700">飲品</span>
+                                <p class="text-[11px] md:text-xs font-semibold">[latte]</p>
+                            </div>
+                            <div class="bg-emerald-100/80 border border-emerald-300 p-2 rounded-xl col-span-1">
+                                <span class="block text-[10px] font-bold text-emerald-800">客製化</span>
+                                <p class="text-[11px] md:text-xs font-semibold">[with oat milk...]</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white/80 p-4 rounded-2xl border border-amber-900/10 text-center shadow-inner">
+                            <p class="text-xs text-amber-700 font-bold mb-1">💡 實戰金句示範</p>
+                            <p class="text-sm md:text-base font-bold slide-primary italic">
+                                "Could I get a <span class="text-orange-600">medium</span> <span class="text-blue-600">iced</span> <span class="text-amber-600">latte</span> with <span class="text-emerald-700">oat milk and no sugar</span>?"
+                            </p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                page: 4,
+                title: "口味微調儀表板",
+                subtitle: "Customization Dashboard",
+                category: "Morning Boost",
+                content: `
+                    【口味微調儀表板 (Customization Dashboard)】
+                    • 冰量控制 (Ice Level): Regular ice, Light ice, Less ice, No ice at all (完全去冰)
+                    • 甜度控制 (Sweetness): No sugar added (0%), Less sweet (微糖), Half sweet (半糖), Less sweet, Regular sweet (100%全糖)
+                    • 特殊開關 (Extra Switches): Decaf (低咖啡因), Extra shot (多一份濃縮), Extra hot (特別熱), No whipped cream (去鮮奶油)
+                    • 實用問答: 
+                      - 「這通常會很甜嗎？」 -> Is it usually very sweet?
+                      - 「可以幫我做比較不甜嗎？」 -> Can you make it less sweet?
+                `,
+                render: () => `
+                    <div class="flex flex-col flex-1 justify-center space-y-4">
+                        <div class="text-center">
+                            <h2 class="text-xl md:text-2xl font-extrabold slide-primary">口味微調儀表板</h2>
+                            <p class="text-xs text-gray-500 font-mono">Customization Dashboard</p>
+                        </div>
+
+                        <!-- 3 Panels mimicking Dashboards -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 my-2">
+                            <div class="bg-white/60 p-3 rounded-2xl border slide-border text-center">
+                                <span class="text-xs font-bold text-blue-700"><i class="fa-solid fa-snowflake mr-1"></i>冰量 (Ice)</span>
+                                <div class="mt-2 space-y-1.5 text-left text-xs">
+                                    <div class="flex justify-between hover:bg-amber-100 p-1 rounded transition"><span class="font-medium">正常冰</span> <span class="font-mono text-gray-500">Regular Ice</span></div>
+                                    <div class="flex justify-between hover:bg-amber-100 p-1 rounded transition"><span class="font-medium">少冰</span> <span class="font-mono text-gray-500">Light Ice</span></div>
+                                    <div class="flex justify-between hover:bg-amber-100 p-1 rounded transition"><span class="font-medium">微冰</span> <span class="font-mono text-gray-500">Less Ice</span></div>
+                                    <div class="flex justify-between hover:bg-amber-100 p-1 rounded transition text-red-700 font-bold"><span class="font-medium">去冰</span> <span class="font-mono">No ice at all</span></div>
+                                </div>
+                            </div>
+                            <div class="bg-white/60 p-3 rounded-2xl border slide-border text-center">
+                                <span class="text-xs font-bold text-amber-600"><i class="fa-solid fa-cubes-stacked mr-1"></i>甜度 (Sweetness)</span>
+                                <div class="mt-2 space-y-1.5 text-left text-xs">
+                                    <div class="flex justify-between hover:bg-amber-100 p-1 rounded transition text-red-700 font-bold"><span class="font-medium">無糖 (0%)</span> <span class="font-mono">No sugar added</span></div>
+                                    <div class="flex justify-between hover:bg-amber-100 p-1 rounded transition"><span class="font-medium">微糖</span> <span class="font-mono text-gray-500">Less sweet</span></div>
+                                    <div class="flex justify-between hover:bg-amber-100 p-1 rounded transition"><span class="font-medium">半糖 (50%)</span> <span class="font-mono text-gray-500">Half sweet</span></div>
+                                    <div class="flex justify-between hover:bg-amber-100 p-1 rounded transition"><span class="font-medium">正常糖 (100%)</span> <span class="font-mono text-gray-500">Regular sweet</span></div>
+                                </div>
+                            </div>
+                            <div class="bg-white/60 p-3 rounded-2xl border slide-border text-center">
+                                <span class="text-xs font-bold text-purple-700"><i class="fa-solid fa-sliders mr-1"></i>加料加價 (Extra)</span>
+                                <div class="mt-2 space-y-1.5 text-left text-xs">
+                                    <div class="flex justify-between hover:bg-amber-100 p-1 rounded transition"><span class="font-medium">低咖啡因</span> <span class="font-mono text-gray-500">Decaf</span></div>
+                                    <div class="flex justify-between hover:bg-amber-100 p-1 rounded transition"><span class="font-medium">加一份濃縮</span> <span class="font-mono text-gray-500">Extra shot</span></div>
+                                    <div class="flex justify-between hover:bg-amber-100 p-1 rounded transition"><span class="font-medium">特別熱</span> <span class="font-mono text-gray-500">Extra hot</span></div>
+                                    <div class="flex justify-between hover:bg-amber-100 p-1 rounded transition text-emerald-800"><span class="font-medium">不加鮮奶油</span> <span class="font-mono font-bold">No whipped cream</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-yellow-500/10 p-2 rounded-xl text-xs text-center border border-yellow-500/20 italic">
+                            💡 不確定多甜時可以問：<span class="font-bold">"Is it usually very sweet?"</span> | <span class="font-bold">"Can you make it less sweet?"</span>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                page: 5,
+                title: "餐廳實戰五步驟",
+                subtitle: "The Restaurant Timeline",
+                category: "Dining Out",
+                content: `
+                    【Dining Out - 餐廳實戰五步驟 (The Restaurant Timeline)】
+                    • 美式餐廳用餐完整生命週期:
+                      1. Walk-in (進門入座): "Table for two, please." (兩位，謝謝) / "Do you have patio seating?" (有戶外座位嗎?)
+                      2. Seating (看菜單): "We're still looking at the menu." (我們還在看菜單)
+                      3. Ordering (正式點餐): "I'll have the chicken sandwich." (我要一份雞肉三明治)
+                      4. Dining (用餐中途): "Everything is great so far, thanks." (目前一切都很棒，謝謝)
+                      5. Checkout (結帳): "Could we get the check, please?" (可以幫我們拿帳單嗎?) / "Could we split the check?" (我們可以分開付嗎?)
+                `,
+                render: () => `
+                    <div class="flex flex-col flex-1 justify-center space-y-3">
+                        <div class="text-center">
+                            <h2 class="text-xl md:text-2xl font-extrabold slide-primary">餐廳實戰五步驟</h2>
+                            <p class="text-xs text-gray-500 font-mono">The Restaurant Timeline</p>
+                        </div>
+
+                        <!-- Timeline steps design -->
+                        <div class="relative flex justify-between items-center max-w-2xl mx-auto w-full my-4">
+                            <!-- Background connecting line -->
+                            <div class="absolute left-0 right-0 h-1 bg-amber-900/10 z-0"></div>
+
+                            <div class="z-10 text-center flex flex-col items-center">
+                                <div class="w-8 h-8 rounded-full bg-emerald-800 text-white font-bold flex items-center justify-center shadow text-xs">1</div>
+                                <span class="text-[10px] font-bold mt-1">Walk-in</span>
+                            </div>
+                            <div class="z-10 text-center flex flex-col items-center">
+                                <div class="w-8 h-8 rounded-full bg-emerald-800 text-white font-bold flex items-center justify-center shadow text-xs">2</div>
+                                <span class="text-[10px] font-bold mt-1">Seating</span>
+                            </div>
+                            <div class="z-10 text-center flex flex-col items-center">
+                                <div class="w-8 h-8 rounded-full bg-emerald-800 text-white font-bold flex items-center justify-center shadow text-xs">3</div>
+                                <span class="text-[10px] font-bold mt-1">Ordering</span>
+                            </div>
+                            <div class="z-10 text-center flex flex-col items-center">
+                                <div class="w-8 h-8 rounded-full bg-emerald-800 text-white font-bold flex items-center justify-center shadow text-xs">4</div>
+                                <span class="text-[10px] font-bold mt-1">Dining</span>
+                            </div>
+                            <div class="z-10 text-center flex flex-col items-center">
+                                <div class="w-8 h-8 rounded-full bg-emerald-800 text-white font-bold flex items-center justify-center shadow text-xs">5</div>
+                                <span class="text-[10px] font-bold mt-1">Checkout</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs bg-white/55 p-3 rounded-2xl border slide-border">
+                            <div class="space-y-1">
+                                <p class="font-bold text-emerald-800"><i class="fa-solid fa-chair mr-1"></i>進門與點餐 (1-3):</p>
+                                <p class="italic text-gray-700">"Table for two, please." (兩位入座)</p>
+                                <p class="italic text-gray-700">"We're still looking at the menu." (還在看菜單)</p>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="font-bold text-emerald-800"><i class="fa-solid fa-credit-card mr-1"></i>用餐與結帳 (4-5):</p>
+                                <p class="italic text-gray-700">"Everything is great so far, thanks." (用餐中途滿意度)</p>
+                                <p class="italic text-red-700 font-semibold">"Could we split the check?" (我們可以分開算帳嗎?)</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                page: 6,
+                title: "點餐不踩雷：請店員推薦的藝術",
+                subtitle: "Navigating the Menu",
+                category: "Dining Out",
+                content: `
+                    【點餐不踩雷: 請店員推薦的藝術 (Navigating the Menu)】
+                    • 尋求推薦 (Ask for Recs):
+                      - 不知從何點起: "What would you recommend for first-timers?" (第一次來，推薦什麼?)
+                      - 探詢招牌菜: "What's your go-to dish?" (你最愛、常點的菜是什麼?)
+                    • 確認細節 (Confirm Details):
+                      - 確認份量大小: "Is this a big portion?" / "Is it enough to share?" (份量大嗎/夠分食嗎?)
+                      - 調整辣度口味: "Is this dish very spicy?" / "Can you make it not too spicy?" (這會很辣嗎/能做不辣一點嗎?)
+                `,
+                render: () => `
+                    <div class="flex flex-col flex-1 justify-center space-y-4">
+                        <div class="text-center">
+                            <h2 class="text-xl md:text-2xl font-extrabold slide-primary">點餐不踩雷：請店員推薦的藝術</h2>
+                            <p class="text-xs text-gray-500 font-mono">Navigating the Menu</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Box 1 -->
+                            <div class="bg-amber-500/5 border border-amber-500/20 p-4 rounded-2xl">
+                                <div class="flex items-center space-x-2 text-amber-700 font-bold mb-2">
+                                    <i class="fa-solid fa-thumbs-up"></i>
+                                    <span>尋求推薦 (Ask for Recs)</span>
+                                </div>
+                                <div class="space-y-3 text-xs">
+                                    <div>
+                                        <p class="text-gray-500 font-semibold">不知從何點起時：</p>
+                                        <p class="font-bold text-slate-800 italic text-sm mt-0.5">"What would you recommend for first-timers?"</p>
+                                    </div>
+                                    <div class="border-t slide-border pt-2">
+                                        <p class="text-gray-500 font-semibold">探詢內行招牌菜：</p>
+                                        <p class="font-bold text-slate-800 italic text-sm mt-0.5">"What's your go-to dish?"</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Box 2 -->
+                            <div class="bg-emerald-800/5 border border-emerald-800/20 p-4 rounded-2xl">
+                                <div class="flex items-center space-x-2 text-emerald-800 font-bold mb-2">
+                                    <i class="fa-solid fa-circle-question"></i>
+                                    <span>確認細節 (Confirm Details)</span>
+                                </div>
+                                <div class="space-y-3 text-xs">
+                                    <div>
+                                        <p class="text-gray-500 font-semibold">確認份量大小與分食：</p>
+                                        <p class="font-bold text-slate-800 italic text-sm mt-0.5">"Is this enough to share?"</p>
+                                    </div>
+                                    <div class="border-t slide-border pt-2">
+                                        <p class="text-gray-500 font-semibold">調整辣度口味：</p>
+                                        <p class="font-bold text-slate-800 italic text-sm mt-0.5">"Can you make it not too spicy?"</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                page: 7,
+                title: "優雅解決問題矩陣",
+                subtitle: "Problem Resolution Diagnostic",
+                category: "Dining Out",
+                content: `
+                    【優雅解決問題矩陣 (Problem Resolution Diagnostic)】
+                    • 在美式餐廳遇到突發狀況時的優雅反應:
+                      - 狀況A: 上錯菜 (The Problem) -> "Excuse me, I think this isn't what I ordered." (抱歉，這好像不是我點的) -> 預期回覆: "I'm so sorry about that. I'll bring it right out."
+                      - 狀況B: 漏給配菜 -> "I think we're missing the fries." (我們好像漏了薯條) -> 預期回覆: "Let me grab that for you."
+                      - 狀況C: 熟度不對 -> "I asked for medium rare, it looks a bit well done." (我點的是三分熟，這看起來有點全熟) -> 預期回覆: "We can remake it for you. / Would it be possible to redo this?"
+                `,
+                render: () => `
+                    <div class="flex flex-col flex-1 justify-center space-y-4">
+                        <div class="text-center">
+                            <h2 class="text-xl md:text-2xl font-extrabold slide-primary">優雅解決問題矩陣</h2>
+                            <p class="text-xs text-gray-500 font-mono">Problem Resolution Diagnostic</p>
+                        </div>
+
+                        <div class="overflow-x-auto rounded-xl border slide-border bg-white/80">
+                            <table class="w-full text-left text-xs">
+                                <thead class="bg-amber-900/10 text-amber-900 font-bold uppercase">
+                                    <tr>
+                                        <th class="p-3">突發狀況 (Problem)</th>
+                                        <th class="p-3">優雅反應 (Polite Reaction)</th>
+                                        <th class="p-3">預期回覆 (Response)</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y slide-border">
+                                    <tr class="hover:bg-amber-100/50">
+                                        <td class="p-3 font-bold text-red-700">狀況A: 上錯菜</td>
+                                        <td class="p-3 italic">"Excuse me, I think this isn't what I ordered."</td>
+                                        <td class="p-3 text-gray-500">"I'm sorry, I'll bring it right out."</td>
+                                    </tr>
+                                    <tr class="hover:bg-amber-100/50">
+                                        <td class="p-3 font-bold text-red-700">狀況B: 漏給配餐</td>
+                                        <td class="p-3 italic">"I think we're missing the fries."</td>
+                                        <td class="p-3 text-gray-500">"Let me grab that for you."</td>
+                                    </tr>
+                                    <tr class="hover:bg-amber-100/50">
+                                        <td class="p-3 font-bold text-red-700">狀況C: 熟度不對</td>
+                                        <td class="p-3 italic">"I asked for medium rare, it looks a bit well done."</td>
+                                        <td class="p-3 text-gray-500">"We can remake it for you."</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                page: 8,
+                title: "超市與超商尋寶平面圖",
+                subtitle: "The Store Blueprint",
+                category: "Grocery & Convenience",
+                content: `
+                    【Grocery & Convenience - 超市與便利商店尋寶 (The Store Blueprint)】
+                    • 超市尋寶平面圖實戰對話：
+                      - Pin 1: 走道區 (Aisles) - 找不到東西 -> 用英文詢問: "Where's the bottled water?" (瓶裝水在哪裡?) -> 店員回覆: "It's on aisle 7." (在第七排走道)
+                      - Pin 2: 貨架區 (Shelves) - 找尋庫存 -> 用英文詢問: "Do you have any more in stock?" (還有庫存嗎?)
+                      - Pin 3: 後場門口 (The Back) - 庫存查詢 -> 店員經典回覆: "Let me check the back for you." (我去後台倉庫幫您查查看)
+                `,
+                render: () => `
+                    <div class="flex flex-col flex-1 justify-center space-y-4">
+                        <div class="text-center">
+                            <h2 class="text-xl md:text-2xl font-extrabold slide-primary">超市與超商尋寶平面圖</h2>
+                            <p class="text-xs text-gray-500 font-mono">The Store Blueprint</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                            <!-- Left: Interactive Map representation -->
+                            <div class="bg-emerald-900/10 p-4 rounded-3xl border border-emerald-900/15 flex flex-col items-center relative min-h-[160px] justify-center">
+                                <span class="absolute top-2 left-3 text-[10px] uppercase font-bold text-emerald-800">Store Layout Draft</span>
+                                <div class="grid grid-cols-3 gap-3 w-full text-center text-xs mt-3">
+                                    <div class="bg-white/80 p-3 rounded-xl border shadow-sm relative"><span class="absolute -top-1.5 -left-1.5 w-5 h-5 bg-emerald-700 text-white rounded-full flex items-center justify-center font-bold text-[10px]">1</span>走道 Aisles</div>
+                                    <div class="bg-white/80 p-3 rounded-xl border shadow-sm relative"><span class="absolute -top-1.5 -left-1.5 w-5 h-5 bg-emerald-700 text-white rounded-full flex items-center justify-center font-bold text-[10px]">2</span>貨架 Shelves</div>
+                                    <div class="bg-white/80 p-3 rounded-xl border shadow-sm relative"><span class="absolute -top-1.5 -left-1.5 w-5 h-5 bg-emerald-700 text-white rounded-full flex items-center justify-center font-bold text-[10px]">3</span>後倉庫 The Back</div>
+                                </div>
+                                <p class="text-[10px] text-emerald-900/60 mt-4 italic"><i class="fa-solid fa-map-pin mr-1"></i>超市內的定位是找東西的關鍵</p>
+                            </div>
+
+                            <!-- Right: Dialogue Boxes -->
+                            <div class="space-y-2.5 text-xs">
+                                <div class="bg-white/90 p-2.5 rounded-xl border shadow-sm">
+                                    <p class="font-bold text-blue-700">📌 Pin 1: 走道區 (找不到東西)</p>
+                                    <p class="italic mt-0.5 font-semibold text-slate-800">"Where's the bottled water?" / "It's on aisle 7."</p>
+                                </div>
+                                <div class="bg-white/90 p-2.5 rounded-xl border shadow-sm">
+                                    <p class="font-bold text-amber-600">📌 Pin 2: 貨架區 (詢問補貨)</p>
+                                    <p class="italic mt-0.5 font-semibold text-slate-800">"Do you have any more in stock?"</p>
+                                </div>
+                                <div class="bg-white/90 p-2.5 rounded-xl border shadow-sm">
+                                    <p class="font-bold text-emerald-700">📌 Pin 3: 後倉庫 (店員核對)</p>
+                                    <p class="italic mt-0.5 font-semibold text-slate-800">"Let me check the back for you."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                page: 9,
+                title: "熟食區生存指南",
+                subtitle: "Hot Food & Deli Interactions",
+                category: "Grocery & Convenience",
+                content: `
+                    【熟食區生存指南 (Hot Food & Deli Interactions)】
+                    • 超市便利商店熟食部互動英文:
+                      - 要求加熱 (Heating Requests):
+                        1. "Can you heat this slice up again?" (可以幫我把這片披薩再加熱嗎?)
+                        2. "Can I microwave this burrito here?" (我可以在這裡微波這個捲餅嗎?)
+                      - 確認新鮮度 (Checking Freshness):
+                        1. "Is this sandwich freshly made?" (這三明治是現做的嗎?)
+                        2. "Is this pizza still hot right now?" (這片披薩現在還是熱的嗎?)
+                `,
+                render: () => `
+                    <div class="flex flex-col flex-1 justify-center space-y-4">
+                        <div class="text-center">
+                            <h2 class="text-xl md:text-2xl font-extrabold slide-primary">熟食區生存指南</h2>
+                            <p class="text-xs text-gray-500 font-mono">Hot Food & Deli Interactions</p>
+                        </div>
+
+                        <!-- Illustrated Food display mockup -->
+                        <div class="bg-orange-500/5 border border-orange-500/10 p-4 rounded-3xl grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-3 text-xs">
+                                <div class="bg-white p-3 rounded-2xl shadow-sm border border-orange-500/10">
+                                    <div class="flex items-center space-x-2 text-orange-600 font-bold mb-1">
+                                        <i class="fa-solid fa-fire-burner"></i>
+                                        <span>要求加熱 (Heating Requests)</span>
+                                    </div>
+                                    <p class="italic font-bold text-slate-800 text-sm">"Can you heat this slice up again?"</p>
+                                    <p class="text-gray-500 mt-1">「可以再幫我加熱這片披薩嗎？」</p>
+                                    <p class="italic font-bold text-slate-800 text-sm border-t slide-border mt-2 pt-2">"Can I microwave this burrito here?"</p>
+                                    <p class="text-gray-500 mt-1">「我可以在這裡微波這個捲餅嗎？」</p>
+                                </div>
+                            </div>
+                            <div class="space-y-3 text-xs">
+                                <div class="bg-white p-3 rounded-2xl shadow-sm border border-emerald-500/10">
+                                    <div class="flex items-center space-x-2 text-emerald-700 font-bold mb-1">
+                                        <i class="fa-solid fa-seedling"></i>
+                                        <span>確認新鮮度 (Checking Freshness)</span>
+                                    </div>
+                                    <p class="italic font-bold text-slate-800 text-sm">"Is this sandwich freshly made?"</p>
+                                    <p class="text-gray-500 mt-1">「這三明治是現烤現做的嗎？」</p>
+                                    <p class="italic font-bold text-slate-800 text-sm border-t slide-border mt-2 pt-2">"Is this pizza still hot right now?"</p>
+                                    <p class="text-gray-500 mt-1">「這披薩現在還是熱的嗎？」</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                page: 10,
+                title: "結帳分流決策樹",
+                subtitle: "The Checkout Decision Tree",
+                category: "Grocery & Convenience",
+                content: `
+                    【結帳分流決策樹 (The Checkout Decision Tree)】
+                    • 包裝 (Bags):
+                      - 店員問: "Do you need a bag for these?" (需要袋子裝嗎?)
+                      - 顧客答: "I'll take a paper/plastic bag, please." (我要紙袋/塑膠袋) 或 "I'm good, I brought my own." (不用，我自己有帶)
+                    • 支付方式 (Payment):
+                      - 店員問: "Will you be paying with card or cash?" (刷卡還是付現?)
+                      - 顧客答: "Tap, insert, or Apple Pay." (感應、插卡或用 Apple Pay) 或 "I'll pay with cash." (我付現金)
+                    • 收據 (Receipt):
+                      - 店員問: "Would you like email or printed receipt?" (收據要用 Email 還是列印?)
+                      - 顧客答: "Email / Printed copy, please." (請寄到信箱/列印紙本收據)
+                    • 自助結帳機的魔咒 (Self-Checkout Trap):
+                      - 聽到 "Unexpected item in the bagging area" 警報時，請尋求協助: "Excuse me, can you help me with this?"
+                `,
+                render: () => `
+                    <div class="flex flex-col flex-1 justify-center space-y-3">
+                        <div class="text-center">
+                            <h2 class="text-xl md:text-2xl font-extrabold slide-primary">結帳分流決策樹</h2>
+                            <p class="text-xs text-gray-500 font-mono">The Checkout Decision Tree</p>
+                        </div>
+
+                        <!-- Decision Cards layout -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <div class="bg-white/80 p-3 rounded-2xl border slide-border text-xs">
+                                <span class="font-bold text-amber-700"><i class="fa-solid fa-bag-shopping mr-1"></i>1. 包裝 (Bags)</span>
+                                <p class="text-gray-500 italic mt-1">"Do you need a bag?"</p>
+                                <div class="mt-2 space-y-1 bg-amber-50 p-1.5 rounded-xl">
+                                    <p class="font-bold">"I'll take a paper bag, please."</p>
+                                    <p class="font-semibold text-gray-500">"I'm good, I brought my own."</p>
+                                </div>
+                            </div>
+                            <div class="bg-white/80 p-3 rounded-2xl border slide-border text-xs">
+                                <span class="font-bold text-blue-700"><i class="fa-solid fa-credit-card mr-1"></i>2. 支付 (Payment)</span>
+                                <p class="text-gray-500 italic mt-1">"Paying with card or cash?"</p>
+                                <div class="mt-2 space-y-1 bg-blue-50 p-1.5 rounded-xl">
+                                    <p class="font-bold text-blue-800">"Apple Pay, please."</p>
+                                    <p class="font-semibold text-gray-500">"I'll pay with cash."</p>
+                                </div>
+                            </div>
+                            <div class="bg-white/80 p-3 rounded-2xl border slide-border text-xs">
+                                <span class="font-bold text-emerald-700"><i class="fa-solid fa-receipt mr-1"></i>3. 收據 (Receipt)</span>
+                                <p class="text-gray-500 italic mt-1">"Email or printed receipt?"</p>
+                                <div class="mt-2 space-y-1 bg-emerald-50 p-1.5 rounded-xl">
+                                    <p class="font-bold text-emerald-800">"Printed copy, please."</p>
+                                    <p class="font-semibold text-gray-500">"Email is fine."</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-red-500/10 border border-red-500/20 rounded-2xl p-2.5 text-xs flex items-center space-x-2">
+                            <i class="fa-solid fa-triangle-exclamation text-red-600 text-lg animate-pulse"></i>
+                            <div>
+                                <span class="font-bold text-red-800">自助結帳機魔咒 (Self-Checkout Trap)：</span>
+                                聽到 <span class="italic font-bold">"Unexpected item..."</span> 時，請找店員：<span class="font-bold italic text-slate-800">"Excuse me, can you help me with this?"</span>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                page: 11,
+                title: "酒吧點酒口味象限圖",
+                subtitle: "The Drink Spectrum Matrix",
+                category: "Nightlife Social",
+                content: `
+                    【Nightlife Social - 酒吧點酒口味象限圖 (The Drink Spectrum Matrix)】
+                    • 口味分類象限與點餐句型:
+                      1. 偏甜 (Sweet): "What's the sweetest drink here?" (這裡最甜的調酒是什麼?)
+                      2. 清爽果香 (Light / Fruity): "I want something fruity instead." (我想要水果風味的調酒) / "I like something light to drink." (我喜歡清淡好入口的酒)
+                      3. 偏乾 / 苦 (Dry / Bitter) & 經典濃烈 (Strong / Classic): "Can you make it a bit lighter?" (可以幫我調淡一點嗎?) / "I like it smooth, not strong." (我喜歡滑順、不刺激濃烈的口感)
+                `,
+                render: () => `
+                    <div class="flex flex-col flex-1 justify-center space-y-3">
+                        <div class="text-center">
+                            <h2 class="text-xl md:text-2xl font-extrabold slide-primary">酒吧點酒口味象限圖</h2>
+                            <p class="text-xs text-gray-500 font-mono">The Drink Spectrum Matrix</p>
+                        </div>
+
+                        <!-- Coordinates Grid mockup -->
+                        <div class="bg-purple-900/5 p-4 rounded-3xl border border-purple-900/10 relative min-h-[170px] flex items-center justify-center">
+                            <!-- X/Y Axes representation -->
+                            <div class="absolute w-full h-0.5 bg-purple-900/20 top-1/2 left-0"></div>
+                            <div class="absolute h-full w-0.5 bg-purple-900/20 left-1/2 top-0"></div>
+
+                            <!-- Axis Labels -->
+                            <span class="absolute top-2 left-1/2 -translate-x-1/2 text-[10px] font-bold text-purple-700 uppercase bg-white px-2 py-0.5 rounded-full shadow-sm">偏甜 (Sweet)</span>
+                            <span class="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] font-bold text-purple-700 uppercase bg-white px-2 py-0.5 rounded-full shadow-sm">偏乾/苦 (Dry/Bitter)</span>
+                            <span class="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] font-bold text-purple-700 uppercase bg-white px-2 py-0.5 rounded-full shadow-sm">清爽果香 (Fruity)</span>
+                            <span class="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-bold text-purple-700 uppercase bg-white px-2 py-0.5 rounded-full shadow-sm">經典濃烈 (Strong)</span>
+
+                            <!-- Floating dialog points -->
+                            <div class="absolute top-6 left-12 bg-white/90 p-2 rounded-xl text-[9px] shadow-sm max-w-[100px] border border-purple-200">
+                                <p class="font-semibold italic">"Fruity and light, please!"</p>
+                            </div>
+                            <div class="absolute bottom-6 right-12 bg-white/90 p-2 rounded-xl text-[9px] shadow-sm max-w-[100px] border border-purple-200">
+                                <p class="font-semibold italic">"Can you make it a bit lighter?"</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                page: 12,
+                title: "餐桌上的破冰與接話術",
+                subtitle: "Table Small Talk",
+                category: "Nightlife Social",
+                content: `
+                    【餐桌上的破冰與接話術 (Table Small Talk)】
+                    • 破冰起手式 (Ice Breakers):
+                      1. "So, do you come here often?" (你常來這家店嗎?)
+                      2. "What's your go-to drink?" (你通常來都點什麼酒/飲料?)
+                      3. "This place has a great vibe." (這家店氣氛超級棒)
+                    • 熱情附和術 (Reactions & Engagement):
+                      - 驚豔附和: "That's surprisingly smooth actually!" (這喝起來意外地非常滑順!)
+                      - 同感附和: "Yeah, I get what you mean there." (真的，我懂你的意思)
+                      - 延續話題: "Oh yeah? What happened then?" (喔是嗎？那後來發生什麼事了?)
+                `,
+                render: () => `
+                    <div class="flex flex-col flex-1 justify-center space-y-4">
+                        <div class="text-center">
+                            <h2 class="text-xl md:text-2xl font-extrabold slide-primary">餐桌上的破冰與接話術</h2>
+                            <p class="text-xs text-gray-500 font-mono">Table Small Talk</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-purple-900/5 p-4 rounded-3xl border border-purple-900/15">
+                                <span class="text-xs font-bold text-purple-800"><i class="fa-solid fa-comment-dots mr-1"></i>破冰起手式 (Ice Breakers)</span>
+                                <div class="mt-2.5 space-y-2 text-xs">
+                                    <div class="bg-white p-2 rounded-xl hover:shadow-md transition">
+                                        <p class="font-bold text-slate-800">"So, do you come here often?"</p>
+                                        <p class="text-gray-500">「你常來這家店嗎？」</p>
+                                    </div>
+                                    <div class="bg-white p-2 rounded-xl hover:shadow-md transition">
+                                        <p class="font-bold text-slate-800">"This place has a great vibe."</p>
+                                        <p class="text-gray-500">「這家店的氣氛真的很棒。」</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-emerald-900/5 p-4 rounded-3xl border border-emerald-900/15">
+                                <span class="text-xs font-bold text-emerald-800"><i class="fa-solid fa-heart mr-1"></i>熱情附和術 (Reactions)</span>
+                                <div class="mt-2.5 space-y-2 text-xs">
+                                    <div class="bg-white p-2 rounded-xl hover:shadow-md transition">
+                                        <p class="font-bold text-emerald-900">"That's surprisingly smooth actually!"</p>
+                                        <p class="text-gray-500">「這喝起來意外地非常滑順好入喉！」</p>
+                                    </div>
+                                    <div class="bg-white p-2 rounded-xl hover:shadow-md transition">
+                                        <p class="font-bold text-emerald-900">"Oh yeah? What happened then?"</p>
+                                        <p class="text-gray-500">「真的嗎？那後來怎麼樣了？」</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                page: 13,
+                title: "美式萬用禮貌語氣轉換器",
+                subtitle: "The Polite Modifier Engine",
+                category: "Synthesis & Conclusion",
+                content: `
+                    【美式萬用禮貌語氣轉換器 (The Polite Modifier Engine)】
+                    • 生硬的要求 (Blunt Request) -> 禮貌的美式表達 (Polite American English):
+                      - 生硬: "Give me a coffee." -> 轉換: "Could I get a coffee, please?"
+                      - 生硬: "I want this changed." -> 轉換: "Would it be possible to change this?"
+                      - 生硬: "I want to ask..." -> 轉換: "I was wondering if you could help me."
+                    • 核心洞察: 美國人點餐與要求服務時，極少使用「祈使句」。只要掌握 "Could I get..." 與 "I was wondering if..." 兩大金鑰，就能瞬間提升英文溝通質感。
+                `,
+                render: () => `
+                    <div class="flex flex-col flex-1 justify-center space-y-3">
+                        <div class="text-center">
+                            <h2 class="text-xl md:text-2xl font-extrabold slide-primary">美式萬用禮貌語氣轉換器</h2>
+                            <p class="text-xs text-gray-500 font-mono">The Polite Modifier Engine</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-2">
+                            <div class="bg-red-500/5 p-3 rounded-2xl border border-red-500/10 text-xs">
+                                <span class="font-bold text-red-700"><i class="fa-solid fa-circle-xmark mr-1"></i>生硬命令式 (Blunt)</span>
+                                <div class="mt-2 space-y-2">
+                                    <p class="bg-white p-1.5 rounded-xl text-gray-600 italic">"Give me a coffee."</p>
+                                    <p class="bg-white p-1.5 rounded-xl text-gray-600 italic">"I want this changed."</p>
+                                </div>
+                            </div>
+                            <div class="bg-green-500/5 p-3 rounded-2xl border border-green-500/10 text-xs">
+                                <span class="font-bold text-green-700"><i class="fa-solid fa-circle-check mr-1"></i>高EQ美式表達 (Polite)</span>
+                                <div class="mt-2 space-y-2">
+                                    <p class="bg-white p-1.5 rounded-xl text-slate-800 font-bold italic">"Could I get a coffee, please?"</p>
+                                    <p class="bg-white p-1.5 rounded-xl text-slate-800 font-bold italic">"Would it be possible to change this?"</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-amber-100 p-3 rounded-2xl text-xs border border-amber-200">
+                            <span class="font-bold text-amber-800">💡 核心洞察 (Core Insight)：</span>
+                            美國人極少使用祈使句。精準善用 <span class="font-bold text-emerald-800">"Could I get..."</span> 與 <span class="font-bold text-emerald-800">"I was wondering if..."</span>，溝通質感瞬間加分。
+                        </div>
+                    </div>
+                `
+            },
+            {
+                page: 14,
+                title: "美食生存四大金句矩陣",
+                subtitle: "The Ultimate Foodie Cheat Sheet",
+                category: "Synthesis & Conclusion",
+                content: `
+                    【美食生存四大金句矩陣 (The Ultimate Foodie Cheat Sheet)】
+                    • 四大日常場景最核心金句整理:
+                      1. Cafe (咖啡廳): "Could I get a [size] [drink] with [milk choice]?"
+                      2. Restaurant (餐廳): "We're still looking at the menu." / "Could we split the check?"
+                      3. Store (超市/超商): "Where can I find [item]?" / "I'll pay with Apple Pay."
+                      4. Bar (酒吧/社交): "What's your go-to drink?" / "Can you make it a bit lighter?"
+                    • 建議: 截圖保存，下次出國直接用! (Screenshot this for your next trip!)
+                `,
+                render: () => `
+                    <div class="flex flex-col flex-1 justify-center space-y-4">
+                        <div class="text-center">
+                            <h2 class="text-xl md:text-2xl font-extrabold slide-primary">美食生存四大金句矩陣</h2>
+                            <p class="text-xs text-gray-500 font-mono">The Ultimate Foodie Cheat Sheet</p>
+                        </div>
+
+                        <!-- 2x2 Grid cards -->
+                        <div class="grid grid-cols-2 gap-3 text-[11px] md:text-xs">
+                            <div class="bg-white p-3 rounded-2xl border slide-border">
+                                <span class="font-extrabold text-amber-700"><i class="fa-solid fa-mug-hot mr-1"></i>Cafe 咖啡廳</span>
+                                <p class="mt-1 font-bold text-slate-800">"Could I get a [size] [drink] with [milk choice]?"</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-2xl border slide-border">
+                                <span class="font-extrabold text-emerald-800"><i class="fa-solid fa-utensils mr-1"></i>Restaurant 餐廳</span>
+                                <p class="mt-1 font-bold text-emerald-900">"We're still looking..." / "Could we split the check?"</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-2xl border slide-border">
+                                <span class="font-extrabold text-blue-700"><i class="fa-solid fa-basket-shopping mr-1"></i>Store 超市/超商</span>
+                                <p class="mt-1 font-bold text-slate-800">"Where can I find [item]?" / "Apple Pay, please."</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-2xl border slide-border">
+                                <span class="font-extrabold text-purple-700"><i class="fa-solid fa-glass-water mr-1"></i>Bar 酒吧/社交</span>
+                                <p class="mt-1 font-bold text-slate-800">"What's your go-to drink?" / "Make it a bit lighter?"</p>
+                            </div>
+                        </div>
+
+                        <div class="text-center text-[10px] text-gray-400 font-semibold uppercase tracking-wider animate-pulse">
+                            📸 截圖保存，下次出國點餐直接用！
+                        </div>
+                    </div>
+                `
+            },
+            {
+                page: 15,
+                title: "You're all set! 準備好自信開口了嗎！",
+                subtitle: "Bon Appétit!",
+                category: "Synthesis & Conclusion",
+                content: `
+                    【You're all set! 準備好自信開口了嗎！】
+                    • Tagline: Bon Appétit! (祝胃口大開!)
+                    • 總結宣誓: 不再害怕點餐結帳，用最道地的英文，吃遍美國每一個角落。 (Stop stressing over orders. Speak like a local, and enjoy every bite of your American journey.)
+                    • 簡報圓滿結束。
+                `,
+                render: () => `
+                    <div class="text-center flex flex-col items-center justify-center space-y-5 flex-1 py-4">
+                        <div class="w-16 h-16 rounded-full bg-emerald-800/10 text-emerald-800 flex items-center justify-center text-3xl mb-1 border border-emerald-800/20">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <h2 class="text-2xl md:text-3xl font-extrabold slide-primary font-serif">You're all set!</h2>
+                            <p class="text-md font-bold text-amber-600 tracking-wide font-mono">準備好自信開口了嗎！</p>
+                        </div>
+                        <p class="text-sm text-gray-500 max-w-md mx-auto leading-relaxed border-t border-amber-900/10 pt-4">
+                            不再害怕點餐結帳，用最道地的英文，吃遍美國每一個角落。<br>
+                            <span class="text-xs text-gray-400 block mt-2">(Speak like a local, and enjoy every bite of your American journey.)</span>
+                        </p>
+                        <span class="text-xs font-bold text-emerald-800 bg-emerald-800/10 px-4 py-1 rounded-full uppercase tracking-widest mt-2 animate-pulse">Bon Appétit!</span>
+                    </div>
+                `
+            }
+        ];
+
+        // Global State variables
+        let currentPage = 1;
+        let isAutoPlaying = false;
+        let autoPlayTimer = null;
+        let isListening = false;
+        let recognition = null;
+        let activeAudioSource = null;
+        const apiKey = ""; // Left empty to let Canvas runtime inject it automatically
+
+        // Speech Recognition Initializer
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (SpeechRecognition) {
+            recognition = new SpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = false;
+            recognition.lang = 'zh-TW'; // Default to Traditional Chinese to support commands & questions
+            
+            recognition.onstart = () => {
+                isListening = true;
+                updateMicUI(true);
+                showTranscriptHint("聆聽中，請說「下一頁」或直接問問題...");
+            };
+
+            recognition.onresult = async (event) => {
+                const text = event.results[event.results.length - 1][0].transcript.trim();
+                console.log("Speech heard: ", text);
+                showTranscriptHint(`聽到了: "${text}"`);
+                
+                // Parse command
+                const command = parseVoiceCommand(text);
+                if (command) {
+                    executeCommand(command, text);
+                }
+            };
+
+            recognition.onerror = (e) => {
+                console.warn("Speech recognition error: ", e.error);
+                if (e.error === 'not-allowed') {
+                    addMessageToLogs("Aura", "無法存取麥克風。請確認您已授予網頁麥克風存取權限。");
+                    isListening = false;
+                    updateMicUI(false);
+                }
+            };
+
+            recognition.onend = () => {
+                // If it was supposed to keep listening, restart it
+                if (isListening) {
+                    try {
+                        recognition.start();
+                    } catch (e) {
+                        console.log("Could not restart recognition automatically: ", e);
+                    }
+                } else {
+                    updateMicUI(false);
+                    showTranscriptHint("語音功能已暫停");
+                }
+            };
+        } else {
+            console.warn("Speech recognition is not supported in this browser.");
+            document.getElementById('live-transcript').innerText = "本瀏覽器不支援 SpeechRecognition 語音控制功能";
+        }
+
+        // Parse raw string text into structural commands
+        function parseVoiceCommand(text) {
+            const cleanText = text.toLowerCase();
+            
+            // Previous / Up Commands
+            if (cleanText.includes("上一頁") || cleanText.includes("上一張") || cleanText.includes("上一個") || cleanText.includes("往上") || cleanText.includes("previous")) {
+                return { type: 'PREV' };
+            }
+            // Next / Down Commands
+            if (cleanText.includes("下一頁") || cleanText.includes("下一張") || cleanText.includes("下一個") || cleanText.includes("往下") || cleanText.includes("next")) {
+                return { type: 'NEXT' };
+            }
+            // First Page Commands
+            if (cleanText.includes("第一頁") || cleanText.includes("最前面") || cleanText.includes("首頁") || cleanText.includes("第一張") || cleanText.includes("投影片一")) {
+                return { type: 'GOTO', page: 1 };
+            }
+            // Last Page Commands
+            if (cleanText.includes("最後一頁") || cleanText.includes("最後一張") || cleanText.includes("最後面") || cleanText.includes("第十五頁")) {
+                return { type: 'GOTO', page: 15 };
+            }
+
+            // Jump to specific numbers (e.g. "跳到第五頁", "第3頁")
+            const numPattern = /(?:跳(?:到)?|第)\s*(\d+|一|二|三|四|五|六|七|八|九|十|十一|十二|十三|十四|十五)\s*頁/;
+            const match = cleanText.match(numPattern);
+            if (match) {
+                const chineseNumbers = {
+                    "一": 1, "二": 2, "三": 3, "四": 4, "五": 5, "六": 6, "七": 7, "八": 8, "九": 9, "十": 10,
+                    "十一": 11, "十二": 12, "十三": 13, "十四": 14, "十五": 15
+                };
+                let pNum = parseInt(match[1]);
+                if (isNaN(pNum)) {
+                    pNum = chineseNumbers[match[1]];
+                }
+                if (pNum >= 1 && pNum <= 15) {
+                    return { type: 'GOTO', page: pNum };
+                }
+            }
+
+            // Default fallback as user question to AI
+            return { type: 'QUESTION', query: text };
+        }
+
+        // Execute recognized structured commands
+        async function executeCommand(cmd, originalText) {
+            switch(cmd.type) {
+                case 'NEXT':
+                    triggerCommandFeedback("下一頁 ➔");
+                    goToPage(currentPage + 1);
+                    speakLocal("好的，為您切換到下一頁。");
+                    break;
+                case 'PREV':
+                    triggerCommandFeedback("⬅ 上一頁");
+                    goToPage(currentPage - 1);
+                    speakLocal("好的，回到上一頁。");
+                    break;
+                case 'GOTO':
+                    triggerCommandFeedback(`前往第 ${cmd.page} 頁`);
+                    goToPage(cmd.page);
+                    speakLocal(`為您跳到第 ${cmd.page} 頁。`);
+                    break;
+                case 'QUESTION':
+                    addMessageToLogs("User", originalText);
+                    // Pause voice recognition briefly while generating content to prevent self-trigger
+                    if (isListening && recognition) {
+                        isListening = false;
+                        recognition.stop();
+                    }
+                    await askAuraAssistant(cmd.query);
+                    break;
+            }
+        }
+
+        // Render Slide into Frame
+        function renderCurrentSlide() {
+            const slide = slidesData[currentPage - 1];
+            
+            // Set headers/branding
+            document.getElementById('slide-category-badge').innerText = slide.category;
+            document.getElementById('slide-subtitle').innerText = `Stop ${Math.min(4, Math.floor(currentPage / 3) + 1)}: ${slide.subtitle}`;
+            document.getElementById('slide-page-indicator').innerText = `Page ${currentPage} / 15`;
+            document.getElementById('current-page-badge').innerText = `投影片 ${currentPage} / 15`;
+            
+            // Sync slider and input controls
+            document.getElementById('page-slider').value = currentPage;
+
+            // Inject the dynamic visual mockup
+            const container = document.getElementById('slide-content-container');
+            container.innerHTML = slide.render();
+        }
+
+        // Navigate page helper
+        function goToPage(pageNum) {
+            if (pageNum < 1) pageNum = 1;
+            if (pageNum > 15) pageNum = 15;
+            currentPage = pageNum;
+            renderCurrentSlide();
+        }
+
+        // Flash feedback overlay on slide
+        function triggerCommandFeedback(text) {
+            const fb = document.getElementById('command-feedback');
+            const fbText = document.getElementById('command-feedback-text');
+            fbText.innerText = text;
+            fb.style.opacity = '1';
+            fb.style.transform = 'translateY(0)';
+            
+            setTimeout(() => {
+                fb.style.opacity = '0';
+                fb.style.transform = 'translateY(-10px)';
+            }, 1500);
+        }
+
+        // Chat UI helpers
+        function addMessageToLogs(sender, text) {
+            const container = document.getElementById('chat-logs');
+            const msgEl = document.createElement('div');
+            msgEl.className = 'flex items-start space-x-3';
+
+            const isUser = sender === "User";
+            
+            msgEl.innerHTML = isUser ? `
+                <div class="flex items-start space-x-3 w-full justify-end">
+                    <div class="bg-amber-500 text-slate-950 rounded-2xl rounded-tr-none p-3 max-w-[85%] shadow-md">
+                        <p class="text-xs font-bold opacity-75 mb-1">您</p>
+                        <p class="text-sm leading-relaxed">${escapeHtml(text)}</p>
+                    </div>
+                </div>
+            ` : `
+                <div class="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-500 flex items-center justify-center text-xs shrink-0 mt-0.5 border border-amber-500/20">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+                <div class="bg-gray-900 border border-gray-800 rounded-2xl rounded-tl-none p-3 max-w-[85%]">
+                    <p class="text-xs text-amber-400 font-bold mb-1">Aura 隨行導師</p>
+                    <p class="text-sm leading-relaxed text-gray-200">${text}</p>
+                </div>
+            `;
+
+            container.appendChild(msgEl);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function escapeHtml(text) {
+            const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+            return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+        }
+
+        // Main integration of AI query to Gemini API
+        async function askAuraAssistant(query) {
+            // Display loading indicator
+            const loadingId = "msg-loading-" + Date.now();
+            const logs = document.getElementById('chat-logs');
+            const loadingEl = document.createElement('div');
+            loadingEl.className = 'flex items-start space-x-3';
+            loadingEl.id = loadingId;
+            loadingEl.innerHTML = `
+                <div class="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-500 flex items-center justify-center text-xs shrink-0 mt-0.5 border border-amber-500/20">
+                    <i class="fa-solid fa-spinner animate-spin"></i>
+                </div>
+                <div class="bg-gray-900 border border-gray-800 rounded-2xl rounded-tl-none p-3 max-w-[85%]">
+                    <p class="text-xs text-amber-400 font-bold mb-1">Aura 正在思考中...</p>
+                    <div class="flex space-x-1 py-1.5">
+                        <div class="w-2 h-2 bg-amber-500/50 rounded-full animate-bounce"></div>
+                        <div class="w-2 h-2 bg-amber-500/50 rounded-full animate-bounce [animation-delay:0.2s]"></div>
+                        <div class="w-2 h-2 bg-amber-500/50 rounded-full animate-bounce [animation-delay:0.4s]"></div>
+                    </div>
+                </div>
+            `;
+            logs.appendChild(loadingEl);
+            logs.scrollTop = logs.scrollHeight;
+
+            const systemPrompt = `
+                You are a helpful AI bilingual assistant named Aura, acting as an American dining culture and survival English coach. 
+                You are presenting "The American Foodie Survival Guide" (吃貨必備的英文生存指南).
+                
+                You have full access to the presentation deck content containing 15 pages of survival phrases, customization equations, problem diagnostics, store blueprints, small talk, and the polite modifier engine.
+                Keep your answers brief, lively, helpful, and highly encouraging. Use both Traditional Chinese and English naturally.
+                
+                Current Slide number being viewed: Slide ${currentPage} (${slidesData[currentPage-1].title})
+                Current Slide details:
+                ${slidesData[currentPage-1].content}
+
+                All Slides Content reference:
+                ${JSON.stringify(slidesData.map(s => `Slide ${s.page}: ${s.title} -> ${s.content}`))}
+                
+                Always answer the user's questions clearly based on the presentation guidelines. Suggest practical pronunciations or tips if applicable. Keep responses under 3-4 paragraphs.
+            `;
+
+            try {
+                // Setup Gemini API payload
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+                const payload = {
+                    contents: [{ parts: [{ text: query }] }],
+                    systemInstruction: {
+                        parts: [{ text: systemPrompt }]
+                    }
+                };
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) throw new Error("API call failed");
+                const result = await response.json();
+                const aiResponseText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                // Remove loading element
+                document.getElementById(loadingId).remove();
+
+                if (aiResponseText) {
+                    addMessageToLogs("Aura", aiResponseText);
+                    // Automatically voice the output response
+                    await speakAura(aiResponseText);
+                } else {
+                    addMessageToLogs("Aura", "我收到了您的問題，但無法產生合適的回覆，請再試一次。");
+                }
+            } catch (err) {
+                console.error("Gemini API Error: ", err);
+                document.getElementById(loadingId).remove();
+                
+                // Fallback to offline rule-based responder
+                const fallbackResponse = getFallbackAnswer(query);
+                addMessageToLogs("Aura", fallbackResponse);
+                await speakAura(fallbackResponse);
+            } finally {
+                // Restart mic recognition if it was turned on initially
+                if (document.getElementById('mic-toggle-btn').classList.contains('bg-red-500')) {
+                    isListening = true;
+                    if (recognition) {
+                        try { recognition.start(); } catch(e) {}
+                    }
+                }
+            }
+        }
+
+        // Local fallback answering engine for offline use or key issues
+        function getFallbackAnswer(query) {
+            query = query.toLowerCase();
+            const currentSlide = slidesData[currentPage-1];
+            
+            if (query.includes("這頁") || query.includes("這張") || query.includes("講什麼") || query.includes("內容")) {
+                return `本頁標題是《${currentSlide.title}》，屬於【${currentSlide.category}】站點。主要介紹了${currentSlide.subtitle}的實用情境。您可以閱讀並點選投影片上方的區塊進行模擬與學習喔！`;
+            }
+            if (query.includes("點餐") || query.includes("公式") || query.includes("方程式")) {
+                return `在「Morning Boost」站點，特調點餐方程式的公式為：[開場白 Could I get a...] + [容量 Size] + [溫度 Temp] + [飲品 Drink] + [奶類與客製化 Customization]。例如："Could I get a medium iced latte with oat milk and no sugar?" 這句非常好用！`;
+            }
+            if (query.includes("甜") || query.includes("糖") || query.includes("冰")) {
+                return `如果您不確定甜度，投影片第4頁的口味儀表板提供了兩句好用問答：一是「這通常會很甜嗎？」("Is it usually very sweet?")，二是「可以幫我做比較不甜嗎？」("Can you make it less sweet?")。去冰則可以說 "No ice at all"。`;
+            }
+            if (query.includes("餐廳") || query.includes("結帳") || query.includes("分")) {
+                return `如果是餐廳結帳，可以用 "Could we get the check, please?" 來拿帳單。若要各自分開付帳，則說 "Could we split the check?"，這是美式用餐文化中非常普遍且優雅的說法喔！`;
+            }
+            return `您問得很好！在這個生存指南中，關於《${currentSlide.title}》，有許多與點餐跟點心相關的寶貴會話。建議您大聲朗讀看看：\n\n"${currentSlide.content.substring(0, 150)}..."\n\n您也可以點選畫面上方的麥克風隨時控制我喔！`;
+        }
+
+        // Premium Voice TTS & Native WebSpeech Synthesis combined
+        async function speakAura(text) {
+            const service = document.getElementById('voice-service-select').value;
+            
+            if (service === 'gemini-tts') {
+                // Stop previous audio playback if any
+                if (activeAudioSource) {
+                    try { activeAudioSource.stop(); } catch(e) {}
+                }
+                
+                try {
+                    const voiceName = document.getElementById('gemini-voice-select').value;
+                    const cleanTextForTts = text.replace(/[*#`_]/g, ''); // strip markdown characters for better pronunciation
+                    
+                    const payload = {
+                        contents: [{ parts: [{ text: `用精緻生動的語調，中英文夾雜地朗讀以下內容：\n${cleanTextForTts}` }] }],
+                        generationConfig: {
+                            responseModalities: ["AUDIO"],
+                            speechConfig: {
+                                voiceConfig: {
+                                    prebuiltVoiceConfig: { voiceName: voiceName }
+                                }
+                            }
+                        }
+                    };
+
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) throw new Error("TTS API call failed");
+                    const result = await response.json();
+                    const part = result?.candidates?.[0]?.content?.parts?.[0];
+                    const audioData = part?.inlineData?.data;
+                    const mimeType = part?.inlineData?.mimeType;
+
+                    if (audioData) {
+                        // API returns signed PCM16 base64. Let's convert to raw and play via Web Audio
+                        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                        const sampleRate = parseInt(mimeType.match(/rate=(\d+)/)?.[1] || "24000", 10);
+                        
+                        const arrayBuffer = base64ToArrayBuffer(audioData);
+                        const pcm16 = new Int16Array(arrayBuffer);
+                        
+                        // Convert signed 16-bit PCM to Float32 float representation for AudioContext
+                        const audioBuffer = audioContext.createBuffer(1, pcm16.length, sampleRate);
+                        const channelData = audioBuffer.getChannelData(0);
+                        for (let i = 0; i < pcm16.length; i++) {
+                            channelData[i] = pcm16[i] / 32768.0;
+                        }
+
+                        const source = audioContext.createBufferSource();
+                        source.buffer = audioBuffer;
+                        source.connect(audioContext.destination);
+                        source.start(0);
+                        activeAudioSource = source;
+                        return;
+                    }
+                } catch (e) {
+                    console.warn("Premium Gemini TTS fell back to Native Synthesis: ", e);
+                }
+            }
+
+            // Default fallback to Browser Speech Synthesis
+            speakLocal(text);
+        }
+
+        // Local Speech Synthesizer fallback
+        function speakLocal(text) {
+            if ('speechSynthesis' in window) {
+                // Cancel ongoing speakings
+                window.speechSynthesis.cancel();
+
+                // Strip markdown markings for natural speech flow
+                const cleanText = text.replace(/[*#`_]/g, '');
+
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                utterance.lang = 'zh-TW';
+                utterance.rate = 1.0;
+                utterance.pitch = 1.05;
+
+                // Attempt to pick a high quality local Chinese voice
+                const voices = window.speechSynthesis.getVoices();
+                const preferredVoice = voices.find(v => v.lang.includes('ZH') || v.lang.includes('TW') || v.name.includes('Yating') || v.name.includes('Google'));
+                if (preferredVoice) {
+                    utterance.voice = preferredVoice;
+                }
+
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function base64ToArrayBuffer(base64) {
+            const binaryString = window.atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        // UI Helpers
+        function updateMicUI(active) {
+            const btn = document.getElementById('mic-toggle-btn');
+            const icon = document.getElementById('mic-icon');
+            const pulse = document.getElementById('mic-pulse');
+            const wave = document.getElementById('speech-wave-container');
+
+            if (active) {
+                btn.classList.remove('bg-amber-500', 'text-slate-900');
+                btn.classList.add('bg-red-500', 'text-white');
+                icon.className = 'fa-solid fa-microphone-slash text-xl';
+                pulse.classList.remove('hidden');
+                wave.classList.remove('hidden');
+                wave.classList.add('flex');
+            } else {
+                btn.classList.remove('bg-red-500', 'text-white');
+                btn.classList.add('bg-amber-500', 'text-slate-900');
+                icon.className = 'fa-solid fa-microphone text-xl';
+                pulse.classList.add('hidden');
+                wave.classList.add('hidden');
+                wave.classList.remove('flex');
+            }
+        }
+
+        function showTranscriptHint(text) {
+            document.getElementById('live-transcript').innerText = text;
+        }
+
+        // DOM Elements Event Listeners setup
+        window.onload = function () {
+            // Render first slide
+            renderCurrentSlide();
+
+            // Next / Prev actions
+            document.getElementById('next-btn').addEventListener('click', () => {
+                goToPage(currentPage + 1);
+            });
+            document.getElementById('prev-btn').addEventListener('click', () => {
+                goToPage(currentPage - 1);
+            });
+
+            // Slider drag action
+            document.getElementById('page-slider').addEventListener('input', (e) => {
+                goToPage(parseInt(e.target.value));
+            });
+
+            // Manual voice text sending
+            document.getElementById('send-btn').addEventListener('click', () => {
+                const textInput = document.getElementById('text-input');
+                const val = textInput.value.trim();
+                if (val) {
+                    addMessageToLogs("User", val);
+                    const cmd = parseVoiceCommand(val);
+                    if (cmd.type === 'QUESTION') {
+                        askAuraAssistant(val);
+                    } else {
+                        executeCommand(cmd, val);
+                    }
+                    textInput.value = '';
+                }
+            });
+
+            document.getElementById('text-input').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    document.getElementById('send-btn').click();
+                }
+            });
+
+            // Microphone Button actions
+            document.getElementById('mic-toggle-btn').addEventListener('click', () => {
+                if (!recognition) {
+                    addMessageToLogs("Aura", "您的瀏覽器目前不支援語音輸入功能，請直接打字提問喔！");
+                    return;
+                }
+
+                if (isListening) {
+                    isListening = false;
+                    recognition.stop();
+                } else {
+                    isListening = true;
+                    try {
+                        recognition.start();
+                    } catch (err) {
+                        console.error("Mic start failed", err);
+                    }
+                }
+            });
+
+            // Help Modal Actions
+            const modal = document.getElementById('help-modal');
+            document.getElementById('help-toggle-btn').addEventListener('click', () => {
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    modal.classList.add('opacity-100');
+                }, 10);
+            });
+
+            const closeModal = () => {
+                modal.classList.remove('opacity-100');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 300);
+            };
+
+            document.getElementById('help-close-btn').addEventListener('click', closeModal);
+            document.getElementById('help-understand-btn').addEventListener('click', closeModal);
+
+            // Auto Play Action loop
+            document.getElementById('auto-play-btn').addEventListener('click', () => {
+                const btn = document.getElementById('auto-play-btn');
+                if (isAutoPlaying) {
+                    isAutoPlaying = false;
+                    clearInterval(autoPlayTimer);
+                    btn.innerHTML = '<i class="fa-solid fa-play mr-1"></i>自動播放';
+                    btn.classList.remove('bg-amber-500/20', 'text-amber-500', 'border-amber-500');
+                } else {
+                    isAutoPlaying = true;
+                    btn.innerHTML = '<i class="fa-solid fa-pause mr-1"></i>暫停播放';
+                    btn.classList.add('bg-amber-500/20', 'text-amber-500', 'border-amber-500');
+                    
+                    autoPlayTimer = setInterval(() => {
+                        if (currentPage >= 15) {
+                            goToPage(1);
+                        } else {
+                            goToPage(currentPage + 1);
+                        }
+                    }, 5000); // changes slide every 5 seconds
+                }
+            });
+
+            // Read Current Page Action
+            document.getElementById('play-tts-btn').addEventListener('click', () => {
+                const currentSlide = slidesData[currentPage-1];
+                speakAura(`為您朗讀第${currentPage}頁：${currentSlide.title}。內容主要包含：${currentSlide.content}`);
+            });
+
+            // Settings toggling
+            document.getElementById('settings-toggle-btn').addEventListener('click', () => {
+                const panel = document.getElementById('settings-panel');
+                panel.classList.toggle('hidden');
+            });
+
+            document.getElementById('settings-close-btn').addEventListener('click', () => {
+                document.getElementById('settings-panel').classList.add('hidden');
+            });
+
+            document.getElementById('clear-chat-btn').addEventListener('click', () => {
+                document.getElementById('chat-logs').innerHTML = `
+                    <div class="flex items-start space-x-3">
+                        <div class="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-500 flex items-center justify-center text-xs shrink-0 mt-0.5 border border-amber-500/20">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div class="bg-gray-900 border border-gray-800 rounded-2xl rounded-tl-none p-3 max-w-[85%]">
+                            <p class="text-xs text-amber-400 font-bold mb-1">Aura 隨行導師</p>
+                            <p class="text-sm leading-relaxed text-gray-200">
+                                對話紀錄已清空。您可以隨時說「下一頁」或向我提問簡報的各種細節！
+                            </p>
+                        </div>
+                    </div>
+                `;
+            });
+        };
+    </script>
+</body>
+</html>

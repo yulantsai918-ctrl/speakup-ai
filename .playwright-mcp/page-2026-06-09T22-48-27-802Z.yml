@@ -1,0 +1,79 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - img [ref=e7]
+      - generic [ref=e10]:
+        - heading "SpeakUp AI" [level=1] [ref=e11]
+        - paragraph [ref=e12]: 仿 Speak 即時英文口說教練
+    - generic [ref=e13]:
+      - generic [ref=e14]:
+        - generic [ref=e15]: 🔥
+        - generic [ref=e16]: 5 天連續學習
+      - generic [ref=e17]:
+        - img [ref=e18]
+        - generic [ref=e21]:
+          - text: 平均口說分：
+          - strong [ref=e22]: "88"
+    - button "語音播放中" [ref=e24]:
+      - img [ref=e25]
+  - main [ref=e29]:
+    - generic [ref=e30]:
+      - generic [ref=e31]:
+        - button "探索情境" [ref=e32]:
+          - img [ref=e33]
+          - text: 探索情境
+        - button "AI 口說室" [ref=e36]:
+          - img [ref=e37]
+          - text: AI 口說室
+        - button "AI 教學簡報" [ref=e39]:
+          - img [ref=e40]
+          - text: AI 教學簡報
+        - button "互動測驗" [ref=e42]:
+          - img [ref=e43]
+          - text: 互動測驗
+        - button "學習進度" [ref=e46]:
+          - img [ref=e47]
+          - text: 學習進度
+      - generic [ref=e50]:
+        - generic [ref=e51]:
+          - generic [ref=e52]:
+            - img [ref=e53]
+            - text: 精選口說情境
+          - generic [ref=e56]: Speak 特色
+        - generic [ref=e58]: 載入情境中...
+    - generic [ref=e61]:
+      - generic [ref=e62]:
+        - generic [ref=e63]:
+          - text: Welcome to SpeakUp AI
+          - heading "隨時隨地，開口說道地美式英語" [level=2] [ref=e64]
+          - paragraph [ref=e65]:
+            - text: 本系統完美對照知名軟體
+            - strong [ref=e66]: Speak
+            - text: 的學習邏輯。AI 口說教練能為您營造零壓力的練習環境，每次說話皆可獲得專屬的文法修正意見、自然美式造句替換、與發音回饋。
+        - generic [ref=e67]:
+          - generic [ref=e68]:
+            - img [ref=e70]
+            - heading "免設定！一鍵口說" [level=3] [ref=e73]
+            - paragraph [ref=e74]: 使用 Chrome 等現代瀏覽器直接點擊麥克風即可講話，完全不需要額外的語意 API 金鑰。
+          - generic [ref=e75]:
+            - img [ref=e77]
+            - heading "即時糾錯與道地美語" [level=3] [ref=e80]
+            - paragraph [ref=e81]: 基於最新 Groq AI 模型，精準挑出你的文法盲點，並提供 2-3 個「美國人會這樣說」的建議。
+          - generic [ref=e82]:
+            - img [ref=e84]
+            - heading "AI 語音朗讀輔助" [level=3] [ref=e88]
+            - paragraph [ref=e89]: 整合 TTS 語音朗讀。無論是 AI 的回覆還是更道地的建議，點擊一下喇叭即可聆聽純正發音。
+          - generic [ref=e90]:
+            - img [ref=e92]
+            - heading "客製化筆記本" [level=3] [ref=e94]
+            - paragraph [ref=e95]: 遇到好句子？一鍵點擊儲存，隨時在「學習進度」頁籤複習，打造你專屬的英文生字本。
+        - generic [ref=e96]:
+          - generic [ref=e97]:
+            - generic [ref=e98]: 目前選定情境
+            - generic [ref=e99]:
+              - generic [ref=e100]: ☕
+              - generic [ref=e101]: 星巴克咖啡廳點餐 (初級 (Beginner))
+          - button "進入練習" [ref=e102]:
+            - text: 進入練習
+            - img [ref=e103]
+      - generic [ref=e105]: SpeakUp AI 2026. Powered by Groq AI.

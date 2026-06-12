@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>破解全英文語境：美國都會生活導航指南 - AI 語音簡報系統</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome for beautiful icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: #0b0f19;
+            overflow-x: hidden;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+        /* Page transition slide animations */
+        .slide-container {
+            perspective: 1200px;
+        }
+        .slide {
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: translateX(100px) scale(0.95);
+            pointer-events: none;
+        }
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            pointer-events: auto;
+            position: relative;
+        }
+        .slide.exit {
+            opacity: 0;
+            transform: translateX(-100px) scale(0.95);
+            pointer-events: none;
+        }
+        /* Glowing effects */
+        .glow-gold {
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
+        }
+        .glow-blue {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+        }
+        /* Wave animation */
+        @keyframes quiet {
+            0%, 100% { height: 4px; }
+            50% { height: 8px; }
+        }
+        @keyframes loud {
+            0%, 100% { height: 6px; }
+            50% { height: 32px; }
+        }
+        .wave-bar {
+            width: 4px;
+            height: 4px;
+            background-color: #f59e0b;
+            margin: 0 2px;
+            border-radius: 2px;
+            transition: all 0.2s ease;
+        }
+        .wave-active .wave-bar:nth-child(2n) { animation: loud 1.2s infinite ease-in-out; }
+        .wave-active .wave-bar:nth-child(3n) { animation: loud 0.8s infinite ease-in-out; }
+        .wave-active .wave-bar:nth-child(2n+1) { animation: quiet 1s infinite ease-in-out; }
+        /* Pulse for microphone button */
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1.3); opacity: 0; }
+        }
+        .mic-active-ring {
+            animation: pulse-ring 2s infinite;
+        }
+    </style>
+</head>
+<body class="text-slate-100 flex h-screen overflow-hidden">
+
+    <!-- MAIN CONTAINER -->
+    <div class="flex flex-col md:flex-row w-full h-full">
+
+        <!-- LEFT SIDEBAR: AI ASSISTANT PANEL -->
+        <aside class="w-full md:w-80 lg:w-96 bg-slate-900 border-r border-slate-800 flex flex-col h-1/3 md:h-full z-10 shrink-0">
+            <!-- Sidebar Header -->
+            <div class="p-4 border-b border-slate-800 flex justify-between items-center bg-slate-950/50">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-amber-500 to-amber-300 flex items-center justify-center shadow-lg shadow-amber-500/20">
+                        <i class="fa-solid fa-microchip-ai text-slate-950 font-bold"></i>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-sm text-slate-100 tracking-wider">GEMINI VOICE</h2>
+                        <p class="text-xs text-amber-400 font-medium">簡報智慧聲控助手</p>
+                    </div>
+                </div>
+                <span id="engineStatus" class="px-2 py-0.5 rounded-full text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    語音已就緒
+                </span>
+            </div>
+
+            <!-- Chat / Transcript Feed -->
+            <div class="flex-1 p-4 overflow-y-auto space-y-4 bg-slate-950/20" id="transcriptFeed">
+                <!-- System Greeting Card -->
+                <div class="bg-slate-800/50 border border-slate-700/50 rounded-xl p-3 text-xs leading-relaxed space-y-2">
+                    <p class="text-amber-400 font-semibold"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> 您好！我是您的簡報智慧助手。</p>
+                    <p class="text-slate-300">我能用語音精準控制這份簡報，同時解答內容。請嘗試使用以下指令：</p>
+                    <div class="grid grid-cols-2 gap-1.5 pt-1">
+                        <span class="bg-slate-900 px-2 py-1 rounded text-slate-400 font-mono text-[10px] hover:text-amber-300 cursor-pointer transition" onclick="simulateVoice('下一頁')">「下一頁」</span>
+                        <span class="bg-slate-900 px-2 py-1 rounded text-slate-400 font-mono text-[10px] hover:text-amber-300 cursor-pointer transition" onclick="simulateVoice('上一頁')">「上一頁」</span>
+                        <span class="bg-slate-900 px-2 py-1 rounded text-slate-400 font-mono text-[10px] hover:text-amber-300 cursor-pointer transition" onclick="simulateVoice('跳到第五頁')">「跳到第五頁」</span>
+                        <span class="bg-slate-900 px-2 py-1 rounded text-slate-400 font-mono text-[10px] hover:text-amber-300 cursor-pointer transition" onclick="simulateVoice('生存線在說什麼')">「生存線說什麼」</span>
+                    </div>
+                    <p class="text-[10px] text-slate-400 mt-1"><i class="fa-solid fa-info-circle mr-1"></i> 點選指令晶片可直接模擬語音輸入。</p>
+                </div>
+            </div>
+
+            <!-- Audio Waveform Area -->
+            <div class="px-4 py-3 bg-slate-950/80 border-t border-slate-800 flex items-center justify-between">
+                <span class="text-xs text-slate-400 font-medium">聲波監測儀</span>
+                <div id="waveform" class="flex items-center h-8">
+                    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                </div>
+            </div>
+
+            <!-- Controls Area -->
+            <div class="p-4 bg-slate-950 border-t border-slate-800 flex flex-col gap-3">
+                <!-- API Setting -->
+                <div class="relative">
+                    <div class="flex justify-between text-[11px] text-slate-400 mb-1">
+                        <label for="apiKey"><i class="fa-solid fa-key mr-1"></i> Gemini API 金鑰 (選填)</label>
+                        <span class="text-amber-500/80">未輸入則使用本地模擬問答</span>
+                    </div>
+                    <input type="password" id="apiKey" placeholder="請貼上您的 Gemini API Key..." 
+                           class="w-full text-xs bg-slate-900 border border-slate-800 rounded-lg py-2 px-3 text-slate-200 placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-amber-500/50 focus:border-amber-500/50">
+                </div>
+
+                <!-- Action Button -->
+                <button id="micBtn" class="relative overflow-hidden w-full py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 active:scale-[0.98] transition-all text-slate-950 rounded-xl font-bold flex items-center justify-center space-x-2 shadow-lg shadow-amber-500/10">
+                    <div class="absolute inset-0 bg-white/10 opacity-0 hover:opacity-100 transition"></div>
+                    <span class="absolute mic-active-ring inset-0 bg-amber-400 rounded-xl pointer-events-none opacity-0"></span>
+                    <i class="fa-solid fa-microphone text-base" id="micIcon"></i>
+                    <span id="micText" class="tracking-wide text-xs">啟用 AI 語音聆聽</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- RIGHT PANE: SLIDESHOW VIEWER -->
+        <main class="flex-1 bg-slate-950 flex flex-col relative h-2/3 md:h-full overflow-hidden">
+            
+            <!-- Slides Container -->
+            <div class="flex-1 relative overflow-y-auto overflow-x-hidden p-6 md:p-12 slide-container flex items-center justify-center">
+                
+                <!-- PROGRESS BAR -->
+                <div class="absolute top-0 left-0 right-0 h-1 bg-slate-900 z-20">
+                    <div id="progressBar" class="h-full bg-gradient-to-r from-amber-500 to-amber-300 transition-all duration-300 w-[6.66%]"></div>
+                </div>
+
+                <!-- ================= SLIDE 1 ================= -->
+                <div class="slide active flex flex-col justify-center h-full max-w-4xl mx-auto space-y-8" id="slide-1">
+                    <div class="space-y-4">
+                        <span class="px-3 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-400 rounded-full text-xs font-semibold uppercase tracking-wider">Page 1 • STATION 00: START</span>
+                        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-slate-400">
+                            破解全英文語境
+                        </h1>
+                        <p class="text-xl md:text-3xl font-light text-amber-400 leading-relaxed">
+                            美國都會生活導航指南
+                        </p>
+                    </div>
+                    <div class="h-0.5 w-24 bg-gradient-to-r from-amber-500 to-transparent"></div>
+                    <p class="text-slate-400 text-sm md:text-base leading-relaxed max-w-2xl">
+                        從日常通勤、社交破冰到突發狀況的道地應對模組，用最自然的聲線融入城市生活，告別教科書式的生硬英文。
+                    </p>
+                    <div class="flex items-center space-x-3 text-xs text-slate-500 pt-8">
+                        <span class="font-bold tracking-widest uppercase">NotebookLM Presenter</span>
+                        <span>•</span>
+                        <span>智慧語音驅動版</span>
+                    </div>
+                </div>
+
+                <!-- ================= SLIDE 2 ================= -->
+                <div class="slide flex flex-col justify-center h-full max-w-5xl mx-auto space-y-6" id="slide-2">
+                    <div class="flex justify-between items-start">
+                        <div class="space-y-1">
+                            <span class="text-xs text-amber-400 font-semibold tracking-wider">Page 2 • SYSTEM MAP</span>
+                            <h2 class="text-2xl md:text-4xl font-extrabold">都會生存英語軌道圖</h2>
+                        </div>
+                    </div>
+                    
+                    <!-- Subway Interactive Map Interface -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
+                        <!-- Left explanation panel -->
+                        <div class="space-y-4 text-xs md:text-sm bg-slate-900/60 p-5 rounded-2xl border border-slate-800/80">
+                            <!-- Line 1: Survival -->
+                            <div class="p-3 bg-slate-950/50 rounded-xl border-l-4 border-amber-500">
+                                <h3 class="font-bold text-amber-400 mb-1">■ 基礎生存線 (Commute / Order / Checkout)</h3>
+                                <p class="text-slate-400 text-xs">掌握單向與簡單雙向溝通，優雅高效率解決每日食衣住行剛性需求。</p>
+                            </div>
+                            <!-- Line 2: Connection -->
+                            <div class="p-3 bg-slate-950/50 rounded-xl border-l-4 border-emerald-500">
+                                <h3 class="font-bold text-emerald-400 mb-1">■ 深度連結線 (Small Talk / Office / Hangout)</h3>
+                                <p class="text-slate-400 text-xs">突破社交隱形邊界，維持雙向職場與聚會溝通的流暢度與自然感。</p>
+                            </div>
+                            <!-- Line 3: Crisis -->
+                            <div class="p-3 bg-slate-950/50 rounded-xl border-l-4 border-rose-500">
+                                <h3 class="font-bold text-rose-400 mb-1">■ 危機處理線 (Phone / Clinic / Crisis)</h3>
+                                <p class="text-slate-400 text-xs">應對電話、看病或尷尬的突發意外，勇敢犯錯並用填充句優雅救場。</p>
+                            </div>
+                        </div>
+
+                        <!-- Visual Subway SVG Map -->
+                        <div class="lg:col-span-2 bg-slate-900/40 p-4 rounded-2xl border border-slate-800/80 flex items-center justify-center relative overflow-hidden h-72 md:h-96">
+                            <svg viewBox="0 0 800 500" class="w-full h-full">
+                                <!-- Grid Lines Background -->
+                                <defs>
+                                    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.5"/>
+                                    </pattern>
+                                </defs>
+                                <rect width="100%" height="100%" fill="url(#grid)" />
+                                
+                                <!-- Tracks (Path Lines) -->
+                                <!-- Yellow Line -->
+                                <path d="M 50 150 Q 150 150 250 250 T 450 350 H 650" fill="none" stroke="#f59e0b" stroke-width="8" stroke-linecap="round"/>
+                                <!-- Green Line -->
+                                <path d="M 150 350 Q 250 350 350 250 T 550 150 H 750" fill="none" stroke="#10b981" stroke-width="8" stroke-linecap="round"/>
+                                <!-- Orange Line -->
+                                <path d="M 100 450 L 300 250 L 500 450 L 700 350" fill="none" stroke="#f43f5e" stroke-width="8" stroke-linecap="round"/>
+
+                                <!-- Nodes / Stations -->
+                                <!-- Commute -->
+                                <g transform="translate(150,150)" class="cursor-pointer group" onclick="goToSlide(4)">
+                                    <circle r="16" fill="#0f172a" stroke="#f59e0b" stroke-width="4"/>
+                                    <circle r="8" fill="#f59e0b" class="group-hover:scale-125 transition"/>
+                                    <text y="32" text-anchor="middle" fill="#f59e0b" font-size="14" font-weight="bold">通勤 (Commute)</text>
+                                </g>
+                                <!-- Order -->
+                                <g transform="translate(300,250)" class="cursor-pointer group" onclick="goToSlide(5)">
+                                    <circle r="16" fill="#0f172a" stroke="#f59e0b" stroke-width="4"/>
+                                    <circle r="8" fill="#f59e0b" class="group-hover:scale-125 transition"/>
+                                    <text y="-25" text-anchor="middle" fill="#f59e0b" font-size="14" font-weight="bold">點餐 (Order)</text>
+                                </g>
+                                <!-- Checkout -->
+                                <g transform="translate(600,350)" class="cursor-pointer group" onclick="goToSlide(6)">
+                                    <circle r="16" fill="#0f172a" stroke="#f59e0b" stroke-width="4"/>
+                                    <circle r="8" fill="#f59e0b" class="group-hover:scale-125 transition"/>
+                                    <text y="32" text-anchor="middle" fill="#f59e0b" font-size="14" font-weight="bold">結帳 (Checkout)</text>
+                                </g>
+                                
+                                <!-- Small Talk -->
+                                <g transform="translate(250,350)" class="cursor-pointer group" onclick="goToSlide(4)">
+                                    <circle r="16" fill="#0f172a" stroke="#10b981" stroke-width="4"/>
+                                    <circle r="8" fill="#10b981" class="group-hover:scale-125 transition"/>
+                                    <text y="32" text-anchor="middle" fill="#10b981" font-size="14" font-weight="bold">寒暄 (Small Talk)</text>
+                                </g>
+                                <!-- Office -->
+                                <g transform="translate(480,220)" class="cursor-pointer group" onclick="goToSlide(9)">
+                                    <circle r="16" fill="#0f172a" stroke="#10b981" stroke-width="4"/>
+                                    <circle r="8" fill="#10b981" class="group-hover:scale-125 transition"/>
+                                    <text y="-25" text-anchor="middle" fill="#10b981" font-size="14" font-weight="bold">職場 (Office)</text>
+                                </g>
+                                <!-- Hangout -->
+                                <g transform="translate(680,150)" class="cursor-pointer group" onclick="goToSlide(7)">
+                                    <circle r="16" fill="#0f172a" stroke="#10b981" stroke-width="4"/>
+                                    <circle r="8" fill="#10b981" class="group-hover:scale-125 transition"/>
+                                    <text y="32" text-anchor="middle" fill="#10b981" font-size="14" font-weight="bold">聚會 (Hangout)</text>
+                                </g>
+
+                                <!-- Phone -->
+                                <g transform="translate(180,370)" class="cursor-pointer group" onclick="goToSlide(10)">
+                                    <circle r="16" fill="#0f172a" stroke="#f43f5e" stroke-width="4"/>
+                                    <circle r="8" fill="#f43f5e" class="group-hover:scale-125 transition"/>
+                                    <text y="-25" text-anchor="middle" fill="#f43f5e" font-size="14" font-weight="bold">客服 (Phone)</text>
+                                </g>
+                                <!-- Clinic -->
+                                <g transform="translate(500,450)" class="cursor-pointer group" onclick="goToSlide(11)">
+                                    <circle r="16" fill="#0f172a" stroke="#f43f5e" stroke-width="4"/>
+                                    <circle r="8" fill="#f43f5e" class="group-hover:scale-125 transition"/>
+                                    <text y="32" text-anchor="middle" fill="#f43f5e" font-size="14" font-weight="bold">醫療 (Clinic)</text>
+                                </g>
+                                <!-- Crisis -->
+                                <g transform="translate(650,375)" class="cursor-pointer group" onclick="goToSlide(12)">
+                                    <circle r="16" fill="#0f172a" stroke="#f43f5e" stroke-width="4"/>
+                                    <circle r="8" fill="#f43f5e" class="group-hover:scale-125 transition"/>
+                                    <text y="-25" text-anchor="middle" fill="#f43f5e" font-size="14" font-weight="bold">救急 (Crisis)</text>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= SLIDE 3 ================= -->
+                <div class="slide flex flex-col justify-center h-full max-w-4xl mx-auto space-y-6" id="slide-3">
+                    <span class="text-xs text-amber-400 font-semibold tracking-wider">Page 3 • PRE-TRIP CALIBRATION</span>
+                    <h2 class="text-2xl md:text-4xl font-extrabold mb-2">英文思維的「道地校準」</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Textbook card -->
+                        <div class="bg-slate-900/60 rounded-2xl border border-rose-950/30 p-6 space-y-4">
+                            <div class="flex items-center space-x-2 text-rose-400 font-semibold text-sm">
+                                <i class="fa-solid fa-circle-xmark"></i>
+                                <span>教科書直翻 (Textbook English)</span>
+                            </div>
+                            <div class="space-y-3 font-mono text-xs text-slate-300">
+                                <div class="bg-slate-950/60 p-3 rounded-lg"><p class="text-rose-400">猶豫不決時：</p> I don't know (太僵硬)</div>
+                                <div class="bg-slate-950/60 p-3 rounded-lg"><p class="text-rose-400">點餐/購物時：</p> I want this (像命令)</div>
+                                <div class="bg-slate-950/60 p-3 rounded-lg"><p class="text-rose-400">嫌太貴時：</p> It's too expensive (顯得唐突)</div>
+                                <div class="bg-slate-950/60 p-3 rounded-lg"><p class="text-rose-400">聽不懂時：</p> What did you say? (語氣粗魯)</div>
+                            </div>
+                        </div>
+
+                        <!-- Street Card -->
+                        <div class="bg-slate-900/60 rounded-2xl border border-emerald-950/30 p-6 space-y-4">
+                            <div class="flex items-center space-x-2 text-emerald-400 font-semibold text-sm">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span>都會道地美語 (Authentic Street English)</span>
+                            </div>
+                            <div class="space-y-3 font-mono text-xs text-slate-300">
+                                <div class="bg-emerald-950/20 border border-emerald-500/10 p-3 rounded-lg"><p class="text-emerald-400">道地句型：</p> I'm on the fence / I'm still deciding right now</div>
+                                <div class="bg-emerald-950/20 border border-emerald-500/10 p-3 rounded-lg"><p class="text-emerald-400">道地句型：</p> Can I get... / I'll go with...</div>
+                                <div class="bg-emerald-950/20 border border-emerald-500/10 p-3 rounded-lg"><p class="text-emerald-400">道地句型：</p> It's a little pricey</div>
+                                <div class="bg-emerald-950/20 border border-emerald-500/10 p-3 rounded-lg"><p class="text-emerald-400">道地句型：</p> Sorry, I didn't catch that / Can you say that one more time?</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900/40 p-4 rounded-xl border border-slate-800 text-xs text-slate-400">
+                        <strong class="text-amber-400">核心觀念：</strong> 拋棄「命令式、絕對化」的字面直翻，改用「保留空間」的道地軟語氣 (Softening Tone)，才能完美過渡到真實美國社交環境。
+                    </div>
+                </div>
+
+                <!-- ================= SLIDE 4 ================= -->
+                <div class="slide flex flex-col justify-center h-full max-w-4xl mx-auto space-y-6" id="slide-4">
+                    <span class="text-xs text-amber-400 font-semibold tracking-wider">Page 4 • TRANSIT & COMMUTE</span>
+                    <h2 class="text-2xl md:text-4xl font-extrabold">城市通勤導航：從地鐵到共乘</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs md:text-sm">
+                        <!-- Public Transit Block -->
+                        <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 space-y-4">
+                            <h3 class="font-bold text-amber-400 flex items-center gap-2"><i class="fa-solid fa-train-subway"></i> 公共運輸 (Transit)</h3>
+                            <div class="space-y-3 font-mono">
+                                <div class="bg-slate-950/50 p-3 rounded-lg border-l-2 border-slate-700">
+                                    <span class="text-slate-400 block text-[10px]">確認路線：</span>
+                                    "Does this train go downtown?"
+                                </div>
+                                <div class="bg-slate-950/50 p-3 rounded-lg border-l-2 border-slate-700">
+                                    <span class="text-slate-400 block text-[10px]">轉乘支付：</span>
+                                    "Do I tap again when transferring?"
+                                    <p class="text-slate-500 text-[11px] mt-1">(No, it counts as one ride)</p>
+                                </div>
+                                <div class="bg-slate-950/50 p-3 rounded-lg border-l-2 border-slate-700">
+                                    <span class="text-slate-400 block text-[10px]">確認公車：</span>
+                                    "Is this the right bus to the airport?"
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rideshare Block -->
+                        <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 space-y-4">
+                            <h3 class="font-bold text-emerald-400 flex items-center gap-2"><i class="fa-solid fa-car"></i> 共享搭乘 (Rideshare / Uber)</h3>
+                            <div class="space-y-3 font-mono">
+                                <div class="bg-slate-950/50 p-3 rounded-lg border-l-2 border-slate-700">
+                                    <span class="text-emerald-500 block text-[10px]">上車確認：</span>
+                                    "Are you here for [Name]?"
+                                </div>
+                                <div class="bg-slate-950/50 p-3 rounded-lg border-l-2 border-slate-700">
+                                    <span class="text-emerald-500 block text-[10px]">空調與偏好：</span>
+                                    "Could you turn the AC up?" / "I'm okay with whichever route is faster."
+                                </div>
+                                <div class="bg-slate-950/50 p-3 rounded-lg border-l-2 border-emerald-950">
+                                    <span class="text-amber-400 block text-[10px]">司機與乘客寒暄 (Small Talk)：</span>
+                                    "Traffic was brutal this morning."<br>
+                                    <span class="text-slate-400">→ "Yeah, Mondays always hit hard."</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= SLIDE 5 ================= -->
+                <div class="slide flex flex-col justify-center h-full max-w-5xl mx-auto space-y-6" id="slide-5">
+                    <div class="space-y-1">
+                        <span class="text-xs text-amber-400 font-semibold tracking-wider">Page 5 • ORDERING FORMULA</span>
+                        <h2 class="text-2xl md:text-4xl font-extrabold">模組化點餐：打造你的客製化公式</h2>
+                    </div>
+
+                    <!-- Interactive Formula Builder UI -->
+                    <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-800 space-y-6">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <!-- Step 1 -->
+                            <div class="bg-slate-950/60 p-4 rounded-xl space-y-2 border border-slate-800">
+                                <span class="px-2 py-0.5 bg-amber-500/10 text-amber-400 rounded text-[10px] font-bold">1. 開場 (The Ask)</span>
+                                <div class="space-y-1 font-mono text-xs">
+                                    <label class="flex items-center space-x-2 p-1.5 rounded hover:bg-slate-800 cursor-pointer">
+                                        <input type="radio" name="ask" value="Can I get" checked class="text-amber-500 focus:ring-0">
+                                        <span>Can I get...</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2 p-1.5 rounded hover:bg-slate-800 cursor-pointer">
+                                        <input type="radio" name="ask" value="I'll go with" class="text-amber-500 focus:ring-0">
+                                        <span>I'll go with...</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2 p-1.5 rounded hover:bg-slate-800 cursor-pointer">
+                                        <input type="radio" name="ask" value="I'll take" class="text-amber-500 focus:ring-0">
+                                        <span>I'll take...</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Step 2 -->
+                            <div class="bg-slate-950/60 p-4 rounded-xl space-y-2 border border-slate-800">
+                                <span class="px-2 py-0.5 bg-amber-500/10 text-amber-400 rounded text-[10px] font-bold">2. 基底 (The Base)</span>
+                                <div class="space-y-1 font-mono text-xs">
+                                    <label class="flex items-center space-x-2 p-1.5 rounded hover:bg-slate-800 cursor-pointer">
+                                        <input type="radio" name="base" value="a medium iced latte" checked class="text-amber-500 focus:ring-0">
+                                        <span>iced latte</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2 p-1.5 rounded hover:bg-slate-800 cursor-pointer">
+                                        <input type="radio" name="base" value="a tall cappuccino" class="text-amber-500 focus:ring-0">
+                                        <span>cappuccino</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2 p-1.5 rounded hover:bg-slate-800 cursor-pointer">
+                                        <input type="radio" name="base" value="the chicken bowl" class="text-amber-500 focus:ring-0">
+                                        <span>chicken bowl</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Step 3 -->
+                            <div class="bg-slate-950/60 p-4 rounded-xl space-y-2 border border-slate-800">
+                                <span class="px-2 py-0.5 bg-amber-500/10 text-amber-400 rounded text-[10px] font-bold">3. 客製 (Customs)</span>
+                                <div class="space-y-1 font-mono text-xs">
+                                    <label class="flex items-center space-x-2 p-1.5 rounded hover:bg-slate-800 cursor-pointer">
+                                        <input type="checkbox" id="cust1" value="with oat milk" checked class="text-amber-500 focus:ring-0 rounded">
+                                        <span>oat milk (燕麥奶)</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2 p-1.5 rounded hover:bg-slate-800 cursor-pointer">
+                                        <input type="checkbox" id="cust2" value="half sweet" checked class="text-amber-500 focus:ring-0 rounded">
+                                        <span>half sweet (半糖)</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2 p-1.5 rounded hover:bg-slate-800 cursor-pointer">
+                                        <input type="checkbox" id="cust3" value="without onions" class="text-amber-500 focus:ring-0 rounded">
+                                        <span>no onions (去洋蔥)</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Step 4 -->
+                            <div class="bg-slate-950/60 p-4 rounded-xl space-y-2 border border-slate-800">
+                                <span class="px-2 py-0.5 bg-amber-500/10 text-amber-400 rounded text-[10px] font-bold">4. 附加 (Extras)</span>
+                                <div class="space-y-1 font-mono text-xs">
+                                    <label class="flex items-center space-x-2 p-1.5 rounded hover:bg-slate-800 cursor-pointer">
+                                        <input type="checkbox" id="ext1" value="and add an extra shot" checked class="text-amber-500 focus:ring-0 rounded">
+                                        <span>extra shot (加濃縮)</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2 p-1.5 rounded hover:bg-slate-800 cursor-pointer">
+                                        <input type="checkbox" id="ext2" value="sauce on the side" class="text-amber-500 focus:ring-0 rounded">
+                                        <span>sauce on side (醬旁放)</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2 p-1.5 rounded hover:bg-slate-800 cursor-pointer">
+                                        <input type="checkbox" id="ext3" value="to go, please" checked class="text-amber-500 focus:ring-0 rounded">
+                                        <span>to go, please (外帶)</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Combined Result -->
+                        <div class="bg-amber-500/5 border border-amber-500/20 p-5 rounded-xl space-y-2">
+                            <span class="text-xs text-amber-400 font-bold"><i class="fa-solid fa-wand-magic-sparkles"></i> 實戰組裝完成金句：</span>
+                            <p id="formulaResult" class="font-mono text-sm md:text-lg text-slate-100 font-bold leading-relaxed">
+                                "Can I get a medium iced latte with oat milk, half sweet, and add an extra shot, to go, please."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= SLIDE 6 ================= -->
+                <div class="slide flex flex-col justify-center h-full max-w-4xl mx-auto space-y-6" id="slide-6">
+                    <span class="text-xs text-amber-400 font-semibold tracking-wider">Page 6 • CHECKOUT BATTLE</span>
+                    <h2 class="text-2xl md:text-4xl font-extrabold">結帳攻防戰：預判店員的連環問題</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs md:text-sm">
+                        <!-- Cashier Dialogue -->
+                        <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 space-y-3">
+                            <h3 class="font-bold text-amber-400 flex items-center gap-2"><i class="fa-solid fa-user-tie"></i> 人工結帳通道 (Cashier Checkout)</h3>
+                            <div class="space-y-2">
+                                <p class="text-slate-400">店員起手式：</p>
+                                <ul class="list-disc list-inside space-y-1 font-mono text-slate-300 pl-2">
+                                    <li>"Did you find everything you needed today?"</li>
+                                    <li>"Do you have a rewards account here?"</li>
+                                    <li>"Paper or plastic today?" (要紙袋還是塑膠袋)</li>
+                                    <li>"Will you be paying with card or cash today?"</li>
+                                </ul>
+                                <p class="text-emerald-400 mt-2">你可以直接高效率回應：</p>
+                                <ul class="list-disc list-inside space-y-1 font-mono text-emerald-300 pl-2">
+                                    <li>"I brought my own bag. I'll pay with card."</li>
+                                    <li>"Just these items for today."</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Self-checkout Dialogue -->
+                        <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 space-y-3">
+                            <h3 class="font-bold text-emerald-400 flex items-center gap-2"><i class="fa-solid fa-desktop"></i> 自助結帳台 (Self-Checkout)</h3>
+                            <div class="space-y-2">
+                                <p class="text-slate-400">機台語音提示與問題：</p>
+                                <ul class="list-disc list-inside space-y-1 font-mono text-slate-300 pl-2">
+                                    <li>"Please scan your item."</li>
+                                    <li>"Unexpected item in the bagging area." (裝袋區有未知物品，常見警報)</li>
+                                </ul>
+                                <p class="text-amber-400 mt-2">尋求人工協助的金句：</p>
+                                <ul class="list-disc list-inside space-y-1 font-mono text-amber-300 pl-2">
+                                    <li>"This item is not scanning properly."</li>
+                                    <li>"It rang up higher than I expected." (刷出來的金額比標價高)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= SLIDE 7 ================= -->
+                <div class="slide flex flex-col justify-center h-full max-w-4xl mx-auto space-y-6" id="slide-7">
+                    <span class="text-xs text-amber-400 font-semibold tracking-wider">Page 7 • SOCIAL BOUNDARY</span>
+                    <h2 class="text-2xl md:text-4xl font-extrabold">社交邊界感矩陣：精準拿捏說話語氣</h2>
+                    
+                    <!-- 2D Quadrant Matrix Design -->
+                    <div class="relative bg-slate-900/40 p-6 rounded-2xl border border-slate-800/80">
+                        <div class="grid grid-cols-2 gap-4 h-80 relative">
+                            <!-- Axis Lines overlay -->
+                            <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                <div class="w-full h-0.5 bg-slate-800"></div>
+                            </div>
+                            <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                <div class="h-full w-0.5 bg-slate-800"></div>
+                            </div>
+
+                            <!-- Quadrant 1 (Top Left): Casual / Close Friends -->
+                            <div class="p-4 bg-amber-500/5 hover:bg-amber-500/10 rounded-xl transition flex flex-col justify-between border border-slate-800">
+                                <span class="text-xs text-amber-400 font-bold">週末死黨 (Casual × Close Friends)</span>
+                                <div class="space-y-1 font-mono text-[11px] text-slate-300">
+                                    <p class="text-amber-500">"Yo, you're up already?"</p>
+                                    <p class="text-slate-400">"Honestly, I got nothing planned. Just going to chill at home."</p>
+                                </div>
+                            </div>
+
+                            <!-- Quadrant 2 (Top Right): Professional / Close Colleagues -->
+                            <div class="p-4 bg-emerald-500/5 hover:bg-emerald-500/10 rounded-xl transition flex flex-col justify-between border border-slate-800">
+                                <span class="text-xs text-emerald-400 font-bold">辦公室日常 (Professional × Colleagues)</span>
+                                <div class="space-y-1 font-mono text-[11px] text-slate-300">
+                                    <p class="text-emerald-500">"Mondays always hit me hard."</p>
+                                    <p class="text-slate-400">"Long day today, wasn't it?"</p>
+                                </div>
+                            </div>
+
+                            <!-- Quadrant 3 (Bottom Left): Casual / Strangers -->
+                            <div class="p-4 bg-indigo-500/5 hover:bg-indigo-500/10 rounded-xl transition flex flex-col justify-between border border-slate-800">
+                                <span class="text-xs text-indigo-400 font-bold">派對破冰 (Casual × Strangers)</span>
+                                <div class="space-y-1 font-mono text-[11px] text-slate-300">
+                                    <p class="text-indigo-500">"I don't think we've met before, I'm [Name]."</p>
+                                    <p class="text-slate-400">"This place feels pretty chill tonight."</p>
+                                </div>
+                            </div>
+
+                            <!-- Quadrant 4 (Bottom Right): Professional / Strangers -->
+                            <div class="p-4 bg-rose-500/5 hover:bg-rose-500/10 rounded-xl transition flex flex-col justify-between border border-slate-800">
+                                <span class="text-xs text-rose-400 font-bold">初次商務 (Professional × Strangers)</span>
+                                <div class="space-y-1 font-mono text-[11px] text-slate-300">
+                                    <p class="text-rose-500">"Nice to meet you here."</p>
+                                    <p class="text-slate-400">"What kind of work are you in?"</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Axis Label Helpers -->
+                        <span class="absolute top-2 left-1/2 -translate-x-1/2 text-[9px] bg-slate-900 px-2 py-0.5 rounded border border-slate-800 text-slate-400 font-bold tracking-wider uppercase">Close Friends</span>
+                        <span class="absolute bottom-2 left-1/2 -translate-x-1/2 text-[9px] bg-slate-900 px-2 py-0.5 rounded border border-slate-800 text-slate-400 font-bold tracking-wider uppercase">Strangers</span>
+                        <span class="absolute left-2 top-1/2 -translate-y-1/2 text-[9px] bg-slate-900 px-2 py-0.5 rounded border border-slate-800 text-slate-400 font-bold tracking-wider uppercase rotate-90">Casual</span>
+                        <span class="absolute right-2 top-1/2 -translate-y-1/2 text-[9px] bg-slate-900 px-2 py-0.5 rounded border border-slate-800 text-slate-400 font-bold tracking-wider uppercase -rotate-90">Professional</span>
+                    </div>
+                </div>
+
+                <!-- ================= SLIDE 8 ================= -->
+                <div class="slide flex flex-col justify-center h-full max-w-4xl mx-auto space-y-6" id="slide-8">
+                    <span class="text-xs text-amber-400 font-semibold tracking-wider">Page 8 • CONVERSATION LOOP</span>
+                    <h2 class="text-2xl md:text-4xl font-extrabold">讓對話永不落地的「推進迴圈」</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs md:text-sm">
+                        <!-- Step 1 -->
+                        <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-3">
+                            <div class="space-y-2">
+                                <span class="text-xs font-bold text-amber-400">Step 1</span>
+                                <h3 class="font-bold text-slate-100">回應並展現態度 (Answer)</h3>
+                                <p class="text-slate-400 font-mono text-xs">
+                                    不要只回答 Yes/No。多加一句具體感受：<br>
+                                    "I'm doing well, thanks for asking."<br>
+                                    "It's been pretty chill, honestly."
+                                </p>
+                            </div>
+                            <i class="fa-solid fa-arrow-right text-slate-700 self-end"></i>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-3">
+                            <div class="space-y-2">
+                                <span class="text-xs font-bold text-emerald-400">Step 2</span>
+                                <h3 class="font-bold text-slate-100">拋回問題或延伸 (Ask Back)</h3>
+                                <p class="text-slate-400 font-mono text-xs">
+                                    將對話球回拋：<br>
+                                    "What's up with you today?"<br>
+                                    "What do you usually do for fun?"
+                                </p>
+                            </div>
+                            <i class="fa-solid fa-arrow-right text-slate-700 self-end"></i>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-3">
+                            <div class="space-y-2">
+                                <span class="text-xs font-bold text-indigo-400">Step 3</span>
+                                <h3 class="font-bold text-slate-100">情緒價值與共鳴 (React)</h3>
+                                <p class="text-slate-400 font-mono text-xs">
+                                    表示理解與附和：<br>
+                                    "Oh wow, that's actually crazy!"<br>
+                                    "Yeah, I completely agree with that."
+                                </p>
+                            </div>
+                            <i class="fa-solid fa-arrow-rotate-right text-slate-700 self-end animate-spin-slow"></i>
+                        </div>
+                    </div>
+
+                    <!-- Escape Route -->
+                    <div class="bg-rose-950/20 border border-rose-500/20 p-4 rounded-xl text-xs flex justify-between items-center">
+                        <div>
+                            <strong class="text-rose-400">跳出迴圈 (Escape Route)：</strong> 
+                            聊夠了想優雅離開？使用：<span class="font-mono text-slate-200">"I'm going to grab a drink real quick."</span> 或 <span class="font-mono text-slate-200">"I'll catch you later."</span>
+                        </div>
+                        <i class="fa-solid fa-door-open text-rose-400/60"></i>
+                    </div>
+                </div>
+
+                <!-- ================= SLIDE 9 ================= -->
+                <div class="slide flex flex-col justify-center h-full max-w-4xl mx-auto space-y-6" id="slide-9">
+                    <span class="text-xs text-amber-400 font-semibold tracking-wider">Page 9 • OFFICE NAVIGATION</span>
+                    <h2 class="text-2xl md:text-4xl font-extrabold">辦公室導航：進度確認與專業溝通</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs md:text-sm">
+                        <!-- Projects clarify -->
+                        <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 space-y-4">
+                            <h3 class="font-bold text-amber-400 flex items-center gap-2"><i class="fa-solid fa-briefcase"></i> 專案進度與釐清 (Projects)</h3>
+                            <div class="space-y-3 font-mono text-xs text-slate-300">
+                                <div class="bg-slate-950/50 p-3 rounded-lg">
+                                    <span class="text-slate-500 block text-[10px]">確認進度：</span>
+                                    "How's the presentation coming along?" / "Are you close to wrapping things up?"
+                                </div>
+                                <div class="bg-slate-950/50 p-3 rounded-lg">
+                                    <span class="text-slate-500 block text-[10px]">釐清誤會：</span>
+                                    "Could you explain the process again? I might be misunderstanding this task."
+                                </div>
+                                <div class="bg-slate-950/50 p-3 rounded-lg">
+                                    <span class="text-slate-500 block text-[10px]">提出建議：</span>
+                                    "I actually have another suggestion here. What if we shortened the process?"
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Time off -->
+                        <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 space-y-4">
+                            <h3 class="font-bold text-emerald-400 flex items-center gap-2"><i class="fa-solid fa-umbrella-beach"></i> 請假與下班 (Time-off & Wrapping Up)</h3>
+                            <div class="space-y-3 font-mono text-xs text-slate-300">
+                                <div class="bg-slate-950/50 p-3 rounded-lg">
+                                    <span class="text-emerald-500 block text-[10px]">請求請假：</span>
+                                    "I'd like to request next Monday off." / "Would leaving early today be possible?"
+                                </div>
+                                <div class="bg-slate-950/50 p-3 rounded-lg">
+                                    <span class="text-emerald-500 block text-[10px]">下班宣告：</span>
+                                    "Are you wrapping things up already? That's good enough for one day. I'm heading out for tonight."
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= SLIDE 10 ================= -->
+                <div class="slide flex flex-col justify-center h-full max-w-4xl mx-auto space-y-6" id="slide-10">
+                    <span class="text-xs text-amber-400 font-semibold tracking-wider">Page 10 • PHONE FEAR</span>
+                    <h2 class="text-2xl md:text-4xl font-extrabold">克服電話恐懼：情境決策樹狀圖</h2>
+                    
+                    <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-800 space-y-6 relative">
+                        <!-- Entry node -->
+                        <div class="flex justify-center">
+                            <div class="bg-amber-500 text-slate-950 px-4 py-2 rounded-xl font-bold font-mono text-xs text-center glow-gold">
+                                起點 (Start)<br>
+                                "Hi, I'm calling about..."
+                            </div>
+                        </div>
+
+                        <!-- Three Branches -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
+                            <!-- Branch 1 -->
+                            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2 text-center">
+                                <span class="px-2 py-0.5 bg-indigo-500/10 text-indigo-400 rounded text-[10px] font-bold">預約 (Booking)</span>
+                                <p class="font-mono text-xs text-slate-300">"...an appointment."</p>
+                                <p class="text-slate-400 text-xs font-semibold">"Friday morning would be ideal."</p>
+                            </div>
+
+                            <!-- Branch 2 -->
+                            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2 text-center">
+                                <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded text-[10px] font-bold">更改/取消 (Rescheduling)</span>
+                                <p class="font-mono text-xs text-slate-300">"...rescheduling my appointment."</p>
+                                <p class="text-slate-400 text-xs font-semibold">"Is it possible to push it back?"</p>
+                            </div>
+
+                            <!-- Branch 3 -->
+                            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2 text-center">
+                                <span class="px-2 py-0.5 bg-rose-500/10 text-rose-400 rounded text-[10px] font-bold">客服查件 (Customer Service)</span>
+                                <p class="font-mono text-xs text-slate-300">"...my account / an order."</p>
+                                <p class="text-slate-400 text-xs font-semibold">"It keeps disconnecting every few minutes."</p>
+                            </div>
+                        </div>
+
+                        <!-- Voicemail box -->
+                        <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 text-xs text-slate-400 max-w-md mx-auto text-center font-mono">
+                            <span class="text-amber-500 font-bold block mb-1">留言語音 (Voicemail 補充)：</span>
+                            "Please call me when you're available. You can reach me at [Number]."
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= SLIDE 11 ================= -->
+                <div class="slide flex flex-col justify-center h-full max-w-5xl mx-auto space-y-6" id="slide-11">
+                    <div class="space-y-1">
+                        <span class="text-xs text-amber-400 font-semibold tracking-wider">Page 11 • PHARMACY & CLINIC</span>
+                        <h2 class="text-2xl md:text-4xl font-extrabold">醫療急診救援：精準描述你的痛覺</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
+                        <!-- Pain level Selector -->
+                        <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 space-y-4">
+                            <h3 class="font-bold text-amber-400 text-sm">痛覺等級與描述法</h3>
+                            
+                            <!-- Interactive Slider -->
+                            <div class="space-y-2">
+                                <label for="painRange" class="text-xs text-slate-400 flex justify-between">
+                                    <span>拖動滑桿模擬嚴重程度：</span>
+                                    <span id="painVal" class="text-amber-400 font-bold">1 (輕度)</span>
+                                </label>
+                                <input type="range" id="painRange" min="1" max="10" value="1" 
+                                       class="w-full accent-amber-500 h-2 bg-slate-950 rounded-lg appearance-none cursor-pointer">
+                            </div>
+
+                            <!-- Dynamic Pain Phrase -->
+                            <div class="p-3 bg-slate-950/60 rounded-xl border border-slate-800 text-xs space-y-1" id="painPhraseBox">
+                                <span class="font-bold text-emerald-400 block" id="painTypeTitle">■ 輕/中度 (Dull Ache)</span>
+                                <p class="text-slate-300 font-mono" id="painDesc">"It feels more like a dull ache." (隱隱作痛)</p>
+                            </div>
+                        </div>
+
+                        <!-- Symptoms and Pharmacy info -->
+                        <div class="lg:col-span-2 bg-slate-900/60 p-5 rounded-2xl border border-slate-800 space-y-4 text-xs md:text-sm">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800 space-y-2">
+                                    <h4 class="font-bold text-amber-400 flex items-center gap-1"><i class="fa-solid fa-stethoscope"></i> 常見症狀描述 (Symptoms)</h4>
+                                    <ul class="list-disc list-inside space-y-1 font-mono text-xs text-slate-300">
+                                        <li>"It hurts when I bend / chew."</li>
+                                        <li>"I feel a little nauseous." (覺得反胃)</li>
+                                        <li>"I twisted my ankle." (扭傷腳踝)</li>
+                                        <li>"I cut my hand while cooking."</li>
+                                    </ul>
+                                </div>
+
+                                <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800 space-y-2">
+                                    <h4 class="font-bold text-emerald-400 flex items-center gap-1"><i class="fa-solid fa-pills"></i> 藥局領藥 (Pharmacy)</h4>
+                                    <p class="text-xs text-slate-400">處方簽領藥必備句：</p>
+                                    <p class="font-mono text-xs text-slate-200 bg-slate-900 p-2.5 rounded border border-slate-800 leading-relaxed">
+                                        "I'm here to pick up a prescription. It's under the name [Name]."
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= SLIDE 12 ================= -->
+                <div class="slide flex flex-col justify-center h-full max-w-4xl mx-auto space-y-6" id="slide-12">
+                    <span class="text-xs text-amber-400 font-semibold tracking-wider">Page 12 • EMERGENCY COPE</span>
+                    <h2 class="text-2xl md:text-4xl font-extrabold">尷尬時刻救生圈：聽不懂、腦袋空白怎麼辦？</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs md:text-sm">
+                        <!-- Pillar 1 -->
+                        <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 space-y-3">
+                            <span class="px-2 py-0.5 bg-amber-500/10 text-amber-400 rounded text-[10px] font-bold">1. 爭取時間 (Buying Time)</span>
+                            <p class="text-slate-400">當你需要組織詞彙時，請不要發出尷尬的 "Uh..."，改用：</p>
+                            <ul class="list-disc list-inside space-y-1 font-mono text-slate-300 text-xs pl-1">
+                                <li>"That's a good question, honestly."</li>
+                                <li>"Let me think for just a second."</li>
+                                <li>"I'm not totally sure right now."</li>
+                            </ul>
+                        </div>
+
+                        <!-- Pillar 2 -->
+                        <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 space-y-3">
+                            <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded text-[10px] font-bold">2. 請求重述/澄清</span>
+                            <p class="text-slate-400">沒聽懂千萬不要裝懂點頭，勇敢禮貌地要求重述：</p>
+                            <ul class="list-disc list-inside space-y-1 font-mono text-slate-300 text-xs pl-1">
+                                <li>"Sorry, I didn't catch that."</li>
+                                <li>"Wait, what did you mean by that?"</li>
+                                <li>"Can you say that one more time?"</li>
+                            </ul>
+                        </div>
+
+                        <!-- Pillar 3 -->
+                        <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 space-y-3">
+                            <span class="px-2 py-0.5 bg-indigo-500/10 text-indigo-400 rounded text-[10px] font-bold">3. 切換話題 (Pivoting)</span>
+                            <p class="text-slate-400">話題卡住或想轉移焦點時，可以順暢自然地切換：</p>
+                            <ul class="list-disc list-inside space-y-1 font-mono text-slate-300 text-xs pl-1">
+                                <li>"Anyway, what were you saying earlier?"</li>
+                                <li>"By the way, did you see that..."</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= SLIDE 13 ================= -->
+                <div class="slide flex flex-col justify-center h-full max-w-4xl mx-auto space-y-6" id="slide-13">
+                    <span class="text-xs text-amber-400 font-semibold tracking-wider">Page 13 • SERVICE RECOVERY</span>
+                    <h2 class="text-2xl md:text-4xl font-extrabold">溫和且堅定：餐飲與購物的客訴應對</h2>
+                    
+                    <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-800 space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+                            <!-- Process step 1 -->
+                            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+                                <span class="text-xs font-bold text-amber-400">Step 1. 點出問題 (Stating)</span>
+                                <p class="text-xs text-slate-400">不帶攻擊性地指出事實：</p>
+                                <ul class="list-disc list-inside space-y-1 font-mono text-xs text-slate-300">
+                                    <li>"I think this isn't what I ordered."</li>
+                                    <li>"It rang up higher than I expected."</li>
+                                    <li>"I think we're missing the fries."</li>
+                                </ul>
+                            </div>
+
+                            <!-- Process step 2 -->
+                            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+                                <span class="text-xs font-bold text-emerald-400">Step 2. 提出訴求 (Requesting)</span>
+                                <p class="text-xs text-slate-400">清晰表達你需要的解決方案：</p>
+                                <ul class="list-disc list-inside space-y-1 font-mono text-xs text-slate-300">
+                                    <li>"Would it be possible to redo this?"</li>
+                                    <li>"Could I switch this to a salad?"</li>
+                                    <li>"I'd like to request a refund."</li>
+                                </ul>
+                            </div>
+
+                            <!-- Process step 3 -->
+                            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+                                <span class="text-xs font-bold text-indigo-400">Step 3. 緩和語氣 (Softening)</span>
+                                <p class="text-xs text-slate-400">展現禮貌與同理心：</p>
+                                <ul class="list-disc list-inside space-y-1 font-mono text-xs text-slate-300">
+                                    <li>"I'm sorry to bother you."</li>
+                                    <li>"Not at all, I understand."</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= SLIDE 14 ================= -->
+                <div class="slide flex flex-col justify-center h-full max-w-4xl mx-auto space-y-6" id="slide-14">
+                    <span class="text-xs text-amber-400 font-semibold tracking-wider">Page 14 • THE ALGORITHM</span>
+                    <h2 class="text-2xl md:text-4xl font-extrabold">沉浸式語言環境的底層邏輯</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs md:text-sm">
+                        <!-- Pillar 1 -->
+                        <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 space-y-3">
+                            <div class="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-lg">
+                                <i class="fa-solid fa-radar"></i>
+                            </div>
+                            <h3 class="font-bold text-slate-100">1. 情境預期 (Anticipation)</h3>
+                            <p class="text-slate-400 leading-relaxed text-xs">
+                                道地英文不是靠「聽力」硬扛，而是靠「預判」。例如：在走到結帳櫃檯前，大腦已預期對方會問 Paper or plastic / Insert or tap，藉此提早準備。
+                            </p>
+                        </div>
+
+                        <!-- Pillar 2 -->
+                        <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 space-y-3">
+                            <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-lg">
+                                <i class="fa-solid fa-cubes"></i>
+                            </div>
+                            <h3 class="font-bold text-slate-100">2. 掌握模組 (Modularity)</h3>
+                            <p class="text-slate-400 leading-relaxed text-xs">
+                                不要每次都費力重新造句。將點餐、寒暄、客訴視為「公式（如 Slide 5）」，臨場只需要抽換關鍵字，即可流暢應答。
+                            </p>
+                        </div>
+
+                        <!-- Pillar 3 -->
+                        <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 space-y-3">
+                            <div class="w-10 h-10 rounded-lg bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 text-lg">
+                                <i class="fa-solid fa-kit-medical"></i>
+                            </div>
+                            <h3 class="font-bold text-slate-100">3. 勇敢救場 (Recovery)</h3>
+                            <p class="text-slate-400 leading-relaxed text-xs">
+                                母語人士也會結巴、聽不懂。掌握爭取時間的填充句（Let me think for a second），允許自己犯錯，讓對話能夠持續流動才是真正重點。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= SLIDE 15 ================= -->
+                <div class="slide flex flex-col justify-center h-full max-w-4xl mx-auto space-y-8" id="slide-15">
+                    <div class="space-y-4">
+                        <span class="px-3 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-400 rounded-full text-xs font-semibold uppercase tracking-wider">Page 15 • DESTINATION REACHED</span>
+                        <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-amber-400 via-amber-200 to-white">
+                            The City is Yours to Explore.
+                        </h2>
+                    </div>
+                    <div class="h-0.5 w-32 bg-gradient-to-r from-amber-500 to-transparent"></div>
+                    <p class="text-slate-300 text-sm md:text-lg leading-relaxed max-w-2xl font-light">
+                        語言不是完美的文法考試，而是你在這座城市生存、連結與探索的最佳導航工具。<br>
+                        帶著這份地圖，勇敢開啟你的全英文沉浸體驗。
+                    </p>
+                    <div class="flex items-center space-x-3 text-xs text-slate-500 pt-8">
+                        <span class="font-bold tracking-widest uppercase">NotebookLM Presenter</span>
+                        <span>•</span>
+                        <span>終端抵達：自信與勇氣</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Controller Navigation Bar -->
+            <footer class="bg-slate-950 border-t border-slate-800 py-4 px-6 flex justify-between items-center z-10 shrink-0">
+                <div class="flex items-center space-x-2">
+                    <button onclick="prevSlide()" class="p-2 hover:bg-slate-900 rounded-lg transition text-slate-400 hover:text-white" title="上一頁">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <span id="pageIndicator" class="text-xs font-mono font-bold text-slate-300 bg-slate-900 px-3 py-1 rounded-lg border border-slate-800">
+                        01 / 15
+                    </span>
+                    <button onclick="nextSlide()" class="p-2 hover:bg-slate-900 rounded-lg transition text-slate-400 hover:text-white" title="下一頁">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <!-- Slide jumping Quick List Toggle -->
+                <div class="flex items-center space-x-4">
+                    <button onclick="toggleQuickMenu()" class="text-xs font-bold tracking-wider text-slate-400 hover:text-amber-400 transition flex items-center gap-1.5 bg-slate-900/60 hover:bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800/80">
+                        <i class="fa-solid fa-list-ol"></i> 簡報大綱
+                    </button>
+                    <button onclick="toggleFullscreen()" class="p-2 hover:bg-slate-900 rounded-lg transition text-slate-400 hover:text-white" title="全螢幕">
+                        <i class="fa-solid fa-expand"></i>
+                    </button>
+                </div>
+            </footer>
+
+            <!-- Quick Slide Jumper Floating Menu -->
+            <div id="quickMenu" class="absolute bottom-16 right-6 w-72 bg-slate-900/95 backdrop-blur border border-slate-800 rounded-xl p-3 space-y-1.5 hidden shadow-2xl z-30 max-h-96 overflow-y-auto">
+                <span class="text-[10px] text-amber-400 font-bold tracking-wider block border-b border-slate-800 pb-1.5 mb-2 px-1">快速導覽</span>
+                <div class="grid grid-cols-1 gap-1" id="quickMenuList">
+                    <!-- Javascript will render item lines here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Slides content dictionary to feed Gemini context
+        const SLIDE_CONTENTS = {
+            1: "標題頁。主題：破解全英文語境-美國都會生活導航指南。從日常通勤、社交破冰到突發狀況的道地應對模組。",
+            2: "都會生存英語軌道地圖。分成三條線：1.基礎生存線(Commute/通勤、Order/點餐、Checkout/結帳)解決每日剛性需求。2.深度連結線(Small Talk/寒暄、Office/職場、Hangout/聚會)維持雙向溝通自然流暢。3.危機處理線(Phone/電話客服、Clinic/醫療就診、Crisis/尷尬救急)勇敢犯錯與優雅救場。",
+            3: "英文思維的道地校準。教科書英文與街頭道地美語對抗：猶豫不決時：不要說I don't know，要說I'm on the fence/I'm still deciding right now。點餐購物：不要說I want this，要說Can I get.../I'll go with...。嫌太貴：不說It's too expensive，說It's a little pricey。聽不懂：不說What did you say?，說Sorry, I didn't catch that/Can you say that one more time?。核心觀念：拋棄命令式直翻，改用保留空間的軟語氣(Softening Tone)。",
+            4: "城市通勤導航。公車與地鐵(Public Transit)：確認路線 Does this train go downtown? / Is this the right bus to the airport?。轉乘與支付 Do I tap again when transferring? / Do I pay at the meter?。共乘(Rideshare/Uber)：上車確認 Are you here for [Name]?。冷氣與路線 Could you turn the AC up? / Heading to the airport, right? / I'm okay with whichever route is faster。通勤小寒暄(Small talk)：Traffic was brutal this morning. -> Yeah, Mondays always hit hard.",
+            5: "模組化客製化點餐公式。公式：開場(Can I get / I'll go with / I'll take) + 基底(a tall cappuccino / a medium iced latte / the chicken bowl) + 客製調整(with oat milk / half sweet / without onions / light ice) + 附加要求(add an extra shot / sauce on the side / to go, please)。例如：Can I get a medium iced latte with oat milk, half sweet, and add an extra shot, to go, please.",
+            6: "結帳攻防戰。人工結帳(Cashier Checkout)店員連環問：Did you find everything you needed today? / Do you have a rewards account here? / Paper or plastic today? / Will you be paying with card or cash today?。你的回應：I brought my own bag / I'll pay with card / Just these items for today。自助結帳機(Self-checkout)語音提示：Please scan your item / Unexpected item in the bagging area。尋求協助金句：This item is not scanning properly / It rang up higher than I expected.",
+            7: "社交邊界感矩陣。1.週末死黨(Casual×Close Friends)：Yo, you're up already? / Honestly, I got nothing planned. Just going to chill at home. 2.辦公室日常(Professional×Colleagues)：Mondays always hit me hard / Long day today, wasn't it? 3.派對破冰(Casual×Strangers)：I don't think we've met before, I'm [Name] / This place feels pretty chill tonight. 4.初次商務(Professional×Strangers)：Nice to meet you here / What kind of work are you in?",
+            8: "推進迴圈對話策略。對話永不落地三步驟：1.回應與展現態度(Answer)比如I'm doing well, thanks for asking。2.拋回問題延伸(Ask back)比如What's up with you today?。3.情緒價值與共鳴(React)比如Oh wow, that's actually crazy!。跳出對話管道(Escape Route)：I'm going to grab a drink real quick / I'll catch you later.",
+            9: "辦公室溝通指南。專案進度與釐清：How's the presentation coming along? / Are you close to wrapping things up? / Could you explain the process again? I might be misunderstanding this task / I actually have another suggestion here. What if we shortened the process?。請假與下班：I'd like to request next Monday off / Would leaving early today be possible? / Are you wrapping things up already? That's good enough for one day. I'm heading out for tonight.",
+            10: "電話恐懼決策樹。起點語句：Hi, I'm calling about...。分支預約(Booking)：...an appointment. Friday morning would be ideal。更改/取消(Rescheduling)：...rescheduling my appointment. Is it possible to push it back?。客服查件(Customer Service)：...my account / an order. It keeps disconnecting every few minutes。留言語音(Voicemail)：Please call me when you're available. You can reach me at [Number].",
+            11: "醫療急診與痛覺。痛覺滑桿。輕/中度 Dull ache(隱隱作痛)。變動頻率 It comes and goes (一陣一陣的) / It came on pretty fast。重度：Is the pain sharp or dull? / Has the pain been constant today?。常見症狀：It hurts when I bend/chew / I feel a little nauseous / I twisted my ankle / I cut my hand while cooking。領藥處方簽金句：I'm here to pick up a prescription. It's under the name [Name].",
+            12: "尷尬時刻救生圈。1.爭取時間(Buying time)：That's a good question, honestly / Let me think for just a second / I'm not totally sure right now。2.請求重述澄清(Repeat/Clarify)：Sorry, I didn't catch that / Wait, what did you mean by that? / Can you say that one more time?。3.切換話題(Pivoting)：Anyway, what were you saying earlier? / By the way, did you see that...",
+            13: "溫和且堅定的客訴。步驟1.點出問題：I think this isn't what I ordered / It rang up higher than I expected / I think we're missing the fries。步驟2.提出訴求：Would it be possible to redo this? / Could I switch this to a salad? / I'd like to request a refund。步驟3.緩和語氣：I'm sorry to bother you / Not at all, I understand.",
+            14: "沉浸式語境底層邏輯。1.情境預期(Anticipation)：用預判取代聽力硬扛。2.掌握模組(Modularity)：將情境視為公式代入。3.勇敢救場(Recovery)：掌握爭取時間句，容許結巴與聽不懂，保持對話流動。",
+            15: "結尾頁。語言不是完美的文法考試，而是你在這座城市生存、連結與探索的最佳導航工具。The City is Yours to Explore. 終端抵達：自信。"
+        };
+
+        let currentSlide = 1;
+        const totalSlides = 15;
+
+        function updateSlidePosition(direction) {
+            const currentEl = document.getElementById(`slide-${currentSlide}`);
+            if (direction === 'next' && currentSlide < totalSlides) {
+                currentEl.classList.remove('active');
+                currentEl.classList.add('exit');
+                currentSlide++;
+            } else if (direction === 'prev' && currentSlide > 1) {
+                currentEl.classList.remove('active');
+                currentSlide--;
+            }
+            
+            // Set active slide
+            const targetEl = document.getElementById(`slide-${currentSlide}`);
+            targetEl.classList.remove('exit');
+            targetEl.classList.add('active');
+            
+            // Ensure any previous 'exit' classes on next slides are reset
+            for (let i = currentSlide + 1; i <= totalSlides; i++) {
+                const nextEl = document.getElementById(`slide-${i}`);
+                if (nextEl) nextEl.classList.remove('exit', 'active');
+            }
+
+            // Sync indicators
+            document.getElementById('pageIndicator').innerText = `${String(currentSlide).padStart(2, '0')} / ${totalSlides}`;
+            const progressPercent = (currentSlide / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = `${progressPercent}%`;
+
+            // Close jump menu if open
+            document.getElementById('quickMenu').classList.add('hidden');
+        }
+
+        function nextSlide() {
+            updateSlidePosition('next');
+        }
+
+        function prevSlide() {
+            updateSlidePosition('prev');
+        }
+
+        function goToSlide(page) {
+            const pageNum = parseInt(page);
+            if (pageNum >= 1 && pageNum <= totalSlides) {
+                // Reset all
+                for (let i = 1; i <= totalSlides; i++) {
+                    const el = document.getElementById(`slide-${i}`);
+                    el.classList.remove('active', 'exit');
+                }
+                
+                // Set exit for all previous
+                for (let i = 1; i < pageNum; i++) {
+                    document.getElementById(`slide-${i}`).classList.add('exit');
+                }
+                
+                currentSlide = pageNum;
+                document.getElementById(`slide-${currentSlide}`).classList.add('active');
+                
+                // Sync UI
+                document.getElementById('pageIndicator').innerText = `${String(currentSlide).padStart(2, '0')} / ${totalSlides}`;
+                const progressPercent = (currentSlide / totalSlides) * 100;
+                document.getElementById('progressBar').style.width = `${progressPercent}%`;
+                document.getElementById('quickMenu').classList.add('hidden');
+            }
+        }
+
+        // Keyboard support
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        function toggleQuickMenu() {
+            const menu = document.getElementById('quickMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log(`Error attempting to enable full-screen mode: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Render Slide titles dynamically into the Quick Menu list
+        window.addEventListener('DOMContentLoaded', () => {
+            const listContainer = document.getElementById('quickMenuList');
+            const titles = [
+                "都會生活導航起點 (Start)",
+                "都會生存英語軌道圖 (Map)",
+                "英文思維的「道地校準」",
+                "城市通勤導航：地鐵與共乘",
+                "模組化客製化點餐公式",
+                "結帳攻防戰連環應對",
+                "社交邊界感語氣矩陣",
+                "對話永不落地「推進迴圈」",
+                "辦公室進度與專業溝通",
+                "克服電話恐懼決策樹",
+                "醫療就診與精準描述痛覺",
+                "尷尬時刻三大救生圈",
+                "溫和且堅定之客訴應對",
+                "沉浸式語言環境底層邏輯",
+                "簡報終端：自信與勇氣"
+            ];
+
+            titles.forEach((title, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left font-mono text-xs py-1.5 px-2 hover:bg-slate-800 rounded transition flex justify-between text-slate-300 hover:text-amber-400";
+                btn.innerHTML = `<span>Page ${idx + 1}. ${title}</span>`;
+                btn.onclick = () => goToSlide(idx + 1);
+                listContainer.appendChild(btn);
+            });
+            
+            // Build the Slide 5 Formula interactive sync
+            setupFormulaBuilder();
+            // Build Pain Scale interactive sync
+            setupPainScale();
+        });
+
+        // Setup Slide 5 Live Interactivity
+        function setupFormulaBuilder() {
+            const inputs = document.querySelectorAll('input[name="ask"], input[name="base"], #cust1, #cust2, #cust3, #ext1, #ext2, #ext3');
+            inputs.forEach(input => {
+                input.addEventListener('change', () => {
+                    const ask = document.querySelector('input[name="ask"]:checked').value;
+                    const base = document.querySelector('input[name="base"]:checked').value;
+                    
+                    let customs = [];
+                    if (document.getElementById('cust1').checked) customs.push("with oat milk");
+                    if (document.getElementById('cust2').checked) customs.push("half sweet");
+                    if (document.getElementById('cust3').checked) customs.push("without onions");
+
+                    let extras = [];
+                    if (document.getElementById('ext1').checked) extras.push("and add an extra shot");
+                    if (document.getElementById('ext2').checked) extras.push("sauce on the side");
+                    if (document.getElementById('ext3').checked) extras.push("to go, please");
+
+                    let finalStr = `"${ask} ${base}`;
+                    if (customs.length > 0) {
+                        finalStr += ` ${customs.join(', ')}`;
+                    }
+                    if (extras.length > 0) {
+                        // Blend correctly
+                        finalStr += ` ${extras.join(' ')}`;
+                    }
+                    finalStr += '."';
+                    
+                    document.getElementById('formulaResult').innerText = finalStr;
+                });
+            });
+        }
+
+        // Setup Slide 11 Pain Scale Interactivity
+        function setupPainScale() {
+            const slider = document.getElementById('painRange');
+            const painVal = document.getElementById('painVal');
+            const painTitle = document.getElementById('painTypeTitle');
+            const painDesc = document.getElementById('painDesc');
+            const phraseBox = document.getElementById('painPhraseBox');
+
+            slider.addEventListener('input', (e) => {
+                const val = parseInt(e.target.value);
+                if (val <= 4) {
+                    painVal.innerText = `${val} (輕/中度)`;
+                    painTitle.innerText = "■ 輕/中度 (Dull Ache)";
+                    painDesc.innerText = `"It feels more like a dull ache." (隱隱作痛)`;
+                    phraseBox.className = "p-3 bg-slate-950/60 rounded-xl border border-slate-800 text-xs space-y-1 border-l-4 border-l-emerald-500";
+                } else if (val <= 7) {
+                    painVal.innerText = `${val} (變動頻率)`;
+                    painTitle.innerText = "■ 變動頻率 (Fluctuation)";
+                    painDesc.innerText = `"It comes and goes." (一陣一陣的) 或 "It came on pretty fast."`;
+                    phraseBox.className = "p-3 bg-slate-950/60 rounded-xl border border-slate-800 text-xs space-y-1 border-l-4 border-l-amber-500";
+                } else {
+                    painVal.innerText = `${val} (重度痛覺)`;
+                    painTitle.innerText = "■ 重度痛覺 (Severe Sharp Pain)";
+                    painDesc.innerText = `"The pain has been constant today." / "It's a sharp pain." (尖銳劇痛)`;
+                    phraseBox.className = "p-3 bg-slate-950/60 rounded-xl border border-slate-800 text-xs space-y-1 border-l-4 border-l-rose-500 animate-pulse";
+                }
+            });
+        }
+
+        // ==========================================
+        // DUAL VOICE ENGINE: LOCAL & GEMINI LLM Q&A
+        // ==========================================
+
+        let isListening = false;
+        let recognition = null;
+        let ttsSynth = window.speechSynthesis;
+
+        // Initialize Speech Recognition if supported
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRec();
+            recognition.continuous = true;
+            recognition.interimResults = false;
+            recognition.lang = 'zh-TW';
+
+            recognition.onstart = () => {
+                console.log("Voice Recognition active.");
+                document.getElementById('waveform').classList.add('wave-active');
+            };
+
+            recognition.onend = () => {
+                if (isListening) {
+                    // Auto-restart if user still wants listening
+                    recognition.start();
+                } else {
+                    document.getElementById('waveform').classList.remove('wave-active');
+                }
+            };
+
+            recognition.onresult = async (event) => {
+                const resultIndex = event.resultIndex;
+                const transcript = event.results[resultIndex][0].transcript.trim();
+                handleCapturedVoice(transcript);
+            };
+        } else {
+            document.getElementById('engineStatus').innerHTML = `
+                <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                不支援語音輸入
+            `;
+            document.getElementById('engineStatus').className = "px-2 py-0.5 rounded-full text-[10px] bg-rose-500/10 text-rose-400 border border-rose-500/20 flex items-center gap-1";
+        }
+
+        // Trigger / Simulate user clicking and speaking directly
+        function simulateVoice(cmdText) {
+            handleCapturedVoice(cmdText);
+        }
+
+        // Voice button click handler
+        document.getElementById('micBtn').addEventListener('click', () => {
+            if (!recognition) {
+                speakText("您的瀏覽器不支援麥克風語音輸入。請直接點選指令晶片體驗！");
+                return;
+            }
+
+            const rings = document.querySelector('.mic-active-ring');
+
+            if (!isListening) {
+                // Turn ON
+                isListening = true;
+                recognition.start();
+                document.getElementById('micIcon').className = "fa-solid fa-microphone-slash text-base";
+                document.getElementById('micText').innerText = "暫停語音聆聽";
+                document.getElementById('micBtn').className = "relative overflow-hidden w-full py-3 bg-gradient-to-r from-amber-600 to-amber-700 active:scale-[0.98] transition-all text-slate-950 rounded-xl font-bold flex items-center justify-center space-x-2 shadow-lg shadow-amber-500/10";
+                rings.classList.remove('opacity-0');
+                speakText("語音聆聽已開啟。您可以對著我說下一頁、上一頁，或直接詢問簡報內容。");
+            } else {
+                // Turn OFF
+                isListening = false;
+                recognition.stop();
+                document.getElementById('micIcon').className = "fa-solid fa-microphone text-base";
+                document.getElementById('micText').innerText = "啟用 AI 語音聆聽";
+                document.getElementById('micBtn').className = "relative overflow-hidden w-full py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 active:scale-[0.98] transition-all text-slate-950 rounded-xl font-bold flex items-center justify-center space-x-2 shadow-lg shadow-amber-500/10";
+                rings.classList.add('opacity-0');
+                document.getElementById('waveform').classList.remove('wave-active');
+            }
+        });
+
+        // Speech Synthesis speaker helper
+        function speakText(text) {
+            if (!ttsSynth) return;
+            // Stop prior speaking
+            ttsSynth.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'zh-TW';
+            utterance.rate = 1.1; // slightly faster for responsiveness
+            ttsSynth.speak(utterance);
+        }
+
+        async function handleCapturedVoice(transcript) {
+            console.log("Speech captured: ", transcript);
+            
+            // Render user bubble in sidebar
+            addChatBubble("user", transcript);
+
+            // Clean query to match actions
+            const cleanText = transcript.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()？。，]/g,"").trim();
+
+            // 1. Navigation Command Matching (Local regex)
+            if (/下一頁|下一張|往後|前進|Next/i.test(cleanText)) {
+                if (currentSlide < totalSlides) {
+                    nextSlide();
+                    addChatBubble("system", "好的，已為您切換至下一頁。");
+                    speakText("好的，已切換。");
+                } else {
+                    addChatBubble("system", "這已經是簡報的最後一頁了。");
+                    speakText("這已經是最後一頁囉。");
+                }
+                return;
+            }
+
+            if (/上一頁|上一張|往前|後退|Prev/i.test(cleanText)) {
+                if (currentSlide > 1) {
+                    prevSlide();
+                    addChatBubble("system", "好的，已為您返回上一頁。");
+                    speakText("好的，已返回。");
+                } else {
+                    addChatBubble("system", "這已經是簡報的第一頁了。");
+                    speakText("這已經是第一頁囉。");
+                }
+                return;
+            }
+
+            // Direct Jump Page matching
+            const numMap = {
+                "一": 1, "二": 2, "三": 3, "四": 4, "五": 5, "六": 6, "七": 7, "八": 8, "九": 9, "十": 10,
+                "十一": 11, "十二": 12, "十三": 13, "十四": 14, "十五": 15, "1": 1, "2": 2, "3": 3, "4": 4,
+                "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "11": 11, "12": 12, "13": 13, "14": 14, "15": 15
+            };
+
+            let jumpTarget = null;
+            for (let word in numMap) {
+                if (new RegExp(`第\\s*${word}\\s*頁`).test(cleanText) || new RegExp(`跳到\\s*${word}\\s*頁`).test(cleanText)) {
+                    jumpTarget = numMap[word];
+                    break;
+                }
+            }
+
+            if (jumpTarget) {
+                goToSlide(jumpTarget);
+                addChatBubble("system", `已為您切換到第 ${jumpTarget} 頁。`);
+                speakText(`已切換到第${jumpTarget}頁。`);
+                return;
+            }
+
+            // 2. Q&A Matching (Gemini API or Local Intelligent Fallback)
+            const apiKey = document.getElementById('apiKey').value.trim();
+            if (apiKey) {
+                // If the user provided Gemini key, make real API call
+                addChatBubble("system", "正在思考簡報內容，請稍候...");
+                const response = await askGeminiLLM(transcript, apiKey);
+                addChatBubble("system", response);
+                speakText(response);
+            } else {
+                // Zero-setup Local rule-based dictionary response
+                const fallbackResponse = getIntelligentFallback(cleanText);
+                addChatBubble("system", fallbackResponse);
+                speakText(fallbackResponse);
+            }
+        }
+
+        // Render dynamic text logs in the transcript container
+        function addChatBubble(role, message) {
+            const container = document.getElementById('transcriptFeed');
+            const bubble = document.createElement('div');
+            
+            if (role === 'user') {
+                bubble.className = "flex justify-end";
+                bubble.innerHTML = `
+                    <div class="bg-amber-500/10 text-amber-300 border border-amber-500/20 max-w-[85%] rounded-xl px-3 py-2 text-xs font-medium font-mono">
+                        <span class="block text-[9px] text-amber-500 font-bold mb-0.5">YOU</span>
+                        ${message}
+                    </div>
+                `;
+            } else {
+                bubble.className = "flex justify-start";
+                bubble.innerHTML = `
+                    <div class="bg-slate-800/80 text-slate-100 max-w-[85%] rounded-xl px-3 py-2 text-xs border border-slate-700/60 leading-relaxed">
+                        <span class="block text-[9px] text-amber-400 font-bold mb-0.5">GEMINI SYSTEM</span>
+                        ${message}
+                    </div>
+                `;
+            }
+            container.appendChild(bubble);
+            // Auto scroll to bottom
+            container.scrollTop = container.scrollHeight;
+        }
+
+        async function askGeminiLLM(userQuery, apiKey) {
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+            
+            // Build Context containing slide structure and content details
+            const contextPrompt = `
+You are a highly capable presentation assistant for the slideshow "破解全英文語境：美國都會生活導航指南".
+Below is the content of all 15 slides:
+${JSON.stringify(SLIDE_CONTENTS)}
+
+The user is currently looking at slide ${currentSlide}.
+The user asked: "${userQuery}".
+Please answer the user's question concisely in 2-3 sentences max (ideal for speaking out loud via TTS). 
+Answer in traditional Chinese. Keep it practical, polite, and directly based on the slides contents.
+`;
+
+            const payload = {
+                contents: [{ parts: [{ text: contextPrompt }] }]
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+                const textResult = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (textResult) {
+                    return textResult;
+                }
+                return "抱歉，Gemini 核心返回了非預期結果，請檢查您的 Key 權限。";
+            } catch (error) {
+                console.error("Gemini request error:", error);
+                return "連線失敗，請確認您的網路狀況或 API Key 是否正確。";
+            }
+        }
+
+        function getIntelligentFallback(query) {
+            const lowerQ = query.toLowerCase();
+            
+            if (lowerQ.includes("生存線") || lowerQ.includes("生存")) {
+                goToSlide(2);
+                return "簡報第2頁展示了「基礎生存線」，包含了通勤、點餐、結帳等剛性需求。這些是解決你每日食衣住行的基礎。您可以到第4頁看通勤，第5頁看點餐配方。";
+            }
+            if (lowerQ.includes("點餐") || lowerQ.includes("拿鐵") || lowerQ.includes("公式")) {
+                goToSlide(5);
+                return "為您導航到第5頁的「點餐公式」。道地的客製化點餐包含：開場、基底、客製調整、附加要求四個部分。例如想要半糖燕麥奶燕麥拿鐵，可以說 Can I get a medium iced latte with oat milk, half sweet, and add an extra shot to go, please.";
+            }
+            if (lowerQ.includes("通勤") || lowerQ.includes("地鐵") || lowerQ.includes("公車") || lowerQ.includes("搭車")) {
+                goToSlide(4);
+                return "已帶您跳至第4頁。在美國搭大眾運輸時，確認路線可以說 Does this train go downtown?。如果是轉乘則用 Do I tap again when transferring?。若是共乘則在車上說 Are you here for... 確認司機。";
+            }
+            if (lowerQ.includes("危機") || lowerQ.includes("痛") || lowerQ.includes("醫療") || lowerQ.includes("看病")) {
+                goToSlide(11);
+                return "已為您打開第11頁痛覺描述與醫療。我們設計了0到10分的痛覺描述，輕度用 dull ache (隱隱作痛)，變動痛頻用 It comes and goes，劇痛則是用 constant sharp pain。如果是領藥，可以直接說 I'm here to pick up a prescription 即可。";
+            }
+            if (lowerQ.includes("結帳") || lowerQ.includes("袋子") || lowerQ.includes("rewards") || lowerQ.includes("塑膠袋")) {
+                goToSlide(6);
+                return "好的，這是在第6頁的「結帳攻防戰」。店員最常問你 Did you find everything you needed today? (今天買齊了嗎) 還有 Paper or plastic today? (要紙袋還是塑膠袋)。帶自己的袋子可以直接瀟灑回答 I brought my own bag.";
+            }
+            if (lowerQ.includes("客訴") || lowerQ.includes("抱怨") || lowerQ.includes("送錯")) {
+                goToSlide(13);
+                return "好的，導航至第13頁客訴。道地客訴應對包含三步驟：1. 點出問題例如 I think this isn't what I ordered。2. 提出訴求如 Would it be possible to redo this?。3. 緩和語氣如 I'm sorry to bother you。";
+            }
+            if (lowerQ.includes("尷尬") || lowerQ.includes("腦袋空白") || lowerQ.includes("聽不懂")) {
+                goToSlide(12);
+                return "為您翻到第12頁「尷尬時刻救生圈」。聽不懂時不要裝懂，可以用 Sorry, I didn't catch that。想要爭取時間想單字時，可以說 Let me think for just a second，這樣說話會比發出呃、啊還要道地！";
+            }
+            if (lowerQ.includes("邊界") || lowerQ.includes("社交") || lowerQ.includes("日常")) {
+                goToSlide(7);
+                return "已切換到第7頁。社交語氣矩陣分為 Casual 與 Professional。例如週末跟好友說 Yo, you're up already? 顯得親切，但在辦公室則建議跟同事說 Mondays always hit me hard 等較為得體的日常語氣。";
+            }
+
+            // General search
+            return `您當前在簡報的第 ${currentSlide} 頁。內容關於：${SLIDE_CONTENTS[currentSlide].substring(0, 70)}...等。如果您想要進一步了解點餐、通勤、請假、看病等道地語法，可以直接問我喔！`;
+        }
+    </script>
+</body>
+</html>

@@ -8,8 +8,7 @@ import {
 import Presentation from './Presentation'
 import { auth, db } from './firebase'
 import { collection, getDocs } from 'firebase/firestore'
-import { loadUserData, saveUserData } from './firestoreService'
-import { QUIZ_SECTIONS } from './quizData'
+import { loadUserData, saveUserData, loadQuizSections, loadQuizResults, saveQuizResults } from './firestoreService'
 import type { QuizSection, QuizItem } from './quizData'
 
 declare global {
@@ -228,7 +227,8 @@ export default function App() {
     { english: "Could you tell me where the gym is located?", chinese: "能告訴我健身房在哪裡嗎？", scenario: "五星級飯店辦理入住" }
   ])
 
-  const [quizSection, setQuizSection] = useState<QuizSection>(QUIZ_SECTIONS[0])
+  const [quizSections, setQuizSections] = useState<QuizSection[]>([])
+  const [quizSection, setQuizSection] = useState<QuizSection | null>(null)
   const [quizResults, setQuizResults] = useState<Record<string, { status: 'correct' | 'wrong'; selected?: number }>>({})
   const [explaining, setExplaining] = useState<Record<string, string>>({})
   const [explainingLoading, setExplainingLoading] = useState<string | null>(null)
@@ -245,13 +245,20 @@ export default function App() {
   useEffect(() => {
     const unsub = auth.onAuthStateChanged(async (user) => {
       if (user) {
-        const data = await loadUserData()
+        const [data, sections, results] = await Promise.all([
+          loadUserData(),
+          loadQuizSections(),
+          loadQuizResults()
+        ])
         if (data) {
           setStreak(data.streak)
           setWordsSpoken(data.wordsSpoken)
           setPronunciationScore(data.pronunciationScore)
           setSavedPhrases(data.savedPhrases)
         }
+        setQuizSections(sections)
+        if (sections.length > 0) setQuizSection(sections[0])
+        if (Object.keys(results).length > 0) setQuizResults(results)
       }
     })
     return unsub
@@ -262,6 +269,12 @@ export default function App() {
       saveUserData({ wordsSpoken, pronunciationScore, savedPhrases })
     }
   }, [wordsSpoken, pronunciationScore, savedPhrases])
+
+  useEffect(() => {
+    if (auth.currentUser && Object.keys(quizResults).length > 0) {
+      saveQuizResults(quizResults)
+    }
+  }, [quizResults])
 
   useEffect(() => {
     const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition
@@ -1027,10 +1040,10 @@ You MUST respond with a JSON object only, no markdown formatting.
                       互動測驗
                     </h2>
                     <span className="text-xs text-slate-400 bg-slate-800 px-2 py-1 rounded-lg">
-                      {Object.keys(quizResults).filter(k => quizResults[k]?.status === 'correct').length} / {QUIZ_SECTIONS.reduce((a, s) => a + s.quizzes.length, 0)} 正確
+                      {Object.keys(quizResults).filter(k => quizResults[k]?.status === 'correct').length} / {quizSections.reduce((a, s) => a + s.quizzes.length, 0)} 正確
                     </span>
                   </div>
-                  {QUIZ_SECTIONS.map((sec) => {
+                  {quizSections.map((sec) => {
                     const total = sec.quizzes.length
                     const done = sec.quizzes.filter((_, qi) => quizResults[`${sec.num}-${qi}`]?.status).length
                     const correct = sec.quizzes.filter((_, qi) => quizResults[`${sec.num}-${qi}`]?.status === 'correct').length
@@ -1070,6 +1083,10 @@ You MUST respond with a JSON object only, no markdown formatting.
                     )
                   })}
                 </div>
+              ) : !quizSection ? (
+                <div className="flex-1 flex items-center justify-center">
+                  <p className="text-slate-400 text-sm">載入中...</p>
+                </div>
               ) : (
                 <div className="flex-1 flex flex-col overflow-hidden">
                   <div className="bg-slate-900/80 border-b border-slate-800 px-4 py-3 flex items-center justify-between shrink-0">
@@ -1097,10 +1114,10 @@ You MUST respond with a JSON object only, no markdown formatting.
 
                   <div className="flex-1 overflow-y-auto p-4 space-y-4">
                     <div className="grid grid-cols-2 gap-1.5 bg-slate-900/40 rounded-xl border border-slate-800 p-3">
-                      {quizSection.vocab.map(([en, zh]) => (
-                        <div key={en} className="flex items-center justify-between text-xs">
-                          <span className="text-slate-200 font-medium">{en}</span>
-                          <span className="text-slate-400">{zh}</span>
+                      {quizSection.vocab.map((v) => (
+                        <div key={v.en} className="flex items-center justify-between text-xs">
+                          <span className="text-slate-200 font-medium">{v.en}</span>
+                          <span className="text-slate-400">{v.zh}</span>
                         </div>
                       ))}
                     </div>

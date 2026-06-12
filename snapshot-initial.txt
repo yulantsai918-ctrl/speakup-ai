@@ -1,0 +1,245 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - img [ref=e7]
+      - generic [ref=e10]:
+        - heading "SpeakUp AI" [level=1] [ref=e11]
+        - paragraph [ref=e12]: 仿 Speak 即時英文口說教練
+    - generic [ref=e13]:
+      - generic [ref=e14]:
+        - generic [ref=e15]: 🔥
+        - generic [ref=e16]: 5 天連續學習
+      - generic [ref=e17]:
+        - img [ref=e18]
+        - generic [ref=e21]:
+          - text: 平均口說分：
+          - strong [ref=e22]: "88"
+    - button "語音播放中" [ref=e24]:
+      - img [ref=e25]
+  - main [ref=e29]:
+    - generic [ref=e30]:
+      - generic [ref=e31]:
+        - button "探索情境" [ref=e32]:
+          - img [ref=e33]
+          - text: 探索情境
+        - button "AI 口說室" [ref=e36]:
+          - img [ref=e37]
+          - text: AI 口說室
+        - button "AI 教學簡報" [ref=e39]:
+          - img [ref=e40]
+          - text: AI 教學簡報
+        - button "互動測驗" [ref=e42]:
+          - img [ref=e43]
+          - text: 互動測驗
+        - button "學習進度" [ref=e46]:
+          - img [ref=e47]
+          - text: 學習進度
+      - generic [ref=e50]:
+        - generic [ref=e51]:
+          - generic [ref=e52]:
+            - img [ref=e53]
+            - text: 精選口說情境
+          - generic [ref=e56]: Speak 特色
+        - generic [ref=e57]:
+          - button "☕ 星巴克咖啡廳點餐 練習如何向店員點選美式咖啡、客製化牛奶以及結帳。 初級 (Beginner)" [ref=e106]:
+            - generic [ref=e108]: ☕
+            - generic [ref=e109]:
+              - generic [ref=e111]: 星巴克咖啡廳點餐
+              - paragraph [ref=e112]: 練習如何向店員點選美式咖啡、客製化牛奶以及結帳。
+              - generic [ref=e114]: 初級 (Beginner)
+            - img [ref=e115]
+          - button "💳 結帳付款英文 練習刷卡付現、分攤帳單、會員集點等結帳流程英文。 初級 (Beginner)" [ref=e117]:
+            - generic [ref=e118]: 💳
+            - generic [ref=e119]:
+              - generic [ref=e121]: 結帳付款英文
+              - paragraph [ref=e122]: 練習刷卡付現、分攤帳單、會員集點等結帳流程英文。
+              - generic [ref=e124]: 初級 (Beginner)
+            - img [ref=e125]
+          - button "🏪 超商便利商店 練習在美國便利商店購物、結帳、加油等常用對話。 初級 (Beginner)" [ref=e127]:
+            - generic [ref=e128]: 🏪
+            - generic [ref=e129]:
+              - generic [ref=e131]: 超商便利商店
+              - paragraph [ref=e132]: 練習在美國便利商店購物、結帳、加油等常用對話。
+              - generic [ref=e134]: 初級 (Beginner)
+            - img [ref=e135]
+          - button "🏥 就醫看診英文 練習掛號、描述症狀、拿藥等醫療相關英文對話。 進階 (Advanced)" [ref=e137]:
+            - generic [ref=e138]: 🏥
+            - generic [ref=e139]:
+              - generic [ref=e141]: 就醫看診英文
+              - paragraph [ref=e142]: 練習掛號、描述症狀、拿藥等醫療相關英文對話。
+              - generic [ref=e144]: 進階 (Advanced)
+            - img [ref=e145]
+          - button "📞 電話英文 練習打電話預約、客服諮詢、訂位留言等電話常用英文。 中級 (Intermediate)" [ref=e147]:
+            - generic [ref=e148]: 📞
+            - generic [ref=e149]:
+              - generic [ref=e151]: 電話英文
+              - paragraph [ref=e152]: 練習打電話預約、客服諮詢、訂位留言等電話常用英文。
+              - generic [ref=e154]: 中級 (Intermediate)
+            - img [ref=e155]
+          - button "🍽️ 餐廳用餐點餐 練習餐廳訂位、點餐、特殊要求及結帳等用餐英文對話。 中級 (Intermediate)" [ref=e157]:
+            - generic [ref=e158]: 🍽️
+            - generic [ref=e159]:
+              - generic [ref=e161]: 餐廳用餐點餐
+              - paragraph [ref=e162]: 練習餐廳訂位、點餐、特殊要求及結帳等用餐英文對話。
+              - generic [ref=e164]: 中級 (Intermediate)
+            - img [ref=e165]
+          - button "🛍️ 購物逛街英文 練習試穿衣物、詢問尺寸顏色、結帳退貨等購物情境對話。 初級 (Beginner)" [ref=e167]:
+            - generic [ref=e168]: 🛍️
+            - generic [ref=e169]:
+              - generic [ref=e171]: 購物逛街英文
+              - paragraph [ref=e172]: 練習試穿衣物、詢問尺寸顏色、結帳退貨等購物情境對話。
+              - generic [ref=e174]: 初級 (Beginner)
+            - img [ref=e175]
+          - button "🎉 社交聚會英文 練習派對開場、破冰聊天、邀約朋友等社交場合英文。 中級 (Intermediate)" [ref=e177]:
+            - generic [ref=e178]: 🎉
+            - generic [ref=e179]:
+              - generic [ref=e181]: 社交聚會英文
+              - paragraph [ref=e182]: 練習派對開場、破冰聊天、邀約朋友等社交場合英文。
+              - generic [ref=e184]: 中級 (Intermediate)
+            - img [ref=e185]
+          - button "✈️ 旅遊交通英文 練習問路、搭車、訂房、旅遊等旅行中常用英文對話。 中級 (Intermediate)" [ref=e187]:
+            - generic [ref=e188]: ✈️
+            - generic [ref=e189]:
+              - generic [ref=e191]: 旅遊交通英文
+              - paragraph [ref=e192]: 練習問路、搭車、訂房、旅遊等旅行中常用英文對話。
+              - generic [ref=e194]: 中級 (Intermediate)
+            - img [ref=e195]
+          - button "💼 職場辦公室英文 練習開會簡報、確認進度、請假溝通等職場英文對話。 進階 (Advanced)" [ref=e197]:
+            - generic [ref=e198]: 💼
+            - generic [ref=e199]:
+              - generic [ref=e201]: 職場辦公室英文
+              - paragraph [ref=e202]: 練習開會簡報、確認進度、請假溝通等職場英文對話。
+              - generic [ref=e204]: 進階 (Advanced)
+            - img [ref=e205]
+    - generic [ref=e61]:
+      - generic [ref=e62]:
+        - generic [ref=e63]:
+          - text: Welcome to SpeakUp AI
+          - heading "隨時隨地，開口說道地美式英語" [level=2] [ref=e64]
+          - paragraph [ref=e65]:
+            - text: 本系統完美對照知名軟體
+            - strong [ref=e66]: Speak
+            - text: 的學習邏輯。AI 口說教練能為您營造零壓力的練習環境，每次說話皆可獲得專屬的文法修正意見、自然美式造句替換、與發音回饋。
+        - generic [ref=e67]:
+          - generic [ref=e68]:
+            - img [ref=e70]
+            - heading "免設定！一鍵口說" [level=3] [ref=e73]
+            - paragraph [ref=e74]: 使用 Chrome 等現代瀏覽器直接點擊麥克風即可講話，完全不需要額外的語意 API 金鑰。
+          - generic [ref=e75]:
+            - img [ref=e77]
+            - heading "即時糾錯與道地美語" [level=3] [ref=e80]
+            - paragraph [ref=e81]: 基於最新 Groq AI 模型，精準挑出你的文法盲點，並提供 2-3 個「美國人會這樣說」的建議。
+          - generic [ref=e82]:
+            - img [ref=e84]
+            - heading "AI 語音朗讀輔助" [level=3] [ref=e88]
+            - paragraph [ref=e89]: 整合 TTS 語音朗讀。無論是 AI 的回覆還是更道地的建議，點擊一下喇叭即可聆聽純正發音。
+          - generic [ref=e90]:
+            - img [ref=e92]
+            - heading "客製化筆記本" [level=3] [ref=e94]
+            - paragraph [ref=e95]: 遇到好句子？一鍵點擊儲存，隨時在「學習進度」頁籤複習，打造你專屬的英文生字本。
+        - generic [ref=e96]:
+          - generic [ref=e97]:
+            - generic [ref=e98]: 目前選定情境
+            - generic [ref=e99]:
+              - generic [ref=e100]: ☕
+              - generic [ref=e101]: 星巴克咖啡廳點餐 (初級 (Beginner))
+          - button "進入練習" [ref=e102]:
+            - text: 進入練習
+            - img [ref=e103]
+        - generic [ref=e207]:
+          - generic [ref=e208]:
+            - img [ref=e209]
+            - generic [ref=e211]: 情境常用句 (13)
+          - generic [ref=e212]:
+            - generic [ref=e213]:
+              - generic [ref=e214]:
+                - paragraph [ref=e215]: Can I get a latte to go please?
+                - paragraph [ref=e216]: 我可以點一杯拿鐵外帶嗎？
+              - button "使用" [ref=e217]:
+                - text: 使用
+                - img [ref=e218]
+            - generic [ref=e220]:
+              - generic [ref=e221]:
+                - paragraph [ref=e222]: Sure, would you like it hot or iced?
+                - paragraph [ref=e223]: 好的，您要熱的還是冰的？
+              - button "使用" [ref=e224]:
+                - text: 使用
+                - img [ref=e225]
+            - generic [ref=e227]:
+              - generic [ref=e228]:
+                - paragraph [ref=e229]: Can I get that with oat milk?
+                - paragraph [ref=e230]: 可以幫我換成燕麥奶嗎？
+              - button "使用" [ref=e231]:
+                - text: 使用
+                - img [ref=e232]
+            - generic [ref=e234]:
+              - generic [ref=e235]:
+                - paragraph [ref=e236]: No sugar but add an extra shot.
+                - paragraph [ref=e237]: 不加糖，但幫我加一份濃縮。
+              - button "使用" [ref=e238]:
+                - text: 使用
+                - img [ref=e239]
+            - generic [ref=e241]:
+              - generic [ref=e242]:
+                - paragraph [ref=e243]: Can you make it less sweet?
+                - paragraph [ref=e244]: 可以做不那麼甜嗎？
+              - button "使用" [ref=e245]:
+                - text: 使用
+                - img [ref=e246]
+            - generic [ref=e248]:
+              - generic [ref=e249]:
+                - paragraph [ref=e250]: If possible, make it less ice.
+                - paragraph [ref=e251]: 如果可以的話，請少冰。
+              - button "使用" [ref=e252]:
+                - text: 使用
+                - img [ref=e253]
+            - generic [ref=e255]:
+              - generic [ref=e256]:
+                - paragraph [ref=e257]: Could I get a receipt please?
+                - paragraph [ref=e258]: 可以給我一張收據嗎？
+              - button "使用" [ref=e259]:
+                - text: 使用
+                - img [ref=e260]
+            - generic [ref=e262]:
+              - generic [ref=e263]:
+                - paragraph [ref=e264]: What size would you like?
+                - paragraph [ref=e265]: 您想要什麼尺寸？
+              - button "使用" [ref=e266]:
+                - text: 使用
+                - img [ref=e267]
+            - generic [ref=e269]:
+              - generic [ref=e270]:
+                - paragraph [ref=e271]: I'll have a medium iced latte with oat milk.
+                - paragraph [ref=e272]: 我要一杯中杯冰拿鐵加燕麥奶。
+              - button "使用" [ref=e273]:
+                - text: 使用
+                - img [ref=e274]
+            - generic [ref=e276]:
+              - generic [ref=e277]:
+                - paragraph [ref=e278]: Can I get a cup of water too?
+                - paragraph [ref=e279]: 可以再給我一杯水嗎？
+              - button "使用" [ref=e280]:
+                - text: 使用
+                - img [ref=e281]
+            - generic [ref=e283]:
+              - generic [ref=e284]:
+                - paragraph [ref=e285]: Is there a restroom I can use?
+                - paragraph [ref=e286]: 請問有洗手間可以使用嗎？
+              - button "使用" [ref=e287]:
+                - text: 使用
+                - img [ref=e288]
+            - generic [ref=e290]:
+              - generic [ref=e291]:
+                - paragraph [ref=e292]: Do you have any discounts for students?
+                - paragraph [ref=e293]: 學生有折扣嗎？
+              - button "使用" [ref=e294]:
+                - text: 使用
+                - img [ref=e295]
+            - generic [ref=e297]:
+              - generic [ref=e298]:
+                - paragraph [ref=e299]: Can I use Apple Pay here?
+                - paragraph [ref=e300]: 這裡可以使用 Apple Pay 嗎？
+              - button "使用" [ref=e301]:
+                - text: 使用
+                - img [ref=e302]
+      - generic [ref=e105]: SpeakUp AI 2026. Powered by Groq AI.

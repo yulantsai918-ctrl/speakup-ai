@@ -1,0 +1,484 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - img [ref=e7]
+      - generic [ref=e10]:
+        - heading "SpeakUp AI" [level=1] [ref=e11]
+        - paragraph [ref=e12]: 仿 Speak 即時英文口說教練
+    - generic [ref=e13]:
+      - generic [ref=e14]:
+        - generic [ref=e15]: 🔥
+        - generic [ref=e16]: 5 天連續學習
+      - generic [ref=e17]:
+        - img [ref=e18]
+        - generic [ref=e21]:
+          - text: 平均口說分：
+          - strong [ref=e22]: "88"
+    - button "語音播放中" [ref=e24]:
+      - img [ref=e25]
+  - main [ref=e29]:
+    - generic [ref=e30]:
+      - generic [ref=e31]:
+        - button "探索情境" [ref=e32]:
+          - img [ref=e33]
+          - text: 探索情境
+        - button "AI 口說室" [ref=e36]:
+          - img [ref=e37]
+          - text: AI 口說室
+        - button "AI 教學簡報" [active] [ref=e39]:
+          - img [ref=e40]
+          - text: AI 教學簡報
+        - button "互動測驗" [ref=e42]:
+          - img [ref=e43]
+          - text: 互動測驗
+        - button "學習進度" [ref=e46]:
+          - img [ref=e47]
+          - text: 學習進度
+      - generic [ref=e50]:
+        - generic [ref=e51]:
+          - generic [ref=e52]:
+            - img [ref=e53]
+            - text: 精選口說情境
+          - generic [ref=e56]: Speak 特色
+        - generic [ref=e57]:
+          - button "☕ 星巴克咖啡廳點餐 練習如何向店員點選美式咖啡、客製化牛奶以及結帳。 初級 (Beginner)" [ref=e106]:
+            - generic [ref=e108]: ☕
+            - generic [ref=e109]:
+              - generic [ref=e111]: 星巴克咖啡廳點餐
+              - paragraph [ref=e112]: 練習如何向店員點選美式咖啡、客製化牛奶以及結帳。
+              - generic [ref=e114]: 初級 (Beginner)
+            - img [ref=e115]
+          - button "💳 結帳付款英文 練習刷卡付現、分攤帳單、會員集點等結帳流程英文。 初級 (Beginner)" [ref=e117]:
+            - generic [ref=e118]: 💳
+            - generic [ref=e119]:
+              - generic [ref=e121]: 結帳付款英文
+              - paragraph [ref=e122]: 練習刷卡付現、分攤帳單、會員集點等結帳流程英文。
+              - generic [ref=e124]: 初級 (Beginner)
+            - img [ref=e125]
+          - button "🏪 超商便利商店 練習在美國便利商店購物、結帳、加油等常用對話。 初級 (Beginner)" [ref=e127]:
+            - generic [ref=e128]: 🏪
+            - generic [ref=e129]:
+              - generic [ref=e131]: 超商便利商店
+              - paragraph [ref=e132]: 練習在美國便利商店購物、結帳、加油等常用對話。
+              - generic [ref=e134]: 初級 (Beginner)
+            - img [ref=e135]
+          - button "🏥 就醫看診英文 練習掛號、描述症狀、拿藥等醫療相關英文對話。 進階 (Advanced)" [ref=e137]:
+            - generic [ref=e138]: 🏥
+            - generic [ref=e139]:
+              - generic [ref=e141]: 就醫看診英文
+              - paragraph [ref=e142]: 練習掛號、描述症狀、拿藥等醫療相關英文對話。
+              - generic [ref=e144]: 進階 (Advanced)
+            - img [ref=e145]
+          - button "📞 電話英文 練習打電話預約、客服諮詢、訂位留言等電話常用英文。 中級 (Intermediate)" [ref=e147]:
+            - generic [ref=e148]: 📞
+            - generic [ref=e149]:
+              - generic [ref=e151]: 電話英文
+              - paragraph [ref=e152]: 練習打電話預約、客服諮詢、訂位留言等電話常用英文。
+              - generic [ref=e154]: 中級 (Intermediate)
+            - img [ref=e155]
+          - button "🍽️ 餐廳用餐點餐 練習餐廳訂位、點餐、特殊要求及結帳等用餐英文對話。 中級 (Intermediate)" [ref=e157]:
+            - generic [ref=e158]: 🍽️
+            - generic [ref=e159]:
+              - generic [ref=e161]: 餐廳用餐點餐
+              - paragraph [ref=e162]: 練習餐廳訂位、點餐、特殊要求及結帳等用餐英文對話。
+              - generic [ref=e164]: 中級 (Intermediate)
+            - img [ref=e165]
+          - button "🛍️ 購物逛街英文 練習試穿衣物、詢問尺寸顏色、結帳退貨等購物情境對話。 初級 (Beginner)" [ref=e167]:
+            - generic [ref=e168]: 🛍️
+            - generic [ref=e169]:
+              - generic [ref=e171]: 購物逛街英文
+              - paragraph [ref=e172]: 練習試穿衣物、詢問尺寸顏色、結帳退貨等購物情境對話。
+              - generic [ref=e174]: 初級 (Beginner)
+            - img [ref=e175]
+          - button "🎉 社交聚會英文 練習派對開場、破冰聊天、邀約朋友等社交場合英文。 中級 (Intermediate)" [ref=e177]:
+            - generic [ref=e178]: 🎉
+            - generic [ref=e179]:
+              - generic [ref=e181]: 社交聚會英文
+              - paragraph [ref=e182]: 練習派對開場、破冰聊天、邀約朋友等社交場合英文。
+              - generic [ref=e184]: 中級 (Intermediate)
+            - img [ref=e185]
+          - button "✈️ 旅遊交通英文 練習問路、搭車、訂房、旅遊等旅行中常用英文對話。 中級 (Intermediate)" [ref=e187]:
+            - generic [ref=e188]: ✈️
+            - generic [ref=e189]:
+              - generic [ref=e191]: 旅遊交通英文
+              - paragraph [ref=e192]: 練習問路、搭車、訂房、旅遊等旅行中常用英文對話。
+              - generic [ref=e194]: 中級 (Intermediate)
+            - img [ref=e195]
+          - button "💼 職場辦公室英文 練習開會簡報、確認進度、請假溝通等職場英文對話。 進階 (Advanced)" [ref=e197]:
+            - generic [ref=e198]: 💼
+            - generic [ref=e199]:
+              - generic [ref=e201]: 職場辦公室英文
+              - paragraph [ref=e202]: 練習開會簡報、確認進度、請假溝通等職場英文對話。
+              - generic [ref=e204]: 進階 (Advanced)
+            - img [ref=e205]
+    - generic [ref=e305]:
+      - complementary [ref=e306]:
+        - generic [ref=e307]:
+          - generic [ref=e308]:
+            - img [ref=e310]
+            - generic [ref=e313]:
+              - heading "GROQ VOICE" [level=2] [ref=e314]
+              - paragraph [ref=e315]: 簡報智慧聲控助手
+          - generic [ref=e316]: 語音就緒
+        - generic [ref=e319]:
+          - paragraph [ref=e320]:
+            - img [ref=e321]
+            - text: 您好！我是簡報智慧助手。
+          - paragraph [ref=e324]: 我能用語音控制簡報，同時解答內容：
+          - generic [ref=e325]:
+            - button "「下一頁」" [ref=e326]
+            - button "「上一頁」" [ref=e327]
+            - button "「跳到第五頁」" [ref=e328]
+            - button "「生存線說什麼」" [ref=e329]
+        - button "啟用 AI 語音聆聽" [ref=e331]:
+          - img [ref=e332]
+          - generic [ref=e335]: 啟用 AI 語音聆聽
+      - main [ref=e336]:
+        - generic [ref=e339]:
+          - generic [ref=e341]:
+            - text: "Page 1 • STATION 00: START"
+            - heading "破解全英文語境" [level=1] [ref=e342]
+            - paragraph [ref=e343]: 美國都會生活導航指南
+            - paragraph [ref=e345]: 從日常通勤、社交破冰到突發狀況的道地應對模組，用最自然的聲線融入城市生活。
+          - generic:
+            - generic:
+              - text: Page 2 • SYSTEM MAP
+              - heading "都會生存英語軌道圖" [level=2]
+              - generic:
+                - generic:
+                  - generic:
+                    - heading "■ 基礎生存線" [level=3]
+                    - paragraph: 通勤/點餐/結帳 — 解決每日剛性需求。
+                  - generic:
+                    - heading "■ 深度連結線" [level=3]
+                    - paragraph: 寒暄/職場/聚會 — 維持雙向溝通流暢。
+                  - generic:
+                    - heading "■ 危機處理線" [level=3]
+                    - paragraph: 電話/醫療/救急 — 勇敢犯錯優雅救場。
+                - generic:
+                  - img:
+                    - generic:
+                      - generic: 通勤
+                    - generic:
+                      - generic: 點餐
+                    - generic:
+                      - generic: 結帳
+                    - generic:
+                      - generic: 寒暄
+                    - generic:
+                      - generic: 職場
+                    - generic:
+                      - generic: 聚會
+                    - generic:
+                      - generic: 客服
+                    - generic:
+                      - generic: 醫療
+                    - generic:
+                      - generic: 救急
+          - generic:
+            - generic:
+              - text: Page 3 • PRE-TRIP CALIBRATION
+              - heading "英文思維的「道地校準」" [level=2]
+              - generic:
+                - generic:
+                  - generic:
+                    - img
+                    - generic: 教科書直翻
+                  - generic:
+                    - generic:
+                      - generic: 猶豫不決：
+                      - text: I don't know
+                    - generic:
+                      - generic: 點餐購物：
+                      - text: I want this
+                    - generic:
+                      - generic: 嫌太貴：
+                      - text: It's too expensive
+                    - generic:
+                      - generic: 聽不懂：
+                      - text: What did you say?
+                - generic:
+                  - generic:
+                    - img
+                    - generic: 道地美語
+                  - generic:
+                    - generic: 道地： I'm on the fence
+                    - generic: 道地： Can I get...
+                    - generic: 道地： It's a little pricey
+                    - generic: 道地： Sorry, I didn't catch that
+          - generic:
+            - generic:
+              - text: Page 4 • TRANSIT & COMMUTE
+              - heading "城市通勤導航" [level=2]
+              - generic:
+                - generic:
+                  - heading "🚇 公共運輸" [level=3]
+                  - generic:
+                    - generic: "\"Does this train go downtown?\""
+                    - generic: "\"Do I tap again when transferring?\""
+                    - generic: "\"Is this the right bus to the airport?\""
+                - generic:
+                  - heading "🚗 共享搭乘" [level=3]
+                  - generic:
+                    - text: "\"Are you here for [Name]?\"\"Could you turn the AC up?\""
+                    - generic: 寒暄："Traffic was brutal this morning."
+          - generic:
+            - generic:
+              - text: Page 5 • ORDERING FORMULA
+              - heading "模組化點餐公式" [level=2]
+              - generic:
+                - generic:
+                  - generic:
+                    - text: 1. 開場 (Ask)
+                    - generic: Can I get...
+                    - generic: I'll go with...
+                    - generic: I'll take...
+                  - generic:
+                    - text: 2. 基底 (Base)
+                    - generic: iced latte
+                    - generic: cappuccino
+                    - generic: chicken bowl
+                  - generic:
+                    - text: 3. 客製 (Customs)
+                    - generic: with oat milk
+                    - generic: half sweet
+                    - generic: without onions
+                  - generic:
+                    - text: 4. 附加 (Extras)
+                    - generic: add extra shot
+                    - generic: sauce on side
+                    - generic: to go, please
+                - generic:
+                  - text: 實戰金句：
+                  - paragraph: "\"Can I get a medium iced latte with oat milk, half sweet, and add an extra shot, to go, please.\""
+          - generic:
+            - generic:
+              - text: Page 6 • CHECKOUT BATTLE
+              - heading "結帳攻防戰" [level=2]
+              - generic:
+                - generic:
+                  - heading "👔 人工結帳" [level=3]
+                  - paragraph: 店員起手式：
+                  - list:
+                    - listitem: "\"Did you find everything you needed today?\""
+                    - listitem: "\"Paper or plastic today?\""
+                    - listitem: "\"Will you be paying with card or cash?\""
+                  - paragraph: 你的回應：
+                  - list:
+                    - listitem: "\"I brought my own bag. I'll pay with card.\""
+                - generic:
+                  - heading "🖥 自助結帳" [level=3]
+                  - paragraph: 機台語音提示：
+                  - list:
+                    - listitem: "\"Please scan your item.\""
+                    - listitem: "\"Unexpected item in the bagging area.\""
+                  - paragraph: 尋求協助：
+                  - list:
+                    - listitem: "\"This item is not scanning properly.\""
+                    - listitem: "\"It rang up higher than I expected.\""
+          - generic:
+            - generic:
+              - text: Page 7 • SOCIAL BOUNDARY
+              - heading "社交邊界感矩陣" [level=2]
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: 週末死黨
+                    - generic: Casual × Close
+                    - paragraph: "\"Yo, you're up already?\""
+                  - generic:
+                    - generic: 辦公室日常
+                    - generic: Professional × Colleagues
+                    - paragraph: "\"Mondays always hit me hard.\""
+                  - generic:
+                    - generic: 派對破冰
+                    - generic: Casual × Strangers
+                    - paragraph: "\"I don't think we've met before.\""
+                  - generic:
+                    - generic: 初次商務
+                    - generic: Professional × Strangers
+                    - paragraph: "\"Nice to meet you here.\""
+          - generic:
+            - generic:
+              - text: Page 8 • CONVERSATION LOOP
+              - heading "對話推進迴圈" [level=2]
+              - generic:
+                - generic:
+                  - text: Step 1
+                  - heading "回應展現態度" [level=3]
+                  - paragraph: "\"I'm doing well, thanks for asking.\""
+                - generic:
+                  - text: Step 2
+                  - heading "拋回問題延伸" [level=3]
+                  - paragraph: "\"What's up with you today?\""
+                - generic:
+                  - text: Step 3
+                  - heading "情緒價值共鳴" [level=3]
+                  - paragraph: "\"Oh wow, that's actually crazy!\""
+              - generic:
+                - generic:
+                  - strong: 跳出迴圈：
+                  - text: "\"I'm going to grab a drink real quick.\""
+          - generic:
+            - generic:
+              - text: Page 9 • OFFICE NAVIGATION
+              - heading "辦公室專業溝通" [level=2]
+              - generic:
+                - generic:
+                  - heading "📋 專案進度" [level=3]
+                  - generic:
+                    - generic: "\"How's the presentation coming along?\""
+                    - generic: "\"Could you explain the process again?\""
+                    - generic: "\"I have another suggestion here.\""
+                - generic:
+                  - heading "🏖 請假與下班" [level=3]
+                  - generic:
+                    - generic: "\"I'd like to request next Monday off.\""
+                    - generic: "\"Would leaving early today be possible?\""
+                    - generic: "\"I'm heading out for tonight.\""
+          - generic:
+            - generic:
+              - text: Page 10 • PHONE FEAR
+              - heading "克服電話恐懼" [level=2]
+              - generic:
+                - generic:
+                  - generic:
+                    - text: 起點
+                    - text: "\"Hi, I'm calling about...\""
+                - generic:
+                  - generic:
+                    - text: 預約
+                    - paragraph: "\"...an appointment.\""
+                    - paragraph: Friday morning would be ideal.
+                  - generic:
+                    - text: 更改/取消
+                    - paragraph: "\"...rescheduling.\""
+                    - paragraph: Is it possible to push it back?
+                  - generic:
+                    - text: 客服查件
+                    - paragraph: "\"...my account.\""
+                    - paragraph: It keeps disconnecting.
+                - generic: 留言語音："Please call me when you're available. You can reach me at [Number]."
+          - generic:
+            - generic:
+              - text: Page 11 • PHARMACY & CLINIC
+              - heading "醫療急診救援" [level=2]
+              - generic:
+                - generic:
+                  - heading "痛覺等級描述" [level=3]
+                  - generic:
+                    - generic:
+                      - generic: 拖動滑桿模擬嚴重程度：
+                      - generic: 1 (輕度)
+                    - slider: "1"
+                    - generic:
+                      - generic: 輕/中度 (Dull Ache)
+                      - paragraph: "\"It feels more like a dull ache.\" (隱隱作痛)"
+                - generic:
+                  - generic:
+                    - generic:
+                      - heading "常見症狀描述" [level=4]
+                      - list:
+                        - listitem: "\"It hurts when I bend / chew.\""
+                        - listitem: "\"I feel a little nauseous.\""
+                        - listitem: "\"I twisted my ankle.\""
+                    - generic:
+                      - heading "藥局領藥" [level=4]
+                      - paragraph: "\"I'm here to pick up a prescription. It's under the name [Name].\""
+          - generic:
+            - generic:
+              - text: Page 12 • EMERGENCY COPE
+              - heading "尷尬時刻救生圈" [level=2]
+              - generic:
+                - generic:
+                  - text: 1. 爭取時間
+                  - list:
+                    - listitem: "\"That's a good question.\""
+                    - listitem: "\"Let me think for a second.\""
+                    - listitem: "\"I'm not totally sure.\""
+                - generic:
+                  - text: 2. 請求重述
+                  - list:
+                    - listitem: "\"Sorry, I didn't catch that.\""
+                    - listitem: "\"Wait, what did you mean?\""
+                    - listitem: "\"Can you say that again?\""
+                - generic:
+                  - text: 3. 切換話題
+                  - list:
+                    - listitem: "\"Anyway, what were you saying?\""
+                    - listitem: "\"By the way, did you see...\""
+          - generic:
+            - generic:
+              - text: Page 13 • SERVICE RECOVERY
+              - heading "客訴應對三步驟" [level=2]
+              - generic:
+                - generic:
+                  - generic:
+                    - text: 1. 點出問題
+                    - list:
+                      - listitem: "\"I think this isn't what I ordered.\""
+                      - listitem: "\"It rang up higher than expected.\""
+                  - generic:
+                    - text: 2. 提出訴求
+                    - list:
+                      - listitem: "\"Would it be possible to redo this?\""
+                      - listitem: "\"I'd like to request a refund.\""
+                  - generic:
+                    - text: 3. 緩和語氣
+                    - list:
+                      - listitem: "\"I'm sorry to bother you.\""
+                      - listitem: "\"Not at all, I understand.\""
+          - generic:
+            - generic:
+              - text: Page 14 • THE ALGORITHM
+              - heading "沉浸式語境的底層邏輯" [level=2]
+              - generic:
+                - generic:
+                  - text: 📡
+                  - heading "1. 情境預期" [level=3]
+                  - paragraph: 用預判取代聽力硬扛。在結帳前已預期對方會問 Paper or plastic / Insert or tap。
+                - generic:
+                  - text: 🧊
+                  - heading "2. 掌握模組" [level=3]
+                  - paragraph: 不要每次都重新造句。將點餐、寒暄、客訴視為「公式」，臨場只需抽換關鍵字。
+                - generic:
+                  - text: 💊
+                  - heading "3. 勇敢救場" [level=3]
+                  - paragraph: 母語人士也會結巴。掌握填充句，允許自己犯錯，讓對話持續流動。
+          - generic:
+            - generic:
+              - text: Page 15 • DESTINATION REACHED
+              - heading "The City is Yours to Explore." [level=2]
+              - paragraph:
+                - text: 語言不是完美的文法考試，而是你在這座城市生存、連結與探索的最佳導航工具。
+                - text: 帶著這份地圖，勇敢開啟你的全英文沉浸體驗。
+              - generic: SpeakUp AI Presenter•終端抵達：自信與勇氣
+        - generic [ref=e346]:
+          - generic [ref=e347]:
+            - button [ref=e348]:
+              - img [ref=e349]
+            - generic [ref=e351]: 01 / 15
+            - button [ref=e352]:
+              - img [ref=e353]
+          - generic [ref=e355]:
+            - generic [ref=e356]:
+              - button [ref=e357]
+              - button [ref=e358]
+              - button [ref=e359]
+              - button [ref=e360]
+              - button [ref=e361]
+              - button [ref=e362]
+              - button [ref=e363]
+              - button [ref=e364]
+              - button [ref=e365]
+              - button [ref=e366]
+              - button [ref=e367]
+              - button [ref=e368]
+              - button [ref=e369]
+              - button [ref=e370]
+              - button [ref=e371]
+            - button "大綱" [ref=e372]:
+              - img [ref=e373]
+              - text: 大綱
+            - button [ref=e374]:
+              - img [ref=e375]
