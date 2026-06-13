@@ -2,12 +2,13 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import {
   ChevronLeft, ChevronRight, Mic, MicOff,
   Sparkles, List, Maximize, MessageSquare,
-  HelpCircle, BookOpen, Notebook, Shirt, Home
+  HelpCircle, BookOpen, Notebook, Shirt, Home, Navigation
 } from 'lucide-react'
-import { LESSON_2_SLIDES, LESSON_3_SLIDES, LESSON_4_SLIDES } from './lessonData'
+import { LESSON_2_SLIDES, LESSON_3_SLIDES, LESSON_4_SLIDES, LESSON_5_SLIDES } from './lessonData'
 import { Lesson2Slide } from './Lesson2Slides'
 import { Lesson3Slide } from './Lesson3Slides'
 import { Lesson4Slide } from './Lesson4Slides'
+import { Lesson5Slide } from './Lesson5Slides'
 
 const API_KEY = import.meta.env.VITE_GROQ_API_KEY || ''
 
@@ -61,7 +62,7 @@ function SlidePainSlider() {
 }
 
 export default function Presentation() {
-  const [lessonMode, setLessonMode] = useState<'lesson1' | 'lesson2' | 'lesson3' | 'lesson4'>('lesson1')
+  const [lessonMode, setLessonMode] = useState<'lesson1' | 'lesson2' | 'lesson3' | 'lesson4' | 'lesson5'>('lesson1')
   const [currentSlide, setCurrentSlide] = useState(1)
   const [isListening, setIsListening] = useState(false)
   const [transcripts, setTranscripts] = useState<{ role: 'user' | 'system'; text: string }[]>([])
@@ -71,17 +72,20 @@ export default function Presentation() {
   const SLIDE_CONTENTS = lessonMode === 'lesson1' ? SLIDE_CONTENTS_L1
     : lessonMode === 'lesson2' ? Object.fromEntries(LESSON_2_SLIDES.map((s, i) => [i + 1, `${s.title}。${s.content}`]))
     : lessonMode === 'lesson3' ? Object.fromEntries(LESSON_3_SLIDES.map((s, i) => [i + 1, `${s.title}。${s.content}`]))
-    : Object.fromEntries(LESSON_4_SLIDES.map((s, i) => [i + 1, `${s.title}。${s.content}`]))
+    : lessonMode === 'lesson4' ? Object.fromEntries(LESSON_4_SLIDES.map((s, i) => [i + 1, `${s.title}。${s.content}`]))
+    : Object.fromEntries(LESSON_5_SLIDES.map((s, i) => [i + 1, `${s.title}。${s.content}`]))
   const SLIDE_TITLES = lessonMode === 'lesson1' ? SLIDE_TITLES_L1
     : lessonMode === 'lesson2' ? LESSON_2_SLIDES.map(s => s.title)
     : lessonMode === 'lesson3' ? LESSON_3_SLIDES.map(s => s.title)
-    : LESSON_4_SLIDES.map(s => s.title)
+    : lessonMode === 'lesson4' ? LESSON_4_SLIDES.map(s => s.title)
+    : LESSON_5_SLIDES.map(s => s.title)
   const totalSlides = lessonMode === 'lesson1' ? 15
     : lessonMode === 'lesson2' ? LESSON_2_SLIDES.length
     : lessonMode === 'lesson3' ? LESSON_3_SLIDES.length
-    : LESSON_4_SLIDES.length
+    : lessonMode === 'lesson4' ? LESSON_4_SLIDES.length
+    : LESSON_5_SLIDES.length
 
-  const switchLesson = (mode: 'lesson1' | 'lesson2' | 'lesson3' | 'lesson4') => {
+  const switchLesson = (mode: 'lesson1' | 'lesson2' | 'lesson3' | 'lesson4' | 'lesson5') => {
     setLessonMode(mode)
     setCurrentSlide(1)
   }
@@ -160,6 +164,26 @@ export default function Presentation() {
         [/破冰|接話|社交|聊天|附和/, 12, '第12頁「餐桌破冰術」：破冰說 So, do you come here often? 附和說 That\'s surprisingly smooth!'],
         [/禮貌|語氣|轉換|Could I get|祈使/, 13, '第13頁「禮貌語氣轉換器」：把 Give me a coffee 改為 Could I get a coffee please? 關鍵句 I was wondering if you could help me.'],
         [/金句|矩陣| cheat sheet/, 14, '第14頁「四大金句矩陣」：咖啡廳、餐廳、超市、酒吧各場景一句核心金句整理。'],
+      ]
+      for (const [regex, slide, reply] of pairs) {
+        if (regex.test(query)) {
+          goSlide(slide)
+          return reply
+        }
+      }
+    } else if (lessonMode === 'lesson5') {
+      const pairs: [RegExp, number, string][] = [
+        [/問路|步行|方向|迷路/, 3, '第3頁「步行問路求生圖鑑」：問距離說 Is it within walking distance? 直走說 Go straight for two blocks. 確認說 Just to make sure, left after the bank?'],
+        [/地鐵|公車|月台|方向|uptown|downtown/, 4, '第4頁「破解方向迷宮」：地鐵問 Does this train go downtown? 公車問 Is this the bus to downtown? 轉乘問 Where do I transfer exactly?'],
+        [/購票|進站|轉乘|票|tap|感應/, 5, '第5頁「購票轉乘黃金法則」：問票種 What kind of passes do you have? 儲值 I\'d like to reload my card. 轉乘問 Do I tap again when transferring?'],
+        [/叫車|Uber|Lyft|司機|上車/, 6, '第6頁「叫車服務溝通術」：定位說 I\'m by the main entrance. 驗證說 Are you here for Lynn? 行李說 Do you mind if I use the trunk?'],
+        [/臨時|停靠|下車|冷氣|路線/, 7, '第7頁「乘車突發狀況」：臨停說 Could we stop at Walgreens briefly? 下車說 Drop me here? 路線說 We missed the turn. 冷氣說 Turn the AC up?'],
+        [/自駕|導航|路況|GPS|車禍|施工/, 8, '第8頁「自駕實戰」：車禍說 There\'s an accident up ahead. 施工說 This road is under construction. 導航當機說 The GPS just froze.'],
+        [/加油|加油站|汽油|油錢/, 9, '第9頁「加油站生存法則」：油箱哪側說 Which side is my gas tank on? 加油機付說 Do I just pay at the pump? 加滿說 Fill it up with regular?'],
+        [/停車|停車標誌|罰單|拖吊/, 10, '第10-11頁「停車解碼」：晚上停說 So evenings should be fine right? 許可證說 This street looks permit only. 拖吊說 My car is gone. Was it towed?'],
+        [/支付|付款|現金|信用卡/, 12, '第12頁「支付大車拚」：感應說 You can tap your credit card. 加油機付說 Pay at the pump. 關鍵：攜帶感應信用卡解決90%交通消費。'],
+        [/迷航|延誤|搭錯|錯過/, 13, '第13頁「迷航應急矩陣」：走錯路說 Am I going the right way? 搭錯車說 I almost got off early. 導航當機說 The GPS just froze.'],
+        [/金句|小抄| cheat sheet/, 15, '第15頁「專屬出行小抄」：5句應急金句整理，建議截圖保存！'],
       ]
       for (const [regex, slide, reply] of pairs) {
         if (regex.test(query)) {
@@ -371,7 +395,9 @@ export default function Presentation() {
                 ? ['下一頁', '上一頁', '跳到第八頁', '購物英文查詢']
                 : lessonMode === 'lesson3'
                 ? ['下一頁', '上一頁', '跳到第三頁', '試穿英文查詢']
-                : ['下一頁', '上一頁', '跳到第五頁', '斷網怎麼說']
+                : lessonMode === 'lesson4'
+                ? ['下一頁', '上一頁', '跳到第五頁', '斷網怎麼說']
+                : ['下一頁', '上一頁', '跳到第十頁', '叫車英文查詢']
               ).map((cmd) => (
                 <button key={cmd} onClick={() => simulateVoice(cmd)}
                   className="bg-slate-900 px-2 py-1 rounded text-slate-400 font-mono text-[9px] hover:text-amber-300 transition text-left">
@@ -457,6 +483,14 @@ export default function Presentation() {
             }`}>
             <Home className="h-3 w-3" /> Lesson 4
           </button>
+          <button onClick={() => switchLesson('lesson5')}
+            className={`px-3 py-1 rounded-lg text-[10px] font-bold transition flex items-center gap-1 ${
+              lessonMode === 'lesson5'
+                ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                : 'text-slate-400 hover:text-slate-200 bg-slate-900/60 border border-slate-800/60'
+            }`}>
+            <Navigation className="h-3 w-3" /> Lesson 5
+          </button>
         </div>
 
         <div className="flex-1 relative overflow-hidden p-4 md:p-8">
@@ -478,6 +512,13 @@ export default function Presentation() {
             <>
               {Array.from({ length: totalSlides }, (_, i) => (
                 <Lesson4Slide key={`l4-${i + 1}`} page={i + 1} active={currentSlide === i + 1} />
+              ))}
+            </>
+          )}
+          {lessonMode === 'lesson5' && (
+            <>
+              {Array.from({ length: totalSlides }, (_, i) => (
+                <Lesson5Slide key={`l5-${i + 1}`} page={i + 1} active={currentSlide === i + 1} />
               ))}
             </>
           )}

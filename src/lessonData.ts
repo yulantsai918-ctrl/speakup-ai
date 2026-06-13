@@ -616,3 +616,255 @@ export const LESSON_3_SLIDES: LessonSlide[] = [
     practice: '帶著這份購物指南，自信走進任何一家服飾店吧！'
   },
 ]
+
+export const LESSON_5_SLIDES: LessonSlide[] = [
+  {
+    title: '美國出行完全指南：零死角交通英文實戰',
+    subtitle: '從地鐵轉乘到公路自駕的視覺化生存手冊',
+    category: 'Title',
+    content: `【美國出行完全指南：零死角交通英文實戰】
+• 從地鐵轉乘到公路自駕的視覺化生存手冊
+• 涵蓋三大領域: 大眾運輸、公路自駕、實戰溝通
+• 簡報製作: SpeakUp AI Presenter`,
+    phrases: [
+      { en: "Does this train go downtown?", zh: '這班車往市區嗎？' },
+      { en: "Is this the bus to downtown?", zh: '這是往市區的公車嗎？' },
+      { en: "Where do I transfer exactly?", zh: '我確切該在哪裡轉車？' },
+      { en: "Do I tap again when transferring?", zh: '轉乘時需要再刷一次嗎？' },
+    ],
+    practice: '用英文問路：確認這班車是否往市中心。'
+  },
+  {
+    title: '為什麼「行」的英文是生存之本？',
+    subtitle: 'Before vs After',
+    category: 'Introduction',
+    content: `【為什麼「行」的英文是生存之本？ (Why Travel English Matters)】
+• Before: 空間焦慮迷障 - Uptown/Downtown方向錯置、加油規則混亂、停車標誌黑洞
+• After: 流暢移動自由 - 隨心感應乘車、自如應對加油與自駕故障、解鎖隱藏停車時效潛規則`,
+    phrases: [
+      { en: "Uptown? Downtown?", zh: '上城區還是下城區？' },
+      { en: "Prepay inside?", zh: '要先進去店內付錢嗎？' },
+      { en: "Is this a tow zone?", zh: '這裡是拖吊區嗎？' },
+      { en: "Tap and go.", zh: '感應一下就通過了。' },
+    ],
+    practice: '說說你在美國交通上遇過最大的困惑是什麼。'
+  },
+  {
+    title: '步行問路求生圖鑑',
+    subtitle: 'Act I: Walking Directions',
+    category: 'Walking',
+    content: `【步行問路求生圖鑑 (Walking Directions)】
+• 四段關鍵空間對白:
+• 01. 起始點 (Origin): "Is it within walking distance?" (步行能到嗎?) → "It's about a 10-minute walk."
+• 02. 行進中 (On the Move): "Go straight for two blocks." (直走兩個街區)
+• 03. 轉角處 (At the Corner): "Turn left at the corner." (在轉角左轉)
+• 04. 目的地 (Destination): "You'll see a bank on your right... it's right across from that."
+• Pro Tip: 口頭重複對方指令以防聽錯: "Just to make sure, left after the bank?"`,
+    phrases: [
+      { en: "Is it within walking distance?", zh: '步行能到嗎？' },
+      { en: "Go straight for two blocks.", zh: '直走兩個街區。' },
+      { en: "Turn left at the corner.", zh: '在轉角左轉。' },
+      { en: "Just to make sure, left after the bank?", zh: '確認一下，過了銀行左轉對嗎？' },
+    ],
+    practice: '問路人怎麼走到最近的捷運站。'
+  },
+  {
+    title: '破解地鐵與公車的方向迷宮',
+    subtitle: 'Transit Direction',
+    category: 'Transit',
+    content: `【破解地鐵與公車的方向迷宮 (Subway & Bus Direction)）
+• 月台確認: 美國大型地鐵常分 Downtown (市中心/南下) 與 Uptown (郊區/北上)
+• 公車確認: 上車前與司機雙重確認 "Is this the bus to downtown?"
+• 轉乘樞紐: "Where do I transfer exactly?" 詢問確切轉乘點`,
+    phrases: [
+      { en: "Does this train go downtown?", zh: '這班車往市區嗎？' },
+      { en: "Is this the bus to downtown?", zh: '這是往市區的公車嗎？' },
+      { en: "Take the downtown bound train.", zh: '搭往市中心的車。' },
+      { en: "Where do I transfer exactly?", zh: '我確切該在哪裡轉車？' },
+    ],
+    practice: '在月台上問路人這班車是否往市區方向。'
+  },
+  {
+    title: '購票、進站與轉乘的黃金法則',
+    subtitle: 'Golden Rules',
+    category: 'Transit',
+    content: `【購票、進站與轉乘的黃金法則 (Ticket & Transfer Rules)）
+• 購票機溝通: "What kind of passes do you have?" / "I'd like to reload my card."
+• 閘門進站: "You can tap your credit card." / "Do I need to tap when exiting?"
+• 轉乘規則: 大部分城市提供地鐵公車互轉2小時內免費。"Do I tap again when transferring?" → "No, it counts as one ride."`,
+    phrases: [
+      { en: "What kind of passes do you have?", zh: '你們有賣什麼票種？' },
+      { en: "I'd like to reload my card.", zh: '我想要儲值我的卡。' },
+      { en: "Do I tap again when transferring?", zh: '轉乘時需要再刷一次嗎？' },
+      { en: "It counts as one ride.", zh: '這算在同一趟車程內。' },
+    ],
+    practice: '在售票機前問有哪些票種可以選擇。'
+  },
+  {
+    title: '叫車服務溝通術',
+    subtitle: 'Ride-Share',
+    category: 'Ride-Share',
+    content: `【叫車服務 (Ride-Share) 溝通術 (Uber & Lyft Communication)）
+• Stage 1 尋找彼此 (Location): "I'm by the main entrance." / "I might be on the other side."
+• Stage 2 身份驗證 (Security): "Are you here for Lynn?" / "Yes, heading to the airport right?"
+• Stage 3 放置行李 (Luggage): "Do you mind if I use the trunk?" / "Sure, I can help with your bag."`,
+    phrases: [
+      { en: "I'm by the main entrance.", zh: '我在正門口。' },
+      { en: "Are you here for Lynn?", zh: '你是來接 Lynn 的嗎？' },
+      { en: "Do you mind if I use the trunk?", zh: '介意我放後車廂嗎？' },
+      { en: "Sure, I can help with your bag.", zh: '當然，我幫你拿行李。' },
+    ],
+    practice: '模擬叫車：告訴司機你在正門口，並確認目的地。'
+  },
+  {
+    title: '乘車突發狀況與路線調整',
+    subtitle: 'In-Transit Emergencies',
+    category: 'Ride-Share',
+    content: `【乘車突發狀況與路線調整 (In-Transit Emergencies)】
+• 臨時停靠: "Actually, could we stop at Walgreens briefly?" (可以短暫停一下Walgreens嗎?)
+• 指定下車: "Would it be possible to drop me here?" (可以在這裡讓我下車嗎?)
+• 路線修正: "I think we missed the turn back there." (我想我們剛錯過轉彎了)
+• 舒適調整: "Could you turn the AC up?" (可以把冷氣開強一點嗎?)`,
+    phrases: [
+      { en: "Actually, could we stop at Walgreens briefly?", zh: '可以短暫停一下 Walgreens 嗎？' },
+      { en: "Would it be possible to drop me here?", zh: '可以在這裡讓我下車嗎？' },
+      { en: "I think we missed the turn back there.", zh: '我想我們剛剛錯過轉彎處了。' },
+      { en: "Could you turn the AC up?", zh: '可以把冷氣開強一點嗎？' },
+    ],
+    practice: '用英文跟司機說想在路邊的超市短暫停一下。'
+  },
+  {
+    title: '自駕實戰：導航與路況應對',
+    subtitle: 'Road Trip',
+    category: 'Driving',
+    content: `【自駕實戰：導航與路況應對 (Road Trip)）
+• 窗外路況: "There's an accident up ahead." (前方有車禍) / "This road is under construction." (施工中)
+• 導航狀況: "Recalculating..." / "The GPS just froze on me." (導航當機)
+• 車內對話: "Wait, was that our turn?" / "I think we just missed the exit."`,
+    phrases: [
+      { en: "There's an accident up ahead.", zh: '前方有車禍。' },
+      { en: "This road is under construction.", zh: '這條路在施工。' },
+      { en: "The GPS just froze on me.", zh: '導航突然當機了。' },
+      { en: "I think we just missed the exit.", zh: '我想我們錯過出口了。' },
+    ],
+    practice: '用英文跟副駕說前方有車禍，需要改道。'
+  },
+  {
+    title: '美國加油站生存法則',
+    subtitle: 'Gas Station',
+    category: 'Driving',
+    content: `【美國加油站生存法則 (Gas Station Survival)】
+• 首要確認: "Which side is my gas tank on?" (油箱在哪一側？)
+• Path A 順利操作: "Do I just pay at the pump?" / "Can you fill it up with regular?"
+• Path B 遭遇故障: "The card reader isn't working." (刷卡機壞了) / "Can I pay inside instead?" (改去裡面付) / "Prepay inside." (先預付油錢)`,
+    phrases: [
+      { en: "Which side is my gas tank on?", zh: '我的油箱在哪一側？' },
+      { en: "Do I just pay at the pump?", zh: '我直接在加油機付款嗎？' },
+      { en: "Can you fill it up with regular?", zh: '可以幫我加滿一般無鉛汽油嗎？' },
+      { en: "Can I pay inside instead?", zh: '我可以改去裡面付嗎？' },
+    ],
+    practice: '到加油站發現刷卡機壞了，用英文問能不能進去付錢。'
+  },
+  {
+    title: '破解美國停車標誌解碼',
+    subtitle: 'Parking Rules',
+    category: 'Driving',
+    content: `【破解美國停車標誌解碼 (Parking Sign Decoder)】
+• 三層過濾邏輯:
+• 1. 絕對禁令 (Sweeping Rule): NO PARKING MORNINGS ONLY → "So evenings should be fine right?"
+• 2. 條件允許 (Conditional Rule): 2 HR PARKING 8AM-6PM → "Can I park here after 6?"
+• 3. 特權區 (The Exception): PERMIT ONLY → "This street looks permit only." / "Is this a legal parking spot?"`,
+    phrases: [
+      { en: "So evenings should be fine right?", zh: '所以晚上停應該沒問題對吧？' },
+      { en: "Can I park here after 6?", zh: '六點之後可以停這裡嗎？' },
+      { en: "This street looks permit only.", zh: '這條街看起來需要停車許可證。' },
+      { en: "Is this a legal parking spot?", zh: '這是合法的停車位嗎？' },
+    ],
+    practice: '看到路邊停車標誌，用英文確認晚上是否可以停車。'
+  },
+  {
+    title: '停車地雷：繳費、罰單與拖吊應對',
+    subtitle: 'Parking Emergency',
+    category: 'Driving',
+    content: `【停車地雷：繳費、罰單與拖吊應對 (Parking Emergencies)】
+• 路邊繳費: "Do I need to pay at the meter?" / "Do I pay before leaving?"
+• 收到罰單: "I think I got a parking ticket." / "Where can I pay the fine?" / "Can I appeal this parking ticket?"
+• 車被拖吊: "My car is gone. Was it towed?" (最糟情境)`,
+    phrases: [
+      { en: "Do I need to pay at the meter?", zh: '我需要在那個繳費機付費嗎？' },
+      { en: "I think I got a parking ticket.", zh: '我想我被開了一張停車罰單。' },
+      { en: "Can I appeal this parking ticket?", zh: '我可以申訴這張罰單嗎？' },
+      { en: "My car is gone. Was it towed?", zh: '我的車不見了，是被拖走了嗎？' },
+    ],
+    practice: '發現車被拖走了，用英文打電話詢問拖吊保管場。'
+  },
+  {
+    title: '終極比較：美國交通支付大車拚',
+    subtitle: 'Payment Matrix',
+    category: 'Reference',
+    content: `【終極比較：美國交通支付大車拚 (Payment Matrix)】
+• 手機App: 地鐵官方APP電子票證、ParkMobile停車、叫車APP內結帳
+• 感應支付 (Tap-to-Pay): 地鐵進站感應信用卡、加油機直接感應
+• 現金/預付: 售票機購單程票、加油站進店內預付
+• 關鍵洞察: 實體現金使用率極低。攜帶感應信用卡或手機Apple Pay解決90%交通消費`,
+    phrases: [
+      { en: "You can tap your credit card.", zh: '你可以感應信用卡。' },
+      { en: "Do I pay through the app?", zh: '我透過APP付款嗎？' },
+      { en: "Pay at the pump.", zh: '在加油機直接付款。' },
+      { en: "Prepay inside.", zh: '先進店內預付。' },
+    ],
+    practice: '用英文問地鐵站務員是否可以直接感應信用卡進站。'
+  },
+  {
+    title: '迷航與延誤應急矩陣',
+    subtitle: 'Emergency Escape',
+    category: 'Reference',
+    content: `【迷航與延誤應急矩陣 (Lost & Delay Emergencies)】
+• 步行: "I'm trying to get to Main Street. Am I going the right way?"
+• 大眾運輸: "I almost got off early. Does this train go downtown?"
+• 叫車: "This doesn't look like the right address. I think we missed the turn."
+• 自駕: "The GPS just froze on me. It keeps saying recalculating."`,
+    phrases: [
+      { en: "Am I going the right way?", zh: '我走的方向對嗎？' },
+      { en: "I almost got off early.", zh: '我差點提早下車。' },
+      { en: "This doesn't look like the right address.", zh: '這不像正確地址。' },
+      { en: "It keeps saying recalculating.", zh: '它一直顯示重新計算中。' },
+    ],
+    practice: '發現走錯路了，用英文問路人你走的方向是否正確。'
+  },
+  {
+    title: '總結：美國交通溝通的潛規則',
+    subtitle: 'Cultural Codes',
+    category: 'Summary',
+    content: `【總結：美國交通溝通的潛規則 (Cultural Codes)】
+• 禮貌 (Politeness): 永遠以 "Excuse me, can you help me find..." 開頭，結束加 "Have a great rest of your day."
+• 直率 (Directness): "Just to make sure..." 直接確認比兜圈子更有效率
+• 情境感知 (Awareness): 掌握 "It counts as one ride" 與 "Watch the time limit" 等核心原則`,
+    phrases: [
+      { en: "Excuse me, can you help me find...", zh: '不好意思，可以幫我找一下…' },
+      { en: "Just to make sure...", zh: '只是想確認一下…' },
+      { en: "Have a great rest of your day.", zh: '祝您今天愉快。' },
+      { en: "Watch the time limit.", zh: '注意時限。' },
+    ],
+    practice: '綜合練習：用禮貌、直接且敏銳的方式問路。'
+  },
+  {
+    title: '你的專屬出行小抄',
+    subtitle: 'Cheat Sheet',
+    category: 'Summary',
+    content: `【你的專屬出行小抄 (Urban Survival Cheat Sheet)】
+• 1. 方向迷失時: "Just to make sure, am I going the right way?"
+• 2. 地鐵轉乘時: "Do I tap again when transferring, or does it count as one ride?"
+• 3. 叫車找人時: "I'm by the main entrance. Heading to the airport, right?"
+• 4. 導航崩潰時: "The GPS just froze. It keeps saying recalculating."
+• 5. 停車自救時: "Is this a legal parking spot after 6 PM?"
+• 截圖保存這張卡片，下次出行直接用！`,
+    phrases: [
+      { en: "Just to make sure, am I going the right way?", zh: '確認一下，我走的方向對嗎？' },
+      { en: "Do I tap again when transferring?", zh: '轉乘時要再刷一次嗎？' },
+      { en: "I'm by the main entrance. Heading to the airport, right?", zh: '我在正門口，前往機場對吧？' },
+      { en: "Is this a legal parking spot after 6 PM?", zh: '晚上六點之後這裡可以合法停車嗎？' },
+    ],
+    practice: '截圖保存這5句應急金句，下次出行直接用！'
+  },
+]

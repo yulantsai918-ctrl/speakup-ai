@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>美國出行完全指南：零死角交通英文實戰</title>
+    <!-- Tailwind CSS for high-fidelity utility styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for sharp UI icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tone.js for high-tech UI feedback sounds -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            bg: '#0a0d10',
+                            card: '#11161d',
+                            yellow: '#f5c518',
+                            yellowGlow: '#ffd700',
+                            blue: '#00e5ff',
+                            green: '#39ff14',
+                            red: '#ff3838',
+                            muted: '#7a8b9e'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Microsoft JhengHei', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom slide scrolling / transition physics */
+        .slides-container {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            width: 100%;
+            height: 100%;
+        }
+        .slide-deck {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #f5c518 #11161d;
+        }
+        /* Custom glowing text and borders for cyber look */
+        .neon-border-yellow {
+            box-shadow: 0 0 15px rgba(245, 197, 24, 0.2);
+            border: 1px solid rgba(245, 197, 24, 0.4);
+        }
+        .neon-border-blue {
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+            border: 1px solid rgba(0, 229, 255, 0.4);
+        }
+        .neon-text-yellow {
+            text-shadow: 0 0 8px rgba(245, 197, 24, 0.6);
+        }
+        .pulse-yellow {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.02); }
+        }
+        /* Custom scrollbar */
+        .slide-deck::-webkit-scrollbar {
+            width: 6px;
+        }
+        .slide-deck::-webkit-scrollbar-track {
+            background: #0a0d10;
+        }
+        .slide-deck::-webkit-scrollbar-thumb {
+            background-color: #f5c518;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="bg-cyber-bg text-gray-100 font-sans overflow-hidden h-screen flex flex-col justify-between">
+
+    <!-- Top Interactive Header -->
+    <header class="bg-cyber-card border-b border-gray-800 px-6 py-3 flex justify-between items-center z-40 select-none">
+        <div class="flex items-center space-dash gap-3">
+            <span class="bg-cyber-yellow text-black font-extrabold px-3 py-1 rounded text-xs tracking-wider pulse-yellow uppercase">The Urban Wayfinder</span>
+            <h2 class="text-sm md:text-base font-bold text-gray-300 hidden sm:block">美國出行完全指南</h2>
+        </div>
+        <div class="flex items-center gap-4">
+            <!-- Audio Indicator Toggle -->
+            <button id="soundToggle" class="text-cyber-muted hover:text-cyber-blue transition" title="切換系統提示音">
+                <i class="fas fa-volume-up text-lg"></i>
+            </button>
+            <!-- Fullscreen trigger -->
+            <button onclick="toggleFullscreen()" class="text-cyber-muted hover:text-cyber-yellow transition">
+                <i class="fas fa-expand text-lg"></i>
+            </button>
+            <!-- Sidebar trigger -->
+            <button onclick="toggleSidebar()" class="text-cyber-muted hover:text-cyber-blue transition">
+                <i class="fas fa-th-large text-lg"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Sidebar Thumbnail Navigation Container -->
+    <div id="thumbnailSidebar" class="fixed right-0 top-14 bottom-14 w-80 bg-cyber-card border-l border-gray-800 translate-x-full transition-transform duration-300 ease-in-out z-50 p-4 overflow-y-auto select-none">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-cyber-yellow font-bold text-sm tracking-wider uppercase"><i class="fas fa-list-ol mr-2"></i>章節索引</h3>
+            <button onclick="toggleSidebar()" class="text-gray-400 hover:text-cyber-red"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="space-y-3" id="sidebarList">
+            <!-- Injected by JS -->
+        </div>
+    </div>
+
+    <!-- Main Presentation Slide Arena -->
+    <main class="relative flex-grow overflow-hidden w-full h-full">
+        <div id="slidesWrapper" class="slides-container">
+
+            <!-- Slide 1: Cover Page -->
+            <section class="slide-deck p-8 md:p-16 flex flex-col justify-between h-full bg-gradient-to-br from-cyber-bg to-slate-900">
+                <div class="my-auto max-w-4xl mx-auto space-y-6">
+                    <div class="flex items-center gap-2">
+                        <span class="h-1 w-12 bg-cyber-yellow"></span>
+                        <span class="text-cyber-yellow tracking-widest text-sm font-bold uppercase">NotebookLM Presenter</span>
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-black text-white leading-tight neon-text-yellow">
+                        美國出行完全指南：<br>
+                        <span class="text-cyber-yellow">零死角交通英文實戰</span>
+                    </h1>
+                    <p class="text-lg md:text-2xl text-cyber-muted font-light max-w-2xl leading-relaxed">
+                        從地鐵轉乘到公路自駕的視覺化生存手冊
+                    </p>
+                    <div class="pt-6 flex gap-4 flex-wrap">
+                        <span class="bg-gray-800 border border-gray-700 text-gray-300 px-4 py-2 rounded-full text-xs font-semibold"><i class="fas fa-subway mr-2 text-cyber-blue"></i>大眾運輸</span>
+                        <span class="bg-gray-800 border border-gray-700 text-gray-300 px-4 py-2 rounded-full text-xs font-semibold"><i class="fas fa-car mr-2 text-cyber-yellow"></i>公路自駕</span>
+                        <span class="bg-gray-800 border border-gray-700 text-gray-300 px-4 py-2 rounded-full text-xs font-semibold"><i class="fas fa-comments mr-2 text-cyber-green"></i>實戰溝通</span>
+                    </div>
+                </div>
+                <div class="max-w-4xl mx-auto w-full text-xs text-cyber-muted flex justify-between border-t border-gray-800 pt-4">
+                    <span>THE URBAN WAYFINDER // SLIDE 01</span>
+                    <span>NotebookLM</span>
+                </div>
+            </section>
+
+            <!-- Slide 2: Why travel English matters / Before & After -->
+            <section class="slide-deck p-8 md:p-16 flex flex-col justify-between h-full">
+                <div class="my-auto max-w-6xl mx-auto w-full space-y-8">
+                    <div class="text-center md:text-left">
+                        <span class="text-cyber-yellow font-bold text-xs tracking-wider uppercase">// INTRODUCTION</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-1">為什麼「行」的英文是生存之本？</h2>
+                        <p class="text-cyber-muted mt-2">在美國，交通不僅是移動的方式，更是一套充滿潛規則的系統。本簡報將帶您進行一場「空間進化之旅」，透過視覺化拆解，消除您的出行焦慮。</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8 pt-4">
+                        <!-- Before Box -->
+                        <div class="bg-red-950/20 border border-cyber-red/30 rounded-xl p-6 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-cyber-red text-white text-xs font-bold px-3 py-1 rounded-bl">BEFORE: CONFUSION & STRESS</div>
+                            <h3 class="text-xl font-bold text-cyber-red mb-4"><i class="fas fa-times-circle mr-2"></i>空間焦慮迷障</h3>
+                            <div class="space-y-3">
+                                <div class="bg-black/40 p-3 rounded border border-gray-800 flex justify-between items-center">
+                                    <span class="text-white font-semibold">Uptown? Downtown?</span>
+                                    <span class="text-xs text-cyber-red">方向錯置</span>
+                                </div>
+                                <div class="bg-black/40 p-3 rounded border border-gray-800 flex justify-between items-center">
+                                    <span class="text-white font-semibold">Prepay Inside?</span>
+                                    <span class="text-xs text-cyber-red">加油規則混亂</span>
+                                </div>
+                                <div class="bg-black/40 p-3 rounded border border-gray-800 flex justify-between items-center">
+                                    <span class="text-white font-semibold">Tow Zone / Permit Only?</span>
+                                    <span class="text-xs text-cyber-red">停車標誌黑洞</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- After Box -->
+                        <div class="bg-green-950/20 border border-cyber-green/30 rounded-xl p-6 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-cyber-green text-black text-xs font-bold px-3 py-1 rounded-bl">AFTER: CONFIDENCE & CLARITY</div>
+                            <h3 class="text-xl font-bold text-cyber-green mb-4"><i class="fas fa-check-circle mr-2"></i>流暢移動自由</h3>
+                            <div class="space-y-3">
+                                <div class="bg-black/40 p-3 rounded border border-gray-800 flex justify-between items-center">
+                                    <span class="text-white font-semibold">隨心感應乘車 (Tap & Go)</span>
+                                    <span class="text-xs text-cyber-green">一鍵扣款</span>
+                                </div>
+                                <div class="bg-black/40 p-3 rounded border border-gray-800 flex justify-between items-center">
+                                    <span class="text-white font-semibold">自如應對加油與自駕故障</span>
+                                    <span class="text-xs text-cyber-green">有條不紊</span>
+                                </div>
+                                <div class="bg-black/40 p-3 rounded border border-gray-800 flex justify-between items-center">
+                                    <span class="text-white font-semibold">解鎖隱藏停車時效潛規則</span>
+                                    <span class="text-xs text-cyber-green">全身而退</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="max-w-6xl mx-auto w-full text-xs text-cyber-muted flex justify-between border-t border-gray-800 pt-4">
+                    <span>THE URBAN WAYFINDER // SLIDE 02</span>
+                    <span>NotebookLM</span>
+                </div>
+            </section>
+
+            <!-- Slide 3: Act I: 步行問路求生圖鑑 -->
+            <section class="slide-deck p-8 md:p-16 flex flex-col justify-between h-full">
+                <div class="my-auto max-w-6xl mx-auto w-full space-y-6">
+                    <div>
+                        <span class="text-cyber-yellow font-bold text-xs tracking-wider uppercase">// ACT I</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-1">步行問路求生圖鑑</h2>
+                        <p class="text-cyber-muted">掌握出發到抵達的四段關鍵空間對白</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-4 gap-4 pt-2">
+                        <!-- Step 1 -->
+                        <div class="bg-cyber-card border border-gray-800 rounded-xl p-5 hover:border-cyber-yellow transition">
+                            <div class="text-cyber-yellow text-xs font-bold mb-2">01. 起始點 (Origin)</div>
+                            <p class="text-sm font-semibold text-white">Is it within walking distance?</p>
+                            <p class="text-xs text-cyber-muted mt-1">(步行能到嗎?)</p>
+                            <div class="border-t border-gray-800 mt-4 pt-3 text-xs text-cyber-blue">
+                                <i class="fas fa-reply mr-1"></i> "It's about a 10-minute walk." (大約走10分鐘。)
+                            </div>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="bg-cyber-card border border-gray-800 rounded-xl p-5 hover:border-cyber-yellow transition">
+                            <div class="text-cyber-yellow text-xs font-bold mb-2">02. 行進中 (On the Move)</div>
+                            <p class="text-sm font-semibold text-white">Go straight for two blocks.</p>
+                            <p class="text-xs text-cyber-muted mt-1">(直走兩個街區。)</p>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="bg-cyber-card border border-gray-800 rounded-xl p-5 hover:border-cyber-yellow transition">
+                            <div class="text-cyber-yellow text-xs font-bold mb-2">03. 轉角處 (At the Corner)</div>
+                            <p class="text-sm font-semibold text-white">Turn left at the corner.</p>
+                            <p class="text-xs text-cyber-muted mt-1">(在轉角左轉。)</p>
+                        </div>
+                        <!-- Step 4 -->
+                        <div class="bg-cyber-card border border-gray-800 rounded-xl p-5 hover:border-cyber-yellow transition">
+                            <div class="text-cyber-yellow text-xs font-bold mb-2">04. 目的地 (Destination)</div>
+                            <p class="text-sm font-semibold text-white">You'll see a bank on your right... it's right across from that.</p>
+                            <p class="text-xs text-cyber-muted mt-1">(你會看到右邊有家銀行，就在那正對面。)</p>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Pro Tip Box -->
+                    <div class="bg-cyber-yellow/10 border-2 border-dashed border-cyber-yellow rounded-xl p-5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div class="flex items-center gap-3">
+                            <span class="bg-cyber-yellow text-black text-xs font-bold px-3 py-1 rounded">PRO TIP</span>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">問路時的終極確認句型</h4>
+                                <p class="text-xs text-cyber-muted mt-1">口頭重複對方指令以防聽錯，絕對保險的防呆防漏句式：</p>
+                            </div>
+                        </div>
+                        <div class="bg-black/50 px-4 py-3 rounded-lg border border-gray-800 w-full md:w-auto">
+                            <span class="text-cyber-yellow font-mono font-bold text-sm">Just to make sure, left after the bank?</span>
+                            <span class="block text-xs text-gray-400 mt-1">(確認一下，過了銀行左轉對嗎？)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="max-w-6xl mx-auto w-full text-xs text-cyber-muted flex justify-between border-t border-gray-800 pt-4">
+                    <span>THE URBAN WAYFINDER // SLIDE 03</span>
+                    <span>NotebookLM</span>
+                </div>
+            </section>
+
+            <!-- Slide 4: 破解地鐵與公車的方向迷宮 -->
+            <section class="slide-deck p-8 md:p-16 flex flex-col justify-between h-full">
+                <div class="my-auto max-w-6xl mx-auto w-full space-y-6">
+                    <div>
+                        <span class="text-cyber-yellow font-bold text-xs tracking-wider uppercase">// TRANSIT DIRECTION</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-1">破解地鐵與公車的方向迷宮</h2>
+                        <p class="text-cyber-muted">不再搭反！掌握美國大眾運輸的空間邏輯與關鍵問話</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-6 pt-2">
+                        <!-- Subway Logic -->
+                        <div class="bg-cyber-card border border-gray-800 rounded-xl p-6 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-center mb-4">
+                                    <span class="bg-cyber-blue/10 text-cyber-blue text-xs font-bold px-2 py-1 rounded">月台確認 Platform</span>
+                                    <i class="fas fa-subway text-cyber-blue"></i>
+                                </div>
+                                <h4 class="text-white font-bold mb-2">Downtown 還是 Uptown？</h4>
+                                <p class="text-xs text-cyber-muted leading-relaxed mb-4">美國大型地鐵（如紐約地鐵）常分為 Downtown（市中心/南下）與 Uptown（郊區/北上）方向，進錯月台可能無法在地下直接回頭。</p>
+                            </div>
+                            <div class="bg-black/40 p-4 rounded border border-gray-800 space-y-3 text-xs">
+                                <div>
+                                    <p class="text-cyber-yellow font-semibold">Q: "Does this train go downtown?"</p>
+                                    <p class="text-gray-400">(班車往市區/南下嗎？)</p>
+                                </div>
+                                <hr class="border-gray-800">
+                                <div>
+                                    <p class="text-cyber-green font-semibold">A: "Take the downtown bound train. Not the Uptown side."</p>
+                                    <p class="text-gray-400">(搭往市中心的車。不是往上城區的方向。)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bus Logic -->
+                        <div class="bg-cyber-card border border-gray-800 rounded-xl p-6 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-center mb-4">
+                                    <span class="bg-cyber-yellow/10 text-cyber-yellow text-xs font-bold px-2 py-1 rounded">公車確認 Bus Route</span>
+                                    <i class="fas fa-bus text-cyber-yellow"></i>
+                                </div>
+                                <h4 class="text-white font-bold mb-2">上車前與司機雙重確認</h4>
+                                <p class="text-xs text-cyber-muted leading-relaxed mb-4">公車站牌通常與地鐵類似，也會有 Downtown 或特地大城市（例如 to Brooklyn）方向提示，確保方向最簡單的做法就是親自與司機對口。</p>
+                            </div>
+                            <div class="bg-black/40 p-4 rounded border border-gray-800 space-y-3 text-xs">
+                                <div>
+                                    <p class="text-cyber-yellow font-semibold">Q: "Is this the bus to downtown?"</p>
+                                    <p class="text-gray-400">(這是往市區的公車嗎？)</p>
+                                </div>
+                                <hr class="border-gray-800">
+                                <div>
+                                    <p class="text-cyber-green font-semibold">A: "Yeah, just stay on for three stops."</p>
+                                    <p class="text-gray-400">(對，再搭三站就到了。)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hub Transfers -->
+                        <div class="bg-cyber-card border border-gray-800 rounded-xl p-6 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-center mb-4">
+                                    <span class="bg-cyber-green/10 text-cyber-green text-xs font-bold px-2 py-1 rounded">轉乘樞紐 Transfer</span>
+                                    <i class="fas fa-random text-cyber-green"></i>
+                                </div>
+                                <h4 class="text-white font-bold mb-2">複雜樞紐的精準定位</h4>
+                                <p class="text-xs text-cyber-muted leading-relaxed mb-4">轉乘指標常會有 to BROOKLYN → 或 TRANSFER TO 1 2 3。詢問他人時應多用 "Exactly" 定位關鍵轉接點。</p>
+                            </div>
+                            <div class="bg-black/40 p-4 rounded border border-gray-800 space-y-3 text-xs">
+                                <div>
+                                    <p class="text-cyber-yellow font-semibold">Q: "Where do I transfer exactly?"</p>
+                                    <p class="text-gray-400">(我確切該在哪裡轉車？)</p>
+                                </div>
+                                <hr class="border-gray-800">
+                                <div>
+                                    <p class="text-cyber-green font-semibold">A: "At Central Station, last stop."</p>
+                                    <p class="text-gray-400">(在中央車站，最後一站。)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="max-w-6xl mx-auto w-full text-xs text-cyber-muted flex justify-between border-t border-gray-800 pt-4">
+                    <span>THE URBAN WAYFINDER // SLIDE 04</span>
+                    <span>NotebookLM</span>
+                </div>
+            </section>
+
+            <!-- Slide 5: 購票、進站與轉乘的黃金法則 -->
+            <section class="slide-deck p-8 md:p-16 flex flex-col justify-between h-full">
+                <div class="my-auto max-w-6xl mx-auto w-full space-y-6">
+                    <div>
+                        <span class="text-cyber-yellow font-bold text-xs tracking-wider uppercase">// GOLDEN RULES</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-1">購票、進站與轉乘的黃金法則</h2>
+                        <p class="text-cyber-muted">從買票到搭車，美國大眾運輸的完整流程與省錢句型</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- Step 1 Card -->
+                        <div class="bg-cyber-card border border-gray-800 rounded-xl p-5 hover:border-cyber-yellow transition flex flex-col md:flex-row justify-between gap-4">
+                            <div class="flex items-start gap-4">
+                                <span class="bg-cyber-yellow text-black font-extrabold px-3 py-1 rounded text-sm">1</span>
+                                <div>
+                                    <h4 class="font-bold text-white">購票機 (Ticket Machine) 的溝通與購買</h4>
+                                    <p class="text-xs text-cyber-muted mt-1">釐清要購買一日票或單程票、儲值悠遊卡時所用的字詞。</p>
+                                </div>
+                            </div>
+                            <div class="bg-black/50 p-3 rounded-lg border border-gray-800 text-xs md:w-1/2 space-y-2">
+                                <div class="flex justify-between"><span class="text-cyber-yellow font-semibold">"What kind of passes do you have?"</span><span class="text-cyber-muted">(你們有賣什麼票種？)</span></div>
+                                <div class="flex justify-between text-cyber-green"><span>"We have single rides and day passes."</span><span>(我們有單程票和一日票。)</span></div>
+                                <div class="flex justify-between"><span class="text-cyber-yellow font-semibold">"I'd like to reload my card."</span><span class="text-cyber-muted">(我想要儲值我的卡。)</span></div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 Card -->
+                        <div class="bg-cyber-card border border-gray-800 rounded-xl p-5 hover:border-cyber-blue transition flex flex-col md:flex-row justify-between gap-4">
+                            <div class="flex items-start gap-4">
+                                <span class="bg-cyber-blue text-black font-extrabold px-3 py-1 rounded text-sm">2</span>
+                                <div>
+                                    <h4 class="font-bold text-white">閘門進站 (The Turnstile) 的感應常規</h4>
+                                    <p class="text-xs text-cyber-muted mt-1">現今美國大部分主流地鐵都已支援直接感應信用卡（如 OMNY）。</p>
+                                </div>
+                            </div>
+                            <div class="bg-black/50 p-3 rounded-lg border border-gray-800 text-xs md:w-1/2 space-y-2">
+                                <div class="flex justify-between"><span class="text-cyber-green font-semibold">"You can tap your credit card."</span><span class="text-cyber-muted">(你可以感應信用卡。)</span></div>
+                                <div class="flex justify-between"><span class="text-cyber-yellow font-semibold">"Do I need to tap when exiting?"</span><span class="text-cyber-muted">(出站時需要刷卡嗎？)</span></div>
+                                <div class="flex justify-between text-cyber-green"><span>"No, just tap when entering."</span><span>(不用，進站刷即可。)</span></div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 Card (Golden Rules Highlight) -->
+                        <div class="bg-cyber-card border-2 border-cyber-yellow rounded-xl p-5 hover:border-cyber-yellow transition flex flex-col md:flex-row justify-between gap-4 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-cyber-yellow text-black font-bold text-[10px] px-2 py-0.5 rounded-bl">KEY SAVINGS</div>
+                            <div class="flex items-start gap-4">
+                                <span class="bg-cyber-yellow text-black font-extrabold px-3 py-1 rounded text-sm">3</span>
+                                <div>
+                                    <h4 class="font-bold text-white">轉乘規則 (The Transfer Rule) 的隱藏機制</h4>
+                                    <p class="text-xs text-cyber-muted mt-1">大部分城市（如紐約、波士頓）提供地鐵公車互轉2小時內免費。</p>
+                                </div>
+                            </div>
+                            <div class="bg-black/50 p-3 rounded-lg border border-gray-800 text-xs md:w-1/2 space-y-2">
+                                <div class="flex justify-between"><span class="text-cyber-yellow font-semibold">"Do I tap again when transferring?"</span><span class="text-cyber-muted">(轉乘時需要再刷一次嗎？)</span></div>
+                                <div class="flex justify-between text-cyber-green"><span>"No, it counts as one ride."</span><span>(不用，這算在同一趟車程內。)</span></div>
+                                <p class="text-[11px] text-cyber-yellow font-bold text-right pt-1"><i class="fas fa-star mr-1"></i>關鍵提醒：這是省錢與防止重複刷卡的核心句型！</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="max-w-6xl mx-auto w-full text-xs text-cyber-muted flex justify-between border-t border-gray-800 pt-4">
+                    <span>THE URBAN WAYFINDER // SLIDE 05</span>
+                    <span>NotebookLM</span>
+                </div>
+            </section>
+
+            <!-- Slide 6: 叫車服務 (Ride-Share) 溝通術 -->
+            <section class="slide-deck p-8 md:p-16 flex flex-col justify-between h-full">
+                <div class="my-auto max-w-6xl mx-auto w-full space-y-6">
+                    <div>
+                        <span class="text-cyber-yellow font-bold text-xs tracking-wider uppercase">// RIDE-SHARE</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-1">叫車服務 (Ride-Share) 溝通術</h2>
+                        <p class="text-cyber-muted">Uber 與 Lyft 的三步乘車實戰對話流程</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-6 pt-2">
+                        <!-- Stage 1 -->
+                        <div class="bg-cyber-card border border-gray-800 rounded-xl p-6 relative overflow-hidden neon-border-yellow">
+                            <span class="absolute top-0 right-0 bg-cyber-yellow text-black text-xs font-bold px-3 py-1 rounded-bl">Stage 1</span>
+                            <h4 class="text-white font-bold mb-1">尋找彼此 Location</h4>
+                            <p class="text-xs text-cyber-muted mb-4">在機場或飯店等大出口，常需要具體告知司機你的位置。</p>
+                            
+                            <div class="space-y-4 pt-2">
+                                <div class="bg-black/50 p-3 rounded border border-gray-800">
+                                    <p class="text-cyber-yellow text-xs font-semibold">Q: "I'm by the main entrance."</p>
+                                    <p class="text-gray-400 text-[11px]">(我在正門口。)</p>
+                                </div>
+                                <div class="bg-black/50 p-3 rounded border border-gray-800">
+                                    <p class="text-cyber-blue text-xs font-semibold">Or: "I might be on the other side."</p>
+                                    <p class="text-gray-400 text-[11px]">(我可能在另一側。)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stage 2 -->
+                        <div class="bg-cyber-card border border-gray-800 rounded-xl p-6 relative overflow-hidden neon-border-blue">
+                            <span class="absolute top-0 right-0 bg-cyber-blue text-black text-xs font-bold px-3 py-1 rounded-bl">Stage 2</span>
+                            <h4 class="text-white font-bold mb-1">身份驗證 Security</h4>
+                            <p class="text-xs text-cyber-muted mb-4">為了防範坐錯車或遇上假司機，主動確認名字與目的地。</p>
+                            
+                            <div class="space-y-4 pt-2">
+                                <div class="bg-black/50 p-3 rounded border border-gray-800">
+                                    <p class="text-cyber-yellow text-xs font-semibold">Q: "Are you here for Lynn?"</p>
+                                    <p class="text-gray-400 text-[11px]">(你是來接 Lynn 的嗎？)</p>
+                                </div>
+                                <div class="bg-black/50 p-3 rounded border border-gray-800">
+                                    <p class="text-cyber-green text-xs font-semibold">A: "Yes, heading to the airport right?"</p>
+                                    <p class="text-gray-400 text-[11px]">(對，前往機場對吧？)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stage 3 -->
+                        <div class="bg-cyber-card border border-gray-800 rounded-xl p-6 relative overflow-hidden">
+                            <span class="absolute top-0 right-0 bg-gray-800 text-gray-400 text-xs font-bold px-3 py-1 rounded-bl">Stage 3</span>
+                            <h4 class="text-white font-bold mb-1">放置行李 Luggage</h4>
+                            <p class="text-xs text-cyber-muted mb-4">有大件行李時，上車前禮貌徵得司機同意使用後車廂。</p>
+                            
+                            <div class="space-y-4 pt-2">
+                                <div class="bg-black/50 p-3 rounded border border-gray-800">
+                                    <p class="text-cyber-yellow text-xs font-semibold">Q: "Do you mind if I use the trunk?"</p>
+                                    <p class="text-gray-400 text-[11px]">(介意我放後車廂嗎？)</p>
+                                </div>
+                                <div class="bg-black/50 p-3 rounded border border-gray-800">
+                                    <p class="text-cyber-green text-xs font-semibold">A: "Sure, I can help with your bag."</p>
+                                    <p class="text-gray-400 text-[11px]">(當然，我幫你拿行李。)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="max-w-6xl mx-auto w-full text-xs text-cyber-muted flex justify-between border-t border-gray-800 pt-4">
+                    <span>THE URBAN WAYFINDER // SLIDE 06</span>
+                    <span>NotebookLM</span>
+                </div>
+            </section>
+
+            <!-- Slide 7: 乘車突發狀況與路線調整 -->
+            <section class="slide-deck p-8 md:p-16 flex flex-col justify-between h-full">
+                <div class="my-auto max-w-6xl mx-auto w-full space-y-6">
+                    <div>
+                        <span class="text-cyber-yellow font-bold text-xs tracking-wider uppercase">// IN-TRANSIT EMERGENCIES</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-1">乘車突發狀況與路線調整</h2>
+                        <p class="text-cyber-muted">車行途中，如何體面且直接地表達中途停靠、改道或調整舒適度需求</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-4 pt-2">
+                        <!-- Card 1: 臨時停靠 & 指定下車點 -->
+                        <div class="bg-cyber-card border border-gray-800 rounded-xl p-5 space-y-4">
+                            <div class="flex items-center gap-3">
+                                <span class="bg-cyber-yellow text-black rounded-full h-8 w-8 flex items-center justify-center font-bold text-sm">1</span>
+                                <h4 class="font-bold text-white text-base">臨時停靠 (Quick Stop) & 指定下車</h4>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="bg-black/40 p-3 rounded border border-gray-800">
+                                    <p class="text-xs text-cyber-muted mb-1">途中需要買東西或借廁所：</p>
+                                    <p class="text-cyber-yellow font-semibold text-sm">"Actually, could we stop at Walgreens briefly?"</p>
+                                    <p class="text-gray-400 text-xs mt-1">(其實，我們可以短暫停一下 Walgreens 嗎？)</p>
+                                </div>
+                                <div class="bg-black/40 p-3 rounded border border-gray-800">
+                                    <p class="text-xs text-cyber-muted mb-1">要求在特定地方安全下車：</p>
+                                    <p class="text-cyber-yellow font-semibold text-sm">"Would it be possible to drop me here?"</p>
+                                    <p class="text-gray-400 text-xs mt-1">(可以在這裡讓我下車嗎？)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: 路線修正 & 車內舒適度調整 -->
+                        <div class="bg-cyber-card border border-gray-800 rounded-xl p-5 space-y-4">
+                            <div class="flex items-center gap-3">
+                                <span class="bg-cyber-blue text-black rounded-full h-8 w-8 flex items-center justify-center font-bold text-sm">2</span>
+                                <h4 class="font-bold text-white text-base">路線修正 (Correction) & 舒適度 (Tweaks)</h4>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="bg-black/40 p-3 rounded border border-gray-800">
+                                    <p class="text-xs text-cyber-muted mb-1">當司機走錯路或導航不準時：</p>
+                                    <p class="text-cyber-yellow font-semibold text-sm">"I think we missed the turn back there."</p>
+                                    <p class="text-gray-400 text-xs mt-1">(我想我們剛剛錯過轉彎處了。)</p>
+                                </div>
+                                <div class="bg-black/40 p-3 rounded border border-gray-800">
+                                    <p class="text-xs text-cyber-muted mb-1">調整車內空調溫度：</p>
+                                    <p class="text-cyber-yellow font-semibold text-sm">"Could you turn the AC up?"</p>
+                                    <p class="text-gray-400 text-xs mt-1">(可以把冷氣開強一點嗎？)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="max-w-6xl mx-auto w-full text-xs text-cyber-muted flex justify-between border-t border-gray-800 pt-4">
+                    <span>THE URBAN WAYFINDER // SLIDE 07</span>
+                    <span>NotebookLM</span>
+                </div>
+            </section>
+
+            <!-- Slide 8: 自駕實戰: 導航與路況應對 -->
+            <section class="slide-deck p-8 md:p-16 flex flex-col justify-between h-full">
+                <div class="my-auto max-w-6xl mx-auto w-full space-y-6">
+                    <div>
+                        <span class="text-cyber-yellow font-bold text-xs tracking-wider uppercase">// ROAD TRIP</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-1">自駕實戰：導航與路況應對</h2>
+                        <p class="text-cyber-muted">自駕出遊面臨的突發工事、車載 GPS 異常或副駕對談必備英文</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-6 pt-2">
+                        <!-- Panel A: Windshield view -->
+                        <div class="bg-cyber-card border border-gray-800 rounded-xl p-5">
+                            <div class="flex items-center gap-2 mb-4 text-cyber-red">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <h4 class="font-bold text-white text-sm uppercase">窗外路況 (Windshield View)</h4>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="bg-black/50 p-3 rounded border border-gray-800">
+                                    <p class="text-cyber-yellow font-semibold text-xs">"There's an accident up ahead."</p>
+                                    <p class="text-gray-400 text-[11px]">(前方有車禍。)</p>
+                                </div>
+                                <div class="bg-black/50 p-3 rounded border border-gray-800">
+                                    <p class="text-cyber-yellow font-semibold text-xs">"This road is under construction."</p>
+                                    <p class="text-gray-400 text-[11px]">(這條路在施工。)</p>
+                                    <span class="inline-block mt-2 bg-amber-600/20 text-amber-500 border border-amber-500/30 px-2 py-0.5 rounded text-[10px]">ROAD WORK AHEAD</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Panel B: GPS Screen -->
+                        <div class="bg-cyber-card border border-gray-800 rounded-xl p-5">
+                            <div class="flex items-center gap-2 mb-4 text-cyber-blue">
+                                <i class="fas fa-satellite-dish"></i>
+                                <h4 class="font-bold text-white text-sm uppercase">導航機狀況 (GPS Screen)</h4>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="bg-black/50 p-3 rounded border border-gray-800">
+                                    <p class="text-cyber-yellow font-semibold text-xs">"Recalculating..."</p>
+                                    <p class="text-gray-400 text-[11px]">(重新計算路線中...)</p>
+                                </div>
+                                <div class="bg-black/50 p-3 rounded border border-gray-800">
+                                    <p class="text-cyber-yellow font-semibold text-xs">"The GPS just froze on me."</p>
+                                    <p class="text-gray-400 text-[11px]">(導航突然當機了。)</p>
+                                </div>
+                                <div class="bg-black/50 p-3 rounded border border-gray-800">
+                                    <p class="text-cyber-yellow font-semibold text-xs">"I'll follow the GPS for now."</p>
+                                    <p class="text-gray-400 text-[11px]">(我先跟著導航走。)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Panel C: Passenger driver chatter -->
+                        <div class="bg-cyber-card border border-gray-800 rounded-xl p-5">
+                            <div class="flex items-center gap-2 mb-4 text-cyber-green">
+                                <i class="fas fa-comments"></i>
+                                <h4 class="font-bold text-white text-sm uppercase">車內對話 (Driver Chatter)</h4>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="bg-black/50 p-3 rounded border border-gray-800">
+                                    <p class="text-cyber-yellow font-semibold text-xs">"Wait, was that our turn?"</p>
+                                    <p class="text-gray-400 text-[11px]">(等等，那是我們要轉彎的地方嗎？)</p>
+                                </div>
+                                <div class="bg-black/50 p-3 rounded border border-gray-800">
+                                    <p class="text-cyber-yellow font-semibold text-xs">"I think we just missed the exit. It's okay, I'll loop around."</p>
+                                    <p class="text-gray-400 text-[11px]">(我想我們錯過出口了。沒關係，我繞一圈回去。)</p>
+                                </div>
+                                <div class="bg-black/50 p-3 rounded border border-gray-800">
+                                    <p class="text-cyber-yellow font-semibold text-xs">"Can I pull over here for a second?"</p>
+                                    <p class="text-gray-400 text-[11px]">(我可以在這裡靠邊停一下嗎？)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="max-w-6xl mx-auto w-full text-xs text-cyber-muted flex justify-between border-t border-gray-800 pt-4">
+                    <span>THE URBAN WAYFINDER // SLIDE 08</span>
+                    <span>NotebookLM</span>
+                </div>
+            </section>
+
+            <!-- Slide 9: 美國加油站生存法則 -->
+            <section class="slide-deck p-8 md:p-16 flex flex-col justify-between h-full">
+                <div class="my-auto max-w-6xl mx-auto w-full space-y-6">
+                    <div>
+                        <span class="text-cyber-yellow font-bold text-xs tracking-wider uppercase">// GAS STATION</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-1">美國加油站生存法則</h2>
+                        <p class="text-cyber-muted">了解油箱位置、直接感應加油與面對故障碼「See Cashier」時的應對</p>
+                    </div>
+
+                    <!-- Prep Check -->
+                    <div class="bg-cyber-card border border-gray-800 p-4 rounded-xl flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="bg-cyber-yellow text-black text-xs font-bold px-3 py-1 rounded">START HERE</span>
+                            <span class="text-white font-bold text-sm">租好車出發前的首要確認：</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-cyber-yellow font-mono text-sm font-semibold">"Which side is my gas tank on?"</span>
+                            <span class="block text-xs text-cyber-muted">(我的油箱在哪一側？)</span>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6 pt-2">
+                        <!-- Route A: Success -->
+                        <div class="bg-cyber-card border border-gray-800 rounded-xl p-5 hover:border-cyber-green transition relative overflow-hidden">
+                            <span class="absolute top-0 right-0 bg-cyber-green text-black text-xs font-bold px-3 py-1 rounded-bl">Path A: 順利操作</span>
+                            <h4 class="text-white font-bold mb-3"><i class="fas fa-check-circle mr-2 text-cyber-green"></i>加油槍直接刷卡付款</h4>
+                            <div class="space-y-3 text-xs">
+                                <div class="bg-black/50 p-3 rounded border border-gray-800">
+                                    <p class="text-cyber-yellow font-semibold">"Do I just pay at the pump?"</p>
+                                    <p class="text-gray-400 mt-0.5">(我直接在加油機付款嗎？) → <strong class="text-cyber-green">Yes.</strong></p>
+                                </div>
+                                <div class="bg-black/50 p-3 rounded border border-gray-800">
+                                    <p class="text-cyber-yellow font-semibold">"Can you fill it up with regular?"</p>
+                                    <p class="text-gray-400 mt-0.5">(可以幫我加滿一般無鉛汽油嗎？)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Route B: Tech Failure -->
+                        <div class="bg-cyber-card border border-gray-800 rounded-xl p-5 hover:border-cyber-red transition relative overflow-hidden">
+                            <span class="absolute top-0 right-0 bg-cyber-red text-white text-xs font-bold px-3 py-1 rounded-bl">Path B: 遭遇故障</span>
+                            <h4 class="text-white font-bold mb-3"><i class="fas fa-times-circle mr-2 text-cyber-red"></i>刷卡受阻，需進超商預付</h4>
+                            <div class="space-y-3 text-xs">
+                                <div class="bg-black/50 p-3 rounded border border-gray-800">
+                                    <p class="text-cyber-yellow font-semibold">"The card reader isn't working."</p>
+                                    <p class="text-gray-400 mt-0.5">(刷卡機壞了。/ 出現「See Cashier」指示。)</p>
+                                </div>
+                                <div class="bg-black/50 p-3 rounded border border-gray-800">
+                                    <p class="text-cyber-yellow font-semibold">"Can I pay inside instead?"</p>
+                                    <p class="text-gray-400 mt-0.5">(我可以改去裡面付嗎？)</p>
+                                </div>
+                                <div class="bg-black/50 p-3 rounded border border-gray-800">
+                                    <p class="text-cyber-yellow font-semibold">"Prepay inside."</p>
+                                    <p class="text-gray-400 mt-0.5">(先在店內預付油錢。例如預付 40 美金到 5 號油箱)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="max-w-6xl mx-auto w-full text-xs text-cyber-muted flex justify-between border-t border-gray-800 pt-4">
+                    <span>THE URBAN WAYFINDER // SLIDE 09</span>
+                    <span>NotebookLM</span>
+                </div>
+            </section>
+
+            <!-- Slide 10: 破解魔王關卡: 美國停車標誌解碼 -->
+            <section class="slide-deck p-8 md:p-16 flex flex-col justify-between h-full">
+                <div class="my-auto max-w-6xl mx-auto w-full space-y-6">
+                    <div>
+                        <span class="text-cyber-yellow font-bold text-xs tracking-wider uppercase">// PARKING RULES</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-1">破解魔王關卡：美國停車標誌解碼</h2>
+                        <p class="text-cyber-muted">停車牌看似互相矛盾？掌握「絕對禁令、條件允許、特權區」的三層過濾邏輯</p>
+                    </div>
+
+                    <!-- Interactive Parking Sign Widget -->
+                    <div class="grid md:grid-cols-3 gap-6 pt-2">
+                        <!-- Sign 1: No Parking -->
+                        <div class="bg-cyber-card border border-gray-800 rounded-xl p-6 flex flex-col justify-between cursor-pointer hover:border-cyber-red transition duration-200" onclick="highlightParkingRule(0)">
+                            <div class="text-center mb-4">
+                                <div class="inline-block border-4 border-cyber-red text-cyber-red font-black px-4 py-2 rounded-lg text-lg bg-white select-none">
+                                    NO PARKING<br>
+                                    <span class="text-xs">MORNINGS ONLY</span>
+                                </div>
+                            </div>
+                            <div class="space-y-2 text-xs">
+                                <h4 class="font-bold text-cyber-red uppercase">1. 絕對禁令 (Sweeping Rule)</h4>
+                                <p class="text-gray-400">當遇到 NO PARKING 標誌時，首先注意是否有限制時段。</p>
+                                <hr class="border-gray-800 my-2">
+                                <p class="text-cyber-yellow font-mono font-semibold">"So evenings should be fine right?"</p>
+                                <p class="text-cyber-muted">(所以晚上停應該沒問題對吧？)</p>
+                            </div>
+                        </div>
+
+                        <!-- Sign 2: Hour Parking -->
+                        <div class="bg-cyber-card border border-gray-800 rounded-xl p-6 flex flex-col justify-between cursor-pointer hover:border-cyber-yellow transition duration-200" onclick="highlightParkingRule(1)">
+                            <div class="text-center mb-4">
+                                <div class="inline-block border-4 border-green-700 text-green-700 font-black px-4 py-2 rounded-lg text-lg bg-white select-none">
+                                    2 HR PARKING<br>
+                                    <span class="text-xs">8 AM - 6 PM</span>
+                                </div>
+                            </div>
+                            <div class="space-y-2 text-xs">
+                                <h4 class="font-bold text-cyber-green uppercase">2. 條件允許 (Conditional Rule)</h4>
+                                <p class="text-gray-400">限制特定時間內可以停車，其餘時段可能完全免費或禁停。</p>
+                                <hr class="border-gray-800 my-2">
+                                <p class="text-cyber-yellow font-mono font-semibold">"Can I park here after 6?"</p>
+                                <p class="text-cyber-muted">→ "Yeah, just watch the time limit." (可以，注意時限)</p>
+                            </div>
+                        </div>
+
+                        <!-- Sign 3: Permit Only -->
+                        <div class="bg-cyber-card border border-gray-800 rounded-xl p-6 flex flex-col justify-between cursor-pointer hover:border-cyber-blue transition duration-200" onclick="highlightParkingRule(2)">
+                            <div class="text-center mb-4">
+                                <div class="inline-block border-4 border-cyber-blue text-cyber-blue font-black px-4 py-2 rounded-lg text-lg bg-white select-none">
+                                    PERMIT<br>
+                                    <span class="text-xs">ONLY</span>
+                                </div>
+                            </div>
+                            <div class="space-y-2 text-xs">
+                                <h4 class="font-bold text-cyber-blue uppercase">3. 特權區 (The Exception)</h4>
+                                <p class="text-gray-400">只有持有當地社區停車許可證 (Permit) 的車輛才能停放。</p>
+                                <hr class="border-gray-800 my-2">
+                                <p class="text-cyber-yellow font-mono font-semibold">"This street looks permit only."</p>
+                                <p class="text-cyber-muted">/ "Is this a legal parking spot?" (這是合法的車位嗎？)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="max-w-6xl mx-auto w-full text-xs text-cyber-muted flex justify-between border-t border-gray-800 pt-4">
+                    <span>THE URBAN WAYFINDER // SLIDE 10</span>
+                    <span>NotebookLM</span>
+                </div>
+            </section>
+
+            <!-- Slide 11: 停車地雷: 繳費、罰單與拖吊應對矩陣 -->
+            <section class="slide-deck p-8 md:p-16 flex flex-col justify-between h-full">
+                <div class="my-auto max-w-6xl mx-auto w-full space-y-6">
+                    <div>
+                        <span class="text-cyber-yellow font-bold text-xs tracking-wider uppercase">// PARKING EMERGENCY</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-1">停車地雷：繳費、罰單與拖吊應對矩陣</h2>
+                        <p class="text-cyber-muted">遇到停車糾紛、吃罰單、或最糟的「車輛消失 (被拖吊)」時的英文字應對與解決流程</p>
+                    </div>
+
+                    <div class="overflow-x-auto pt-2">
+                        <table class="w-full text-left border-collapse text-xs md:text-sm">
+                            <thead>
+                                <tr class="border-b border-gray-800 bg-black/40">
+                                    <th class="p-3 text-cyber-yellow font-bold">狀況 (Scenario)</th>
+                                    <th class="p-3 text-cyber-yellow font-bold">實戰關鍵句 (What to Say)</th>
+                                    <th class="p-3 text-cyber-yellow font-bold">解決方案 / 意義 (Action)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-800">
+                                <tr class="hover:bg-gray-900/30">
+                                    <td class="p-3 font-semibold text-white">路邊繳費 (Meter Payment)</td>
+                                    <td class="p-3">
+                                        <p class="text-cyber-yellow font-mono font-semibold">"Do I need to pay at the meter?"</p>
+                                        <p class="text-cyber-muted">/ "Do I pay before leaving?"</p>
+                                    </td>
+                                    <td class="p-3 text-gray-400">尋找 Ticket Machine (繳費機)，多數需預先付款並將列印出的票根放在前擋風玻璃。</td>
+                                </tr>
+                                <tr class="hover:bg-gray-900/30">
+                                    <td class="p-3 font-semibold text-white">收到罰單 (The Ticket)</td>
+                                    <td class="p-3">
+                                        <p class="text-cyber-yellow font-mono font-semibold">"I think I got a parking ticket."</p>
+                                        <p class="text-cyber-muted">/ "Where can I pay the fine?"</p>
+                                    </td>
+                                    <td class="p-3 text-gray-400">
+                                        可以嘗試上網繳費或申訴：<br>
+                                        <span class="text-cyber-blue">"Can I appeal this parking ticket?"</span> (我可以申訴這張罰單嗎？)
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-900/30">
+                                    <td class="p-3 font-semibold text-white">車被拖吊 (The Missing Car)</td>
+                                    <td class="p-3">
+                                        <p class="text-cyber-yellow font-mono font-semibold">"My car is gone. Was it towed?"</p>
+                                        <p class="text-cyber-muted">(我的車不見了，是被拖走了嗎？)</p>
+                                    </td>
+                                    <td class="p-3 text-gray-400">確認是否不小心停在 <span class="text-cyber-red font-semibold">Tow Zone (拖吊區)</span>，需上網查詢或聯絡當地拖吊保管場付款領車。</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="bg-gray-900/40 p-4 rounded-xl border border-gray-800 text-center text-xs text-cyber-muted">
+                        <i class="fas fa-info-circle mr-2 text-cyber-blue"></i> "Okay, it's annoying but manageable." (好吧，很煩但還能處理。不用恐慌！)
+                    </div>
+                </div>
+                <div class="max-w-6xl mx-auto w-full text-xs text-cyber-muted flex justify-between border-t border-gray-800 pt-4">
+                    <span>THE URBAN WAYFINDER // SLIDE 11</span>
+                    <span>NotebookLM</span>
+                </div>
+            </section>
+
+            <!-- Slide 12: 終極比較: 美國交通支付大車拚 -->
+            <section class="slide-deck p-8 md:p-16 flex flex-col justify-between h-full bg-gradient-to-br from-cyber-bg to-slate-900">
+                <div class="my-auto max-w-6xl mx-auto w-full space-y-6">
+                    <div>
+                        <span class="text-cyber-yellow font-bold text-xs tracking-wider uppercase">// PAYMENT MATRIX</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-1">終極比較：美國交通支付大車拚</h2>
+                        <p class="text-cyber-muted">在美國不同的交通場域中，APP付款、信用卡感應與實體現金的接受度與實用程度對比</p>
+                    </div>
+
+                    <div class="overflow-x-auto pt-2">
+                        <table class="w-full text-left border-collapse text-xs md:text-sm">
+                            <thead>
+                                <tr class="border-b border-gray-800 bg-black/40">
+                                    <th class="p-3 text-cyber-yellow font-bold">支付管道</th>
+                                    <th class="p-3 text-cyber-blue font-bold">大眾運輸 (Transit)</th>
+                                    <th class="p-3 text-cyber-yellow font-bold">叫車與停車 (Ride-Share & Parking)</th>
+                                    <th class="p-3 text-cyber-green font-bold">自駕加油 (Driving/Gas)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-800">
+                                <tr class="hover:bg-gray-900/30">
+                                    <td class="p-3 font-semibold text-white">手機 App (App Payment)</td>
+                                    <td class="p-3">Digital Day Passes.<br>(各地鐵系統官方APP電子票證)</td>
+                                    <td class="p-3 font-mono">"Do I pay through the app?"<br>App-based meters (如 ParkMobile).</td>
+                                    <td class="p-3 text-cyber-muted">Not Applicable / 較少見</td>
+                                </tr>
+                                <tr class="hover:bg-gray-900/30">
+                                    <td class="p-3 font-semibold text-white">感應支付 (Tap-to-Pay)</td>
+                                    <td class="p-3">You can tap your credit card.<br>(進站直接感應 Apple Pay 或信用卡)</td>
+                                    <td class="p-3 text-cyber-muted">In-App Only / APP內結帳為主</td>
+                                    <td class="p-3 font-mono text-cyber-green">Pay at the pump.<br>(加油機直接感應卡片)</td>
+                                </tr>
+                                <tr class="hover:bg-gray-900/30">
+                                    <td class="p-3 font-semibold text-white">現金 / 預付 (Cash / Pre-Pay)</td>
+                                    <td class="p-3">Single rides at ticket machines.<br>(售票機購單程票)</td>
+                                    <td class="p-3 text-cyber-red font-semibold">Not Recommended / 不支援</td>
+                                    <td class="p-3 font-mono">Prepay inside / See cashier on screen.<br>(進店內櫃台預付現金或刷卡)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="bg-cyber-yellow/10 border border-cyber-yellow/30 p-4 rounded-xl text-xs text-white">
+                        <strong>關鍵洞察：</strong> 在美國，實體現金使用率極低。攜帶一張具有<strong>海外高回饋的感應信用卡 (Tap to pay) </strong>或設定好手機 Apple Pay / Google Pay，是解決90%交通消費的最優解。
+                    </div>
+                </div>
+                <div class="max-w-6xl mx-auto w-full text-xs text-cyber-muted flex justify-between border-t border-gray-800 pt-4">
+                    <span>THE URBAN WAYFINDER // SLIDE 12</span>
+                    <span>NotebookLM</span>
+                </div>
+            </section>
+
+            <!-- Slide 13: 迷航與延誤應急矩陣 -->
+            <section class="slide-deck p-8 md:p-16 flex flex-col justify-between h-full">
+                <div class="my-auto max-w-6xl mx-auto w-full space-y-6">
+                    <div>
+                        <span class="text-cyber-yellow font-bold text-xs tracking-wider uppercase">// EMERGENCY ESCAPE</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-1">迷航與延誤應急矩陣</h2>
+                        <p class="text-cyber-muted">當情況失去控制（找不到地圖、搭錯車、開過頭）時，你該說什麼？</p>
+                    </div>
+
+                    <div class="space-y-3 pt-2 text-xs md:text-sm">
+                        <!-- Mode 1 -->
+                        <div class="bg-cyber-card border border-gray-800 p-4 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-3">
+                            <div class="md:w-1/4">
+                                <span class="bg-cyber-yellow text-black font-bold px-2 py-0.5 rounded text-[11px] uppercase">步行 (On Foot)</span>
+                                <h4 class="text-white font-bold mt-1">找不到目的地 / 走錯方向</h4>
+                            </div>
+                            <div class="bg-black/40 p-3 rounded border border-gray-800 md:w-3/4">
+                                <p class="text-cyber-yellow font-mono font-bold">"I'm trying to get to Main Street. Am I going the right way?"</p>
+                                <p class="text-cyber-muted mt-1">(我在找緬街，我走的方向對嗎？)</p>
+                            </div>
+                        </div>
+
+                        <!-- Mode 2 -->
+                        <div class="bg-cyber-card border border-gray-800 p-4 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-3">
+                            <div class="md:w-1/4">
+                                <span class="bg-cyber-blue text-black font-bold px-2 py-0.5 rounded text-[11px] uppercase">大眾運輸 (Transit)</span>
+                                <h4 class="text-white font-bold mt-1">搭錯車 / 錯過站</h4>
+                            </div>
+                            <div class="bg-black/40 p-3 rounded border border-gray-800 md:w-3/4">
+                                <p class="text-cyber-yellow font-mono font-bold">"I almost got off early. Does this train go downtown?"</p>
+                                <p class="text-cyber-muted mt-1">(我差點提早下車。這班車往市區嗎？)</p>
+                            </div>
+                        </div>
+
+                        <!-- Mode 3 -->
+                        <div class="bg-cyber-card border border-gray-800 p-4 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-3">
+                            <div class="md:w-1/4">
+                                <span class="bg-cyber-green text-black font-bold px-2 py-0.5 rounded text-[11px] uppercase">叫車 (Ride-Share)</span>
+                                <h4 class="text-white font-bold mt-1">司機開錯路 / 找不到地址</h4>
+                            </div>
+                            <div class="bg-black/40 p-3 rounded border border-gray-800 md:w-3/4">
+                                <p class="text-cyber-yellow font-mono font-bold">"This doesn't look like the right address. I think we missed the turn back there."</p>
+                                <p class="text-cyber-muted mt-1">(這不像正確地址。我們剛才好像錯過轉彎了。)</p>
+                            </div>
+                        </div>
+
+                        <!-- Mode 4 -->
+                        <div class="bg-cyber-card border border-gray-800 p-4 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-3">
+                            <div class="md:w-1/4">
+                                <span class="bg-cyber-red text-white font-bold px-2 py-0.5 rounded text-[11px] uppercase">自駕 (Driving)</span>
+                                <h4 class="text-white font-bold mt-1">導航當機 / 錯過交流道</h4>
+                            </div>
+                            <div class="bg-black/40 p-3 rounded border border-gray-800 md:w-3/4">
+                                <p class="text-cyber-yellow font-mono font-bold">"The GPS just froze on me. It keeps saying recalculating."</p>
+                                <p class="text-cyber-muted mt-1">(導航當機了。一直顯示重新計算中。)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="max-w-6xl mx-auto w-full text-xs text-cyber-muted flex justify-between border-t border-gray-800 pt-4">
+                    <span>THE URBAN WAYFINDER // SLIDE 13</span>
+                    <span>NotebookLM</span>
+                </div>
+            </section>
+
+            <!-- Slide 14: 總結: 美國交通溝通的潛規則 -->
+            <section class="slide-deck p-8 md:p-16 flex flex-col justify-between h-full">
+                <div class="my-auto max-w-6xl mx-auto w-full space-y-6">
+                    <div class="text-center md:text-left">
+                        <span class="text-cyber-yellow font-bold text-xs tracking-wider uppercase">// CULTURAL CODES</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-1">總結：美國交通溝通的潛規則</h2>
+                        <p class="text-cyber-muted">在美國社會，如何兼顧禮貌、效率與規則感知，確保行程暢行無阻</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-6 pt-4">
+                        <!-- Rule 1 -->
+                        <div class="bg-cyber-card border border-gray-800 p-6 rounded-xl hover:border-cyber-yellow transition">
+                            <div class="text-cyber-yellow text-3xl mb-3"><i class="fas fa-handshake"></i></div>
+                            <h4 class="text-white font-bold text-base mb-2">禮貌 (Politeness)</h4>
+                            <p class="text-xs text-cyber-muted leading-relaxed">
+                                永遠以 <span class="text-white font-semibold">"Excuse me, can you help me find..."</span> 開頭。不要只粗暴地丟出一個地名（如 "Main Street?"）。問完路後，禮貌性地加上結束語：<span class="text-white font-semibold">"Have a great rest of your day."</span>。
+                            </p>
+                        </div>
+
+                        <!-- Rule 2 -->
+                        <div class="bg-cyber-card border border-gray-800 p-6 rounded-xl hover:border-cyber-blue transition">
+                            <div class="text-cyber-blue text-3xl mb-3"><i class="fas fa-bullseye"></i></div>
+                            <h4 class="text-white font-bold text-base mb-2">直率 (Directness)</h4>
+                            <p class="text-xs text-cyber-muted leading-relaxed">
+                                確認規則或安全時必須直接了當。常用 <span class="text-white font-semibold">"Just to make sure..."</span> 或 <span class="text-white font-semibold">"Can you confirm we're going to Fifth Avenue?"</span>。直接比兜圈子更討喜、也更有效率。
+                            </p>
+                        </div>
+
+                        <!-- Rule 3 -->
+                        <div class="bg-cyber-card border border-gray-800 p-6 rounded-xl hover:border-cyber-green transition">
+                            <div class="text-cyber-green text-3xl mb-3"><i class="fas fa-glasses"></i></div>
+                            <h4 class="text-white font-bold text-base mb-2">情境感知 (Awareness)</h4>
+                            <p class="text-xs text-cyber-muted leading-relaxed">
+                                迅速理解並遵守規則系統的局限性。例如掌握 <span class="text-white font-semibold">"It counts as one ride"</span>（轉乘一次付費）或 <span class="text-white font-semibold">"Watch the time limit"</span>（留意時限）等核心原則。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-cyber-yellow/10 p-5 rounded-xl text-center border border-cyber-yellow/20">
+                        <p class="text-sm text-white font-bold">結合禮貌的詢問與精準的確認，就能在任何交通突發狀況中保持冷靜。</p>
+                    </div>
+                </div>
+                <div class="max-w-6xl mx-auto w-full text-xs text-cyber-muted flex justify-between border-t border-gray-800 pt-4">
+                    <span>THE URBAN WAYFINDER // SLIDE 14</span>
+                    <span>NotebookLM</span>
+                </div>
+            </section>
+
+            <!-- Slide 15: 你的專屬出行小抄 -->
+            <section class="slide-deck p-8 md:p-16 flex flex-col justify-between h-full bg-gradient-to-br from-cyber-bg to-slate-900">
+                <div class="my-auto max-w-6xl mx-auto w-full">
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div class="space-y-6">
+                            <span class="text-cyber-yellow font-bold text-xs tracking-wider uppercase">// CHEAT SHEET</span>
+                            <h2 class="text-3xl md:text-5xl font-black text-white leading-tight">你的專屬出行小抄</h2>
+                            <p class="text-cyber-muted text-sm md:text-base leading-relaxed">
+                                我們為您精選並彙整了整趟旅程中「重中之重」的 5 句應急萬用口語。建議您直接「截圖保存」這張卡片，或點擊右方的複製按鈕儲存在手機備忘錄中！
+                            </p>
+                            <div>
+                                <button onclick="triggerScreenshotMock()" class="bg-cyber-yellow hover:bg-cyber-yellowGlow text-black font-extrabold px-6 py-3 rounded-lg text-xs md:text-sm transition flex items-center gap-2 shadow-lg">
+                                    <i class="fas fa-camera"></i>一鍵模擬截圖 / 複製小抄文字
+                                </button>
+                                <p id="copyToast" class="text-xs text-cyber-green mt-2 opacity-0 transition-opacity">已成功複製小抄內容！</p>
+                            </div>
+                        </div>
+
+                        <!-- Phone Mockup Container -->
+                        <div class="relative max-w-sm mx-auto w-full" id="phoneMockup">
+                            <div class="absolute -inset-1 rounded-[32px] bg-gradient-to-r from-cyber-yellow to-cyber-blue opacity-50 blur"></div>
+                            <div class="relative bg-black rounded-[28px] border-4 border-gray-800 p-5 shadow-2xl space-y-4">
+                                <!-- Phone Notch & Status -->
+                                <div class="flex justify-between items-center text-[10px] text-gray-500 font-mono">
+                                    <span>9:41 AM</span>
+                                    <div class="h-4 w-20 bg-gray-900 rounded-full mx-auto border border-gray-800"></div>
+                                    <div class="flex items-center gap-1">
+                                        <i class="fas fa-wifi"></i>
+                                        <i class="fas fa-battery-three-quarters"></i>
+                                    </div>
+                                </div>
+
+                                <div class="border-b border-gray-800 pb-3">
+                                    <span class="text-[9px] uppercase tracking-widest text-cyber-yellow font-bold">Notes App</span>
+                                    <h3 class="text-base font-bold text-white mt-0.5"><i class="fas fa-sticky-note text-cyber-yellow mr-1.5"></i>The Urban Survival Cheat Sheet</h3>
+                                </div>
+
+                                <div class="space-y-3 text-[11px] overflow-y-auto max-h-80 pr-1">
+                                    <!-- Item 1 -->
+                                    <div class="bg-gray-900/60 p-2 rounded border border-gray-800">
+                                        <p class="text-cyber-yellow font-bold">1. 方向迷失時 (Lost on foot)</p>
+                                        <p class="text-white font-mono font-medium">"Just to make sure, am I going the right way?"</p>
+                                        <p class="text-gray-400">(確認一下，我走的方向對嗎？)</p>
+                                    </div>
+                                    <!-- Item 2 -->
+                                    <div class="bg-gray-900/60 p-2 rounded border border-gray-800">
+                                        <p class="text-cyber-blue font-bold">2. 地鐵轉乘時 (Subway transit)</p>
+                                        <p class="text-white font-mono font-medium">"Do I tap again when transferring, or does it count as one ride?"</p>
+                                        <p class="text-gray-400">(轉乘時要再刷一次卡嗎，還是算同一趟？)</p>
+                                    </div>
+                                    <!-- Item 3 -->
+                                    <div class="bg-gray-900/60 p-2 rounded border border-gray-800">
+                                        <p class="text-cyber-green font-bold">3. 叫車找人時 (Ride-share check)</p>
+                                        <p class="text-white font-mono font-medium">"I'm by the main entrance. Heading to the airport, right?"</p>
+                                        <p class="text-gray-400">(我在正門口。前往機場對吧？)</p>
+                                    </div>
+                                    <!-- Item 4 -->
+                                    <div class="bg-gray-900/60 p-2 rounded border border-gray-800">
+                                        <p class="text-cyber-red font-bold">4. 導航崩潰時 (GPS failed)</p>
+                                        <p class="text-white font-mono font-medium">"The GPS just froze. It keeps saying recalculating."</p>
+                                        <p class="text-gray-400">(導航當機了，一直在重新計算中。)</p>
+                                    </div>
+                                    <!-- Item 5 -->
+                                    <div class="bg-gray-900/60 p-2 rounded border border-gray-800">
+                                        <p class="text-cyber-yellow font-bold">5. 停車自救時 (Parking legality)</p>
+                                        <p class="text-white font-mono font-medium">"Is this a legal parking spot after 6 PM?"</p>
+                                        <p class="text-gray-400">(晚上 6 點之後這裡可以合法停車嗎？)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="max-w-6xl mx-auto w-full text-xs text-cyber-muted flex justify-between border-t border-gray-800 pt-4">
+                    <span>THE URBAN WAYFINDER // SLIDE 15</span>
+                    <span>NotebookLM</span>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Interactive Presentation Footer Toolbar -->
+    <footer class="bg-cyber-card border-t border-gray-800 px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4 z-40 select-none">
+        <!-- Progress Bar and Slide Tracker -->
+        <div class="flex items-center gap-4 w-full sm:w-auto">
+            <span class="text-xs font-mono font-bold text-cyber-yellow" id="slideIndicator">PAGE 01 / 15</span>
+            <div class="flex-grow sm:w-64 bg-gray-800 h-2 rounded-full overflow-hidden">
+                <div id="slideProgressBar" class="bg-cyber-yellow h-full w-0 transition-all duration-300"></div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="flex items-center gap-2">
+            <button onclick="navigateSlide(-1)" class="bg-gray-800 hover:bg-gray-700 text-white font-bold p-3 rounded-lg text-xs transition" title="上一頁">
+                <i class="fas fa-chevron-left mr-1"></i> PREV
+            </button>
+            
+            <!-- Quick Slide Jumper Selector -->
+            <select id="slideJumper" onchange="jumpToSlide(this.value)" class="bg-gray-800 text-white border border-gray-700 px-3 py-2.5 rounded-lg text-xs font-semibold focus:outline-none focus:border-cyber-yellow">
+                <!-- Injected dynamically -->
+            </select>
+
+            <button onclick="navigateSlide(1)" class="bg-cyber-yellow hover:bg-cyber-yellowGlow text-black font-extrabold p-3 rounded-lg text-xs transition" title="下一頁">
+                NEXT <i class="fas fa-chevron-right ml-1"></i>
+            </button>
+        </div>
+    </footer>
+
+    <script>
+        /* Slide Setup State */
+        const totalSlides = 15;
+        let currentSlide = 0;
+        let soundEnabled = true;
+
+        /* Tone.js Sound FX Setup */
+        const synth = new Tone.MonoSynth({
+            oscillator: { type: "sine" },
+            envelope: { attack: 0.01, decay: 0.1, sustain: 0.1, release: 0.1 }
+        }).toDestination();
+        synth.volume.value = -12; // Moderate volume
+
+        function playSlideSound() {
+            if (!soundEnabled) return;
+            try {
+                // Ensure audio context is active
+                if (Tone.context.state !== "running") {
+                    Tone.start();
+                }
+                synth.triggerAttackRelease("E5", "16n");
+            } catch (e) {}
+        }
+
+        /* Slide Titles for Jump Selector */
+        const slideTitles = [
+            "01. 封面：美國出行指南",
+            "02. 行動進化分析",
+            "03. 步行問路求生圖鑑",
+            "04. 地鐵與公車方向迷宮",
+            "05. 購票與進站黃金法則",
+            "06. 叫車服務溝通術",
+            "07. 乘車突發狀況應對",
+            "08. 自駕與路況實戰",
+            "09. 美國加油站生存法則",
+            "10. 美國停車標誌解碼",
+            "11. 停車地雷與拖吊保管",
+            "12. 終極交通支付大車拚",
+            "13. 迷航延誤應急矩陣",
+            "14. 交通溝通三層潛規則",
+            "15. 專屬應急生存小抄"
+        ];
+
+        /* Initialize Jumper Options and Sidebar list */
+        window.onload = function() {
+            const jumper = document.getElementById("slideJumper");
+            const sidebarList = document.getElementById("sidebarList");
+            
+            slideTitles.forEach((title, idx) => {
+                // Selector
+                const opt = document.createElement("option");
+                opt.value = idx;
+                opt.innerText = title;
+                jumper.appendChild(opt);
+
+                // Sidebar items
+                const item = document.createElement("div");
+                item.className = "p-3 rounded-lg border border-gray-800 bg-gray-900/40 hover:bg-gray-800/60 hover:border-cyber-yellow cursor-pointer transition text-xs flex justify-between items-center";
+                item.onclick = () => { jumpToSlide(idx); toggleSidebar(); };
+                item.setAttribute("id", `sidebar-item-${idx}`);
+                item.innerHTML = `
+                    <span class="text-gray-300 font-medium">${title}</span>
+                    <i class="fas fa-chevron-right text-gray-600"></i>
+                `;
+                sidebarList.appendChild(item);
+            });
+
+            updateSlideUI();
+            setupTouchGestures();
+        };
+
+        /* Slide Navigation Engine */
+        function navigateSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = 0;
+            if (currentSlide >= totalSlides) currentSlide = totalSlides - 1;
+            updateSlideUI();
+            playSlideSound();
+        }
+
+        function jumpToSlide(index) {
+            currentSlide = parseInt(index);
+            updateSlideUI();
+            playSlideSound();
+        }
+
+        /* Update presentation positioning & styling */
+        function updateSlideUI() {
+            // Sliding translate logic
+            const wrapper = document.getElementById("slidesWrapper");
+            wrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+            // Indicator update
+            const pageNum = String(currentSlide + 1).padStart(2, '0');
+            document.getElementById("slideIndicator").innerText = `PAGE ${pageNum} / ${totalSlides}`;
+
+            // Progress bar update
+            const pct = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById("slideProgressBar").style.width = `${pct}%`;
+
+            // Dropdown selection update
+            document.getElementById("slideJumper").value = currentSlide;
+
+            // Sidebar highlight updates
+            for (let i = 0; i < totalSlides; i++) {
+                const el = document.getElementById(`sidebar-item-${i}`);
+                if (el) {
+                    if (i === currentSlide) {
+                        el.classList.add("border-cyber-yellow", "bg-cyber-yellow/10");
+                    } else {
+                        el.classList.remove("border-cyber-yellow", "bg-cyber-yellow/10");
+                    }
+                }
+            }
+        }
+
+        /* Sidebar toggling */
+        function toggleSidebar() {
+            const sb = document.getElementById("thumbnailSidebar");
+            if (sb.classList.contains("translate-x-full")) {
+                sb.classList.remove("translate-x-full");
+            } else {
+                sb.classList.add("translate-x-full");
+            }
+        }
+
+        /* Sound Control Switcher */
+        const soundToggle = document.getElementById("soundToggle");
+        soundToggle.addEventListener("click", () => {
+            soundEnabled = !soundEnabled;
+            if (soundEnabled) {
+                soundToggle.innerHTML = '<i class="fas fa-volume-up text-lg"></i>';
+                soundToggle.classList.remove("text-cyber-red");
+                soundToggle.classList.add("text-cyber-muted");
+            } else {
+                soundToggle.innerHTML = '<i class="fas fa-volume-mute text-lg"></i>';
+                soundToggle.classList.remove("text-cyber-muted");
+                soundToggle.classList.add("text-cyber-red");
+            }
+        });
+
+        /* Swipe Touch Physics on Mobile */
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        function setupTouchGestures() {
+            const arena = document.querySelector("main");
+            arena.addEventListener("touchstart", (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            arena.addEventListener("touchend", (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, { passive: true });
+        }
+
+        function handleSwipe() {
+            const threshold = 50;
+            if (touchStartX - touchEndX > threshold) {
+                // Swiped Left -> Go Next
+                navigateSlide(1);
+            } else if (touchEndX - touchStartX > threshold) {
+                // Swiped Right -> Go Prev
+                navigateSlide(-1);
+            }
+        }
+
+        /* Keyboard Controls Listener */
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowRight" || e.key === " ") {
+                e.preventDefault();
+                navigateSlide(1);
+            } else if (e.key === "ArrowLeft") {
+                e.preventDefault();
+                navigateSlide(-1);
+            }
+        });
+
+        /* Web Fullscreen mode toggle */
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        /* Slide-Specific Custom Interactive Functions */
+        function highlightParkingRule(index) {
+            // Subtle click sound trigger
+            if (soundEnabled) {
+                synth.triggerAttackRelease("C6", "32n");
+            }
+        }
+
+        function triggerScreenshotMock() {
+            // Visual mockup of flash
+            const phone = document.getElementById("phoneMockup");
+            
+            // Text values to copy
+            const cheatSheetText = `The Urban Survival Cheat Sheet
+1. 方向迷失時 (Lost on foot): "Just to make sure, am I going the right way?" (確認一下，我走的方向對嗎？)
+2. 地鐵轉乘時 (Subway transit): "Do I tap again when transferring, or does it count as one ride?" (轉乘時要再刷一次卡嗎，還是算同一趟？)
+3. 叫車找人時 (Ride-share check): "I'm by the main entrance. Heading to the airport, right?" (我在正門口。前往機場對吧？)
+4. 導航崩潰時 (GPS failed): "The GPS just froze. It keeps saying recalculating." (導航當機了，一直在重新計算中。)
+5. 停車自救時 (Parking legality): "Is this a legal parking spot after 6 PM?" (晚上 6 點之後這裡可以合法停車嗎？)`;
+
+            // Clipboard fallback mechanism
+            const el = document.createElement('textarea');
+            el.value = cheatSheetText;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+
+            // Shutter flash visual feedback
+            const flash = document.createElement("div");
+            flash.className = "fixed inset-0 bg-white z-50 pointer-events-none transition-opacity duration-300 opacity-100";
+            document.body.appendChild(flash);
+
+            if (soundEnabled) {
+                // High-pitched synth click to mimic shutter sound
+                const shutter = new Tone.NoiseSynth({
+                    noise: { type: 'pink' },
+                    envelope: { attack: 0.005, decay: 0.1, sustain: 0.0 }
+                }).toDestination();
+                shutter.volume.value = -6;
+                shutter.triggerAttackRelease("16n");
+            }
+
+            setTimeout(() => {
+                flash.style.opacity = '0';
+                setTimeout(() => flash.remove(), 300);
+            }, 50);
+
+            // Show toast message
+            const toast = document.getElementById("copyToast");
+            toast.classList.remove("opacity-0");
+            toast.classList.add("opacity-100");
+            setTimeout(() => {
+                toast.classList.remove("opacity-100");
+                toast.classList.add("opacity-0");
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
