@@ -3,14 +3,15 @@ import {
   ChevronLeft, ChevronRight, Mic, MicOff,
   Sparkles, List, Maximize, MessageSquare,
   HelpCircle, BookOpen, Notebook, Shirt, Home, Navigation,
-  GraduationCap
+  GraduationCap, Music
 } from 'lucide-react'
-import { LESSON_2_SLIDES, LESSON_3_SLIDES, LESSON_4_SLIDES, LESSON_5_SLIDES, LESSON_6_SLIDES } from './lessonData'
+import { LESSON_2_SLIDES, LESSON_3_SLIDES, LESSON_4_SLIDES, LESSON_5_SLIDES, LESSON_6_SLIDES, LESSON_7_SLIDES } from './lessonData'
 import { Lesson2Slide } from './Lesson2Slides'
 import { Lesson3Slide } from './Lesson3Slides'
 import { Lesson4Slide } from './Lesson4Slides'
 import { Lesson5Slide } from './Lesson5Slides'
 import { Lesson6Slide } from './Lesson6Slides'
+import { Lesson7Slide } from './Lesson7Slides'
 
 const API_KEY = import.meta.env.VITE_GROQ_API_KEY || ''
 
@@ -64,7 +65,7 @@ function SlidePainSlider() {
 }
 
 export default function Presentation() {
-  const [lessonMode, setLessonMode] = useState<'lesson1' | 'lesson2' | 'lesson3' | 'lesson4' | 'lesson5' | 'lesson6'>('lesson1')
+  const [lessonMode, setLessonMode] = useState<'lesson1' | 'lesson2' | 'lesson3' | 'lesson4' | 'lesson5' | 'lesson6' | 'lesson7'>('lesson1')
   const [currentSlide, setCurrentSlide] = useState(1)
   const [isListening, setIsListening] = useState(false)
   const [transcripts, setTranscripts] = useState<{ role: 'user' | 'system'; text: string }[]>([])
@@ -76,21 +77,24 @@ export default function Presentation() {
     : lessonMode === 'lesson3' ? Object.fromEntries(LESSON_3_SLIDES.map((s, i) => [i + 1, `${s.title}。${s.content}`]))
     : lessonMode === 'lesson4' ? Object.fromEntries(LESSON_4_SLIDES.map((s, i) => [i + 1, `${s.title}。${s.content}`]))
     : lessonMode === 'lesson5' ? Object.fromEntries(LESSON_5_SLIDES.map((s, i) => [i + 1, `${s.title}。${s.content}`]))
-    : Object.fromEntries(LESSON_6_SLIDES.map((s, i) => [i + 1, `${s.title}。${s.content}`]))
+    : lessonMode === 'lesson6' ? Object.fromEntries(LESSON_6_SLIDES.map((s, i) => [i + 1, `${s.title}。${s.content}`]))
+    : Object.fromEntries(LESSON_7_SLIDES.map((s, i) => [i + 1, `${s.title}。${s.content}`]))
   const SLIDE_TITLES = lessonMode === 'lesson1' ? SLIDE_TITLES_L1
     : lessonMode === 'lesson2' ? LESSON_2_SLIDES.map(s => s.title)
     : lessonMode === 'lesson3' ? LESSON_3_SLIDES.map(s => s.title)
     : lessonMode === 'lesson4' ? LESSON_4_SLIDES.map(s => s.title)
     : lessonMode === 'lesson5' ? LESSON_5_SLIDES.map(s => s.title)
-    : LESSON_6_SLIDES.map(s => s.title)
+    : lessonMode === 'lesson6' ? LESSON_6_SLIDES.map(s => s.title)
+    : LESSON_7_SLIDES.map(s => s.title)
   const totalSlides = lessonMode === 'lesson1' ? 15
     : lessonMode === 'lesson2' ? LESSON_2_SLIDES.length
     : lessonMode === 'lesson3' ? LESSON_3_SLIDES.length
     : lessonMode === 'lesson4' ? LESSON_4_SLIDES.length
     : lessonMode === 'lesson5' ? LESSON_5_SLIDES.length
-    : LESSON_6_SLIDES.length
+    : lessonMode === 'lesson6' ? LESSON_6_SLIDES.length
+    : LESSON_7_SLIDES.length
 
-  const switchLesson = (mode: 'lesson1' | 'lesson2' | 'lesson3' | 'lesson4' | 'lesson5' | 'lesson6') => {
+  const switchLesson = (mode: 'lesson1' | 'lesson2' | 'lesson3' | 'lesson4' | 'lesson5' | 'lesson6' | 'lesson7') => {
     setLessonMode(mode)
     setCurrentSlide(1)
   }
@@ -211,6 +215,28 @@ export default function Presentation() {
         [/支付|付款|現金|信用卡/, 12, '第12頁「支付大車拚」：感應說 You can tap your credit card. 加油機付說 Pay at the pump. 關鍵：攜帶感應信用卡解決90%交通消費。'],
         [/迷航|延誤|搭錯|錯過/, 13, '第13頁「迷航應急矩陣」：走錯路說 Am I going the right way? 搭錯車說 I almost got off early. 導航當機說 The GPS just froze.'],
         [/金句|小抄| cheat sheet/, 15, '第15頁「專屬出行小抄」：5句應急金句整理，建議截圖保存！'],
+      ]
+      for (const [regex, slide, reply] of pairs) {
+        if (regex.test(query)) {
+          goSlide(slide)
+          return reply
+        }
+      }
+    } else if (lessonMode === 'lesson7') {
+      const pairs: [RegExp, number, string][] = [
+        [/教科書|陷阱|課本|生硬|正式/, 2, '第2頁「教科書陷阱」：課本說Would you like to participate in a leisure activity? 真實說You down for this? 同意說Yeah, I\'ve definitely been there.'],
+        [/約人|試探|水溫|無壓力|提案|約朋友/, 3, '第3頁「約人三部曲」：試探說Are you free later today? 提案說Maybe we could grab a coffee or something. 回應說I don\'t really have anything planned.'],
+        [/猶豫|參與|意願|commitment|fence|彈性/, 4, '第4頁「表達參與意願」：觀望說I\'m on the fence. 彈性說I\'m pretty open tonight. 熱情說Sure, I\'m down for that!'],
+        [/抵達|見面|破冰|介紹|arrival|arrive/, 5, '第5頁「抵達與破冰」：剛到說I just got here a minute ago. 自我介紹說I don\'t think we\'ve met before. 問關係說How do you know people here?'],
+        [/電影|追劇|專注|影集|反轉|劇情|pacing/, 6, '第6頁「電影反應」：High說I didn\'t see that coming! 節奏說The pacing feels kind of off. 背景說It\'s fine as background noise.'],
+        [/遊戲|運動|電玩|輸贏|競爭|菜鳥|messing/, 7, '第7頁「遊戲與運動」：菜鳥說I\'ve never played this before. 隨性說We\'re really just messing around. 不計輸贏說Nothing competitive here.'],
+        [/派對|切入|對話|共通點|退出|藍圖|social/, 8, '第8頁「派對社交藍圖」：切入說Hey sorry can I jump in here? 共通點說Yeah same here, it\'s been crazy. 退出說I\'m gonna grab a drink real quick.'],
+        [/me too|共鳴|同感|同理|認同|共享/, 9, '第9頁「Me Too升級工具包」：共享說Yeah, I\'ve definitely been there. 驚訝說No way, that actually happened? 幽默說That\'s hilarious, I\'ve done that too.'],
+        [/氣氛|音樂|vibe|氛圍|評價/, 10, '第10頁「音樂與氣氛」：喜歡說This place has a great vibe. 舒服說It\'s not too crowded. 失望說It\'s kind of boring not gonna lie.'],
+        [/調酒|酒吧|點酒|cocktail|gin|tonic|點餐|客製/, 11, '第11頁「調酒菜單」：點酒說Can I get a gin and tonic? 客製說Can you make it a bit lighter? 品評說That\'s surprisingly smooth actually!'],
+        [/聽不懂|誤解|救場|尷尬|失誤|沒聽清/, 12, '第12頁「溝通救場」：沒聽清說Sorry, I didn\'t catch what you said. 搞不懂說Wait, what did you mean by that? 失誤說I said the wrong name out loud.'],
+        [/散場|道別|離開|回家|departure/, 13, '第13頁「完美散場四部曲」：暗示說I\'m kind of tired. 決定說I think I\'m about ready to call it. 結尾說This was fun though honestly. 道別說Text me when you get home safe.'],
+        [/金句|小抄|複習|字彙|vocab|flashcard/, 14, '第14頁「字彙卡」：4象限複習 — Making Plans、Movies & Media、Games & Sports、Music & Vibes。'],
       ]
       for (const [regex, slide, reply] of pairs) {
         if (regex.test(query)) {
@@ -426,7 +452,9 @@ export default function Presentation() {
                 ? ['下一頁', '上一頁', '跳到第五頁', '斷網怎麼說']
                 : lessonMode === 'lesson5'
                 ? ['下一頁', '上一頁', '跳到第十頁', '叫車英文查詢']
-                : ['下一頁', '上一頁', '跳到第八頁', '校園金句']
+                : lessonMode === 'lesson6'
+                ? ['下一頁', '上一頁', '跳到第八頁', '校園金句']
+                : ['下一頁', '上一頁', '跳到第九頁', '派對破冰英文']
               ).map((cmd) => (
                 <button key={cmd} onClick={() => simulateVoice(cmd)}
                   className="bg-slate-900 px-2 py-1 rounded text-slate-400 font-mono text-[9px] hover:text-amber-300 transition text-left">
@@ -528,6 +556,14 @@ export default function Presentation() {
             }`}>
             <GraduationCap className="h-3 w-3" /> Lesson 6
           </button>
+          <button onClick={() => switchLesson('lesson7')}
+            className={`px-3 py-1 rounded-lg text-[10px] font-bold transition flex items-center gap-1 ${
+              lessonMode === 'lesson7'
+                ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                : 'text-slate-400 hover:text-slate-200 bg-slate-900/60 border border-slate-800/60'
+            }`}>
+            <Music className="h-3 w-3" /> Lesson 7
+          </button>
         </div>
 
         <div className="flex-1 relative overflow-hidden p-4 md:p-8">
@@ -563,6 +599,13 @@ export default function Presentation() {
             <>
               {Array.from({ length: totalSlides }, (_, i) => (
                 <Lesson6Slide key={`l6-${i + 1}`} page={i + 1} active={currentSlide === i + 1} />
+              ))}
+            </>
+          )}
+          {lessonMode === 'lesson7' && (
+            <>
+              {Array.from({ length: totalSlides }, (_, i) => (
+                <Lesson7Slide key={`l7-${i + 1}`} page={i + 1} active={currentSlide === i + 1} />
               ))}
             </>
           )}

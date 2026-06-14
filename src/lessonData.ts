@@ -866,6 +866,236 @@ export const LESSON_6_SLIDES: LessonSlide[] = [
   },
 ]
 
+export const LESSON_7_SLIDES: LessonSlide[] = [
+  {
+    title: 'The Weekend Playbook',
+    subtitle: '週末社交英文實戰指南',
+    category: 'Title',
+    content: `【The Weekend Playbook - 週末社交英文實戰指南】
+• 掌握電影、音樂、遊戲與夜晚聚會中，最自然、不照劇本走的道地英文。
+• 簡報製作: SpeakUp AI Presenter`,
+    phrases: [
+      { en: 'The Weekend Playbook', zh: '週末社交英文實戰指南' },
+      { en: 'Master the vibe', zh: '掌握氛圍' },
+      { en: 'You down for this?', zh: '你加入嗎？' },
+    ],
+    practice: '用英文約朋友週末出來玩！'
+  },
+  {
+    title: 'Textbook English — The Trap',
+    subtitle: '教科書陷阱 vs 真實道地說法',
+    category: 'Overview',
+    content: `【教科書陷阱 (Textbook English — The Trap)】
+• 脫離教科書公式，學會真正道地的週末社交英文溫度。
+• 課本: Would you like to participate in a leisure activity? → 真實: You down for this?
+• 課本: I agree with your previous statement. → 真實: Yeah, I've definitely been there.
+• 課本: I am departing for my residence. → 真實: I'm about ready to call it.`,
+    phrases: [
+      { en: "You down for this?", zh: '你加入嗎？/ 你去嗎？' },
+      { en: "Yeah, I've definitely been there.", zh: '是啊，我完全懂你的感受。' },
+      { en: "I'm about ready to call it.", zh: '我差不多要走了。' },
+    ],
+    practice: '把三個課本句子改成真實道地說法。'
+  },
+  {
+    title: 'Testing the Waters & Making Plans',
+    subtitle: '無壓力約人三部曲',
+    category: 'Making Plans',
+    content: `【試探水溫與約人 (Testing the Waters & Making Plans)】
+• Step 1 試探水溫: Are you free later today? / Are you doing anything after work?
+• Step 2 無壓力提案: Maybe we could grab a coffee... / Let's just keep things lowkey. / No pressure at all by the way.
+• Step 3 放鬆的回應: I don't really have anything planned. / I'm just taking it easy today.`,
+    phrases: [
+      { en: 'Are you free later today?', zh: '你今天晚點有空嗎？' },
+      { en: 'Maybe we could grab a coffee or something.', zh: '也許我們可以去喝杯咖啡或什麼的。' },
+      { en: "I don't really have anything planned.", zh: '我也沒什麼特別計畫。' },
+    ],
+    practice: '用三部曲流程約朋友週末出來。'
+  },
+  {
+    title: 'Expressing Your Commitment Level',
+    subtitle: '表達參與意願三欄',
+    category: 'Making Plans',
+    content: `【表達參與意願 (Expressing Your Commitment Level)】
+• Low Commitment: I'm on the fence. / I don't really want to overdo it. / I'm not leaning either way.
+• Open & Flexible: I'm pretty open tonight. / Honestly I'm good with whatever. / We can figure it out later.
+• High Enthusiasm: Sure, I'm down for that. / That sounds pretty chill. / Yeah, that works for me too.`,
+    phrases: [
+      { en: "I'm on the fence.", zh: '我還在猶豫不決。' },
+      { en: "I'm pretty open tonight.", zh: '我今晚的時間很彈性。' },
+      { en: "Sure, I'm down for that.", zh: '好啊，我完全可以！' },
+    ],
+    practice: '朋友約你時，用三種不同意願程度回答。'
+  },
+  {
+    title: 'The Arrival & The Introduction',
+    subtitle: '抵達現場與破冰介紹',
+    category: 'Social',
+    content: `【抵達現場與破冰 (The Arrival & The Introduction)】
+• 抵達: I just got here a minute ago. / I made it inside already. / Hey, what's up with you?
+• 破冰介紹: I don't think we've met before. / I'm a friend of Mike's. / How do you know people here?`,
+    phrases: [
+      { en: "I just got here a minute ago.", zh: '我剛到一分鐘而已。' },
+      { en: "I don't think we've met before.", zh: '我想我們之前應該沒見過面。' },
+      { en: "How do you know people here?", zh: '你是怎麼認識這裡的人的？' },
+    ],
+    practice: '到達聚會現場，用英文跟朋友打招呼。'
+  },
+  {
+    title: 'Movies & Show Reactions',
+    subtitle: '觀影反應與專注曲線',
+    category: 'Social',
+    content: `【電影與追劇反應 (Movies & Show Reactions)】
+• High Engagement: I didn't see that coming. That totally caught me off guard.
+• Pacing Off: The pacing feels kind of off. It's dragging a little.
+• Background Noise: It's fine as background noise. I'm not watching closely.`,
+    phrases: [
+      { en: "I didn't see that coming.", zh: '這我真的沒料到。' },
+      { en: "The pacing feels kind of off.", zh: '這部的節奏感覺有點怪怪的。' },
+      { en: "It's fine as background noise.", zh: '這播著當成背景聲音聽還行。' },
+    ],
+    practice: '用英文說你對正在看的電影或影集的評價。'
+  },
+  {
+    title: 'Games & Sports: The Chill Match',
+    subtitle: '遊戲與運動的輕鬆對話',
+    category: 'Social',
+    content: `【遊戲與運動對話 (Games & Sports: The Chill Match)）
+• 菜鳥保護傘: I've never played this before. / I'm honestly not very good at this. / I'm really just here for fun.
+• 隨性競賽家: I don't care if I win or lose. / We're really just messing around. / Nothing competitive here.`,
+    phrases: [
+      { en: "I've never played this before.", zh: '我之前從來沒有玩過這個。' },
+      { en: "I don't care if I win or lose.", zh: '我不在乎輸贏。' },
+      { en: "We're really just messing around.", zh: '我們真的只是在玩而已。' },
+    ],
+    practice: '玩桌遊時用英文說你不介意輸贏。'
+  },
+  {
+    title: 'The Social Blueprint: Party Guide',
+    subtitle: '派對社交動線',
+    category: 'Party',
+    content: `【派對社交藍圖 (The Social Blueprint: Party Guide)】
+• Path In 切入對話: Hey sorry can I jump in here? / Sorry, I just overheard that part.
+• The Anchor 尋找共通點: Yeah same here, it's been crazy. / I just moved here a few months ago.
+• Path Out 優雅退出: I'm gonna grab a drink real quick. / I'm gonna walk around for a bit.`,
+    phrases: [
+      { en: "Hey, sorry can I jump in here?", zh: '嘿，不好意思我可以加入嗎？' },
+      { en: "Yeah same here, it's been crazy.", zh: '對啊我也是，最近真的忙翻了。' },
+      { en: "I'm gonna grab a drink real quick.", zh: '我去拿杯飲料馬上回來。' },
+    ],
+    practice: '派對中練習切入對話、找共通點、優雅退出。'
+  },
+  {
+    title: 'The "Me Too" Upgrade Toolkit',
+    subtitle: '進階社交認同感',
+    category: 'Party',
+    content: `【Me Too 升級工具包 (The "Me Too" Upgrade Toolkit)】
+• 共享經驗: Yeah, I've definitely been there. 我完全懂你的感受。
+• 驚訝共鳴: No way, that actually happened? 不會吧！真的發生過喔？
+• 幽默同感: That's hilarious, I've done that too. 太好笑了，我也做過一樣的事。
+• 同理理解: Oh okay, I get what you mean now. 我現在完全理解你。
+• 勾起回憶: That reminds me of something. 這讓我想起一件事。`,
+    phrases: [
+      { en: "No way, that actually happened?", zh: '不會吧！真的發生過喔？' },
+      { en: "That's hilarious, I've done that too.", zh: '太好笑了，我也做過一樣的事。' },
+      { en: "That reminds me of something.", zh: '這讓我想起一件事。' },
+    ],
+    practice: '朋友分享趣事時，用五種高級回應取代單調的 Me too。'
+  },
+  {
+    title: 'Music & Atmosphere Vibes',
+    subtitle: '氣氛評價四象限',
+    category: 'Party',
+    content: `【音樂與氣氛 (Music & Atmosphere Vibes)】
+• Loving It / High Energy: This place has a great vibe. / The music is pretty good tonight.
+• Lowkey / Chill: Yeah, it's a nice little hangout. / It's not too crowded right now.
+• Mixed Feelings: Whoa, that's stronger than I expected. / It's kind of expensive for what it is.
+• Not Feeling It: It's kind of boring not gonna lie. / Things been slow for you lately?`,
+    phrases: [
+      { en: "This place has a great vibe.", zh: '這地方氣氛真棒。' },
+      { en: "It's not too crowded right now.", zh: '現在人還沒到太擠。' },
+      { en: "It's kind of boring not gonna lie.", zh: '老實說，有點無趣。' },
+    ],
+    practice: '用英文評論你所在地方的氣氛。'
+  },
+  {
+    title: 'Interactive Cocktail Menu',
+    subtitle: '酒吧點餐與品評',
+    category: 'Party',
+    content: `【調酒菜單 (Interactive Cocktail Menu)】
+• 經典點法: Can I get a gin and tonic? / I'll have the same as him.
+• 客製微調: Can you make it a bit lighter? / Can you make it less strong? / I want something fruity instead.
+• 品評鑑賞: That's surprisingly smooth actually. / You can taste the alcohol right away. / I'll sip this one slowly.`,
+    phrases: [
+      { en: 'Can I get a gin and tonic?', zh: '可以給我一杯琴通寧嗎？' },
+      { en: 'Can you make it a bit lighter?', zh: '可以幫我做淡一點嗎？' },
+      { en: "That's surprisingly smooth actually.", zh: '這杯出乎意料地順口。' },
+    ],
+    practice: '在酒吧用英文點一杯調酒。'
+  },
+  {
+    title: 'The Communication Fixes',
+    subtitle: '社交救場金句',
+    category: 'Party',
+    content: `【溝通救場 (The Communication Fixes)）
+• 沒聽清楚: Sorry, I didn't catch what you said. / Could you say that one more time?
+• 沒搞懂意圖: Wait, what did you mean by that? / Sorry, just give me a moment.
+• 自己失誤: I said the wrong name out loud. / It was kind of awkward back then.`,
+    phrases: [
+      { en: "Sorry, I didn't catch what you said.", zh: '抱歉，我剛沒聽清你說什麼。' },
+      { en: "Wait, what did you mean by that?", zh: '等等，你那是什麼意思？' },
+      { en: "I said the wrong name out loud.", zh: '糟了，我把名字唸錯了。' },
+    ],
+    practice: '社交場合聽不懂時用英文請對方再說一次。'
+  },
+  {
+    title: 'The Perfect Departure',
+    subtitle: '完美散場四部曲',
+    category: 'Party',
+    content: `【完美散場四部曲 (The Perfect Departure)）
+• Stage 1 暗示疲倦: I'm kind of tired not gonna lie. / I could use a short break.
+• Stage 2 下定決心: I think I'm about ready to call it. / Yeah, it's getting a bit late.
+• Stage 3 感性結尾: This was fun though honestly. / Time really flew by.
+• Stage 4 安全道別: Text me when you get home safe. / I should probably head home.`,
+    phrases: [
+      { en: "I'm kind of tired not gonna lie.", zh: '不瞞你說我有點累了。' },
+      { en: "This was fun though honestly.", zh: '說真的，今天很好玩！' },
+      { en: "Text me when you get home safe.", zh: '到家後傳個訊息報平安。' },
+    ],
+    practice: '用四部曲流程優雅地從聚會中離開。'
+  },
+  {
+    title: '週末社交必備字彙卡',
+    subtitle: '4象限字彙複習',
+    category: 'Summary',
+    content: `【週末社交必備字彙卡 (Vocabulary Flashcards)】
+• Making Plans: I'm pretty open tonight. / I'm down for that. / Keep things lowkey.
+• Movies & Media: I didn't see that coming. / Fine as background noise. / Pacing feels off.
+• Games & Sports: I've never played this before. / Just here for fun. / Nothing competitive here.
+• Music & Vibes: The vibe is really chill. / I like this playlist a lot. / Surprisingly smooth actually.`,
+    phrases: [
+      { en: "I'm pretty open tonight.", zh: '我今晚時間很彈性。' },
+      { en: "The vibe is really chill.", zh: '氛圍超愜意。' },
+      { en: "Surprisingly smooth actually.", zh: '比預想順口。' },
+    ],
+    practice: '複習四象限字彙，選一句說給朋友聽。'
+  },
+  {
+    title: 'Step Into the Scene',
+    subtitle: '大膽開口，週末愉快',
+    category: 'Epilogue',
+    content: `【Step Into the Scene】
+• You know the lines. You know the vibe. Now it's time to live the weekend.
+• We should do this again sometime.
+• 週末愉快，大膽開口說吧！`,
+    phrases: [
+      { en: "We should do this again sometime.", zh: '我們找時間再聚聚！' },
+      { en: 'Step Into the Scene.', zh: '走進場景吧。' },
+    ],
+    practice: '帶著這份指南，自信走進週末社交場合！'
+  },
+]
+
 export const LESSON_5_SLIDES: LessonSlide[] = [
   {
     title: '美國出行完全指南：零死角交通英文實戰',

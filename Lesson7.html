@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Weekend Playbook - 週末社交英文實戰指南</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Noto+Sans+TC:wght@300;400;700&display=swap');
+        
+        body {
+            font-family: 'Montserrat', 'Noto Sans TC', sans-serif;
+            background-color: #0b0f19;
+            color: #f3f4f6;
+        }
+
+        /* Slide Transition System (Container) */
+        .slide {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            transform: scale(0.99);
+            width: 100%;
+            height: 100%;
+            overflow-y: auto; /* Handle overflow gracefully inside the slide container */
+            box-sizing: border-box;
+        }
+
+        .slide.active {
+            display: block; /* block displays container, child handles flex layout */
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Inner container that centers vertically, and supports natural scroll if overflow */
+        .slide-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100%;
+            width: 100%;
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+            box-sizing: border-box;
+        }
+
+        /* Custom neon shadows & accents */
+        .neon-border-amber {
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.15), inset 0 0 15px rgba(245, 158, 11, 0.05);
+            border: 1px solid rgba(245, 158, 11, 0.35);
+        }
+
+        .neon-border-violet {
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.15), inset 0 0 15px rgba(139, 92, 246, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.35);
+        }
+
+        .neon-border-cyan {
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.15), inset 0 0 15px rgba(6, 182, 212, 0.05);
+            border: 1px solid rgba(6, 182, 212, 0.35);
+        }
+
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Custom Scrollbar for inner overflow */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.1);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+
+        /* Animated connection lines for slides */
+        .neon-glow-line {
+            background: linear-gradient(90deg, #06b6d4, #8b5cf6, #f59e0b);
+            box-shadow: 0 0 12px rgba(139, 92, 246, 0.6);
+        }
+    </style>
+    <noscript>
+        <style>
+            .slide { display: block !important; opacity: 1 !important; transform: none !important; }
+        </style>
+    </noscript>
+</head>
+<body class="h-screen flex flex-col justify-between overflow-hidden select-none">
+
+    <!-- Top Status / Navigation Bar -->
+    <header class="glass-panel px-6 py-4 flex justify-between items-center z-50">
+        <div class="flex items-center space-x-3">
+            <div class="w-3 h-3 rounded-full bg-red-500 animate-pulse"></div>
+            <span class="text-xs md:text-sm tracking-widest text-gray-400 font-bold">SCENE 1, TAKE 1</span>
+        </div>
+        <h1 class="text-sm md:text-xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-amber-400 via-pink-500 to-violet-500">
+            THE WEEKEND PLAYBOOK
+        </h1>
+        <div class="flex items-center space-x-2 md:space-x-4">
+            <button onclick="toggleNotes()" class="p-2 text-gray-400 hover:text-white transition rounded hover:bg-gray-800" title="講師講義/備忘錄">
+                <i data-lucide="file-text" class="w-5 h-5"></i>
+            </button>
+            <button onclick="toggleGrid()" class="p-2 text-gray-400 hover:text-white transition rounded hover:bg-gray-800" title="投影片大綱">
+                <i data-lucide="grid" class="w-5 h-5"></i>
+            </button>
+            <button onclick="toggleFullscreen()" class="p-2 text-gray-400 hover:text-white transition rounded hover:bg-gray-800" title="全螢幕">
+                <i data-lucide="maximize" class="w-5 h-5"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Slides Container (Internally scrollable for overflow safety) -->
+    <main class="flex-grow relative overflow-hidden p-4 md:p-8 flex items-center justify-center">
+        
+        <div class="w-full h-full max-w-6xl relative">
+
+            <!-- ================= SLIDE 1: Title Cover ================= -->
+            <div class="slide active w-full" data-note="歡迎來到《週末社交英文指南》。今天我們要脫離生硬的教科書，學習在電影、音樂、遊戲及酒吧夜生活裡，外國人真正使用的不設防、隨興英文。">
+                <div class="slide-content items-center text-center space-y-6 md:space-y-8">
+                    <div class="relative inline-block px-6 py-2 glass-panel neon-border-violet rounded-full text-violet-300 font-semibold tracking-wider text-xs md:text-sm uppercase animate-bounce">
+                        🎧 MASTER THE VIBE
+                    </div>
+                    <h1 class="text-4xl md:text-8xl font-black tracking-tight leading-none bg-gradient-to-br from-white via-gray-200 to-gray-500 bg-clip-text text-transparent">
+                        The Weekend<br><span class="text-amber-400 font-extrabold drop-shadow-[0_0_15px_rgba(245,158,11,0.5)]">Playbook</span>
+                    </h1>
+                    <p class="text-sm md:text-2xl text-gray-300 max-w-2xl font-light">
+                        掌握電影、音樂、遊戲與夜晚聚會中，最自然、不照劇本走的道地英文。
+                    </p>
+                    <div class="pt-4 text-xs text-gray-500 tracking-wider">
+                        按鍵盤 <kbd class="px-2 py-1 bg-gray-800 rounded border border-gray-700">➔</kbd> 或點擊下方控制列開始探險
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= SLIDE 2: Textbook vs. Real Life ================= -->
+            <div class="slide w-full" data-note="第二頁探討『教科書陷阱』。我們常在課本學到極度正式的對話，但在現實週末社交場合聽起來會太過客套甚至尷尬。例如想約人去玩，課本教我們用 participate in leisure activity，但真實生活中，我們只需要說 You down for this? 就好。">
+                <div class="slide-content space-y-4 md:space-y-6">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-amber-400 flex items-center gap-2">
+                        <i data-lucide="alert-triangle" class="text-amber-400"></i> Textbook English — The Trap
+                    </h2>
+                    <p class="text-gray-400 text-sm md:text-lg">脫離教科書公式，學會真正道地的週末社交英文溫度。</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+                        <!-- Card 1 -->
+                        <div class="glass-panel p-5 md:p-6 rounded-2xl flex flex-col justify-between border-l-4 border-red-500 hover:scale-[1.02] transition-transform">
+                            <div>
+                                <span class="text-xs text-red-400 font-bold tracking-widest uppercase">課本的生硬死角</span>
+                                <p class="text-sm md:text-lg text-gray-300 mt-2 italic">"Would you like to participate in a leisure activity?"</p>
+                                <p class="text-xs text-gray-500 mt-1">（你想要參加一個休閒活動嗎？）</p>
+                            </div>
+                            <div class="border-t border-gray-800 my-3 md:my-4"></div>
+                            <div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs text-emerald-400 font-bold tracking-widest uppercase">真實道地說法</span>
+                                    <button onclick="speak('You down for this?')" class="text-gray-400 hover:text-white"><i data-lucide="volume-2" class="w-4 h-4"></i></button>
+                                </div>
+                                <p class="text-lg md:text-xl text-emerald-300 font-bold mt-1">"You down for this?"</p>
+                                <p class="text-xs text-gray-400 mt-1">（你加入嗎？/ 你去嗎？）</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="glass-panel p-5 md:p-6 rounded-2xl flex flex-col justify-between border-l-4 border-red-500 hover:scale-[1.02] transition-transform">
+                            <div>
+                                <span class="text-xs text-red-400 font-bold tracking-widest uppercase">課本的生硬死角</span>
+                                <p class="text-sm md:text-lg text-gray-300 mt-2 italic">"I agree with your previous statement."</p>
+                                <p class="text-xs text-gray-500 mt-1">（我同意你之前的陳述。）</p>
+                            </div>
+                            <div class="border-t border-gray-800 my-3 md:my-4"></div>
+                            <div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs text-emerald-400 font-bold tracking-widest uppercase">真實道地說法</span>
+                                    <button onclick="speak('Yeah, I have definitely been there.')" class="text-gray-400 hover:text-white"><i data-lucide="volume-2" class="w-4 h-4"></i></button>
+                                </div>
+                                <p class="text-lg md:text-xl text-emerald-300 font-bold mt-1">"Yeah, I've definitely been there."</p>
+                                <p class="text-xs text-gray-400 mt-1">（是啊，我完全懂你的感受。）</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="glass-panel p-5 md:p-6 rounded-2xl flex flex-col justify-between border-l-4 border-red-500 hover:scale-[1.02] transition-transform">
+                            <div>
+                                <span class="text-xs text-red-400 font-bold tracking-widest uppercase">課本的生硬死角</span>
+                                <p class="text-sm md:text-lg text-gray-300 mt-2 italic">"I am departing for my residence."</p>
+                                <p class="text-xs text-gray-500 mt-1">（我正要前往我的住所。）</p>
+                            </div>
+                            <div class="border-t border-gray-800 my-3 md:my-4"></div>
+                            <div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs text-emerald-400 font-bold tracking-widest uppercase">真實道地說法</span>
+                                    <button onclick="speak('I am about ready to call it.')" class="text-gray-400 hover:text-white"><i data-lucide="volume-2" class="w-4 h-4"></i></button>
+                                </div>
+                                <p class="text-lg md:text-xl text-emerald-300 font-bold mt-1">"I'm about ready to call it."</p>
+                                <p class="text-xs text-gray-400 mt-1">（我差不多要走了 / 準備收工。）</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= SLIDE 3: Testing the Waters ================= -->
+            <div class="slide w-full" data-note="第三頁：輕鬆約朋友、完全不給壓力。這是一套完美的約人心理學。">
+                <div class="slide-content space-y-4 md:space-y-6">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-cyan-400 flex items-center gap-2">
+                        <i data-lucide="coffee" class="text-cyan-400"></i> Testing the Waters & Making Plans
+                    </h2>
+                    <p class="text-gray-400 text-sm md:text-lg">如何毫無壓力地約朋友出來？這是一套三部曲流程：</p>
+
+                    <!-- High-Fidelity Diagram with neon connecting pipeline -->
+                    <div class="relative flex flex-col md:flex-row justify-between items-center gap-6 py-6 overflow-hidden">
+                        <div class="absolute top-1/2 left-0 right-0 h-1 neon-glow-line -translate-y-1/2 z-0 hidden md:block"></div>
+                        
+                        <!-- Step 1 -->
+                        <div class="glass-panel p-5 rounded-2xl border border-gray-800 relative overflow-hidden z-10 w-full md:w-1/3 hover:scale-[1.02] transition-transform">
+                            <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl"></div>
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-xl md:text-2xl font-black text-cyan-500">01</span>
+                                <h3 class="text-sm md:text-base font-bold text-white">試探水溫 <span class="text-xs text-cyan-400 block font-normal">Testing the Waters</span></h3>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="bg-gray-900/60 p-2 rounded-lg border border-gray-800 flex justify-between items-center">
+                                    <span class="text-xs text-amber-300">"Are you free later today?"</span>
+                                    <button onclick="speak('Are you free later today?')" class="text-gray-500 hover:text-white"><i data-lucide="volume-2" class="w-3.5 h-3.5"></i></button>
+                                </div>
+                                <div class="bg-gray-900/60 p-2 rounded-lg border border-gray-800 flex justify-between items-center">
+                                    <span class="text-xs text-amber-300">"Are you doing anything after work?"</span>
+                                    <button onclick="speak('Are you doing anything after work?')" class="text-gray-500 hover:text-white"><i data-lucide="volume-2" class="w-3.5 h-3.5"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="glass-panel p-5 rounded-2xl border border-gray-800 relative overflow-hidden z-10 w-full md:w-1/3 hover:scale-[1.02] transition-transform">
+                            <div class="absolute top-0 right-0 w-24 h-24 bg-violet-500/10 rounded-full blur-2xl"></div>
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-xl md:text-2xl font-black text-violet-500">02</span>
+                                <h3 class="text-sm md:text-base font-bold text-white">無壓力提案 <span class="text-xs text-violet-400 block font-normal">The Low-Pressure Pitch</span></h3>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="bg-gray-900/60 p-2 rounded-lg border border-gray-800 flex justify-between items-center">
+                                    <span class="text-xs text-amber-300">"Maybe we could grab a coffee..."</span>
+                                    <button onclick="speak('Maybe we could grab a coffee or something.')" class="text-gray-500 hover:text-white"><i data-lucide="volume-2" class="w-3.5 h-3.5"></i></button>
+                                </div>
+                                <div class="bg-gray-900/60 p-2 rounded-lg border border-gray-800 flex justify-between items-center">
+                                    <span class="text-xs text-amber-300">"Let's just keep things lowkey."</span>
+                                    <button onclick="speak('Lets just keep things lowkey.')" class="text-gray-500 hover:text-white"><i data-lucide="volume-2" class="w-3.5 h-3.5"></i></button>
+                                </div>
+                                <div class="bg-gray-900/60 p-2 rounded-lg border border-gray-800 flex justify-between items-center">
+                                    <span class="text-xs text-amber-300">"No pressure at all by the way."</span>
+                                    <button onclick="speak('No pressure at all by the way.')" class="text-gray-500 hover:text-white"><i data-lucide="volume-2" class="w-3.5 h-3.5"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="glass-panel p-5 rounded-2xl border border-gray-800 relative overflow-hidden z-10 w-full md:w-1/3 hover:scale-[1.02] transition-transform">
+                            <div class="absolute top-0 right-0 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl"></div>
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-xl md:text-2xl font-black text-amber-500">03</span>
+                                <h3 class="text-sm md:text-base font-bold text-white">放鬆的回應 <span class="text-xs text-amber-400 block font-normal">The Chill Response</span></h3>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="bg-gray-900/60 p-2 rounded-lg border border-gray-800 flex justify-between items-center">
+                                    <span class="text-xs text-emerald-300">"I don't really have anything planned."</span>
+                                    <button onclick="speak('I dont really have anything planned.')" class="text-gray-500 hover:text-white"><i data-lucide="volume-2" class="w-3.5 h-3.5"></i></button>
+                                </div>
+                                <div class="bg-gray-900/60 p-2 rounded-lg border border-gray-800 flex justify-between items-center">
+                                    <span class="text-xs text-emerald-300">"I'm just taking it easy today."</span>
+                                    <button onclick="speak('Im just taking it easy today.')" class="text-gray-500 hover:text-white"><i data-lucide="volume-2" class="w-3.5 h-3.5"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= SLIDE 4: Commitment Levels ================= -->
+            <div class="slide w-full" data-note="第四頁精確傳達參與意願。當別人約你的時候，你可以完美表達三種狀態。">
+                <div class="slide-content space-y-4 md:space-y-6">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-violet-400 flex items-center gap-2">
+                        <i data-lucide="sliders" class="text-violet-400"></i> Expressing Your Commitment Level
+                    </h2>
+                    <p class="text-gray-400 text-sm md:text-lg">當朋友提出邀約時，如何用英文得體且準確地表達你的參與意願？</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+                        <!-- Low Commitment -->
+                        <div class="glass-panel p-5 rounded-2xl border-t-4 border-amber-500 flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-base md:text-lg font-bold text-amber-400 mb-3 flex justify-between items-center">
+                                    意願一般 / 觀望中 <span class="text-xs font-normal">Low Commitment</span>
+                                </h3>
+                                <ul class="space-y-2">
+                                    <li class="bg-gray-900/40 p-2 md:p-3 rounded-lg">
+                                        <div class="flex justify-between items-center font-bold text-xs md:text-sm text-gray-200">"I'm on the fence." <button onclick="speak('I am on the fence.')" class="text-gray-500 hover:text-white"><i data-lucide="volume-2" class="w-3.5 h-3.5"></i></button></div>
+                                        <p class="text-[10px] md:text-xs text-gray-400 mt-1">我還在猶豫不決（牆頭草）。</p>
+                                    </li>
+                                    <li class="bg-gray-900/40 p-2 md:p-3 rounded-lg">
+                                        <div class="flex justify-between items-center font-bold text-xs md:text-sm text-gray-200">"I don't really want to overdo it." <button onclick="speak('I dont really want to overdo it.')" class="text-gray-500 hover:text-white"><i data-lucide="volume-2" class="w-3.5 h-3.5"></i></button></div>
+                                        <p class="text-[10px] md:text-xs text-gray-400 mt-1">我今天不想玩得太累、太瘋。</p>
+                                    </li>
+                                    <li class="bg-gray-900/40 p-2 md:p-3 rounded-lg">
+                                        <div class="flex justify-between items-center font-bold text-xs md:text-sm text-gray-200">"I'm not leaning either way." <button onclick="speak('I am not leaning either way.')" class="text-gray-500 hover:text-white"><i data-lucide="volume-2" class="w-3.5 h-3.5"></i></button></div>
+                                        <p class="text-[10px] md:text-xs text-gray-400 mt-1">我目前無特定傾向。</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Open/Flexible -->
+                        <div class="glass-panel p-5 rounded-2xl border-t-4 border-cyan-500 flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-base md:text-lg font-bold text-cyan-400 mb-3 flex justify-between items-center">
+                                    開放彈性 / 都可以 <span class="text-xs font-normal">Open & Flexible</span>
+                                </h3>
+                                <ul class="space-y-2">
+                                    <li class="bg-gray-900/40 p-2 md:p-3 rounded-lg">
+                                        <div class="flex justify-between items-center font-bold text-xs md:text-sm text-gray-200">"I'm pretty open tonight." <button onclick="speak('I am pretty open tonight.')" class="text-gray-500 hover:text-white"><i data-lucide="volume-2" class="w-3.5 h-3.5"></i></button></div>
+                                        <p class="text-[10px] md:text-xs text-gray-400 mt-1">我今晚的時間很彈性。</p>
+                                    </li>
+                                    <li class="bg-gray-900/40 p-2 md:p-3 rounded-lg">
+                                        <div class="flex justify-between items-center font-bold text-xs md:text-sm text-gray-200">"Honestly I'm good with whatever." <button onclick="speak('Honestly I am good with whatever.')" class="text-gray-500 hover:text-white"><i data-lucide="volume-2" class="w-3.5 h-3.5"></i></button></div>
+                                        <p class="text-[10px] md:text-xs text-gray-400 mt-1">老實說，我怎樣都好、隨便你。</p>
+                                    </li>
+                                    <li class="bg-gray-900/40 p-2 md:p-3 rounded-lg">
+                                        <div class="flex justify-between items-center font-bold text-xs md:text-sm text-gray-200">"We can figure it out later." <button onclick="speak('We can figure it out later.')" class="text-gray-500 hover:text-white"><i data-lucide="volume-2" class="w-3.5 h-3.5"></i></button></div>
+                                        <p class="text-[10px] md:text-xs text-gray-400 mt-1">我們待會再說也可以。</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- High Enthusiasm -->
+                        <div class="glass-panel p-5 rounded-2xl border-t-4 border-emerald-500 flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-base md:text-lg font-bold text-emerald-400 mb-3 flex justify-between items-center">
+                                    熱情參與 / 加一 <span class="text-xs font-normal">High Enthusiasm</span>
+                                </h3>
+                                <ul class="space-y-2">
+                                    <li class="bg-gray-900/40 p-2 md:p-3 rounded-lg">
+                                        <div class="flex justify-between items-center font-bold text-xs md:text-sm text-gray-200">"Sure, I'm down for that." <button onclick="speak('Sure, I am down for that.')" class="text-gray-500 hover:text-white"><i data-lucide="volume-2" class="w-3.5 h-3.5"></i></button></div>
+                                        <p class="text-[10px] md:text-xs text-gray-400 mt-1">好啊，我完全可以！/ 算我一份。</p>
+                                    </li>
+                                    <li class="bg-gray-900/40 p-2 md:p-3 rounded-lg">
+                                        <div class="flex justify-between items-center font-bold text-xs md:text-sm text-gray-200">"That sounds pretty chill." <button onclick="speak('That sounds pretty chill.')" class="text-gray-500 hover:text-white"><i data-lucide="volume-2" class="w-3.5 h-3.5"></i></button></div>
+                                        <p class="text-[10px] md:text-xs text-gray-400 mt-1">聽起來超棒、很放鬆。</p>
+                                    </li>
+                                    <li class="bg-gray-900/40 p-2 md:p-3 rounded-lg">
+                                        <div class="flex justify-between items-center font-bold text-xs md:text-sm text-gray-200">"Yeah, that works for me too." <button onclick="speak('Yeah, that works for me too.')" class="text-gray-500 hover:text-white"><i data-lucide="volume-2" class="w-3.5 h-3.5"></i></button></div>
+                                        <p class="text-[10px] md:text-xs text-gray-400 mt-1">好啊，這時間對我也完全行。</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= SLIDE 5: The Arrival & Intro ================= -->
+            <div class="slide w-full" data-note="第五頁講見面打招呼與破冰。">
+                <div class="slide-content space-y-4 md:space-y-6">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-emerald-400 flex items-center gap-2">
+                        <i data-lucide="users" class="text-emerald-400"></i> The Arrival & The Introduction
+                    </h2>
+                    <p class="text-gray-400 text-sm md:text-lg">到達現場與陌生人破冰，不用客套，自然切入：</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+                        <!-- The Arrival -->
+                        <div class="glass-panel p-5 md:p-6 rounded-2xl neon-border-cyan relative overflow-hidden">
+                            <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-cyan-500/10 rounded-full blur-3xl"></div>
+                            <div class="flex justify-between items-center mb-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="p-2 bg-cyan-900/50 rounded-lg text-cyan-400"><i data-lucide="map-pin"></i></div>
+                                    <div>
+                                        <h3 class="text-base md:text-xl font-bold text-white">抵達現場</h3>
+                                        <span class="text-[10px] text-cyan-400 tracking-wider block">THE ARRIVAL</span>
+                                    </div>
+                                </div>
+                                <span class="text-xs text-red-500 font-mono tracking-widest flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span> 00:00:00 REC</span>
+                            </div>
+                            
+                            <div class="space-y-3">
+                                <div class="bg-gray-900/50 p-3 rounded-xl border border-gray-800 flex justify-between items-start">
+                                    <div>
+                                        <p class="text-sm md:text-base font-bold text-gray-200">"I just got here a minute ago."</p>
+                                        <p class="text-xs text-gray-400 mt-0.5">我剛到一分鐘而已。</p>
+                                    </div>
+                                    <button onclick="speak('I just got here a minute ago.')" class="text-gray-400 hover:text-white p-1"><i data-lucide="volume-2" class="w-4 h-4"></i></button>
+                                </div>
+                                <div class="bg-gray-900/50 p-3 rounded-xl border border-gray-800 flex justify-between items-start">
+                                    <div>
+                                        <p class="text-sm md:text-base font-bold text-gray-200">"I made it inside already."</p>
+                                        <p class="text-xs text-gray-400 mt-0.5">我已經進到裡面了。</p>
+                                    </div>
+                                    <button onclick="speak('I made it inside already.')" class="text-gray-400 hover:text-white p-1"><i data-lucide="volume-2" class="w-4 h-4"></i></button>
+                                </div>
+                                <div class="bg-gray-900/50 p-3 rounded-xl border border-gray-800 flex justify-between items-start">
+                                    <div>
+                                        <p class="text-sm md:text-base font-bold text-gray-200">"Hey, what's up with you?"</p>
+                                        <p class="text-xs text-gray-400 mt-0.5">嘿，最近好嗎？/ 過得怎樣？</p>
+                                    </div>
+                                    <button onclick="speak('Hey, whats up with you?')" class="text-gray-400 hover:text-white p-1"><i data-lucide="volume-2" class="w-4 h-4"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- The Introduction -->
+                        <div class="glass-panel p-5 md:p-6 rounded-2xl neon-border-violet relative overflow-hidden">
+                            <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-violet-500/10 rounded-full blur-3xl"></div>
+                            <div class="flex items-center space-x-3 mb-4">
+                                <div class="p-2 bg-violet-900/50 rounded-lg text-violet-400"><i data-lucide="smile"></i></div>
+                                <div>
+                                    <h3 class="text-base md:text-xl font-bold text-white">破冰介紹</h3>
+                                    <span class="text-[10px] text-violet-400 tracking-wider block">THE INTRODUCTION</span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-3">
+                                <div class="bg-gray-900/50 p-3 rounded-xl border border-gray-800 flex justify-between items-start">
+                                    <div>
+                                        <p class="text-sm md:text-base font-bold text-gray-200">"I don't think we've met before."</p>
+                                        <p class="text-xs text-gray-400 mt-0.5">我想我們之前應該沒見過面。</p>
+                                    </div>
+                                    <button onclick="speak('I dont think we have met before.')" class="text-gray-400 hover:text-white p-1"><i data-lucide="volume-2" class="w-4 h-4"></i></button>
+                                </div>
+                                <div class="bg-gray-900/50 p-3 rounded-xl border border-gray-800 flex justify-between items-start">
+                                    <div>
+                                        <p class="text-sm md:text-base font-bold text-gray-200">"I'm a friend of Mike's."</p>
+                                        <p class="text-xs text-gray-400 mt-0.5">我是 Mike 的朋友。</p>
+                                    </div>
+                                    <button onclick="speak('I am a friend of Mikes.')" class="text-gray-400 hover:text-white p-1"><i data-lucide="volume-2" class="w-4 h-4"></i></button>
+                                </div>
+                                <div class="bg-gray-900/50 p-3 rounded-xl border border-gray-800 flex justify-between items-start">
+                                    <div>
+                                        <p class="text-sm md:text-base font-bold text-gray-200">"How do you know people here?"</p>
+                                        <p class="text-xs text-gray-400 mt-0.5">你是怎麼認識這裡的人的？</p>
+                                    </div>
+                                    <button onclick="speak('How do you know people here?')" class="text-gray-400 hover:text-white p-1"><i data-lucide="volume-2" class="w-4 h-4"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= SLIDE 6: Movies & Media ================= -->
+            <div class="slide w-full" data-note="第六頁講看電影或追劇（Movies & Media）的真實反應。">
+                <div class="slide-content space-y-4 md:space-y-6">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-amber-400 flex items-center gap-2">
+                        <i data-lucide="film" class="text-amber-400"></i> The Attention Span & Show Reactions
+                    </h2>
+                    <p class="text-gray-400 text-sm md:text-lg">觀看電影與追劇時的「專注曲線」實用英語反饋：</p>
+
+                    <!-- High-Fidelity SVG Interactive Curve Graph -->
+                    <div class="glass-panel p-4 rounded-2xl relative border border-gray-800">
+                        <div class="absolute top-2 left-4 text-[10px] text-gray-500 uppercase tracking-widest font-mono">Engagement Level Curve</div>
+                        <div class="h-44 md:h-56 w-full mt-4">
+                            <svg viewBox="0 0 1000 300" class="w-full h-full overflow-visible">
+                                <!-- Curve Path -->
+                                <path d="M 50,250 C 150,50 250,50 350,70 C 450,90 550,220 700,230 L 950,230" fill="none" stroke="url(#gradientCurve)" stroke-width="6" stroke-linecap="round"></path>
+                                
+                                <!-- Gradients -->
+                                <defs>
+                                    <linearGradient id="gradientCurve" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#ef4444"></stop>
+                                        <stop offset="40%" stop-color="#f59e0b"></stop>
+                                        <stop offset="100%" stop-color="#4b5563"></stop>
+                                    </linearGradient>
+                                </defs>
+
+                                <!-- Node 1: High -->
+                                <g class="cursor-pointer group" onclick="speak('I didnt see that coming. That totally caught me off guard.')">
+                                    <circle cx="280" cy="65" r="12" fill="#ef4444" class="animate-ping opacity-30"></circle>
+                                    <circle cx="280" cy="65" r="8" fill="#ef4444" stroke="#ffffff" stroke-width="2"></circle>
+                                    <text x="280" y="40" text-anchor="middle" fill="#f3f4f6" class="text-xs font-bold font-mono">專注度爆表 (High)</text>
+                                </g>
+
+                                <!-- Node 2: Mid -->
+                                <g class="cursor-pointer group" onclick="speak('The pacing feels kind of off. Its dragging a little.')">
+                                    <circle cx="550" cy="180" r="12" fill="#f59e0b" class="animate-ping opacity-30"></circle>
+                                    <circle cx="550" cy="180" r="8" fill="#f59e0b" stroke="#ffffff" stroke-width="2"></circle>
+                                    <text x="550" y="155" text-anchor="middle" fill="#f3f4f6" class="text-xs font-bold font-mono">開始出神 (Pacing Off)</text>
+                                </g>
+
+                                <!-- Node 3: Low -->
+                                <g class="cursor-pointer group" onclick="speak('Its fine as background noise. Im not watching closely.')">
+                                    <circle cx="820" cy="230" r="12" fill="#4b5563" class="animate-ping opacity-30"></circle>
+                                    <circle cx="820" cy="230" r="8" fill="#4b5563" stroke="#ffffff" stroke-width="2"></circle>
+                                    <text x="820" y="205" text-anchor="middle" fill="#f3f4f6" class="text-xs font-bold font-mono">當作白噪音 (Background)</text>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="glass-panel p-4 rounded-xl border-l-4 border-red-500">
+                            <span class="text-xs text-red-400 font-mono tracking-wider uppercase block mb-1">🔥 High Engagement</span>
+                            <p class="text-xs md:text-sm font-bold">"I didn't see that coming."</p>
+                            <p class="text-[10px] md:text-xs text-gray-400">這我真的沒料到。（劇情反轉）</p>
+                        </div>
+                        <div class="glass-panel p-4 rounded-xl border-l-4 border-amber-500">
+                            <span class="text-xs text-amber-400 font-mono tracking-wider uppercase block mb-1">⏳ Pacing Feels Off</span>
+                            <p class="text-xs md:text-sm font-bold">"The pacing feels kind of off."</p>
+                            <p class="text-[10px] md:text-xs text-gray-400">這部的節奏感覺有點怪怪的、拖戲。</p>
+                        </div>
+                        <div class="glass-panel p-4 rounded-xl border-l-4 border-gray-600">
+                            <span class="text-xs text-gray-400 font-mono tracking-wider uppercase block mb-1">🎧 Background Noise</span>
+                            <p class="text-xs md:text-sm font-bold">"It's fine as background noise."</p>
+                            <p class="text-[10px] md:text-xs text-gray-400">這播著當成背景聲音聽還行。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= SLIDE 7: Games & Sports ================= -->
+            <div class="slide w-full" data-note="第七頁：運動與遊戲時的輕鬆對話。">
+                <div class="slide-content space-y-4 md:space-y-6">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-violet-400 flex items-center gap-2">
+                        <i data-lucide="gamepad-2" class="text-violet-400"></i> Games & Sports: The Chill Match
+                    </h2>
+                    <p class="text-gray-400 text-sm md:text-lg">打桌遊、電玩、或是球類運動時，不需在乎輸贏的輕鬆對話術：</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+                        <!-- Rookie Guide -->
+                        <div class="glass-panel p-5 md:p-6 rounded-3xl border border-amber-500/30 bg-gradient-to-br from-amber-950/10 to-transparent">
+                            <div class="flex items-center space-x-3 mb-4">
+                                <span class="text-2xl md:text-3xl">🛡️</span>
+                                <div>
+                                    <h3 class="text-base md:text-lg font-bold text-amber-400">菜鳥保護傘 (The Rookie)</h3>
+                                    <p class="text-[10px] md:text-xs text-gray-400">管理預期，放鬆自己的得失心</p>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="bg-black/40 p-2 rounded-xl flex justify-between items-center text-xs md:text-sm">
+                                    <span class="text-gray-200">"I've never played this before."</span>
+                                    <button onclick="speak('I have never played this before.')" class="text-gray-400 hover:text-white"><i data-lucide="volume-2" class="w-4 h-4"></i></button>
+                                </div>
+                                <div class="bg-black/40 p-2 rounded-xl flex justify-between items-center text-xs md:text-sm">
+                                    <span class="text-gray-200">"I'm honestly not very good at this."</span>
+                                    <button onclick="speak('I am honestly not very good at this.')" class="text-gray-400 hover:text-white"><i data-lucide="volume-2" class="w-4 h-4"></i></button>
+                                </div>
+                                <div class="bg-black/40 p-2 rounded-xl flex justify-between items-center text-xs md:text-sm">
+                                    <span class="text-gray-200">"I'm really just here for fun."</span>
+                                    <button onclick="speak('I am really just here for fun.')" class="text-gray-400 hover:text-white"><i data-lucide="volume-2" class="w-4 h-4"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Casual Competitor -->
+                        <div class="glass-panel p-5 md:p-6 rounded-3xl border border-cyan-500/30 bg-gradient-to-br from-cyan-950/10 to-transparent">
+                            <div class="flex items-center space-x-3 mb-4">
+                                <span class="text-2xl md:text-3xl">🎯</span>
+                                <div>
+                                    <h3 class="text-base md:text-lg font-bold text-cyan-400">隨性競賽家 (Casual Competitor)</h3>
+                                    <p class="text-[10px] md:text-xs text-gray-400">不求勝負，以氣氛為重的快樂玩家</p>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="bg-black/40 p-2 rounded-xl flex justify-between items-center text-xs md:text-sm">
+                                    <span class="text-gray-200">"I don't care if I win or lose."</span>
+                                    <button onclick="speak('I dont care if I win or lose.')" class="text-gray-400 hover:text-white"><i data-lucide="volume-2" class="w-4 h-4"></i></button>
+                                </div>
+                                <div class="bg-black/40 p-2 rounded-xl flex justify-between items-center text-xs md:text-sm">
+                                    <span class="text-gray-200">"We're really just messing around."</span>
+                                    <button onclick="speak('We are really just messing around.')" class="text-gray-400 hover:text-white"><i data-lucide="volume-2" class="w-4 h-4"></i></button>
+                                </div>
+                                <div class="bg-black/40 p-2 rounded-xl flex justify-between items-center text-xs md:text-sm">
+                                    <span class="text-gray-200">"Nothing competitive here."</span>
+                                    <button onclick="speak('Nothing competitive here.')" class="text-gray-400 hover:text-white"><i data-lucide="volume-2" class="w-4 h-4"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= SLIDE 8: The Social Blueprint ================= -->
+            <div class="slide w-full" data-note="第八頁是『派對生存指南』：完美切入與優雅退場。">
+                <div class="slide-content space-y-4 md:space-y-6">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-cyan-400 flex items-center gap-2">
+                        <i data-lucide="map" class="text-cyan-400"></i> The Social Blueprint: Party Guide
+                    </h2>
+                    <p class="text-gray-400 text-sm md:text-lg">派對社交動線：如何「自然切入」對話、尋求「共通點」並「優雅退出」？</p>
+
+                    <!-- High-Fidelity Room Floor Plan Visualization -->
+                    <div class="glass-panel p-4 rounded-3xl border border-gray-800 relative bg-slate-950/60 overflow-hidden">
+                        <div class="absolute inset-0 opacity-15 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                        <div class="text-[10px] text-gray-500 font-mono uppercase tracking-widest mb-3">Party House Blueprint</div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 relative z-10">
+                            <!-- Path In Area -->
+                            <div class="border border-amber-500/30 rounded-2xl p-4 bg-amber-950/10 flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="w-5 h-5 rounded-full bg-amber-500 text-black flex items-center justify-center text-xs font-bold">1</span>
+                                        <h4 class="text-xs md:text-sm font-bold text-amber-400">Path In (切入對話)</h4>
+                                    </div>
+                                    <p class="text-[10px] text-gray-400 mb-3">門口或群組外圍自然加入</p>
+                                    <div class="space-y-2">
+                                        <div class="bg-black/50 p-2 rounded text-[11px] font-mono hover:text-amber-300 cursor-pointer" onclick="speak('Hey sorry can I jump in here?')">"Hey, sorry can I jump in here?"</div>
+                                        <div class="bg-black/50 p-2 rounded text-[11px] font-mono hover:text-amber-300 cursor-pointer" onclick="speak('Sorry I just overheard that part.')">"Sorry, I just overheard that part."</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- The Anchor Area -->
+                            <div class="border border-cyan-500/30 rounded-2xl p-4 bg-cyan-950/10 flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="w-5 h-5 rounded-full bg-cyan-500 text-black flex items-center justify-center text-xs font-bold">2</span>
+                                        <h4 class="text-xs md:text-sm font-bold text-cyan-400">The Anchor (尋找共通點)</h4>
+                                    </div>
+                                    <p class="text-[10px] text-gray-400 mb-3">客廳沙發區深度交流</p>
+                                    <div class="space-y-2">
+                                        <div class="bg-black/50 p-2 rounded text-[11px] font-mono hover:text-cyan-300 cursor-pointer" onclick="speak('Yeah same here its been crazy.')">"Yeah, same here, it's been crazy."</div>
+                                        <div class="bg-black/50 p-2 rounded text-[11px] font-mono hover:text-cyan-300 cursor-pointer" onclick="speak('I just moved here a few months ago.')">"I just moved here a few months ago."</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Path Out Area -->
+                            <div class="border border-violet-500/30 rounded-2xl p-4 bg-violet-950/10 flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="w-5 h-5 rounded-full bg-violet-500 text-black flex items-center justify-center text-xs font-bold">3</span>
+                                        <h4 class="text-xs md:text-sm font-bold text-violet-400">Path Out (優雅退出)</h4>
+                                    </div>
+                                    <p class="text-[10px] text-gray-400 mb-3">吧檯、廁所或走動藉口脫身</p>
+                                    <div class="space-y-2">
+                                        <div class="bg-black/50 p-2 rounded text-[11px] font-mono hover:text-violet-300 cursor-pointer" onclick="speak('Im gonna grab a drink real quick.')">"I'm gonna grab a drink real quick."</div>
+                                        <div class="bg-black/50 p-2 rounded text-[11px] font-mono hover:text-violet-300 cursor-pointer" onclick="speak('Im gonna walk around for a bit.')">"I'm gonna walk around for a bit."</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= SLIDE 9: The "Me Too" Toolkit ================= -->
+            <div class="slide w-full" data-note="第九頁非常有價值：丟掉毫無生氣的『Me too』。">
+                <div class="slide-content space-y-4 md:space-y-6">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-violet-400 flex items-center gap-2">
+                        <i data-lucide="heart" class="text-violet-400"></i> The "Me Too" Upgrade Toolkit
+                    </h2>
+                    <p class="text-gray-400 text-sm md:text-lg">換掉單調生硬的 "Me too"，學會道地的高級社交認同感：</p>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
+                        <!-- Item 1 -->
+                        <div class="glass-panel p-4 rounded-xl flex flex-col justify-between hover:-translate-y-1 transition-transform border-t-2 border-emerald-400 h-36">
+                            <span class="text-[10px] text-emerald-400 font-bold mb-1">🤝 共享經驗 (Shared)</span>
+                            <p class="text-xs md:text-sm font-bold text-gray-100">"Yeah, I've definitely been there."</p>
+                            <p class="text-[10px] text-gray-400 mt-1">是啊，我完全懂你的感受。</p>
+                        </div>
+                        <!-- Item 2 -->
+                        <div class="glass-panel p-4 rounded-xl flex flex-col justify-between hover:-translate-y-1 transition-transform border-t-2 border-cyan-400 h-36">
+                            <span class="text-[10px] text-cyan-400 font-bold mb-1">😮 驚訝共鳴 (Disbelief)</span>
+                            <p class="text-xs md:text-sm font-bold text-gray-100">"No way, that actually happened?"</p>
+                            <p class="text-[10px] text-gray-400 mt-1">不會吧！真的發生過喔？</p>
+                        </div>
+                        <!-- Item 3 -->
+                        <div class="glass-panel p-4 rounded-xl flex flex-col justify-between hover:-translate-y-1 transition-transform border-t-2 border-amber-400 h-36">
+                            <span class="text-[10px] text-amber-400 font-bold mb-1">😆 幽默同感 (Awkward)</span>
+                            <p class="text-xs md:text-sm font-bold text-gray-100">"That's hilarious, I've done that too."</p>
+                            <p class="text-[10px] text-gray-400 mt-1">太好笑了，我也曾做過一樣的事。</p>
+                        </div>
+                        <!-- Item 4 -->
+                        <div class="glass-panel p-4 rounded-xl flex flex-col justify-between hover:-translate-y-1 transition-transform border-t-2 border-pink-400 h-36">
+                            <span class="text-[10px] text-pink-400 font-bold mb-1">💡 同理理解 (Empathy)</span>
+                            <p class="text-xs md:text-sm font-bold text-gray-100">"Oh okay, I get what you mean now."</p>
+                            <p class="text-[10px] text-gray-400 mt-1">噢懂了，我現在完全理解你。</p>
+                        </div>
+                        <!-- Item 5 -->
+                        <div class="glass-panel p-4 rounded-xl flex flex-col justify-between hover:-translate-y-1 transition-transform border-t-2 border-violet-400 h-36">
+                            <span class="text-[10px] text-violet-400 font-bold mb-1">💭 勾起回憶 (Trigger)</span>
+                            <p class="text-xs md:text-sm font-bold text-gray-100">"That reminds me of something."</p>
+                            <p class="text-[10px] text-gray-400 mt-1">這讓我想起一件有趣的事。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= SLIDE 10: Evaluating the Vibe ================= -->
+            <div class="slide w-full" data-note="第十頁講評估現場氣氛與音樂。">
+                <div class="slide-content space-y-4">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-amber-400 flex items-center gap-2">
+                        <i data-lucide="music" class="text-amber-400"></i> Music & Atmosphere Vibes
+                    </h2>
+                    <p class="text-gray-400 text-sm md:text-lg">如何評論這家店或聚會的氣氛與音樂？（4 象限雙軸交叉矩陣）</p>
+
+                    <!-- High-Fidelity 2D Matrix Grid Alignment -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Quadrant 1: Loving It (High Energy) -->
+                        <div class="glass-panel p-4 rounded-2xl border-l-4 border-emerald-500 hover:scale-[1.01] transition-transform">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="text-emerald-400 text-base">⚡</span>
+                                <h3 class="text-xs md:text-sm font-bold text-white">Loving It / High Energy (高熱烈、氣氛好)</h3>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="bg-gray-900/50 p-2 rounded flex justify-between items-center text-xs">
+                                    <p class="text-gray-200">"This place has a great vibe."</p>
+                                    <span class="text-gray-500 text-[10px]">這地方氣氛真棒。</span>
+                                </div>
+                                <div class="bg-gray-900/50 p-2 rounded flex justify-between items-center text-xs">
+                                    <p class="text-gray-200">"The music is pretty good tonight."</p>
+                                    <span class="text-gray-500 text-[10px]">今晚音樂很不賴。</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quadrant 2: Lowkey / Chill (Low Energy) -->
+                        <div class="glass-panel p-4 rounded-2xl border-l-4 border-cyan-500 hover:scale-[1.01] transition-transform">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="text-cyan-400 text-base">💆</span>
+                                <h3 class="text-xs md:text-sm font-bold text-white">Lowkey / Chill (低能量舒服)</h3>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="bg-gray-900/50 p-2 rounded flex justify-between items-center text-xs">
+                                    <p class="text-gray-200">"Yeah, it's a nice little hangout."</p>
+                                    <span class="text-gray-500 text-[10px]">對啊，是個舒服去處。</span>
+                                </div>
+                                <div class="bg-gray-900/50 p-2 rounded flex justify-between items-center text-xs">
+                                    <p class="text-gray-200">"It's not too crowded right now."</p>
+                                    <span class="text-gray-500 text-[10px]">現在人還沒到太擠。</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quadrant 3: Reality Check (Mixed Feelings) -->
+                        <div class="glass-panel p-4 rounded-2xl border-l-4 border-amber-500 hover:scale-[1.01] transition-transform">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="text-amber-400 text-base">💵</span>
+                                <h3 class="text-xs md:text-sm font-bold text-white">Mixed Feelings (小驚嚇 / 略貴)</h3>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="bg-gray-900/50 p-2 rounded flex justify-between items-center text-xs">
+                                    <p class="text-gray-200">"Whoa, that's stronger than I expected."</p>
+                                    <span class="text-gray-500 text-[10px]">這杯酒烈得超乎預期。</span>
+                                </div>
+                                <div class="bg-gray-900/50 p-2 rounded flex justify-between items-center text-xs">
+                                    <p class="text-gray-200">"It's kind of expensive for what it is."</p>
+                                    <span class="text-gray-500 text-[10px]">相較之下價格偏貴。</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quadrant 4: Not Feeling It -->
+                        <div class="glass-panel p-4 rounded-2xl border-l-4 border-red-500 hover:scale-[1.01] transition-transform">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="text-red-400 text-base">🥱</span>
+                                <h3 class="text-xs md:text-sm font-bold text-white">Not Feeling It (沒興致 / 聊不來)</h3>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="bg-gray-900/50 p-2 rounded flex justify-between items-center text-xs">
+                                    <p class="text-gray-200">"It's kind of boring not gonna lie."</p>
+                                    <span class="text-gray-500 text-[10px]">老實說，有點無趣。</span>
+                                </div>
+                                <div class="bg-gray-900/50 p-2 rounded flex justify-between items-center text-xs">
+                                    <p class="text-gray-200">"Things been slow for you lately?"</p>
+                                    <span class="text-gray-500 text-[10px]">你最近過得很平淡嗎？</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= SLIDE 11: Cocktail Menu ================= -->
+            <div class="slide w-full" data-note="第十一頁是『酒吧英文點餐』。">
+                <div class="slide-content space-y-4 md:space-y-6">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-emerald-400 flex items-center gap-2">
+                        <i data-lucide="glass-water" class="text-emerald-400"></i> Interactive Cocktail Menu
+                    </h2>
+                    <p class="text-gray-400 text-sm md:text-lg">在酒吧自然地點餐、客製化調整，並優雅地點評手上的酒：</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Column 1: Ordering -->
+                        <div class="glass-panel p-4 rounded-2xl border-t-4 border-emerald-500 flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-xs md:text-sm font-bold text-white mb-2">🍻 經典點法 (Ordering)</h3>
+                                <div class="space-y-2">
+                                    <div class="bg-gray-900/40 p-2 rounded-xl">
+                                        <p class="text-xs font-bold text-emerald-300">"Can I get a gin and tonic?"</p>
+                                        <p class="text-[10px] text-gray-400 mt-0.5">可以給我一杯琴通寧嗎？</p>
+                                    </div>
+                                    <div class="bg-gray-900/40 p-2 rounded-xl">
+                                        <p class="text-xs font-bold text-emerald-300">"I'll have the same as him."</p>
+                                        <p class="text-[10px] text-gray-400 mt-0.5">我跟他點一樣的就好了。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Column 2: Modifying -->
+                        <div class="glass-panel p-4 rounded-2xl border-t-4 border-amber-500 flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-xs md:text-sm font-bold text-white mb-2">🍋 客製微調 (Modifying)</h3>
+                                <div class="space-y-2">
+                                    <div class="bg-gray-900/40 p-2 rounded-xl">
+                                        <p class="text-xs font-bold text-amber-300">"Can you make it a bit lighter?"</p>
+                                        <p class="text-[10px] text-gray-400 mt-0.5">可以幫我做淡一點（酒加少點）嗎？</p>
+                                    </div>
+                                    <div class="bg-gray-900/40 p-2 rounded-xl">
+                                        <p class="text-xs font-bold text-amber-300">"Can you make it less strong?"</p>
+                                        <p class="text-[10px] text-gray-400 mt-0.5">這杯可以不要那麼烈嗎？</p>
+                                    </div>
+                                    <div class="bg-gray-900/40 p-2 rounded-xl">
+                                        <p class="text-xs font-bold text-amber-300">"I want something fruity instead."</p>
+                                        <p class="text-[10px] text-gray-400 mt-0.5">我比較想要偏果香的口味。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Column 3: Reviewing -->
+                        <div class="glass-panel p-4 rounded-2xl border-t-4 border-violet-500 flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-xs md:text-sm font-bold text-white mb-2">🍹 品評鑑賞 (Reviewing)</h3>
+                                <div class="space-y-2">
+                                    <div class="bg-gray-900/40 p-2 rounded-xl">
+                                        <p class="text-xs font-bold text-violet-300">"That's surprisingly smooth actually."</p>
+                                        <p class="text-[10px] text-gray-400 mt-0.5">這杯其實出乎意料地順口好喝。</p>
+                                    </div>
+                                    <div class="bg-gray-900/40 p-2 rounded-xl">
+                                        <p class="text-xs font-bold text-violet-300">"You can taste the alcohol right away."</p>
+                                        <p class="text-[10px] text-gray-400 mt-0.5">酒味蠻重的。</p>
+                                    </div>
+                                    <div class="bg-gray-900/40 p-2 rounded-xl">
+                                        <p class="text-xs font-bold text-violet-300">"I'll sip this one slowly."</p>
+                                        <p class="text-[10px] text-gray-400 mt-0.5">這杯我會慢慢地小口啜飲。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= SLIDE 12: Communication Fixes ================= -->
+            <div class="slide w-full" data-note="第十二頁：化解尷尬與誤聽的『救場金句』。">
+                <div class="slide-content space-y-4 md:space-y-6">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-violet-400 flex items-center gap-2">
+                        <i data-lucide="refresh-cw" class="text-violet-400"></i> The Communication Fixes
+                    </h2>
+                    <p class="text-gray-400 text-sm md:text-lg">在社交場合，化解誤聽、尷尬與失誤的救場句：</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+                        <!-- Fix 1 -->
+                        <div class="glass-panel p-5 rounded-2xl relative overflow-hidden group hover:border-cyan-500 transition-colors">
+                            <h3 class="text-xs md:text-sm font-bold text-cyan-400 mb-2">👂 沒聽清楚 (I Misheard)</h3>
+                            <div class="space-y-2">
+                                <div class="bg-gray-900/60 p-2 rounded-lg">
+                                    <p class="text-xs md:text-sm font-bold text-gray-200">"Sorry, I didn't catch what you said."</p>
+                                    <p class="text-[10px] text-gray-400 mt-1">抱歉，我剛沒聽清你說什麼。</p>
+                                </div>
+                                <div class="bg-gray-900/60 p-2 rounded-lg">
+                                    <p class="text-xs md:text-sm font-bold text-gray-200">"Could you say that one more time?"</p>
+                                    <p class="text-[10px] text-gray-400 mt-1">你可以再說一次嗎？</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fix 2 -->
+                        <div class="glass-panel p-5 rounded-2xl relative overflow-hidden group hover:border-amber-500 transition-colors">
+                            <h3 class="text-xs md:text-sm font-bold text-amber-400 mb-2">🤔 沒搞懂意圖 (Wait, what?)</h3>
+                            <div class="space-y-2">
+                                <div class="bg-gray-900/60 p-2 rounded-lg">
+                                    <p class="text-xs md:text-sm font-bold text-gray-200">"Wait, what did you mean by that?"</p>
+                                    <p class="text-[10px] text-gray-400 mt-1">等等，你剛剛那是代表什麼意思？</p>
+                                </div>
+                                <div class="bg-gray-900/60 p-2 rounded-lg">
+                                    <p class="text-xs md:text-sm font-bold text-gray-200">"Sorry, just give me a moment."</p>
+                                    <p class="text-[10px] text-gray-400 mt-1">抱歉，等我思考一下。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fix 3 -->
+                        <div class="glass-panel p-5 rounded-2xl relative overflow-hidden group hover:border-pink-500 transition-colors">
+                            <h3 class="text-xs md:text-sm font-bold text-pink-400 mb-2">🤯 自己失誤 (I Messed Up)</h3>
+                            <div class="space-y-2">
+                                <div class="bg-gray-900/60 p-2 rounded-lg">
+                                    <p class="text-xs md:text-sm font-bold text-gray-200">"I said the wrong name out loud."</p>
+                                    <p class="text-[10px] text-gray-400 mt-1">糟了，我把別人的名字大聲唸錯了。</p>
+                                </div>
+                                <div class="bg-gray-900/60 p-2 rounded-lg">
+                                    <p class="text-xs md:text-sm font-bold text-gray-200">"It was kind of awkward back then."</p>
+                                    <p class="text-[10px] text-gray-400 mt-1">剛才那場面其實有點小尷尬。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= SLIDE 13: The Perfect Departure ================= -->
+            <div class="slide w-full" data-note="第十三頁：完美散場與道別。">
+                <div class="slide-content space-y-4 md:space-y-6">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-cyan-400 flex items-center gap-2">
+                        <i data-lucide="door-open" class="text-cyan-400"></i> The Perfect Departure
+                    </h2>
+                    <p class="text-gray-400 text-sm md:text-lg">派對完美散場四部曲：如何從「暗示疲倦」一路到「安全道別」？</p>
+
+                    <!-- High-Fidelity 16:9 4-Stage Timeline Diagram -->
+                    <div class="relative flex flex-col md:flex-row justify-between items-stretch gap-4 mt-2">
+                        <!-- Stage 1 -->
+                        <div class="glass-panel p-4 rounded-2xl border-t-4 border-gray-600 flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="text-[9px] text-gray-400 font-bold mb-1">STAGE 01</div>
+                                <h3 class="text-xs md:text-sm font-bold text-white mb-2">暗示疲倦 (Hints)</h3>
+                                <div class="space-y-1.5 text-[11px]">
+                                    <div class="bg-black/40 p-2 rounded">
+                                        <p class="font-bold">"I'm kind of tired not gonna lie."</p>
+                                        <p class="text-[10px] text-gray-500">不瞞你說我有點累了。</p>
+                                    </div>
+                                    <div class="bg-black/40 p-2 rounded">
+                                        <p class="font-bold">"I could use a short break."</p>
+                                        <p class="text-[10px] text-gray-500">我可能需要歇會兒。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stage 2 -->
+                        <div class="glass-panel p-4 rounded-2xl border-t-4 border-amber-500 flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="text-[9px] text-amber-400 font-bold mb-1">STAGE 02</div>
+                                <h3 class="text-xs md:text-sm font-bold text-white mb-2">下定決心 (Decision)</h3>
+                                <div class="space-y-1.5 text-[11px]">
+                                    <div class="bg-black/40 p-2 rounded">
+                                        <p class="font-bold text-amber-300">"I think I'm about ready to call it."</p>
+                                        <p class="text-[10px] text-gray-500">我想我差不多該走了。</p>
+                                    </div>
+                                    <div class="bg-black/40 p-2 rounded">
+                                        <p class="font-bold">"Yeah, it's getting a bit late."</p>
+                                        <p class="text-[10px] text-gray-500">是的，時間有點晚了。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stage 3 -->
+                        <div class="glass-panel p-4 rounded-2xl border-t-4 border-cyan-500 flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="text-[9px] text-cyan-400 font-bold mb-1">STAGE 03</div>
+                                <h3 class="text-xs md:text-sm font-bold text-white mb-2">感性結尾 (Wrap-Up)</h3>
+                                <div class="space-y-1.5 text-[11px]">
+                                    <div class="bg-black/40 p-2 rounded">
+                                        <p class="font-bold text-cyan-300">"This was fun though honestly."</p>
+                                        <p class="text-[10px] text-gray-500">說真的，今天很好玩！</p>
+                                    </div>
+                                    <div class="bg-black/40 p-2 rounded">
+                                        <p class="font-bold">"Time really flew by."</p>
+                                        <p class="text-[10px] text-gray-500">時間過得真快。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stage 4 -->
+                        <div class="glass-panel p-4 rounded-2xl border-t-4 border-emerald-500 flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="text-[9px] text-emerald-400 font-bold mb-1">STAGE 04</div>
+                                <h3 class="text-xs md:text-sm font-bold text-white mb-2">安全道別 (Exit)</h3>
+                                <div class="space-y-1.5 text-[11px]">
+                                    <div class="bg-black/40 p-2 rounded">
+                                        <p class="font-bold text-emerald-300">"Text me when you get home safe."</p>
+                                        <p class="text-[10px] text-gray-500">到家後傳個訊息報平安。</p>
+                                    </div>
+                                    <div class="bg-black/40 p-2 rounded">
+                                        <p class="font-bold">"I should probably head home."</p>
+                                        <p class="text-[10px] text-gray-500">我該回家去了。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= SLIDE 14: Interactive Word Quadrants ================= -->
+            <div class="slide w-full" data-note="第十四頁：互動配對連連看遊戲，測試學習成果。">
+                <div class="slide-content space-y-4">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-amber-400 flex items-center gap-2">
+                        <i data-lucide="trophy" class="text-amber-400"></i> 週末社交必備字彙卡 (Vocabulary Flashcards)
+                    </h2>
+                    <p class="text-gray-400 text-sm md:text-lg">高還原 4 象限字彙複習：點擊卡片可即時發音，並點按中英對照翻牌切換。</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Quadrant 1 -->
+                        <div class="glass-panel p-4 rounded-2xl border-t-4 border-cyan-500">
+                            <h3 class="text-xs font-extrabold text-cyan-400 tracking-wider mb-2">Quadrant 1 (Making Plans 聚會)</h3>
+                            <div class="grid grid-cols-1 gap-2">
+                                <button onclick="speakAndReveal('I\'m pretty open tonight.', '我今晚時間非常彈性隨和。', this)" class="bg-gray-900/60 p-2 rounded text-xs text-left font-bold border border-gray-800 flex justify-between items-center hover:bg-cyan-950/20">
+                                    <span>I'm pretty open tonight. 🔊</span>
+                                    <span class="text-[10px] text-gray-500">點擊看翻譯</span>
+                                </button>
+                                <button onclick="speakAndReveal('I\'m down for that.', '我贊成、算我一份！', this)" class="bg-gray-900/60 p-2 rounded text-xs text-left font-bold border border-gray-800 flex justify-between items-center hover:bg-cyan-950/20">
+                                    <span>I'm down for that. 🔊</span>
+                                    <span class="text-[10px] text-gray-500">點擊看翻譯</span>
+                                </button>
+                                <button onclick="speakAndReveal('Keep things lowkey.', '低調簡單、不鋪張浪費地聚聚。', this)" class="bg-gray-900/60 p-2 rounded text-xs text-left font-bold border border-gray-800 flex justify-between items-center hover:bg-cyan-950/20">
+                                    <span>Keep things lowkey. 🔊</span>
+                                    <span class="text-[10px] text-gray-500">點擊看翻譯</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Quadrant 2 -->
+                        <div class="glass-panel p-4 rounded-2xl border-t-4 border-violet-500">
+                            <h3 class="text-xs font-extrabold text-violet-400 tracking-wider mb-2">Quadrant 2 (Movies & Media 看電影)</h3>
+                            <div class="grid grid-cols-1 gap-2">
+                                <button onclick="speakAndReveal('I didn\'t see that coming.', '劇情反轉這我真的完全沒料到。', this)" class="bg-gray-900/60 p-2 rounded text-xs text-left font-bold border border-gray-800 flex justify-between items-center hover:bg-violet-950/20">
+                                    <span>I didn't see that coming. 🔊</span>
+                                    <span class="text-[10px] text-gray-500">點擊看翻譯</span>
+                                </button>
+                                <button onclick="speakAndReveal('Fine as background noise.', '這影片播著當白噪音很合適。', this)" class="bg-gray-900/60 p-2 rounded text-xs text-left font-bold border border-gray-800 flex justify-between items-center hover:bg-violet-950/20">
+                                    <span>Fine as background noise. 🔊</span>
+                                    <span class="text-[10px] text-gray-500">點擊看翻譯</span>
+                                </button>
+                                <button onclick="speakAndReveal('Pacing feels off.', '這部影片的節奏抓得有點怪。', this)" class="bg-gray-900/60 p-2 rounded text-xs text-left font-bold border border-gray-800 flex justify-between items-center hover:bg-violet-950/20">
+                                    <span>Pacing feels off. 🔊</span>
+                                    <span class="text-[10px] text-gray-500">點擊看翻譯</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Quadrant 3 -->
+                        <div class="glass-panel p-4 rounded-2xl border-t-4 border-amber-500">
+                            <h3 class="text-xs font-extrabold text-amber-400 tracking-wider mb-2">Quadrant 3 (Games & Sports 運動/遊戲)</h3>
+                            <div class="grid grid-cols-1 gap-2">
+                                <button onclick="speakAndReveal('I\'ve never played this before.', '我之前從來沒有玩過這個。', this)" class="bg-gray-900/60 p-2 rounded text-xs text-left font-bold border border-gray-800 flex justify-between items-center hover:bg-amber-950/20">
+                                    <span>I've never played this before. 🔊</span>
+                                    <span class="text-[10px] text-gray-500">點擊看翻譯</span>
+                                </button>
+                                <button onclick="speakAndReveal('Just here for fun.', '我純粹就是來體驗好玩、不在乎輸贏的。', this)" class="bg-gray-900/60 p-2 rounded text-xs text-left font-bold border border-gray-800 flex justify-between items-center hover:bg-amber-950/20">
+                                    <span>Just here for fun. 🔊</span>
+                                    <span class="text-[10px] text-gray-500">點擊看翻譯</span>
+                                </button>
+                                <button onclick="speakAndReveal('Nothing competitive here.', '我們志在參加，絕非爭強好勝。', this)" class="bg-gray-900/60 p-2 rounded text-xs text-left font-bold border border-gray-800 flex justify-between items-center hover:bg-amber-950/20">
+                                    <span>Nothing competitive here. 🔊</span>
+                                    <span class="text-[10px] text-gray-500">點擊看翻譯</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Quadrant 4 -->
+                        <div class="glass-panel p-4 rounded-2xl border-t-4 border-emerald-500">
+                            <h3 class="text-xs font-extrabold text-emerald-400 tracking-wider mb-2">Quadrant 4 (Music & Vibes 音樂/酒吧)</h3>
+                            <div class="grid grid-cols-1 gap-2">
+                                <button onclick="speakAndReveal('The vibe is really chill.', '這家店或聚會氛圍超愜意、很放鬆。', this)" class="bg-gray-900/60 p-2 rounded text-xs text-left font-bold border border-gray-800 flex justify-between items-center hover:bg-emerald-950/20">
+                                    <span>The vibe is really chill. 🔊</span>
+                                    <span class="text-[10px] text-gray-500">點擊看翻譯</span>
+                                </button>
+                                <button onclick="speakAndReveal('I like this playlist a lot.', '我特別喜歡這張播歌清單。', this)" class="bg-gray-900/60 p-2 rounded text-xs text-left font-bold border border-gray-800 flex justify-between items-center hover:bg-emerald-950/20">
+                                    <span>I like this playlist a lot. 🔊</span>
+                                    <span class="text-[10px] text-gray-500">點擊看翻譯</span>
+                                </button>
+                                <button onclick="speakAndReveal('Surprisingly smooth actually.', '這杯飲料/酒比預想的還要順口好喝。', this)" class="bg-gray-900/60 p-2 rounded text-xs text-left font-bold border border-gray-800 flex justify-between items-center hover:bg-emerald-950/20">
+                                    <span>Surprisingly smooth actually. 🔊</span>
+                                    <span class="text-[10px] text-gray-500">點擊看翻譯</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= SLIDE 15: Step into the Scene ================= -->
+            <div class="slide w-full" data-note="第十五頁：行動落實。勇敢出門把這些英文融入到你的真實生活中吧！">
+                <div class="slide-content items-center text-center space-y-6 md:space-y-8">
+                    <div class="w-16 h-16 md:w-24 md:h-24 bg-gradient-to-tr from-amber-500 to-pink-500 rounded-full flex items-center justify-center text-white text-3xl md:text-5xl animate-bounce">
+                        ✨
+                    </div>
+                    <h2 class="text-3xl md:text-7xl font-extrabold tracking-tight">
+                        Step Into the <span class="bg-gradient-to-r from-amber-400 to-pink-500 bg-clip-text text-transparent">Scene.</span>
+                    </h2>
+                    <p class="text-sm md:text-2xl text-gray-300 max-w-3xl leading-relaxed">
+                        "You know the lines. You know the vibe.<br>Now it's time to live the weekend."
+                    </p>
+                    <span class="text-xs md:text-base text-gray-500 block">週末愉快，大膽開口說吧！</span>
+
+                    <div class="pt-4">
+                        <button onclick="speak('We should do this again sometime.')" class="px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-amber-500 to-pink-500 rounded-full text-white font-extrabold hover:scale-105 transition shadow-lg flex items-center gap-2 text-xs md:text-base">
+                            <i data-lucide="volume-2"></i> "We should do this again sometime."
+                        </button>
+                        <p class="text-xs text-gray-500 mt-2">（我們找時間一定還要再聚聚！）</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Slide Outline/Grid Panel (Overlay Modal) -->
+    <div id="grid-overlay" class="fixed inset-0 bg-black/90 z-50 hidden flex-col justify-center items-center p-8">
+        <div class="flex justify-between w-full max-w-6xl mb-6 items-center">
+            <h2 class="text-2xl font-bold text-amber-400">投影片快速索引</h2>
+            <button onclick="toggleGrid()" class="text-gray-400 hover:text-white p-2 text-xl font-bold">&times; 關閉</button>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 max-w-6xl w-full max-h-[70vh] overflow-y-auto p-2">
+            <!-- Grid items generated in JS -->
+        </div>
+    </div>
+
+    <!-- Presenter Notes Pane (Toggleable Bottom Area) -->
+    <div id="notes-pane" class="glass-panel mx-6 mb-4 p-4 rounded-xl border border-gray-800 hidden relative">
+        <button onclick="toggleNotes()" class="absolute top-2 right-2 text-gray-500 hover:text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
+        <div class="flex items-center gap-2 mb-2 text-xs text-amber-400 font-bold tracking-widest uppercase">
+            <i data-lucide="file-text" class="w-4 h-4"></i> 講師備忘錄 / Presenter Notes
+        </div>
+        <p id="notes-content" class="text-xs md:text-sm text-gray-300 leading-relaxed">
+            歡迎來到《週末社交英文指南》。
+        </p>
+    </div>
+
+    <!-- Bottom Navigation Controls -->
+    <footer class="glass-panel px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4 z-40">
+        <div class="flex items-center space-x-2">
+            <span id="slide-num-indicator" class="text-base md:text-lg font-bold text-amber-400">01</span>
+            <span class="text-xs text-gray-500">/ 15</span>
+            <div class="w-24 md:w-32 bg-gray-800 h-1.5 rounded-full overflow-hidden ml-3">
+                <div id="progress-bar" class="bg-gradient-to-r from-amber-400 to-pink-500 h-full transition-all duration-300" style="width: 6.66%;"></div>
+            </div>
+        </div>
+        
+        <!-- Center playback controls -->
+        <div class="flex items-center space-x-4">
+            <button onclick="prevSlide()" class="p-2 md:p-3 bg-gray-800 hover:bg-gray-700 text-white rounded-full transition" title="上一頁">
+                <i data-lucide="arrow-left" class="w-4 h-4 md:w-5 md:h-5"></i>
+            </button>
+            <button onclick="speakCurrentPageTitle()" class="p-2 md:p-3 bg-gray-800 hover:bg-gray-700 text-amber-400 hover:text-amber-300 rounded-full transition" title="朗讀本頁核心英文">
+                <i data-lucide="volume-2" class="w-4 h-4 md:w-5 md:h-5"></i>
+            </button>
+            <button onclick="nextSlide()" class="p-2 md:p-3 bg-gradient-to-r from-amber-500 to-pink-500 hover:from-amber-600 hover:to-pink-600 text-white rounded-full transition shadow-lg" title="下一頁">
+                <i data-lucide="arrow-right" class="w-4 h-4 md:w-5 md:h-5"></i>
+            </button>
+        </div>
+
+        <div class="text-[10px] text-gray-500 hidden md:block">
+            可用鍵盤左右鍵 <kbd class="px-1.5 py-0.5 bg-gray-800 rounded">◀</kbd> <kbd class="px-1.5 py-0.5 bg-gray-800 rounded">▶</kbd> 切換
+        </div>
+    </footer>
+
+    <!-- Presentation Engine -->
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const notesPane = document.getElementById('notes-pane');
+        const notesContent = document.getElementById('notes-content');
+        const slideNumIndicator = document.getElementById('slide-num-indicator');
+        const progressBar = document.getElementById('progress-bar');
+        const gridOverlay = document.getElementById('grid-overlay');
+
+        // Page titles for screen readers / TTS
+        const slideTitles = [
+            "The Weekend Playbook. Master the natural, unscripted English of movies, music, games, and nights out.",
+            "Textbook English vs Real Life vibe. You down for this?",
+            "Testing the waters. Maybe we could grab a coffee or something.",
+            "Expressing your commitment level. I'm on the fence, or I'm pretty open tonight.",
+            "The arrival and introduction. I just got here a minute ago.",
+            "Movies and show reactions. I didn't see that coming.",
+            "Games and Sports. We're really just messing around, nothing competitive here.",
+            "The Social Blueprint. Hey sorry, can I jump in here?",
+            "The Me Too upgrade toolkit. Yeah, I've definitely been there.",
+            "Music and vibes. This place has a great vibe.",
+            "Cocktail menu ordering. Can I get a gin and tonic?",
+            "The communication fixes. Sorry, I didn't catch what you said.",
+            "The perfect departure stage. I think I'm about ready to call it.",
+            "Vocabulary Cards. I'm pretty open tonight.",
+            "Step into the scene. We should do this again sometime."
+        ];
+
+        // Speech Synthesis Helper
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9; // Slightly slower for language learners
+                window.speechSynthesis.speak(utterance);
+            } else {
+                console.warn("Speech Synthesis is not supported in this browser.");
+            }
+        }
+
+        function speakCurrentPageTitle() {
+            speak(slideTitles[currentSlideIndex]);
+        }
+
+        // Custom reveal effect for Page 14 Quadrants
+        function speakAndReveal(englishText, translation, element) {
+            speak(englishText);
+            
+            // Toggle visual display
+            const origHTML = element.getAttribute('data-orig-html');
+            if (!origHTML) {
+                element.setAttribute('data-orig-html', element.innerHTML);
+                element.innerHTML = `<span class="text-amber-300 font-medium">${translation}</span> <span class="text-[10px] text-gray-400">🔊</span>`;
+                element.classList.add('bg-cyan-950/40');
+            } else {
+                element.innerHTML = origHTML;
+                element.removeAttribute('data-orig-html');
+                element.classList.remove('bg-cyan-950/40');
+            }
+        }
+
+        // Slide Navigation
+        function updateSlide() {
+            if (!slides || slides.length === 0) return;
+            slides.forEach((slide, idx) => {
+                if (idx === currentSlideIndex) {
+                    slide.classList.add('active');
+                    // Update notes
+                    const noteText = slide.getAttribute('data-note') || "此頁尚無講師講義。";
+                    if (notesContent) notesContent.textContent = noteText;
+                    
+                    // Auto-scroll parent container to top when slide changes
+                    const mainContainer = document.querySelector('main');
+                    if (mainContainer) mainContainer.scrollTop = 0;
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+
+            // Update bottom stats
+            const num = currentSlideIndex + 1;
+            if (slideNumIndicator) slideNumIndicator.textContent = num < 10 ? '0' + num : num;
+            if (progressBar) progressBar.style.width = `${(num / slides.length) * 100}%`;
+        }
+
+        function nextSlide() {
+            if (currentSlideIndex < slides.length - 1) {
+                currentSlideIndex++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlideIndex > 0) {
+                currentSlideIndex--;
+                updateSlide();
+            }
+        }
+
+        // Toggle Notes View
+        function toggleNotes() {
+            if (notesPane) notesPane.classList.toggle('hidden');
+        }
+
+        // Toggle Grid View
+        function toggleGrid() {
+            if (!gridOverlay) return;
+            const isHidden = gridOverlay.classList.contains('hidden');
+            if (isHidden) {
+                // Populate grid items
+                const gridContainer = gridOverlay.querySelector('.grid');
+                if (gridContainer) {
+                    gridContainer.innerHTML = ''; // Clear
+                    
+                    slides.forEach((slide, idx) => {
+                        const slideNum = idx + 1;
+                        const previewText = slideTitles[idx].substring(0, 35) + '...';
+                        const activeClass = idx === currentSlideIndex ? 'border-amber-400 bg-amber-950/20' : 'border-gray-800 hover:border-gray-600 bg-gray-900/60';
+                        
+                        const item = document.createElement('div');
+                        item.className = `p-4 rounded-xl border cursor-pointer transition ${activeClass}`;
+                        item.innerHTML = `
+                            <div class="text-[10px] text-amber-500 font-bold mb-1">PAGE ${slideNum < 10 ? '0' + slideNum : slideNum}</div>
+                            <div class="text-xs md:text-sm font-bold text-gray-200 line-clamp-2">${previewText}</div>
+                        `;
+                        item.onclick = () => {
+                            currentSlideIndex = idx;
+                            updateSlide();
+                            toggleGrid();
+                        };
+                        gridContainer.appendChild(item);
+                    });
+                }
+            }
+            gridOverlay.classList.toggle('hidden');
+        }
+
+        // Fullscreen Toggle
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.error(`Error attempting to enable fullscreen: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Keyboard navigation listeners
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                prevSlide();
+            } else if (e.key === 'Escape') {
+                if (gridOverlay) gridOverlay.classList.add('hidden');
+            }
+        });
+
+        // Initialize Lucide Icons and Slides
+        window.onload = () => {
+            try {
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+            } catch (error) {
+                console.error("Lucide icons failed to load:", error);
+            }
+            updateSlide();
+        };
+    </script>
+</body>
+</html>
