@@ -617,6 +617,255 @@ export const LESSON_3_SLIDES: LessonSlide[] = [
   },
 ]
 
+export const LESSON_6_SLIDES: LessonSlide[] = [
+  {
+    title: 'American Campus Survival Guide',
+    subtitle: '留學生必備的真實情境對話',
+    category: 'Campus Guide',
+    content: `【留學生校園生存指南 (American Campus Survival Guide)】
+• 美式校園指南：從教室、小組報告到日常校園對話的真實情境。
+• 簡報製作: NotebookLM Studio
+• 內容涵蓋: 校園藍圖、美英俚語、禮貌光譜、早自習、教師潛台詞、小組專案、隨堂考、午餐對話、危機處理、放學道別、校園生存金句`,
+    phrases: [
+      { en: 'American Campus Survival Guide', zh: '留學生校園生存指南' },
+      { en: 'A visual guide to navigating classrooms, group projects, and everyday campus conversations.', zh: '教室、小組報告和日常校園對話的視覺化指南。' },
+    ],
+    practice: '從校園藍圖到生存金句，跟著這份指南在校園暢行無阻！'
+  },
+  {
+    title: 'CAMPUS BLUEPRINT (校園藍圖)',
+    subtitle: 'Key Locations & Vocabulary',
+    category: 'Campus Guide',
+    content: `【校園藍圖 (Campus Blueprint)】
+• 六個關鍵校園地點與詞彙:
+  1. Principal's Office (校長室) - Where the person in charge works.
+  2. Hallway (走廊) - Where lockers are located and between-class chats happen.
+  3. Cafeteria (學生餐廳) - The main hub for lunch and small talk.
+  4. Restroom (洗手間) - 美國專用: Uniquely American term for bathroom.
+  5. Auditorium (禮堂) - Used for school-wide assemblies and performances.
+  6. Gym (體育館) - For physical exercise and pep rallies.`,
+    phrases: [
+      { en: "Principal's Office", zh: '校長室' },
+      { en: 'Hallway', zh: '走廊' },
+      { en: 'Cafeteria', zh: '學生餐廳' },
+      { en: 'Restroom', zh: '洗手間（美式用語）' },
+    ],
+    practice: '說出校園六個關鍵地點的英文名稱。'
+  },
+  {
+    title: 'US vs. UK Campus Lingo',
+    subtitle: '美式 vs 英式校園用語差別',
+    category: 'Campus Guide',
+    content: `【US vs. UK Campus Lingo (美式 vs 英式校園用語)】
+• 下課/休息: US=Recess vs UK=Break
+• 洗手間: US=Restroom vs UK=Washroom/Loo
+• 年級: US=Grade (e.g., 9th grade) vs UK=Class/Year
+• 數學: US=Math vs UK=Maths
+• 作業本: US=Workbook vs UK=Exercise book
+• 電梯: US=Elevator vs UK=Lift`,
+    phrases: [
+      { en: 'Recess (US) vs Break (UK)', zh: '下課/休息' },
+      { en: 'Restroom (US) vs Washroom (UK)', zh: '洗手間' },
+      { en: 'Grade (US) vs Year (UK)', zh: '年級' },
+      { en: 'Math (US) vs Maths (UK)', zh: '數學' },
+    ],
+    practice: '說出三個美式校園用語及其對應的英式用語。'
+  },
+  {
+    title: 'THE POLITENESS SPECTRUM (禮貌光譜)',
+    subtitle: 'Can vs Could vs May',
+    category: 'Campus Guide',
+    content: `【禮貌光譜 (The Politeness Spectrum)】
+• Casual/同儕: "Can I borrow a pencil?" (我可以借一支鉛筆嗎？) - 用於非正式請求與表達能力
+• Polite/禮貌: "Could you explain this, please?" (可以請您解釋一下這個嗎？) - 比 Can 更柔和、尊重
+• Formal/正式許可: "May I go to the restroom?" (我可以去洗手間嗎？) - 極度正式，用於向掌權者尋求許可
+• 魔法咒語: 在 Could 或 May 的句子結尾加上 "please"，是美式禮貌的黃金法則！`,
+    phrases: [
+      { en: 'Can I borrow a pencil?', zh: '我可以借一支鉛筆嗎？' },
+      { en: 'Could you explain this, please?', zh: '可以請您解釋一下這個嗎？' },
+      { en: 'May I go to the restroom?', zh: '我可以去洗手間嗎？' },
+    ],
+    practice: '練習三種禮貌層級的提問：Can / Could / May。'
+  },
+  {
+    title: 'Morning Homeroom: Navigating the Classroom',
+    subtitle: '早自習與課堂情境',
+    category: 'Classroom',
+    content: `【早自習與課堂情境 (Morning Homeroom)】
+• Section 1: Entering Late (遲到進教室) - "Excuse me, may I come in?" / "I'm sorry I'm late. I missed my bus."
+• Section 2: Roll Call (點名) - 老師: "It's time for roll call. Say 'here' when I say your name." / 學生: "Here!"
+• Section 3: Greetings (早安問候) - 老師: "Good morning, how are you today?" / 學生: "I'm doing well, thank you. And you?"`,
+    phrases: [
+      { en: 'Excuse me, may I come in?', zh: '不好意思，我可以進來嗎？' },
+      { en: "I'm sorry I'm late. I missed my bus.", zh: '抱歉我遲到了，我沒趕上公車。' },
+      { en: "Here!", zh: '有！/ 到！' },
+      { en: "I'm doing well, thank you. And you?", zh: '我很好，謝謝您。您好嗎？' },
+    ],
+    practice: '模擬早自習情境：遲到進教室、點名回應、早安問候。'
+  },
+  {
+    title: 'Decoding Teacher Speak (聽懂老師的潛台詞)',
+    subtitle: '老師表面說的話 vs 真實含意',
+    category: 'Classroom',
+    content: `【聽懂老師的潛台詞 (Decoding Teacher Speak)】
+• "Pay attention!" → REAL MEANING: Listen carefully, this will be on the test! (專心聽講！這題一定會考！)
+• "Turn in your homework." → REAL MEANING: Hand your assignments to the front. (把作業往前傳交上來。)
+• "Stop talking in class." → REAL MEANING: Quiet down immediately. (安靜！上課別說話。)
+• "Pack your things away." → REAL MEANING: The lesson is over, clear your desks. (下課了，把桌面東西收好。)
+• "Can someone come to the board and solve this?" → REAL MEANING: Looking for a brave volunteer. (有人能當個勇者上台解這道題嗎？)`,
+    phrases: [
+      { en: 'Pay attention!', zh: '專心聽講（這題一定會考！）' },
+      { en: 'Turn in your homework.', zh: '把作業往前傳交上來。' },
+      { en: 'Pack your things away.', zh: '下課了，把東西收好。' },
+      { en: 'Can someone come to the board and solve this?', zh: '有人能上台解這道題嗎？' },
+    ],
+    practice: '老師說 "Pay attention!"，你知道真正的意思是什麼嗎？'
+  },
+  {
+    title: 'Polite Interruptions: Using Could & May',
+    subtitle: '如何禮貌地打斷老師提問',
+    category: 'Classroom',
+    content: `【禮貌插話 (Polite Interruptions)】
+• Asking for Clarification (提問與確認):
+  - "Excuse me, could you repeat that last point, please?" (可以請您重複最後一點嗎？)
+  - "I didn't quite catch that. Can you say it again?" (我剛沒聽清楚，可以再說一次嗎？)
+• Bathroom Breaks (去洗手間):
+  - 學生: "Excuse me, could I go to the bathroom, please?" (請問我可以去洗手間嗎？)
+  - 老師: "Yes, of course. Just don't take too long."
+  - 返回: "Excuse me, I'm back." (極佳習慣)`,
+    phrases: [
+      { en: 'Excuse me, could you repeat that last point, please?', zh: '可以請您重複最後一點嗎？' },
+      { en: "I didn't quite catch that. Can you say it again?", zh: '我剛沒聽清楚，可以再說一次嗎？' },
+      { en: 'Excuse me, could I go to the bathroom, please?', zh: '請問我可以去洗手間嗎？' },
+    ],
+    practice: '練習用英文禮貌地打斷老師提問或請求去洗手間。'
+  },
+  {
+    title: 'The Assignment Lifecycle (作業的生命週期)',
+    subtitle: '從大綱到出作業到截止日',
+    category: 'Classroom',
+    content: `【作業的生命週期 (The Assignment Lifecycle)】
+• Step 1: The Syllabus (課程大綱) - Your course map. 規劃你學期進度的一張地圖。
+  - "I should check the syllabus later and catch up." (我晚點應該看一下課程大綱補上進度。)
+• Step 2: The Assignment (出作業) - The task given by the teacher. 老師指派的具體課業任務。
+  - "What's the homework assignment for today?" (今天的作業是什麼？)
+• Step 3: The Due Date (截止日期) - When it must be finished. 最重要的關鍵字：死線。
+  - "Do you remember when the science project is due?" (你記得科學報告什麼時候交嗎？)`,
+    phrases: [
+      { en: "I should check the syllabus later and catch up.", zh: '我晚點應該看一下課程大綱補上進度。' },
+      { en: "What's the homework assignment for today?", zh: '今天的作業是什麼？' },
+      { en: 'Do you remember when the science project is due?', zh: '你記得科學報告什麼時候交嗎？' },
+    ],
+    practice: '練習詢問作業內容和截止日期的英文句型。'
+  },
+  {
+    title: 'Arranging a Group Project (小組專案討論)',
+    subtitle: '如何用最自然的方式邀請同學',
+    category: 'Group Project',
+    content: `【小組專案討論 (Arranging a Group Project)】
+• Sam: "Want to work on it together after school?" (放學後要不要一起做？)
+  - Pro Tip: 省略 "Do you" 顯得更自然、口語化
+• Alex: "Yeah, that would be awesome. It's always faster with two people." (好啊，太棒了。兩個人做總是比較快。)
+• Sam: "Why don't we meet in the library tomorrow after class?" (我們明天放學後在圖書館見如何？)
+• Alex: "Sounds perfect. Library at 3:30. Don't be late." (太完美了。3:30圖書館見，別遲到。)
+• Campus Pro-Tip: "Science is always better with snacks." (有零食配著讀理科總是比較好。)`,
+    phrases: [
+      { en: 'Want to work on it together after school?', zh: '放學後要不要一起做？' },
+      { en: "Yeah, that would be awesome.", zh: '好啊，太棒了。' },
+      { en: "Why don't we meet in the library tomorrow after class?", zh: '我們明天放學後在圖書館見如何？' },
+      { en: "Sounds perfect. Library at 3:30. Don't be late.", zh: '太完美了。3:30圖書館見，別遲到。' },
+    ],
+    practice: '模擬邀請同學一起做小組報告的英文對話。'
+  },
+  {
+    title: 'Pop Quiz Panic Meter (隨堂考恐慌量表)',
+    subtitle: '不同恐慌級別下的課堂心聲',
+    category: 'Group Project',
+    content: `【隨堂考恐慌量表 (Pop Quiz Panic Meter)】
+• Green Level (安穩狀態): "Did you finish the math homework assignment?" (你寫完數學作業了嗎？)
+• Yellow Level (突發狀況警告): "Did you hear about the pop quiz in history class this morning?" (你有聽說今天早上歷史課的隨堂考嗎？)
+• Red Level (完蛋崩潰): "The questions were brutal. I stared at it for 10 minutes. Let's just say I totally guessed on half of it." (題目超難。我盯著它看了十分鐘。只能說我有一半都是用猜的。)
+• 單字補充: "Pop Quiz" = 沒提前通知、老師突然發下的「隨堂考/突擊測驗」。`,
+    phrases: [
+      { en: 'Did you hear about the pop quiz in history class?', zh: '你有聽說歷史課的隨堂考嗎？' },
+      { en: 'The questions were brutal.', zh: '題目超難。' },
+      { en: "I totally guessed on half of it.", zh: '我有一半都是用猜的。' },
+    ],
+    practice: '用英文表達你對隨堂考的恐慌程度。'
+  },
+  {
+    title: 'Lunchtime & Small Talk Scripts (學生餐廳日常對話)',
+    subtitle: '餐廳是用餐與社交破冰的最佳場合',
+    category: 'Lunch & Social',
+    content: `【學生餐廳日常對話 (Lunchtime & Small Talk)】
+• Finding a Seat (找位置): "Hey. Is anyone sitting here?" / "No, you can sit here if you want."
+• Food Talk (聊午餐): "What did you have at lunch today?" / "I brought a sandwich from home."
+• Making Small Talk (閒聊破冰): "Which grade are you in?" / "How do you get to school?"`,
+    phrases: [
+      { en: 'Hey. Is anyone sitting here?', zh: '嘿，這裡有人坐嗎？' },
+      { en: 'What did you have at lunch today?', zh: '你今天午餐吃什麼？' },
+      { en: 'Which grade are you in?', zh: '你讀幾年級？' },
+      { en: 'How do you get to school?', zh: '你平常怎麼來學校？' },
+    ],
+    practice: '模擬在學生餐廳找座位並與同學閒聊。'
+  },
+  {
+    title: 'Crisis Management: What Went Wrong? (危機處理大考驗)',
+    subtitle: '選取突發危機，查看對應口語',
+    category: 'Lunch & Social',
+    content: `【危機處理大考驗 (Crisis Management)】
+• CRISIS 1: You Missed Class (缺課) - "I wasn't there. I was absent yesterday." / Excuse: "I had a dentist appointment."
+• CRISIS 2: You Feel Sick (生病) - "I'm feeling under the weather." / Request: "May I please go to the nurse's office?"
+• CRISIS 3: You Forgot Homework (忘記帶作業) - "I didn't manage to complete it." / Excuse: "I left it at home. I'll turn it in as soon as I can."`,
+    phrases: [
+      { en: "I wasn't there. I was absent yesterday.", zh: '我昨天沒來，我請假了。' },
+      { en: "I'm feeling under the weather.", zh: '我不太舒服。' },
+      { en: 'May I please go to the nurse\'s office?', zh: '請問我可以去保健室嗎？' },
+      { en: "I left it at home. I'll turn it in as soon as I can.", zh: '我放在家了。我會盡快補交。' },
+    ],
+    practice: '模擬三種校園危機情境，練習用英文解釋。'
+  },
+  {
+    title: 'The End of the School Day (放學時刻)',
+    subtitle: '下課鐘聲響起，老師與同學的道別句型',
+    category: 'Lunch & Social',
+    content: `【放學時刻 (The End of the School Day)】
+• Teacher Dismissals (老師宣佈下課):
+  - "There's the bell. It's time to stop." (鐘響了。準備下課。)
+  - "That's all for today. Pack up your books." (今天就上到這裡。把書收好。)
+• Peer Goodbyes (同學道別):
+  - "See you tomorrow afternoon." (明天下午見。)
+  - "I'll see you then. Bye!" (到時見，掰！)
+• Teacher Reminders (老師的最後提醒):
+  - "Don't forget to bring your textbook tomorrow!" (明天別忘了帶課本！)`,
+    phrases: [
+      { en: "There's the bell. It's time to stop.", zh: '鐘響了。準備下課。' },
+      { en: "That's all for today. Pack up your books.", zh: '今天就上到這裡。把書收好。' },
+      { en: 'See you tomorrow afternoon.', zh: '明天下午見。' },
+      { en: "Don't forget to bring your textbook tomorrow!", zh: '明天別忘了帶課本！' },
+    ],
+    practice: '練習老師宣佈下課和同學道別的英文句型。'
+  },
+  {
+    title: 'The 5 Golden Campus Phrases (校園生存 5 大金句)',
+    subtitle: '背熟這五句，校園對話暢行無阻',
+    category: 'Summary',
+    content: `【校園生存 5 大金句 (The 5 Golden Campus Phrases)】
+• 1. For Permissions (尋求許可): "Excuse me, could I go to the bathroom, please?"
+• 2. For Clarification (尋求澄清): "I didn't quite catch that. Can you repeat it?"
+• 3. For Collaboration (小組協作): "Want to work on it together after school?"
+• 4. For Deadlines (確認日期): "When is the project due?"
+• 5. For Absences (請假與病退): "I was absent yesterday. I was feeling under the weather."`,
+    phrases: [
+      { en: 'Excuse me, could I go to the bathroom, please?', zh: '請問我可以去洗手間嗎？' },
+      { en: "I didn't quite catch that. Can you repeat it?", zh: '我沒聽清楚，可以再說一次嗎？' },
+      { en: 'Want to work on it together after school?', zh: '放學後要不要一起做？' },
+      { en: 'When is the project due?', zh: '報告什麼時候交？' },
+    ],
+    practice: '背熟五句校園生存金句，自信開口說英文！'
+  },
+]
+
 export const LESSON_5_SLIDES: LessonSlide[] = [
   {
     title: '美國出行完全指南：零死角交通英文實戰',

@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>American Campus Survival Guide - 留學生校園生存指南</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap');
+        
+        body {
+            font-family: 'Quicksand', 'Noto Sans TC', sans-serif;
+            background-color: #f0f4f8;
+        }
+        
+        .slide {
+            display: none;
+            transition: all 0.5s ease-in-out;
+        }
+        
+        .slide.active {
+            display: flex;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .varsity-title {
+            font-family: 'Fredoka One', cursive;
+        }
+    </style>
+</head>
+<body class="h-screen overflow-hidden flex flex-col justify-between text-slate-800">
+
+    <!-- Top Navigation / Progress Bar -->
+    <header class="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between z-10">
+        <div class="flex items-center space-x-3">
+            <span class="bg-indigo-950 text-amber-400 font-bold px-3 py-1 rounded-full text-xs uppercase tracking-wider varsity-title">Campus Guide</span>
+            <h1 class="text-sm md:text-base font-semibold text-slate-700 hidden sm:block">留學生必備的真實情境對話</h1>
+        </div>
+        <div class="flex items-center space-x-4">
+            <span class="text-xs text-slate-400 font-medium bg-slate-100 px-2.5 py-1 rounded-md" id="slide-counter">1 / 14</span>
+            <button onclick="toggleFullscreen()" class="text-slate-500 hover:text-indigo-600 p-1 rounded-full hover:bg-slate-50 transition" title="全螢幕">
+                <i data-lucide="maximize" class="w-5 h-5"></i>
+            </button>
+            <button onclick="toggleMenu()" class="text-slate-500 hover:text-indigo-600 p-1 rounded-full hover:bg-slate-50 transition" title="目錄">
+                <i data-lucide="menu" class="w-5 h-5"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow relative overflow-y-auto px-4 py-6 md:py-10 flex items-center justify-center">
+        
+        <!-- Sidebar Navigation Menu (Dropdown) -->
+        <div id="side-menu" class="absolute right-4 top-4 w-64 bg-white shadow-2xl rounded-2xl border border-slate-200 p-4 hidden z-50 animate-fadeIn max-h-[80vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-3 pb-2 border-b">
+                <span class="font-bold text-slate-700">簡報目錄</span>
+                <button onclick="toggleMenu()" class="text-slate-400 hover:text-red-500"><i data-lucide="x" class="w-4 h-4"></i></button>
+            </div>
+            <ul class="space-y-1 text-sm" id="menu-list">
+                <!-- Dynamically generated -->
+            </ul>
+        </div>
+
+        <!-- Progress Indicator Bar -->
+        <div class="absolute top-0 left-0 h-1 bg-amber-400 transition-all duration-300 z-10" id="progress-bar" style="width: 7.14%;"></div>
+
+        <!-- ================= SLIDES CONTENT ================= -->
+        <div class="w-full max-w-5xl bg-white rounded-3xl shadow-xl border border-slate-100 min-h-[75vh] md:min-h-[70vh] flex flex-col p-6 md:p-10 relative overflow-hidden">
+            
+            <!-- Page 1: Cover Page -->
+            <div class="slide active flex-col justify-between h-full flex-grow">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-8 my-auto">
+                    <div class="flex-1 space-y-6 text-center md:text-left">
+                        <div class="inline-flex items-center space-x-2 bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-xs font-semibold">
+                            <span>🇺🇸 美式校園指南</span>
+                        </div>
+                        <h2 class="text-4xl md:text-6xl font-extrabold text-indigo-950 leading-tight varsity-title">
+                            American Campus <br><span class="text-amber-500">Survival Guide</span>
+                        </h2>
+                        <p class="text-2xl font-bold text-slate-700 font-sans">
+                            留學生必備的真實情境對話
+                        </p>
+                        <p class="text-slate-500 text-sm md:text-base leading-relaxed">
+                            A visual guide to navigating classrooms, group projects, and everyday campus conversations.
+                        </p>
+                    </div>
+                    
+                    <div class="flex-1 flex justify-center items-center relative">
+                        <!-- Custom Varsity Theme Illustration -->
+                        <div class="relative w-72 h-72 flex items-center justify-center">
+                            <!-- School Bus & Jacket Vector Representation -->
+                            <div class="absolute w-60 h-60 bg-indigo-50 rounded-full -z-10 animate-pulse"></div>
+                            <!-- Varsity Jacket SVG -->
+                            <svg class="w-40 h-40 drop-shadow-lg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="25" y="15" width="50" height="70" rx="10" fill="#1e1b4b"/>
+                                <rect x="15" y="25" width="20" height="50" rx="5" fill="#facc15"/>
+                                <rect x="65" y="25" width="20" height="50" rx="5" fill="#facc15"/>
+                                <circle cx="50" cy="40" r="12" fill="#475569" opacity="0.2"/>
+                                <path d="M45 48L50 35L55 48" stroke="#facc15" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M47 43H53" stroke="#facc15" stroke-width="4"/>
+                                <rect x="35" y="80" width="30" height="5" fill="#94a3b8" rx="2"/>
+                            </svg>
+                            <!-- Bus icon overlapping -->
+                            <div class="absolute bottom-4 right-4 bg-amber-400 p-4 rounded-2xl shadow-lg border-2 border-white rotate-12">
+                                <i data-lucide="bus" class="w-10 h-10 text-indigo-950"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center text-xs text-slate-400 border-t pt-4">
+                    Powered by NotebookLM • Interactive Presentation
+                </div>
+            </div>
+
+            <!-- Page 2: Campus Blueprint -->
+            <div class="slide flex-col justify-between h-full flex-grow">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-bold px-2 py-1 bg-indigo-100 text-indigo-800 rounded">Page 2</span>
+                        <h3 class="text-xl md:text-2xl font-bold text-indigo-950">CAMPUS BLUEPRINT (校園藍圖)</h3>
+                    </div>
+                    <p class="text-slate-500 text-sm">Key Locations & Vocabulary (關鍵地點與詞彙)</p>
+                    
+                    <!-- Grid of 6 key locations -->
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 pt-4">
+                        <div class="border border-slate-150 p-4 rounded-2xl hover:shadow-md hover:border-indigo-200 transition bg-indigo-50/20">
+                            <div class="flex items-center space-x-2 text-indigo-900 font-bold mb-1">
+                                <span class="bg-indigo-900 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">1</span>
+                                <h4>Principal's Office</h4>
+                            </div>
+                            <p class="text-amber-600 font-bold text-xs">校長室</p>
+                            <p class="text-xs text-slate-500 mt-2">Where the person in charge works.</p>
+                        </div>
+                        <div class="border border-slate-150 p-4 rounded-2xl hover:shadow-md hover:border-indigo-200 transition bg-indigo-50/20">
+                            <div class="flex items-center space-x-2 text-indigo-900 font-bold mb-1">
+                                <span class="bg-indigo-900 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">2</span>
+                                <h4>Hallway</h4>
+                            </div>
+                            <p class="text-amber-600 font-bold text-xs">走廊</p>
+                            <p class="text-xs text-slate-500 mt-2">Where lockers are located and between-class chats happen.</p>
+                        </div>
+                        <div class="border border-slate-150 p-4 rounded-2xl hover:shadow-md hover:border-indigo-200 transition bg-indigo-50/20">
+                            <div class="flex items-center space-x-2 text-indigo-900 font-bold mb-1">
+                                <span class="bg-indigo-900 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">3</span>
+                                <h4>Cafeteria</h4>
+                            </div>
+                            <p class="text-amber-600 font-bold text-xs">學生餐廳</p>
+                            <p class="text-xs text-slate-500 mt-2">The main hub for lunch and small talk.</p>
+                        </div>
+                        <div class="border border-slate-150 p-4 rounded-2xl hover:shadow-md hover:border-indigo-200 transition bg-indigo-50/20">
+                            <div class="flex items-center space-x-2 text-indigo-900 font-bold mb-1">
+                                <span class="bg-indigo-900 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">4</span>
+                                <h4>Restroom</h4>
+                            </div>
+                            <p class="text-amber-600 font-bold text-xs">洗手間</p>
+                            <p class="text-xs text-slate-500 mt-2"><span class="bg-amber-100 text-amber-800 px-1 py-0.5 rounded text-[10px] font-bold">美國專用</span> Uniquely American term for bathroom.</p>
+                        </div>
+                        <div class="border border-slate-150 p-4 rounded-2xl hover:shadow-md hover:border-indigo-200 transition bg-indigo-50/20">
+                            <div class="flex items-center space-x-2 text-indigo-900 font-bold mb-1">
+                                <span class="bg-indigo-900 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">5</span>
+                                <h4>Auditorium</h4>
+                            </div>
+                            <p class="text-amber-600 font-bold text-xs">禮堂</p>
+                            <p class="text-xs text-slate-500 mt-2">Used for school-wide assemblies and performances.</p>
+                        </div>
+                        <div class="border border-slate-150 p-4 rounded-2xl hover:shadow-md hover:border-indigo-200 transition bg-indigo-50/20">
+                            <div class="flex items-center space-x-2 text-indigo-900 font-bold mb-1">
+                                <span class="bg-indigo-900 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">6</span>
+                                <h4>Gym</h4>
+                            </div>
+                            <p class="text-amber-600 font-bold text-xs">體育館</p>
+                            <p class="text-xs text-slate-500 mt-2">For physical exercise and pep rallies.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 3: US vs UK Lingo -->
+            <div class="slide flex-col justify-between h-full flex-grow">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-bold px-2 py-1 bg-indigo-100 text-indigo-800 rounded">Page 3</span>
+                        <h3 class="text-xl md:text-2xl font-bold text-indigo-950">US vs. UK Campus Lingo</h3>
+                    </div>
+                    <p class="text-slate-500 text-sm">點擊卡片切換美式、英式用語差別，快速適應不同語境！</p>
+                    
+                    <!-- Comparison Grid Cards (Interactive) -->
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 pt-4">
+                        <!-- Item 1 -->
+                        <div class="group relative bg-slate-50 p-5 rounded-2xl border border-slate-200 hover:border-indigo-400 transition-all text-center">
+                            <span class="text-xs font-bold text-slate-400">下課/休息</span>
+                            <div class="mt-2 text-lg font-bold text-indigo-950">Recess</div>
+                            <div class="text-slate-400 text-xs my-1">vs</div>
+                            <div class="text-lg font-bold text-amber-600">Break</div>
+                            <div class="text-xs text-indigo-950 bg-indigo-50 py-1 px-2 rounded-full mt-2 inline-block font-semibold">美式 (US) vs 英式 (UK)</div>
+                        </div>
+                        <!-- Item 2 -->
+                        <div class="group relative bg-slate-50 p-5 rounded-2xl border border-slate-200 hover:border-indigo-400 transition-all text-center">
+                            <span class="text-xs font-bold text-slate-400">洗手間</span>
+                            <div class="mt-2 text-lg font-bold text-indigo-950">Restroom</div>
+                            <div class="text-slate-400 text-xs my-1">vs</div>
+                            <div class="text-lg font-bold text-amber-600">Washroom / Loo</div>
+                            <div class="text-xs text-indigo-950 bg-indigo-50 py-1 px-2 rounded-full mt-2 inline-block font-semibold">美式 (US) vs 英式 (UK)</div>
+                        </div>
+                        <!-- Item 3 -->
+                        <div class="group relative bg-slate-50 p-5 rounded-2xl border border-slate-200 hover:border-indigo-400 transition-all text-center">
+                            <span class="text-xs font-bold text-slate-400">年級</span>
+                            <div class="mt-2 text-lg font-bold text-indigo-950">Grade <span class="text-xs font-normal text-slate-400">(e.g., 9th grade)</span></div>
+                            <div class="text-slate-400 text-xs my-1">vs</div>
+                            <div class="text-lg font-bold text-amber-600">Class / Year</div>
+                            <div class="text-xs text-indigo-950 bg-indigo-50 py-1 px-2 rounded-full mt-2 inline-block font-semibold">美式 (US) vs 英式 (UK)</div>
+                        </div>
+                        <!-- Item 4 -->
+                        <div class="group relative bg-slate-50 p-5 rounded-2xl border border-slate-200 hover:border-indigo-400 transition-all text-center">
+                            <span class="text-xs font-bold text-slate-400">數學</span>
+                            <div class="mt-2 text-lg font-bold text-indigo-950">Math</div>
+                            <div class="text-slate-400 text-xs my-1">vs</div>
+                            <div class="text-lg font-bold text-amber-600">Maths</div>
+                            <div class="text-xs text-indigo-950 bg-indigo-50 py-1 px-2 rounded-full mt-2 inline-block font-semibold">美式 (US) vs 英式 (UK)</div>
+                        </div>
+                        <!-- Item 5 -->
+                        <div class="group relative bg-slate-50 p-5 rounded-2xl border border-slate-200 hover:border-indigo-400 transition-all text-center">
+                            <span class="text-xs font-bold text-slate-400">作業本</span>
+                            <div class="mt-2 text-lg font-bold text-indigo-950">Workbook</div>
+                            <div class="text-slate-400 text-xs my-1">vs</div>
+                            <div class="text-lg font-bold text-amber-600">Exercise book</div>
+                            <div class="text-xs text-indigo-950 bg-indigo-50 py-1 px-2 rounded-full mt-2 inline-block font-semibold">美式 (US) vs 英式 (UK)</div>
+                        </div>
+                        <!-- Item 6 -->
+                        <div class="group relative bg-slate-50 p-5 rounded-2xl border border-slate-200 hover:border-indigo-400 transition-all text-center">
+                            <span class="text-xs font-bold text-slate-400">電梯</span>
+                            <div class="mt-2 text-lg font-bold text-indigo-950">Elevator</div>
+                            <div class="text-slate-400 text-xs my-1">vs</div>
+                            <div class="text-lg font-bold text-amber-600">Lift</div>
+                            <div class="text-xs text-indigo-950 bg-indigo-50 py-1 px-2 rounded-full mt-2 inline-block font-semibold">美式 (US) vs 英式 (UK)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 4: Politeness Spectrum -->
+            <div class="slide flex-col justify-between h-full flex-grow">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-bold px-2 py-1 bg-indigo-100 text-indigo-800 rounded">Page 4</span>
+                        <h3 class="text-xl md:text-2xl font-bold text-indigo-950">THE POLITENESS SPECTRUM (禮貌光譜)</h3>
+                    </div>
+                    <p class="text-slate-500 text-sm">拖曳或點擊刻度，看看在不同場景該如何禮貌提問：</p>
+
+                    <!-- Interactive Slider & Display System -->
+                    <div class="bg-indigo-50/50 p-6 rounded-2xl border border-indigo-100 mt-4">
+                        <div class="flex justify-between items-center mb-6">
+                            <button onclick="setSpectrum(0)" id="spec-btn-0" class="flex-1 py-3 px-2 text-center rounded-xl font-bold border-2 border-indigo-600 bg-indigo-600 text-white transition text-xs md:text-sm mx-1">
+                                Casual/Peers<br><span class="text-lg font-black block mt-1">Can</span>
+                            </button>
+                            <button onclick="setSpectrum(1)" id="spec-btn-1" class="flex-1 py-3 px-2 text-center rounded-xl font-bold border border-slate-300 text-slate-600 hover:border-indigo-400 transition text-xs md:text-sm mx-1">
+                                Polite<br><span class="text-lg font-black block mt-1">Could</span>
+                            </button>
+                            <button onclick="setSpectrum(2)" id="spec-btn-2" class="flex-1 py-3 px-2 text-center rounded-xl font-bold border border-slate-300 text-slate-600 hover:border-indigo-400 transition text-xs md:text-sm mx-1">
+                                Formal/Permission<br><span class="text-lg font-black block mt-1">May</span>
+                            </button>
+                        </div>
+
+                        <!-- Dynamic Output Cards -->
+                        <div id="spectrum-card" class="bg-white p-6 rounded-xl shadow-md border border-slate-100 min-h-[140px] flex flex-col justify-between">
+                            <div>
+                                <span class="bg-indigo-100 text-indigo-800 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider" id="spec-badge">Casual</span>
+                                <h4 class="text-xl font-extrabold text-indigo-950 mt-3" id="spec-eng">"Can I borrow a pencil?"</h4>
+                                <p class="text-slate-600 text-sm mt-1" id="spec-chi">我可以借一支鉛筆嗎？</p>
+                            </div>
+                            <p class="text-xs text-slate-400 border-t pt-3 mt-4" id="spec-desc">
+                                用於非正式請求與表達能力（同儕或熟人之間）。
+                            </p>
+                        </div>
+
+                        <!-- Magic word hint -->
+                        <div class="mt-4 bg-amber-50 border border-amber-200 text-amber-800 p-3 rounded-xl flex items-start space-x-2 text-xs">
+                            <i data-lucide="sparkles" class="w-4 h-4 mt-0.5 text-amber-500 shrink-0"></i>
+                            <p><strong>魔法咒語：</strong> 在 Could 或 May 的句子結尾加上 <strong>"please"</strong>，是美式禮貌的黃金法則！</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 5: Morning Homeroom -->
+            <div class="slide flex-col justify-between h-full flex-grow">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-bold px-2 py-1 bg-indigo-100 text-indigo-800 rounded">Page 5</span>
+                        <h3 class="text-xl md:text-2xl font-bold text-indigo-950">Morning Homeroom: Navigating the Classroom</h3>
+                    </div>
+                    <p class="text-slate-500 text-sm">早自習與課堂情境：如何應對遲到、點名和問候</p>
+
+                    <!-- Row Grid of Scenarios -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
+                        <!-- Sec 1: Entering Late -->
+                        <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
+                            <div>
+                                <div class="bg-red-50 text-red-700 px-2 py-1 rounded text-xs font-bold w-max mb-3">
+                                    Section 1: Entering Late (進教室)
+                                </div>
+                                <div class="space-y-3 text-xs md:text-sm">
+                                    <div class="bg-slate-50 p-2 rounded">
+                                        <p class="font-bold text-indigo-950">Excuse me, may I come in?</p>
+                                        <p class="text-slate-500 text-xs">(不好意思，我可以進來嗎？)</p>
+                                    </div>
+                                    <div class="bg-slate-50 p-2 rounded">
+                                        <p class="font-bold text-indigo-950">I'm sorry I'm late. I missed my bus.</p>
+                                        <p class="text-slate-500 text-xs">(抱歉我遲到了，我沒趕上公車。)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-xs text-red-500 font-semibold flex items-center space-x-1">
+                                <i data-lucide="info" class="w-3.5 h-3.5"></i>
+                                <span>遲到務必使用 May 來禮貌詢問！</span>
+                            </div>
+                        </div>
+
+                        <!-- Sec 2: Roll Call -->
+                        <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
+                            <div>
+                                <div class="bg-indigo-50 text-indigo-700 px-2 py-1 rounded text-xs font-bold w-max mb-3">
+                                    Section 2: Roll Call (點名)
+                                </div>
+                                <div class="space-y-3 text-xs md:text-sm">
+                                    <div class="bg-indigo-950 text-white p-2.5 rounded">
+                                        <span class="text-[10px] text-amber-400 block font-bold uppercase">Teacher:</span>
+                                        <p class="font-medium">It's time for roll call. Say 'here' when I say your name.</p>
+                                        <p class="text-[11px] text-slate-300">(現在開始點名。叫到名字請說「有」。)</p>
+                                    </div>
+                                    <div class="bg-amber-100 text-amber-950 p-2.5 rounded">
+                                        <span class="text-[10px] text-amber-800 block font-bold uppercase">You:</span>
+                                        <p class="font-bold">Here!</p>
+                                        <p class="text-[11px] text-amber-800">(有！/ 到！)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-xs text-indigo-600 font-semibold flex items-center space-x-1">
+                                <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+                                <span>點名說 'Here!' 即可，簡單直接。</span>
+                            </div>
+                        </div>
+
+                        <!-- Sec 3: Greetings -->
+                        <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
+                            <div>
+                                <div class="bg-green-50 text-green-700 px-2 py-1 rounded text-xs font-bold w-max mb-3">
+                                    Section 3: Greetings (早安問候)
+                                </div>
+                                <div class="space-y-3 text-xs md:text-sm">
+                                    <div class="bg-slate-50 p-2 rounded">
+                                        <span class="text-[10px] text-slate-400 block font-bold uppercase">Teacher:</span>
+                                        <p class="font-bold text-indigo-950">Good morning, how are you today?</p>
+                                    </div>
+                                    <div class="bg-slate-50 p-2 rounded">
+                                        <span class="text-[10px] text-slate-400 block font-bold uppercase">You:</span>
+                                        <p class="font-bold text-indigo-950">I'm doing well, thank you. And you?</p>
+                                        <p class="text-slate-500 text-xs">(我很好，謝謝您。您好嗎？)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-xs text-green-600 font-semibold flex items-center space-x-1">
+                                <i data-lucide="smile" class="w-3.5 h-3.5"></i>
+                                <span>And you? 可以展現雙向社交禮貌。</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 6: Decoding Teacher Speak -->
+            <div class="slide flex-col justify-between h-full flex-grow">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-bold px-2 py-1 bg-indigo-100 text-indigo-800 rounded">Page 6</span>
+                        <h3 class="text-xl md:text-2xl font-bold text-indigo-950">Decoding Teacher Speak (聽懂老師的潛台詞)</h3>
+                    </div>
+                    <p class="text-slate-500 text-sm">老師表面上說的話，在真實校園情境裡代表什麼意思？（點擊解鎖隱藏含意）</p>
+
+                    <!-- Interactive Reveal Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">
+                        
+                        <div onclick="revealTeacher(this)" class="bg-indigo-950 text-white p-5 rounded-2xl cursor-pointer hover:-translate-y-1 transition transform relative overflow-hidden group">
+                            <div class="absolute right-3 top-3 opacity-25 group-hover:opacity-100 transition"><i data-lucide="lock" class="w-4 h-4" id="lock-icon"></i></div>
+                            <span class="text-xs text-amber-400 font-bold">What the Teacher Says</span>
+                            <h4 class="text-lg font-bold mt-1">"Pay attention!"</h4>
+                            <div class="mt-4 pt-3 border-t border-indigo-900 hidden reveal-target">
+                                <span class="text-[10px] text-green-400 font-bold block">REAL MEANING 💡</span>
+                                <p class="text-sm font-semibold">Listen carefully, this will be on the test!</p>
+                                <p class="text-xs text-slate-300 mt-1">(專心聽講！這題一定會考！)</p>
+                            </div>
+                        </div>
+
+                        <div onclick="revealTeacher(this)" class="bg-indigo-950 text-white p-5 rounded-2xl cursor-pointer hover:-translate-y-1 transition transform relative overflow-hidden group">
+                            <div class="absolute right-3 top-3 opacity-25 group-hover:opacity-100 transition"><i data-lucide="lock" class="w-4 h-4" id="lock-icon"></i></div>
+                            <span class="text-xs text-amber-400 font-bold">What the Teacher Says</span>
+                            <h4 class="text-lg font-bold mt-1">"Turn in your homework."</h4>
+                            <div class="mt-4 pt-3 border-t border-indigo-900 hidden reveal-target">
+                                <span class="text-[10px] text-green-400 font-bold block">REAL MEANING 💡</span>
+                                <p class="text-sm font-semibold">Hand your assignments to the front.</p>
+                                <p class="text-xs text-slate-300 mt-1">(把作業往前傳交上來。)</p>
+                            </div>
+                        </div>
+
+                        <div onclick="revealTeacher(this)" class="bg-indigo-950 text-white p-5 rounded-2xl cursor-pointer hover:-translate-y-1 transition transform relative overflow-hidden group">
+                            <div class="absolute right-3 top-3 opacity-25 group-hover:opacity-100 transition"><i data-lucide="lock" class="w-4 h-4" id="lock-icon"></i></div>
+                            <span class="text-xs text-amber-400 font-bold">What the Teacher Says</span>
+                            <h4 class="text-lg font-bold mt-1">"Stop talking in class."</h4>
+                            <div class="mt-4 pt-3 border-t border-indigo-900 hidden reveal-target">
+                                <span class="text-[10px] text-green-400 font-bold block">REAL MEANING 💡</span>
+                                <p class="text-sm font-semibold">Quiet down immediately.</p>
+                                <p class="text-xs text-slate-300 mt-1">(安靜！上課別說話。)</p>
+                            </div>
+                        </div>
+
+                        <div onclick="revealTeacher(this)" class="bg-indigo-950 text-white p-5 rounded-2xl cursor-pointer hover:-translate-y-1 transition transform relative overflow-hidden group">
+                            <div class="absolute right-3 top-3 opacity-25 group-hover:opacity-100 transition"><i data-lucide="lock" class="w-4 h-4" id="lock-icon"></i></div>
+                            <span class="text-xs text-amber-400 font-bold">What the Teacher Says</span>
+                            <h4 class="text-lg font-bold mt-1">"Pack your things away."</h4>
+                            <div class="mt-4 pt-3 border-t border-indigo-900 hidden reveal-target">
+                                <span class="text-[10px] text-green-400 font-bold block">REAL MEANING 💡</span>
+                                <p class="text-sm font-semibold">The lesson is over, clear your desks.</p>
+                                <p class="text-xs text-slate-300 mt-1">(下課了，把桌面東西收好。)</p>
+                            </div>
+                        </div>
+
+                        <div onclick="revealTeacher(this)" class="bg-indigo-950 text-white p-5 rounded-2xl cursor-pointer hover:-translate-y-1 transition transform relative overflow-hidden group">
+                            <div class="absolute right-3 top-3 opacity-25 group-hover:opacity-100 transition"><i data-lucide="lock" class="w-4 h-4" id="lock-icon"></i></div>
+                            <span class="text-xs text-amber-400 font-bold">What the Teacher Says</span>
+                            <h4 class="text-lg font-bold mt-1">"Can someone come to the board and solve this?"</h4>
+                            <div class="mt-4 pt-3 border-t border-indigo-900 hidden reveal-target">
+                                <span class="text-[10px] text-green-400 font-bold block">REAL MEANING 💡</span>
+                                <p class="text-sm font-semibold">Looking for a brave volunteer.</p>
+                                <p class="text-xs text-slate-300 mt-1">(有人能當個勇者上台解這道題嗎？)</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-amber-100 text-amber-950 p-5 rounded-2xl border-2 border-dashed border-amber-300 flex flex-col justify-center items-center text-center">
+                            <i data-lucide="sparkles" class="w-6 h-6 text-amber-500 mb-2"></i>
+                            <p class="font-bold text-sm">小提示</p>
+                            <p class="text-xs text-amber-800 mt-1">點擊上方深藍色卡片，即可揭曉老師的真實想法！</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 7: Polite Interruptions -->
+            <div class="slide flex-col justify-between h-full flex-grow">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-bold px-2 py-1 bg-indigo-100 text-indigo-800 rounded">Page 7</span>
+                        <h3 class="text-xl md:text-2xl font-bold text-indigo-950">Polite Interruptions: Using Could & May</h3>
+                    </div>
+                    <p class="text-slate-500 text-sm">如何禮貌地打斷老師提問，或是提出生理需求</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                        <!-- Box 1: Asking for Clarification -->
+                        <div class="bg-indigo-50/50 p-5 rounded-2xl border border-indigo-100">
+                            <div class="flex items-center space-x-2 font-bold text-indigo-950 mb-3">
+                                <i data-lucide="help-circle" class="w-5 h-5 text-indigo-600"></i>
+                                <span>Asking for Clarification (提問與確認)</span>
+                            </div>
+                            <div class="space-y-3 text-sm">
+                                <div class="bg-white p-3 rounded-xl shadow-sm">
+                                    <p class="font-bold text-slate-800">"Excuse me, could you repeat that last point, please?"</p>
+                                    <p class="text-xs text-slate-500 mt-1">(不好意思，可以請您重複最後一點嗎？)</p>
+                                </div>
+                                <div class="bg-white p-3 rounded-xl shadow-sm">
+                                    <p class="font-bold text-slate-800">"I didn't quite catch that. Can you say it again?"</p>
+                                    <p class="text-xs text-slate-500 mt-1">(我剛沒聽清楚，可以再說一次嗎？)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Box 2: Bathroom Breaks -->
+                        <div class="bg-amber-50/50 p-5 rounded-2xl border border-amber-100">
+                            <div class="flex items-center space-x-2 font-bold text-amber-950 mb-3">
+                                <i data-lucide="droplet" class="w-5 h-5 text-amber-600"></i>
+                                <span>Bathroom Breaks (去洗手間)</span>
+                            </div>
+                            <div class="space-y-3 text-sm">
+                                <div class="bg-white p-3 rounded-xl shadow-sm">
+                                    <span class="text-[10px] font-bold text-amber-600">YOU:</span>
+                                    <p class="font-bold text-slate-800">"Excuse me, could I go to the bathroom, please?"</p>
+                                    <p class="text-xs text-slate-500 mt-1">(不好意思，請問我可以去洗手間嗎？)</p>
+                                </div>
+                                <div class="bg-indigo-950 text-white p-3 rounded-xl shadow-sm">
+                                    <span class="text-[10px] font-bold text-amber-400">TEACHER:</span>
+                                    <p class="font-medium">"Yes, of course. Just don't take too long."</p>
+                                </div>
+                                <div class="bg-white p-3 rounded-xl shadow-sm border-2 border-dashed border-green-200">
+                                    <span class="text-[10px] font-bold text-green-600">YOU (RETURNING):</span>
+                                    <p class="font-bold text-slate-800">"Excuse me, I'm back." <span class="bg-green-100 text-green-800 text-[10px] px-1.5 py-0.5 rounded font-bold">極佳習慣</span></p>
+                                    <p class="text-xs text-slate-500 mt-1">(不好意思，我回來了。)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 8: Assignment Lifecycle -->
+            <div class="slide flex-col justify-between h-full flex-grow">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-bold px-2 py-1 bg-indigo-100 text-indigo-800 rounded">Page 8</span>
+                        <h3 class="text-xl md:text-2xl font-bold text-indigo-950">The Assignment Lifecycle (作業的生命週期)</h3>
+                    </div>
+                    <p class="text-slate-500 text-sm">掌握作業從「大綱」到「出作業」及「截止日」的三部曲</p>
+
+                    <!-- Interactive Process Timeline -->
+                    <div class="flex flex-col md:flex-row justify-between items-stretch gap-6 pt-4 relative">
+                        <!-- Step 1 -->
+                        <div class="flex-1 bg-white border border-slate-200 p-5 rounded-2xl shadow-sm relative flex flex-col justify-between hover:border-indigo-400 transition">
+                            <div>
+                                <span class="absolute -top-3 left-6 bg-indigo-900 text-white font-extrabold w-7 h-7 rounded-full flex items-center justify-center shadow-lg">1</span>
+                                <h4 class="font-bold text-indigo-950 text-lg mt-1">Step 1: The Syllabus</h4>
+                                <span class="text-xs text-slate-400">(課程大綱)</span>
+                                <p class="text-xs text-slate-500 mt-2 bg-slate-50 p-2 rounded"><strong>Your course map.</strong> 規劃你學期進度的一張地圖。</p>
+                            </div>
+                            <div class="mt-6 pt-3 border-t border-slate-100 text-xs">
+                                <p class="font-bold text-indigo-950 bg-indigo-50 p-2 rounded">"I should check the syllabus later and catch up."</p>
+                                <p class="text-slate-500 mt-1">(我晚點應該看一下課程大綱補上進度。)</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="flex-1 bg-white border border-slate-200 p-5 rounded-2xl shadow-sm relative flex flex-col justify-between hover:border-indigo-400 transition">
+                            <div>
+                                <span class="absolute -top-3 left-6 bg-indigo-900 text-white font-extrabold w-7 h-7 rounded-full flex items-center justify-center shadow-lg">2</span>
+                                <h4 class="font-bold text-indigo-950 text-lg mt-1">Step 2: The Assignment</h4>
+                                <span class="text-xs text-slate-400">(出作業)</span>
+                                <p class="text-xs text-slate-500 mt-2 bg-slate-50 p-2 rounded"><strong>The task given by the teacher.</strong> 老師指派的具體課業任務。</p>
+                            </div>
+                            <div class="mt-6 pt-3 border-t border-slate-100 text-xs">
+                                <p class="font-bold text-indigo-950 bg-indigo-50 p-2 rounded">"What's the homework assignment for today?"</p>
+                                <p class="text-slate-500 mt-1">(今天的作業是什麼？)</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="flex-1 bg-white border border-slate-200 p-5 rounded-2xl shadow-sm relative flex flex-col justify-between hover:border-indigo-400 transition">
+                            <div>
+                                <span class="absolute -top-3 left-6 bg-indigo-900 text-white font-extrabold w-7 h-7 rounded-full flex items-center justify-center shadow-lg">3</span>
+                                <h4 class="font-bold text-indigo-950 text-lg mt-1">Step 3: The Due Date</h4>
+                                <span class="text-xs text-slate-400">(截止日期)</span>
+                                <p class="text-xs text-slate-500 mt-2 bg-slate-50 p-2 rounded"><strong>When it must be finished.</strong> 最重要的關鍵字：死線。</p>
+                            </div>
+                            <div class="mt-6 pt-3 border-t border-slate-100 text-xs">
+                                <p class="font-bold text-indigo-950 bg-indigo-50 p-2 rounded">"Do you remember when the science project is due?"</p>
+                                <p class="text-slate-500 mt-1">(你記得科學報告什麼時候交嗎？)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 9: Arranging a Group Project -->
+            <div class="slide flex-col justify-between h-full flex-grow">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-bold px-2 py-1 bg-indigo-100 text-indigo-800 rounded">Page 9</span>
+                        <h3 class="text-xl md:text-2xl font-bold text-indigo-950">Arranging a Group Project (小組專案討論)</h3>
+                    </div>
+                    <p class="text-slate-500 text-sm">如何用最自然的方式邀請同學一起做報告</p>
+
+                    <!-- Mock Chat Thread UI -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+                        
+                        <div class="md:col-span-2 space-y-3 bg-slate-50 p-5 rounded-3xl border border-slate-100 max-h-[320px] overflow-y-auto">
+                            <!-- Bubble 1 -->
+                            <div class="flex items-start space-x-2">
+                                <div class="w-8 h-8 rounded-full bg-indigo-900 text-white font-bold flex items-center justify-center text-xs">S</div>
+                                <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm max-w-[85%]">
+                                    <span class="text-[10px] text-slate-400 block font-bold">Sam</span>
+                                    <p class="text-sm font-bold text-indigo-950">"Want to work on it together after school?"</p>
+                                    <span class="text-xs text-slate-400">(放學後要不要一起做？)</span>
+                                    <span class="text-[10px] text-amber-600 block mt-1">💡 Pro Tip: 省略了 "Do you" 顯得更自然、口語化</span>
+                                </div>
+                            </div>
+                            <!-- Bubble 2 -->
+                            <div class="flex items-start space-x-2 justify-end">
+                                <div class="bg-indigo-950 text-white p-3 rounded-2xl rounded-tr-none shadow-sm max-w-[85%] text-right">
+                                    <span class="text-[10px] text-amber-400 block font-bold">Alex</span>
+                                    <p class="text-sm font-semibold">"Yeah, that would be awesome. It's always faster with two people."</p>
+                                    <span class="text-xs text-slate-300">(好啊，太棒了。兩個人做總是比較快。)</span>
+                                </div>
+                                <div class="w-8 h-8 rounded-full bg-amber-400 text-indigo-950 font-bold flex items-center justify-center text-xs">A</div>
+                            </div>
+                            <!-- Bubble 3 -->
+                            <div class="flex items-start space-x-2">
+                                <div class="w-8 h-8 rounded-full bg-indigo-900 text-white font-bold flex items-center justify-center text-xs">S</div>
+                                <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm max-w-[85%]">
+                                    <span class="text-[10px] text-slate-400 block font-bold">Sam</span>
+                                    <p class="text-sm font-bold text-indigo-950">"Why don't we meet in the library tomorrow after class?"</p>
+                                    <span class="text-xs text-slate-400">(我們明天放學後在圖書館見如何？)</span>
+                                </div>
+                            </div>
+                            <!-- Bubble 4 -->
+                            <div class="flex items-start space-x-2 justify-end">
+                                <div class="bg-indigo-950 text-white p-3 rounded-2xl rounded-tr-none shadow-sm max-w-[85%] text-right">
+                                    <span class="text-[10px] text-amber-400 block font-bold">Alex</span>
+                                    <p class="text-sm font-semibold">"Sounds perfect. Library at 3:30. Don't be late."</p>
+                                    <span class="text-xs text-slate-300">(太完美了。3:30圖書館見，別遲到。)</span>
+                                </div>
+                                <div class="w-8 h-8 rounded-full bg-amber-400 text-indigo-950 font-bold flex items-center justify-center text-xs">A</div>
+                            </div>
+                        </div>
+
+                        <!-- Side Banner: Pro-tip -->
+                        <div class="bg-amber-100 p-5 rounded-3xl border border-amber-200 flex flex-col justify-between">
+                            <div>
+                                <h4 class="font-extrabold text-amber-950 text-lg flex items-center space-x-1">
+                                    <i data-lucide="cookie" class="w-5 h-5 text-amber-700"></i>
+                                    <span>Campus Pro-Tip</span>
+                                </h4>
+                                <p class="text-sm font-bold text-slate-800 mt-3 italic">
+                                    "Science is always better with snacks."
+                                </p>
+                                <p class="text-xs text-amber-900 mt-1">
+                                    (有零食配著讀理科/寫作業總是比較好。)
+                                </p>
+                            </div>
+                            <p class="text-xs text-amber-700 mt-4 leading-relaxed">
+                                這是一句非常美式、口語化且親近的表達方式，能快速拉近與組員的距離！
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 10: Pop Quiz Panic Meter -->
+            <div class="slide flex-col justify-between h-full flex-grow">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-bold px-2 py-1 bg-indigo-100 text-indigo-800 rounded">Page 10</span>
+                        <h3 class="text-xl md:text-2xl font-bold text-indigo-950">Pop Quiz Panic Meter (隨堂考恐慌量表)</h3>
+                    </div>
+                    <p class="text-slate-500 text-sm">點擊按鈕，解鎖不同恐慌級別下的課堂真實心聲與口語表達：</p>
+
+                    <!-- Interactive Meter System -->
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 mt-2">
+                        <div class="flex justify-between items-center mb-6">
+                            <button onclick="setPanic(0)" id="panic-btn-0" class="flex-1 py-3 px-2 text-center rounded-xl font-bold bg-green-600 text-white transition text-xs md:text-sm mx-1">
+                                Green (正常) <br><span class="text-xs block mt-1">Calm/Checking In</span>
+                            </button>
+                            <button onclick="setPanic(1)" id="panic-btn-1" class="flex-1 py-3 px-2 text-center rounded-xl font-bold border border-slate-300 text-slate-600 hover:border-yellow-400 transition text-xs md:text-sm mx-1">
+                                Yellow (小驚慌) <br><span class="text-xs block mt-1">Stressed/Warning</span>
+                            </button>
+                            <button onclick="setPanic(2)" id="panic-btn-2" class="flex-1 py-3 px-2 text-center rounded-xl font-bold border border-slate-300 text-slate-600 hover:border-red-400 transition text-xs md:text-sm mx-1">
+                                Red (完蛋/崩潰) <br><span class="text-xs block mt-1">Panic/Defeat</span>
+                            </button>
+                        </div>
+
+                        <!-- Dynamic Dial Box -->
+                        <div id="panic-card" class="bg-white p-6 rounded-xl shadow-md border-l-8 border-green-600 min-h-[140px] flex flex-col justify-between">
+                            <div>
+                                <span class="bg-green-100 text-green-800 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider" id="panic-badge">Green Level</span>
+                                <h4 class="text-lg font-bold text-indigo-950 mt-3" id="panic-eng">"Did you finish the math homework assignment?"</h4>
+                                <p class="text-slate-600 text-xs mt-1" id="panic-chi">(你寫完數學作業了嗎？)</p>
+                            </div>
+                            <p class="text-[11px] text-slate-400 border-t pt-3 mt-4" id="panic-desc">
+                                正常情況，確認平日作業進度。
+                            </p>
+                        </div>
+
+                        <!-- Explaining Pop Quiz -->
+                        <div class="mt-4 bg-indigo-50 border border-indigo-100 text-indigo-900 p-3 rounded-xl flex items-start space-x-2 text-xs">
+                            <i data-lucide="info" class="w-4 h-4 mt-0.5 text-indigo-600 shrink-0"></i>
+                            <p><strong>單字補充：</strong> "Pop Quiz" = 沒提前通知、沒有任何徵兆、老師突然發下的「隨堂考 / 突擊測驗」。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 11: Lunchtime & Small Talk Scripts -->
+            <div class="slide flex-col justify-between h-full flex-grow">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-bold px-2 py-1 bg-indigo-100 text-indigo-800 rounded">Page 11</span>
+                        <h3 class="text-xl md:text-2xl font-bold text-indigo-950">Lunchtime & Small Talk Scripts (學生餐廳日常對話)</h3>
+                    </div>
+                    <p class="text-slate-500 text-sm">餐廳是用餐與社交破冰的最佳場合。這裡有三種經典腳本：</p>
+
+                    <!-- Interactive Three Cards Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
+                        
+                        <!-- Card 1 -->
+                        <div class="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm flex flex-col justify-between hover:border-indigo-400 transition">
+                            <div>
+                                <div class="flex items-center space-x-1 text-indigo-950 font-bold mb-3">
+                                    <i data-lucide="armchair" class="w-5 h-5 text-indigo-600"></i>
+                                    <span>Finding a Seat (找位置)</span>
+                                </div>
+                                <div class="space-y-2.5 text-xs">
+                                    <div class="bg-slate-50 p-2.5 rounded">
+                                        <p class="font-bold text-indigo-950">"Hey. Is anyone sitting here?"</p>
+                                        <p class="text-slate-400">(嘿，這裡有人坐嗎？)</p>
+                                    </div>
+                                    <div class="bg-slate-50 p-2.5 rounded">
+                                        <p class="font-bold text-indigo-950">"No, you can sit here if you want."</p>
+                                        <p class="text-slate-400">(沒有，你想坐的話可以坐這。)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="text-[10px] text-slate-400 mt-4 block">經典餐飲破冰句型第一步！</span>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm flex flex-col justify-between hover:border-indigo-400 transition">
+                            <div>
+                                <div class="flex items-center space-x-1 text-indigo-950 font-bold mb-3">
+                                    <i data-lucide="utensils" class="w-5 h-5 text-indigo-600"></i>
+                                    <span>Food Talk (聊午餐)</span>
+                                </div>
+                                <div class="space-y-2.5 text-xs">
+                                    <div class="bg-slate-50 p-2.5 rounded">
+                                        <p class="font-bold text-indigo-950">"What did you have at lunch today?"</p>
+                                        <p class="text-slate-400">(你今天午餐吃什麼？)</p>
+                                    </div>
+                                    <div class="bg-slate-50 p-2.5 rounded">
+                                        <p class="font-bold text-indigo-950">"I brought a sandwich from home."</p>
+                                        <p class="text-slate-400">(我帶了家裡做的三明治。)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="text-[10px] text-slate-400 mt-4 block">討論食物是永遠不尷尬的對話。</span>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm flex flex-col justify-between hover:border-indigo-400 transition">
+                            <div>
+                                <div class="flex items-center space-x-1 text-indigo-950 font-bold mb-3">
+                                    <i data-lucide="message-square" class="w-5 h-5 text-indigo-600"></i>
+                                    <span>Making Small Talk (閒聊破冰)</span>
+                                </div>
+                                <div class="space-y-2.5 text-xs">
+                                    <div class="bg-slate-50 p-2.5 rounded">
+                                        <p class="font-bold text-indigo-950">"Which grade are you in?"</p>
+                                        <p class="text-slate-400">(你讀幾年級？)</p>
+                                    </div>
+                                    <div class="bg-slate-50 p-2.5 rounded">
+                                        <p class="font-bold text-indigo-950">"How do you get to school?"</p>
+                                        <p class="text-slate-400">(你平常怎麼來學校？)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="text-[10px] text-slate-400 mt-4 block">關於學年與通勤的小閒聊。</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 12: Crisis Management -->
+            <div class="slide flex-col justify-between h-full flex-grow">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-bold px-2 py-1 bg-indigo-100 text-indigo-800 rounded">Page 12</span>
+                        <h3 class="text-xl md:text-2xl font-bold text-indigo-950">Crisis Management: What Went Wrong? (危機處理大考驗)</h3>
+                    </div>
+                    <p class="text-slate-500 text-sm">選取你在學校發生的突發危機，查看對應口語與合理解釋（Excuse）：</p>
+
+                    <!-- Interactive Crisis Management Tree -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
+                        
+                        <!-- Choice 1 -->
+                        <div class="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm hover:border-indigo-400 transition flex flex-col justify-between">
+                            <div>
+                                <span class="bg-red-100 text-red-800 px-2 py-0.5 rounded text-[10px] font-bold">CRISIS 1</span>
+                                <h4 class="font-bold text-indigo-950 text-base mt-2">You Missed Class (缺課)</h4>
+                                <div class="mt-4 space-y-3 text-xs">
+                                    <div class="bg-slate-50 p-2 rounded">
+                                        <strong class="text-indigo-900">核心說明 (Node)</strong>
+                                        <p class="font-bold text-slate-700 mt-1">"I wasn't there. I was absent yesterday."</p>
+                                        <p class="text-slate-400 text-[10px]">(我昨天沒來，我請假。)</p>
+                                    </div>
+                                    <div class="bg-indigo-50 p-2 rounded">
+                                        <strong class="text-amber-700">合理解釋 (Excuse)</strong>
+                                        <p class="font-bold text-indigo-950 mt-1">"I had a dentist appointment."</p>
+                                        <p class="text-slate-500 text-[10px]">(我去看了牙醫。)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Choice 2 -->
+                        <div class="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm hover:border-indigo-400 transition flex flex-col justify-between">
+                            <div>
+                                <span class="bg-red-100 text-red-800 px-2 py-0.5 rounded text-[10px] font-bold">CRISIS 2</span>
+                                <h4 class="font-bold text-indigo-950 text-base mt-2">You Feel Sick (生病)</h4>
+                                <div class="mt-4 space-y-3 text-xs">
+                                    <div class="bg-slate-50 p-2 rounded">
+                                        <strong class="text-indigo-900">核心說明 (Node)</strong>
+                                        <p class="font-bold text-slate-700 mt-1">"I'm feeling under the weather."</p>
+                                        <p class="text-slate-400 text-[10px]">(我不太舒服。)</p>
+                                        <span class="text-[9px] text-amber-600 block mt-1 font-bold">💡 實用片語: "under the weather" 代表微恙/感冒。</span>
+                                    </div>
+                                    <div class="bg-indigo-50 p-2 rounded">
+                                        <strong class="text-amber-700">合理解釋 (Request)</strong>
+                                        <p class="font-bold text-indigo-950 mt-1">"May I please go to the nurse's office?"</p>
+                                        <p class="text-slate-500 text-[10px]">(請問我可以去保健室嗎？)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Choice 3 -->
+                        <div class="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm hover:border-indigo-400 transition flex flex-col justify-between">
+                            <div>
+                                <span class="bg-red-100 text-red-800 px-2 py-0.5 rounded text-[10px] font-bold">CRISIS 3</span>
+                                <h4 class="font-bold text-indigo-950 text-base mt-2">You Forgot Homework (忘記帶作業)</h4>
+                                <div class="mt-4 space-y-3 text-xs">
+                                    <div class="bg-slate-50 p-2 rounded">
+                                        <strong class="text-indigo-900">核心說明 (Node)</strong>
+                                        <p class="font-bold text-slate-700 mt-1">"I didn't manage to complete it." <span class="text-slate-400 text-[9px]">(我未能完成)</span> 或 "I forgot to do it."</p>
+                                    </div>
+                                    <div class="bg-indigo-50 p-2 rounded">
+                                        <strong class="text-amber-700">合理解釋 (Excuse)</strong>
+                                        <p class="font-bold text-indigo-950 mt-1">"I left it at home. I'll turn it in as soon as I can."</p>
+                                        <p class="text-slate-500 text-[10px]">(我忘記帶，把它放在家了。我會盡快補交。)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 13: The End of the School Day -->
+            <div class="slide flex-col justify-between h-full flex-grow">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-bold px-2 py-1 bg-indigo-100 text-indigo-800 rounded">Page 13</span>
+                        <h3 class="text-xl md:text-2xl font-bold text-indigo-950">The End of the School Day (放學時刻)</h3>
+                    </div>
+                    <p class="text-slate-500 text-sm">當下課鐘聲響起，老師與同學之間常見的放學道別句型</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                        <!-- Left Box: Teacher -->
+                        <div class="space-y-4">
+                            <div class="bg-indigo-950 text-white p-5 rounded-2xl shadow-sm">
+                                <div class="flex items-center space-x-2 text-amber-400 font-bold mb-3">
+                                    <i data-lucide="bell" class="w-5 h-5"></i>
+                                    <span>Teacher Dismissals (老師宣佈下課)</span>
+                                </div>
+                                <div class="space-y-3 text-xs md:text-sm">
+                                    <div class="bg-indigo-900 p-2.5 rounded">
+                                        <p class="font-bold text-white">"There's the bell. It's time to stop."</p>
+                                        <p class="text-slate-300 text-xs mt-0.5">(鐘響了。準備下課。)</p>
+                                    </div>
+                                    <div class="bg-indigo-900 p-2.5 rounded">
+                                        <p class="font-bold text-white">"That's all for today. Pack up your books."</p>
+                                        <p class="text-slate-300 text-xs mt-0.5">(今天就上到這裡。把書收好。)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Box: Peer and Reminders -->
+                        <div class="space-y-4 flex flex-col justify-between">
+                            <div class="bg-amber-50 border border-amber-200 p-5 rounded-2xl">
+                                <div class="flex items-center space-x-2 text-amber-900 font-bold mb-2">
+                                    <i data-lucide="users" class="w-5 h-5 text-amber-600"></i>
+                                    <span>Peer Goodbyes (同學道別)</span>
+                                </div>
+                                <div class="grid grid-cols-2 gap-3 text-xs">
+                                    <div class="bg-white p-2.5 rounded border border-amber-100">
+                                        <p class="font-bold text-slate-800">"See you tomorrow afternoon."</p>
+                                        <p class="text-slate-400 mt-1">(明天下午見。)</p>
+                                    </div>
+                                    <div class="bg-white p-2.5 rounded border border-amber-100">
+                                        <p class="font-bold text-slate-800">"I'll see you then. Bye!"</p>
+                                        <p class="text-slate-400 mt-1">(到時見，掰！)</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl flex items-start space-x-3">
+                                <i data-lucide="bell-ring" class="w-6 h-6 text-slate-600 shrink-0 mt-1"></i>
+                                <div class="text-xs">
+                                    <span class="font-bold text-indigo-950 block">Teacher Reminders (老師的最後提醒)</span>
+                                    <p class="text-slate-700 mt-1">"Don't forget to bring your textbook tomorrow!"</p>
+                                    <p class="text-slate-400">(明天別忘了帶課本！)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 14: The 5 Golden Campus Phrases -->
+            <div class="slide flex-col justify-between h-full flex-grow">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-bold px-2 py-1 bg-indigo-100 text-indigo-800 rounded">Page 14</span>
+                        <h3 class="text-xl md:text-2xl font-bold text-indigo-950">The 5 Golden Campus Phrases (校園生存 5 大金句)</h3>
+                    </div>
+                    <p class="text-slate-500 text-sm">背熟這五句，基本校園對話、疑難雜症暢行無阻！點擊喇叭按鈕可以聆聽發音喔：</p>
+
+                    <!-- Interactive TTS List -->
+                    <div class="space-y-3 pt-2">
+                        <!-- Row 1 -->
+                        <div class="bg-indigo-50/40 p-3 rounded-xl border border-indigo-100 flex items-center justify-between gap-4">
+                            <div class="flex items-center space-x-3">
+                                <span class="bg-indigo-900 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">1</span>
+                                <div class="text-xs md:text-sm">
+                                    <span class="font-bold text-indigo-950 block">For Permissions (尋求許可):</span>
+                                    <p class="font-medium text-slate-700">"Excuse me, could I go to the bathroom, please?" <span class="text-slate-400 font-normal">(請問我可以去洗手間嗎？)</span></p>
+                                </div>
+                            </div>
+                            <button onclick="speakText('Excuse me, could I go to the bathroom, please?')" class="p-2 bg-white rounded-full shadow hover:bg-indigo-50 transition text-indigo-600 shrink-0">
+                                <i data-lucide="volume-2" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <!-- Row 2 -->
+                        <div class="bg-indigo-50/40 p-3 rounded-xl border border-indigo-100 flex items-center justify-between gap-4">
+                            <div class="flex items-center space-x-3">
+                                <span class="bg-indigo-900 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">2</span>
+                                <div class="text-xs md:text-sm">
+                                    <span class="font-bold text-indigo-950 block">For Clarification (尋求澄清):</span>
+                                    <p class="font-medium text-slate-700">"I didn't quite catch that. Can you repeat it?" <span class="text-slate-400 font-normal">(我沒聽清楚，可以再說一次嗎？)</span></p>
+                                </div>
+                            </div>
+                            <button onclick="speakText('I did not quite catch that. Can you repeat it?')" class="p-2 bg-white rounded-full shadow hover:bg-indigo-50 transition text-indigo-600 shrink-0">
+                                <i data-lucide="volume-2" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <!-- Row 3 -->
+                        <div class="bg-indigo-50/40 p-3 rounded-xl border border-indigo-100 flex items-center justify-between gap-4">
+                            <div class="flex items-center space-x-3">
+                                <span class="bg-indigo-900 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">3</span>
+                                <div class="text-xs md:text-sm">
+                                    <span class="font-bold text-indigo-950 block">For Collaboration (小組協作):</span>
+                                    <p class="font-medium text-slate-700">"Want to work on it together after school?" <span class="text-slate-400 font-normal">(放學後要不要一起做？)</span></p>
+                                </div>
+                            </div>
+                            <button onclick="speakText('Want to work on it together after school?')" class="p-2 bg-white rounded-full shadow hover:bg-indigo-50 transition text-indigo-600 shrink-0">
+                                <i data-lucide="volume-2" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <!-- Row 4 -->
+                        <div class="bg-indigo-50/40 p-3 rounded-xl border border-indigo-100 flex items-center justify-between gap-4">
+                            <div class="flex items-center space-x-3">
+                                <span class="bg-indigo-900 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">4</span>
+                                <div class="text-xs md:text-sm">
+                                    <span class="font-bold text-indigo-950 block">For Deadlines (確認日期):</span>
+                                    <p class="font-medium text-slate-700">"When is the project due?" <span class="text-slate-400 font-normal">(報告什麼時候交？)</span></p>
+                                </div>
+                            </div>
+                            <button onclick="speakText('When is the project due?')" class="p-2 bg-white rounded-full shadow hover:bg-indigo-50 transition text-indigo-600 shrink-0">
+                                <i data-lucide="volume-2" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <!-- Row 5 -->
+                        <div class="bg-indigo-50/40 p-3 rounded-xl border border-indigo-100 flex items-center justify-between gap-4">
+                            <div class="flex items-center space-x-3">
+                                <span class="bg-indigo-900 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">5</span>
+                                <div class="text-xs md:text-sm">
+                                    <span class="font-bold text-indigo-950 block">For Absences (請假與病退):</span>
+                                    <p class="font-medium text-slate-700">"I was absent yesterday. I was feeling under the weather." <span class="text-slate-400 font-normal">(我昨天請假，我身體不太舒服。)</span></p>
+                                </div>
+                            </div>
+                            <button onclick="speakText('I was absent yesterday. I was feeling under the weather.')" class="p-2 bg-white rounded-full shadow hover:bg-indigo-50 transition text-indigo-600 shrink-0">
+                                <i data-lucide="volume-2" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer Controls -->
+    <footer class="bg-white border-t border-slate-200 px-6 py-4 flex items-center justify-between z-10">
+        <button onclick="prevSlide()" class="bg-slate-100 text-slate-700 px-5 py-2 rounded-xl flex items-center space-x-2 hover:bg-indigo-50 hover:text-indigo-600 font-semibold transition">
+            <i data-lucide="chevron-left" class="w-5 h-5"></i>
+            <span>上一頁</span>
+        </button>
+        <div class="text-xs text-slate-400 hidden md:block">
+            使用鍵盤左右方向鍵（← / →）或手機左右滑動即可流暢切換頁面
+        </div>
+        <button onclick="nextSlide()" class="bg-indigo-950 text-white px-5 py-2 rounded-xl flex items-center space-x-2 hover:bg-amber-500 hover:text-indigo-950 font-semibold transition">
+            <span>下一頁</span>
+            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+        </button>
+    </footer>
+
+    <!-- JS Scripts for Slide Logic & Interactivity -->
+    <script>
+        // Total pages setup
+        const totalSlides = 14;
+        let currentSlide = 1;
+        const slideNames = [
+            "1. 封面 (Cover)",
+            "2. 校園藍圖 (Blueprint)",
+            "3. 美英俚語 (US vs UK)",
+            "4. 禮貌光譜 (Politeness)",
+            "5. 早自習與課堂 (Homeroom)",
+            "6. 教師用語潛台詞 (Teacher Speak)",
+            "7. 禮貌插話 (Could & May)",
+            "8. 作業生命週期 (Lifecycle)",
+            "9. 討論報告 (Group Project)",
+            "10. 隨堂測驗恐慌表 (Pop Quiz)",
+            "11. 午餐日常 (Lunch Talk)",
+            "12. 危機管理 (Crisis)",
+            "13. 放學時刻 (End of Day)",
+            "14. 生存 5 大金句 (5 Golden Phrases)"
+        ];
+
+        // Slide System Initializer
+        const slides = document.querySelectorAll('.slide');
+        
+        function updateSlide() {
+            slides.forEach((slide, idx) => {
+                if (idx === currentSlide - 1) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+
+            // Update Header & Progress
+            document.getElementById('slide-counter').textContent = `${currentSlide} / ${totalSlides}`;
+            const progressPercent = (currentSlide / totalSlides) * 100;
+            document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+
+            // Active list in menu
+            const listItems = document.querySelectorAll('.menu-item');
+            listItems.forEach((item, idx) => {
+                if (idx === currentSlide - 1) {
+                    item.classList.add('bg-indigo-50', 'text-indigo-900', 'font-bold');
+                } else {
+                    item.classList.remove('bg-indigo-50', 'text-indigo-900', 'font-bold');
+                }
+            });
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        // Keyboard Support
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        // Touch Swipe Support
+        let touchstartX = 0;
+        let touchendX = 0;
+        
+        document.addEventListener('touchstart', e => {
+            touchstartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', e => {
+            touchendX = e.changedTouches[0].screenX;
+            handleGesture();
+        });
+
+        function handleGesture() {
+            if (touchendX < touchstartX - 50) {
+                nextSlide();
+            }
+            if (touchendX > touchstartX + 50) {
+                prevSlide();
+            }
+        }
+
+        // Fullscreen Toggle
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        // Dropdown Menu System
+        function toggleMenu() {
+            const menu = document.getElementById('side-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Initialize Slide Menu List
+        const menuList = document.getElementById('menu-list');
+        slideNames.forEach((name, idx) => {
+            const li = document.createElement('li');
+            li.className = "menu-item cursor-pointer p-2 rounded-lg hover:bg-slate-100 transition";
+            li.textContent = name;
+            li.onclick = () => {
+                currentSlide = idx + 1;
+                updateSlide();
+                toggleMenu();
+            };
+            menuList.appendChild(li);
+        });
+
+        // Initialize Icons
+        lucide.createIcons();
+
+        // ================= PAGE 4 INTERACTION: POLITENESS SPECTRUM =================
+        const spectrumData = [
+            {
+                badge: "Casual (同儕/非正式)",
+                eng: '"Can I borrow a pencil?"',
+                chi: "我可以借一支鉛筆嗎？",
+                desc: "用於非正式請求與表達能力。主要在同儕（同學、朋友）或熟人之間使用，切勿對教授或長輩使用以免顯得無禮。",
+                badgeClass: "bg-green-100 text-green-800"
+            },
+            {
+                badge: "Polite (禮貌/客氣)",
+                eng: '"Could you explain this, please?"',
+                chi: "可以請您解釋一下這個嗎？",
+                desc: "比 Can 更為柔和、尊重。在向老師請教問題、打斷別人發言、或向不熟悉的人尋求幫助時最適合使用。",
+                badgeClass: "bg-blue-100 text-blue-800"
+            },
+            {
+                badge: "Formal/Permission (正式許可)",
+                eng: '"May I go to the restroom?"',
+                chi: "我可以去洗手間嗎？",
+                desc: "極度正式，專門用於向掌權者、長輩、教授「尋求許可」。這是一種展示教養與良好敬意的高級說法。",
+                badgeClass: "bg-indigo-100 text-indigo-800"
+            }
+        ];
+
+        function setSpectrum(level) {
+            // Update button UI
+            for (let i = 0; i < 3; i++) {
+                const btn = document.getElementById(`spec-btn-${i}`);
+                if (i === level) {
+                    btn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-600');
+                    btn.classList.remove('border-slate-300', 'text-slate-600');
+                } else {
+                    btn.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-600');
+                    btn.classList.add('border-slate-300', 'text-slate-600');
+                }
+            }
+
+            // Update content card
+            const data = spectrumData[level];
+            const badge = document.getElementById('spec-badge');
+            badge.className = `${data.badgeClass} px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider`;
+            badge.textContent = data.badge;
+
+            document.getElementById('spec-eng').textContent = data.eng;
+            document.getElementById('spec-chi').textContent = data.chi;
+            document.getElementById('spec-desc').textContent = data.desc;
+        }
+
+        // ================= PAGE 6 INTERACTION: DECODING TEACHER SPEAK =================
+        function revealTeacher(element) {
+            const target = element.querySelector('.reveal-target');
+            const icon = element.querySelector('#lock-icon');
+            if (target.classList.contains('hidden')) {
+                target.classList.remove('hidden');
+                element.classList.add('bg-indigo-900');
+                element.classList.remove('bg-indigo-950');
+                if (icon) {
+                    icon.setAttribute('data-lucide', 'lock-open');
+                    lucide.createIcons();
+                }
+            } else {
+                target.classList.add('hidden');
+                element.classList.remove('bg-indigo-900');
+                element.classList.add('bg-indigo-950');
+                if (icon) {
+                    icon.setAttribute('data-lucide', 'lock');
+                    lucide.createIcons();
+                }
+            }
+        }
+
+        // ================= PAGE 10 INTERACTION: PANIC METER =================
+        const panicData = [
+            {
+                badge: "Green Level (安穩狀態)",
+                eng: '"Did you finish the math homework assignment?"',
+                chi: "(你寫完數學作業了嗎？)",
+                desc: "通常發生在課堂前、下課中，只是同學之間確認日常作業、交換答案、閒聊關心的正常話語。",
+                colorClass: "border-green-600",
+                badgeClass: "bg-green-100 text-green-800"
+            },
+            {
+                badge: "Yellow Level (突發狀況警告)",
+                eng: '"Did you hear about the pop quiz in history class this morning?"',
+                chi: "(你有聽說今天早上歷史課的隨堂考嗎？)",
+                desc: "「突襲測驗(Pop Quiz)」往往是不講武德的，這時心跳稍微加速，趕快向隔壁同學打聽測驗範圍！",
+                colorClass: "border-yellow-500",
+                badgeClass: "bg-yellow-100 text-yellow-800"
+            },
+            {
+                badge: "Red Level (完蛋崩潰)",
+                eng: '"The questions were brutal. I stared at it for 10 minutes. Let\'s just say I totally guessed on half of it."',
+                chi: "(題目超難。我盯著它看了十分鐘。只能說我有一半都是用猜的。)",
+                desc: "大勢已去。遇到完全不會的隨堂考，這是美式口語中表達自己毫無頭緒（Stared at it）與完全用猜的（guessed on half of it）標準崩潰語境。",
+                colorClass: "border-red-600",
+                badgeClass: "bg-red-100 text-red-800"
+            }
+        ];
+
+        function setPanic(level) {
+            // Update button UI
+            for (let i = 0; i < 3; i++) {
+                const btn = document.getElementById(`panic-btn-${i}`);
+                if (i === level) {
+                    if (level === 0) {
+                        btn.className = 'flex-1 py-3 px-2 text-center rounded-xl font-bold bg-green-600 text-white transition text-xs md:text-sm mx-1';
+                    } else if (level === 1) {
+                        btn.className = 'flex-1 py-3 px-2 text-center rounded-xl font-bold bg-yellow-500 text-indigo-950 transition text-xs md:text-sm mx-1';
+                    } else if (level === 2) {
+                        btn.className = 'flex-1 py-3 px-2 text-center rounded-xl font-bold bg-red-600 text-white transition text-xs md:text-sm mx-1';
+                    }
+                } else {
+                    btn.className = 'flex-1 py-3 px-2 text-center rounded-xl font-bold border border-slate-300 text-slate-600 hover:border-slate-400 transition text-xs md:text-sm mx-1';
+                }
+            }
+
+            // Update content card
+            const data = panicData[level];
+            const card = document.getElementById('panic-card');
+            card.className = `bg-white p-6 rounded-xl shadow-md border-l-8 ${data.colorClass} min-h-[140px] flex flex-col justify-between`;
+
+            const badge = document.getElementById('panic-badge');
+            badge.className = `${data.badgeClass} px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider`;
+            badge.textContent = data.badge;
+
+            document.getElementById('panic-eng').textContent = data.eng;
+            document.getElementById('panic-chi').textContent = data.chi;
+            document.getElementById('panic-desc').textContent = data.desc;
+        }
+
+        // ================= PAGE 14 INTERACTION: SPEECH SYNTHESIS (TTS) =================
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                // Cancel ongoing speakings
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9; // slightly slower for clearer listening
+                window.speechSynthesis.speak(utterance);
+            } else {
+                console.warn("你的瀏覽器不支援 Speech Synthesis 語音功能。");
+            }
+        }
+
+        // Initial setup run
+        updateSlide();
+    </script>
+</body>
+</html>

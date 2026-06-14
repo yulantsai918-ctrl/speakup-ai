@@ -2,13 +2,15 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import {
   ChevronLeft, ChevronRight, Mic, MicOff,
   Sparkles, List, Maximize, MessageSquare,
-  HelpCircle, BookOpen, Notebook, Shirt, Home, Navigation
+  HelpCircle, BookOpen, Notebook, Shirt, Home, Navigation,
+  GraduationCap
 } from 'lucide-react'
-import { LESSON_2_SLIDES, LESSON_3_SLIDES, LESSON_4_SLIDES, LESSON_5_SLIDES } from './lessonData'
+import { LESSON_2_SLIDES, LESSON_3_SLIDES, LESSON_4_SLIDES, LESSON_5_SLIDES, LESSON_6_SLIDES } from './lessonData'
 import { Lesson2Slide } from './Lesson2Slides'
 import { Lesson3Slide } from './Lesson3Slides'
 import { Lesson4Slide } from './Lesson4Slides'
 import { Lesson5Slide } from './Lesson5Slides'
+import { Lesson6Slide } from './Lesson6Slides'
 
 const API_KEY = import.meta.env.VITE_GROQ_API_KEY || ''
 
@@ -62,7 +64,7 @@ function SlidePainSlider() {
 }
 
 export default function Presentation() {
-  const [lessonMode, setLessonMode] = useState<'lesson1' | 'lesson2' | 'lesson3' | 'lesson4' | 'lesson5'>('lesson1')
+  const [lessonMode, setLessonMode] = useState<'lesson1' | 'lesson2' | 'lesson3' | 'lesson4' | 'lesson5' | 'lesson6'>('lesson1')
   const [currentSlide, setCurrentSlide] = useState(1)
   const [isListening, setIsListening] = useState(false)
   const [transcripts, setTranscripts] = useState<{ role: 'user' | 'system'; text: string }[]>([])
@@ -73,19 +75,22 @@ export default function Presentation() {
     : lessonMode === 'lesson2' ? Object.fromEntries(LESSON_2_SLIDES.map((s, i) => [i + 1, `${s.title}。${s.content}`]))
     : lessonMode === 'lesson3' ? Object.fromEntries(LESSON_3_SLIDES.map((s, i) => [i + 1, `${s.title}。${s.content}`]))
     : lessonMode === 'lesson4' ? Object.fromEntries(LESSON_4_SLIDES.map((s, i) => [i + 1, `${s.title}。${s.content}`]))
-    : Object.fromEntries(LESSON_5_SLIDES.map((s, i) => [i + 1, `${s.title}。${s.content}`]))
+    : lessonMode === 'lesson5' ? Object.fromEntries(LESSON_5_SLIDES.map((s, i) => [i + 1, `${s.title}。${s.content}`]))
+    : Object.fromEntries(LESSON_6_SLIDES.map((s, i) => [i + 1, `${s.title}。${s.content}`]))
   const SLIDE_TITLES = lessonMode === 'lesson1' ? SLIDE_TITLES_L1
     : lessonMode === 'lesson2' ? LESSON_2_SLIDES.map(s => s.title)
     : lessonMode === 'lesson3' ? LESSON_3_SLIDES.map(s => s.title)
     : lessonMode === 'lesson4' ? LESSON_4_SLIDES.map(s => s.title)
-    : LESSON_5_SLIDES.map(s => s.title)
+    : lessonMode === 'lesson5' ? LESSON_5_SLIDES.map(s => s.title)
+    : LESSON_6_SLIDES.map(s => s.title)
   const totalSlides = lessonMode === 'lesson1' ? 15
     : lessonMode === 'lesson2' ? LESSON_2_SLIDES.length
     : lessonMode === 'lesson3' ? LESSON_3_SLIDES.length
     : lessonMode === 'lesson4' ? LESSON_4_SLIDES.length
-    : LESSON_5_SLIDES.length
+    : lessonMode === 'lesson5' ? LESSON_5_SLIDES.length
+    : LESSON_6_SLIDES.length
 
-  const switchLesson = (mode: 'lesson1' | 'lesson2' | 'lesson3' | 'lesson4' | 'lesson5') => {
+  const switchLesson = (mode: 'lesson1' | 'lesson2' | 'lesson3' | 'lesson4' | 'lesson5' | 'lesson6') => {
     setLessonMode(mode)
     setCurrentSlide(1)
   }
@@ -164,6 +169,28 @@ export default function Presentation() {
         [/破冰|接話|社交|聊天|附和/, 12, '第12頁「餐桌破冰術」：破冰說 So, do you come here often? 附和說 That\'s surprisingly smooth!'],
         [/禮貌|語氣|轉換|Could I get|祈使/, 13, '第13頁「禮貌語氣轉換器」：把 Give me a coffee 改為 Could I get a coffee please? 關鍵句 I was wondering if you could help me.'],
         [/金句|矩陣| cheat sheet/, 14, '第14頁「四大金句矩陣」：咖啡廳、餐廳、超市、酒吧各場景一句核心金句整理。'],
+      ]
+      for (const [regex, slide, reply] of pairs) {
+        if (regex.test(query)) {
+          goSlide(slide)
+          return reply
+        }
+      }
+    } else if (lessonMode === 'lesson6') {
+      const pairs: [RegExp, number, string][] = [
+        [/校園|藍圖|地點|位置|campus/, 2, '第2頁「校園藍圖」：6個關鍵地點 — Principal\'s Office、Hallway、Cafeteria、Restroom、Auditorium、Gym。'],
+        [/美式|英式|俚語|用語|差別|us vs uk/, 3, '第3頁「美式 vs 英式用語」：Recess/Break、Restroom/Washroom、Grade/Year、Math/Maths、Workbook/Exercise book、Elevator/Lift。'],
+        [/禮貌|光譜|can|could|may|許可/, 4, '第4頁「禮貌光譜」：Casual用Can、Polite用Could、Formal用May。魔法咒語：結尾加please！'],
+        [/早自習|遲到|點名|問候|教室/, 5, '第5頁「早自習課堂」：遲到說May I come in? 點名說Here! 問候說I\'m doing well, thank you. And you?'],
+        [/老師|潛台詞|pay attention|聽懂/, 6, '第6頁「聽懂老師潛台詞」：Pay attention = 這題會考！Turn in homework = 往前傳作業。Pack your things = 下課收東西。'],
+        [/打斷|提問|插話|clarification|重複/, 7, '第7頁「禮貌插話」：請求重複說Could you repeat that last point? 去洗手間說Could I go to the bathroom? 返回說Excuse me, I\'m back。'],
+        [/作業|生命週期|大綱|截止|due|syllabus/, 8, '第8頁「作業生命週期」：Syllabus課程大綱、Assignment作業內容、Due Date截止日期。問due說When is the project due?'],
+        [/小組|專案|討論|組員|一起做|project/, 9, '第9頁「小組專案討論」：邀請說Want to work on it together? 約時間說Why don\'t we meet in the library? 口語省略Do you更自然。'],
+        [/隨堂考|panic|恐慌|測驗|pop quiz/, 10, '第10頁「隨堂考恐慌量表」：Green確認作業、Yellow打聽測驗、Red崩潰用猜的。Pop Quiz = 突擊測驗。'],
+        [/午餐|餐廳|lunch|small talk|破冰/, 11, '第11頁「午餐日常對話」：找位子說Is anyone sitting here? 聊食物說What did you have for lunch? 閒聊說Which grade are you in?'],
+        [/危機|缺課|生病|請假|忘記作業|under the weather/, 12, '第12頁「危機處理」：缺課說I was absent. 生病說I\'m feeling under the weather. 忘記作業說I left it at home.'],
+        [/放學|下課|道別|再見|鐘聲|bell/, 13, '第13頁「放學時刻」：老師說That\'s all for today. 同學說See you tomorrow. 提醒說Don\'t forget to bring your textbook!'],
+        [/金句|生存|cheat sheet|五句|黃金/, 14, '第14頁「5大校園金句」：1.去洗手間 2.請求重複 3.邀約合作 4.問截止日 5.請假說明。背熟這五句暢行無阻！'],
       ]
       for (const [regex, slide, reply] of pairs) {
         if (regex.test(query)) {
@@ -397,7 +424,9 @@ export default function Presentation() {
                 ? ['下一頁', '上一頁', '跳到第三頁', '試穿英文查詢']
                 : lessonMode === 'lesson4'
                 ? ['下一頁', '上一頁', '跳到第五頁', '斷網怎麼說']
-                : ['下一頁', '上一頁', '跳到第十頁', '叫車英文查詢']
+                : lessonMode === 'lesson5'
+                ? ['下一頁', '上一頁', '跳到第十頁', '叫車英文查詢']
+                : ['下一頁', '上一頁', '跳到第八頁', '校園金句']
               ).map((cmd) => (
                 <button key={cmd} onClick={() => simulateVoice(cmd)}
                   className="bg-slate-900 px-2 py-1 rounded text-slate-400 font-mono text-[9px] hover:text-amber-300 transition text-left">
@@ -491,6 +520,14 @@ export default function Presentation() {
             }`}>
             <Navigation className="h-3 w-3" /> Lesson 5
           </button>
+          <button onClick={() => switchLesson('lesson6')}
+            className={`px-3 py-1 rounded-lg text-[10px] font-bold transition flex items-center gap-1 ${
+              lessonMode === 'lesson6'
+                ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                : 'text-slate-400 hover:text-slate-200 bg-slate-900/60 border border-slate-800/60'
+            }`}>
+            <GraduationCap className="h-3 w-3" /> Lesson 6
+          </button>
         </div>
 
         <div className="flex-1 relative overflow-hidden p-4 md:p-8">
@@ -519,6 +556,13 @@ export default function Presentation() {
             <>
               {Array.from({ length: totalSlides }, (_, i) => (
                 <Lesson5Slide key={`l5-${i + 1}`} page={i + 1} active={currentSlide === i + 1} />
+              ))}
+            </>
+          )}
+          {lessonMode === 'lesson6' && (
+            <>
+              {Array.from({ length: totalSlides }, (_, i) => (
+                <Lesson6Slide key={`l6-${i + 1}`} page={i + 1} active={currentSlide === i + 1} />
               ))}
             </>
           )}
